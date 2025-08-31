@@ -29,12 +29,12 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.ONBOARDING;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const SplashView(),
+      page: () => const HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -44,7 +44,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ONBOARDING,
-      page: () => const OnboardingView(),
+      page: () => const SplashView(),
       binding: OnboardingBinding(),
     ),
     GetPage(
