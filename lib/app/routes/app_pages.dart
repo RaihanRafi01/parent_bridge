@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/onboarding/views/splash_view.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
@@ -33,7 +34,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => const SplashView(),
       binding: HomeBinding(),
     ),
     GetPage(
