@@ -27,6 +27,9 @@ class AppColors {
   static const Color textColor15 = Color(0xFF626770);
   static const Color textColor16 = Color(0xFF333333);
   static const Color textColor17 = Color(0xFF7B7B7B);
+  static const Color textColor18 = Color(0xFFB5B9BE);
+  static const Color textColor19 = Color(0xFFD3CBCB);
+  static const Color textColor20 = Color(0xFF34312F);
   static const Color chatBg = Color(0xFFEDFAFF);
   static const Color chatInputField = Color(0xFFC4DFFF);
   static const Color clrSky2 = Color(0xFFECF4FF);
@@ -69,5 +72,13 @@ class AppColors {
   static const Color nav2 = Color(0xFF186FC4);
   static const Color nav3 = Color(0xFF4F4F4F);
 
+  static const Color borderColor = Color(0xFFEDEDED);
 
+  static const Color boxShadowColor = Color(0xFFCC94EF);
+
+  static const Color switchColorBg = Color(0xFF8FC8E3);
+
+  static const Color buttonColor = Color(0xFF8EC7E4);
+  static const Color buttonColor2 = Color(0xFFC995F1);
+  static const Color buttonColor3 = Color(0xFFF6F0FB);
 }
