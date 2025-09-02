@@ -8,11 +8,13 @@ class CustomTextField extends StatelessWidget {
   final String prefixIcon;
   final String suffixIcon;
   final String hintText;
+  final bool obscureText;
 
   const CustomTextField({
     required this.hintText,
     this.prefixIcon = '',
     this.suffixIcon = '',
+    this.obscureText = false,
     super.key
   });
 
@@ -76,6 +78,8 @@ class CustomTextField extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
+
+        obscureText: obscureText,
       ),
     );
   }

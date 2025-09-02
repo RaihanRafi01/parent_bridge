@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
@@ -18,15 +19,15 @@ class SignInView extends GetView {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 101.h,),
-          
+              SizedBox(height: 101.h),
+
               Image.asset(
                 'assets/images/auth/parent_bridge_logo.png',
                 scale: 4,
               ),
-          
-              SizedBox(height: 20.h,),
-          
+
+              SizedBox(height: 20.h),
+
               Text(
                 'Welcome Back',
                 style: TextStyle(
@@ -36,9 +37,9 @@ class SignInView extends GetView {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-          
-              SizedBox(height: 11.h,),
-          
+
+              SizedBox(height: 11.h),
+
               Text(
                 'Sign in to continue your co-parenting journey',
                 style: TextStyle(
@@ -48,24 +49,25 @@ class SignInView extends GetView {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-          
-              SizedBox(height: 52.h,),
-          
+
+              SizedBox(height: 52.h),
+
               CustomTextField(
-                hintText: 'Enter your email',
+                hintText: 'abc@email.com',
                 prefixIcon: 'assets/images/auth/mail.png',
               ),
-          
-              SizedBox(height: 22.h,),
-          
+
+              SizedBox(height: 22.h),
+
               CustomTextField(
                 hintText: 'Enter your password',
                 prefixIcon: 'assets/images/auth/password.png',
                 suffixIcon: 'assets/images/auth/hidden.png',
+                obscureText: true,
               ),
-          
-              SizedBox(height: 20.h,),
-          
+
+              SizedBox(height: 20.h),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -90,9 +92,9 @@ class SignInView extends GetView {
                           ),
                         ),
                       ),
-          
-                      SizedBox(width: 5.5.w,),
-          
+
+                      SizedBox(width: 5.5.w),
+
                       Text(
                         'Remember Me',
                         style: TextStyle(
@@ -104,7 +106,7 @@ class SignInView extends GetView {
                       ),
                     ],
                   ),
-          
+
                   Text(
                     'Forgot Password?',
                     style: TextStyle(
@@ -116,13 +118,13 @@ class SignInView extends GetView {
                   ),
                 ],
               ),
-          
-              SizedBox(height: 43.h,),
-          
-              CustomPBButton(text: 'Log In',),
-          
-              SizedBox(height: 32.h,),
-          
+
+              SizedBox(height: 43.h),
+
+              CustomPBButton(text: 'Log In'),
+
+              SizedBox(height: 32.h),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 2.w,
@@ -131,7 +133,7 @@ class SignInView extends GetView {
                     'assets/images/auth/or_continue_with_left.png',
                     scale: 4,
                   ),
-          
+
                   Text(
                     'Or continue with',
                     style: TextStyle(
@@ -141,51 +143,59 @@ class SignInView extends GetView {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-          
+
                   Image.asset(
                     'assets/images/auth/or_continue_with_right.png',
                     scale: 4,
                   ),
                 ],
               ),
-          
-              SizedBox(height: 32.h,),
-          
-              CustomGoogleAppleButton(text: 'Sign in with Google', icon: 'assets/images/auth/google.png',),
-          
-              SizedBox(height: 16.h,),
-          
-              CustomGoogleAppleButton(text: 'Sign in with Apple', icon: 'assets/images/auth/apple.png',),
 
-              SizedBox(height: 69.h,),
+              SizedBox(height: 32.h),
 
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Don’t have an account? ',
+              CustomGoogleAppleButton(
+                text: 'Sign in with Google',
+                icon: 'assets/images/auth/google.png',
+              ),
+
+              SizedBox(height: 16.h),
+
+              CustomGoogleAppleButton(
+                text: 'Sign in with Apple',
+                icon: 'assets/images/auth/apple.png',
+              ),
+
+              SizedBox(height: 69.h),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don’t have an account? ',
+                    style: TextStyle(
+                      color: AppColors.textColorHint,
+                      fontFamily: 'lato',
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+
+                  GestureDetector(
+                    onTap: () => Get.to(SignUpView()),
+                    child: Text(
+                      'Sign Up',
                       style: TextStyle(
-                        color: AppColors.textColorHint,
+                        color: AppColors.switchColorBg,
                         fontFamily: 'lato',
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
-                      )
+                      ),
                     ),
-
-                    TextSpan(
-                        text: 'Sign Up',
-                        style: TextStyle(
-                          color: AppColors.switchColorBg,
-                          fontFamily: 'lato',
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                        )
-                    ),
-                  ]
-                ),
+                  ),
+                ],
               ),
 
-              SizedBox(height: 64.h,),
+              SizedBox(height: 64.h),
             ],
           ),
         ),

@@ -38,6 +38,7 @@ class AppColors {
 
   static const Color card1 = Color(0xFF16437E);
   static const Color card2 = Color(0xFF1356AD);
+  static const Color card3 = Color(0xFFD2ECF9);
 
   static const Color progress1 = Color(0xFF032A5B);
   static const Color progress2 = Color(0xFF5A224F);
@@ -81,4 +82,6 @@ class AppColors {
   static const Color buttonColor = Color(0xFF8EC7E4);
   static const Color buttonColor2 = Color(0xFFC995F1);
   static const Color buttonColor3 = Color(0xFFF6F0FB);
+
+  static const Color radioColor = Color(0xFFBE9DED);
 }
