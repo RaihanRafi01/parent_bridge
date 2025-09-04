@@ -1,178 +1,138 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/home/views/home_view.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 import 'package:parent_bridge/app/modules/onboarding/views/onboarding_page_view.dart';
 import 'package:parent_bridge/common/appColors.dart';
-
+import 'package:parent_bridge/common/customFont.dart';
 import '../controllers/onboarding_controller.dart';
 
 class OnboardingView extends GetView<OnboardingController> {
   const OnboardingView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // Ensure controller is initialized
+    Get.put(OnboardingController());
+
     return Scaffold(
       body: Stack(
+        clipBehavior: Clip.none, // Prevent clipping of positioned widgets
         children: [
+          // Background SVGs
           Positioned(
-            left: -77.w,
-            top: -60.h,
-            child: Image.asset(
-              'assets/images/onboarding/splash_screen_topLeft.png',
-              scale: 4,
-            ),
+            left: 0.w,
+            top: 0.h,
+            child: SvgPicture.asset('assets/images/onboarding/top_left.svg'),
           ),
-
-          Padding(
-            padding: EdgeInsets.only(left: 389.w, top: 53.h,),
-
-            child: GestureDetector(
-              onTap: () => Get.offAll(HomeView()),
-              child: Text(
-                'Skip',
-                style: TextStyle(
-                  color: AppColors.textColor16,
-                  fontFamily: 'lato',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+          Positioned(
+            right: 0.w,
+            bottom: 0.h,
+            child: SvgPicture.asset('assets/images/onboarding/bottom_right.svg'),
           ),
-
+          // PageView for onboarding content
           PageView(
             controller: controller.pageController,
             onPageChanged: controller.onPageChanged,
             children: const [
               OnboardingPageView(
-                image: 'assets/images/onboarding/onboarding1.png',
+                image: 'assets/images/onboarding/onboarding_1.svg',
                 title: 'Smart Communication',
                 subtitle: 'AI-powered message filtering removes hostility while preserving your message\'s meaning',
               ),
               OnboardingPageView(
-                image: 'assets/images/onboarding/onboarding2.png',
+                image: 'assets/images/onboarding/onboarding_2.svg',
                 title: 'Legal Protection',
                 subtitle: 'All conversations are recorded and can be exported for court proceedings when needed',
               ),
               OnboardingPageView(
-                image: 'assets/images/onboarding/onboarding3.png',
+                image: 'assets/images/onboarding/onboarding_3.svg',
                 title: 'Shared Planning',
                 subtitle: 'Coordinate schedules, track expenses, and manage documents in one secure place',
               ),
               OnboardingPageView(
-                image: 'assets/images/onboarding/onboarding4.png',
+                image: 'assets/images/onboarding/onboarding_4.svg',
                 title: 'Community Support',
                 subtitle: 'Connect with other co-parents in our anonymous support forum for advice and encouragement',
               ),
             ],
           ),
-
-          Obx(() {
-            final idx = controller.current.value;
-            return Positioned(
-              left: 31.w,
-              top: 810.h,
-              child: Row(
-                spacing: 5.w,
-                children: [
-                  Container(
-                    width: 7.61904764175415.w,
-                    height: 7.61904764175415.h,
-                    decoration: BoxDecoration(
-                      color: idx == 0 ? AppColors.nav3 : Colors.transparent,
-                      borderRadius: BorderRadius.circular(2.29.r),
-                      border: Border.all(
-                        color: idx == 0 ? Colors.transparent : AppColors.nav3,
-                        width: 0.76.r,
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    width: 7.61904764175415.w,
-                    height: 7.61904764175415.h,
-                    decoration: BoxDecoration(
-                      color: idx == 1 ? AppColors.nav3 : Colors.transparent,
-                      borderRadius: BorderRadius.circular(2.29.r),
-                      border: Border.all(
-                        color: idx == 1 ? Colors.transparent : AppColors.nav3,
-                        width: 0.76.r,
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    width: 7.61904764175415.w,
-                    height: 7.61904764175415.h,
-                    decoration: BoxDecoration(
-                      color: idx == 2 ? AppColors.nav3 : Colors.transparent,
-                      borderRadius: BorderRadius.circular(2.29.r),
-                      border: Border.all(
-                        color: idx == 2 ? Colors.transparent : AppColors.nav3,
-                        width: 0.76.r,
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    width: 7.61904764175415.w,
-                    height: 7.61904764175415.h,
-                    decoration: BoxDecoration(
-                      color: idx == 3 ? AppColors.nav3 : Colors.transparent,
-                      borderRadius: BorderRadius.circular(2.29.r),
-                      border: Border.all(
-                        color: idx == 3 ? Colors.transparent : AppColors.nav3,
-                        width: 0.76.r,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-
+          // Skip button
           Positioned(
-            left: 371.w,
-            top: -110.h,
-            child: Image.asset(
-              'assets/images/onboarding/side_bg.png',
-              scale: 4,
-            ),
-          ),
-
-          Positioned(
-            left: 386.w,
-            top: 655.h,
+            right: 0.w,
+            top: 40.h,
             child: GestureDetector(
-              onTap: () => controller.next(),
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                debugPrint("Skip button tapped");
+                controller.skip();
+              },
               child: Container(
-                padding: EdgeInsets.all(12.5.r),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.clrWhite.withAlpha(107),
-                    width: 1.12.r,
-                  )
-                ),
-                child: Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: AppColors.clrWhite,
-                  size: 18.r,
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h), // Larger tap area
+                child: Text(
+                  'Skip',
+                  style: h1.copyWith(
+                    color: AppColors.textColor16,
+                    fontSize: 16.sp,
+                  ),
                 ),
               ),
             ),
           ),
-
+          // Next button
           Positioned(
-            left: 219.w,
-            top: 746.h,
-            child: Image.asset(
-              'assets/images/onboarding/splash_screen_bottomRight.png',
-              scale: 4,
+            right: 0.w,
+            top: 500.h, // Moved from -50.h to ensure tappable area
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                debugPrint("Next button tapped");
+                controller.next();
+              },
+              child: SvgPicture.asset(
+                'assets/images/onboarding/side_bg.svg',
+              ),
             ),
+          ),
+          // Page indicators
+          Positioned(
+            left: 31.w,
+            top: 810.h, // Kept as per your code, but adjusted for responsiveness
+            child: Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: List.generate(
+                4,
+                    (index) => IndicatorDot(
+                  isActive: controller.current.value == index,
+                ),
+              ),
+            )),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class IndicatorDot extends StatelessWidget {
+  final bool isActive;
+
+  const IndicatorDot({super.key, required this.isActive});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 2.5.w),
+      width: 7.62.w,
+      height: 7.62.h,
+      decoration: BoxDecoration(
+        color: isActive ? AppColors.nav3 : Colors.transparent,
+        borderRadius: BorderRadius.circular(2.29.r),
+        border: Border.all(
+          color: isActive ? Colors.transparent : AppColors.nav3,
+          width: 0.76.r,
+        ),
       ),
     );
   }
