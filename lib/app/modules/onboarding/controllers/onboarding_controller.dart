@@ -9,7 +9,7 @@ class OnboardingController extends GetxController {
 
   void onPageChanged(int i) => current.value = i;
 
-  void skip() => Get.offAll(SignInView());
+  void skip() => Get.to(SignInView());
 
   void next() {
     if (current.value < 3) {

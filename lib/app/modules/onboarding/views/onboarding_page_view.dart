@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../common/appColors.dart';
+import '../../../../common/customFont.dart';
 
 class OnboardingPageView extends GetView {
   final String image;
@@ -26,35 +28,23 @@ class OnboardingPageView extends GetView {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            image,
-            height: 450.h,
-            scale: 4,
-          ),
-
+          SvgPicture.asset(image,height: 450.h,),
           SizedBox(height: spacing.h,),
-
           Text(
             title,
-            style: TextStyle(
+            style: h1.copyWith(
               color: AppColors.textColor7,
-              fontFamily: 'lato',
               fontSize: 30.sp,
-              fontWeight: FontWeight.w700,
             ),
           ),
-
           SizedBox(height: 20.h,),
-
           SizedBox(
             width: 307.w,
             child: Text(
               subtitle,
-              style: TextStyle(
+              style: h4.copyWith(
                 color: AppColors.textColor17,
-                fontFamily: 'lato',
                 fontSize: 18.sp,
-                fontWeight: FontWeight.w400,
               ),
             ),
           ),
