@@ -1,23 +1,30 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
 
 class OnboardingController extends GetxController {
-  //TODO: Implement OnboardingController
+  final pageController = PageController();
+  final current = 0.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void onPageChanged(int i) => current.value = i;
+
+  void skip() => Get.offAll(SignInView());
+
+  void next() {
+    if (current.value < 3) {
+      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    } else {
+      Get.offAll(SignInView());
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  void openSignIn() => Get.to(SignInView());
+  void openSignUp() => Get.to(SignUpView());
 
   @override
   void onClose() {
+    pageController.dispose();
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
