@@ -268,16 +268,22 @@ class CalendarView extends GetView<CalendarController> {
     final isToday = dayData['isToday'] as bool;
     final isSelected = dayData['isSelected'] as bool;
     final events = dayData['events'] as List<Map<String, dynamic>>;
+    final date = dayData['date'] as DateTime;
 
     if (day == null || !isCurrentMonth) {
       return Container(); // Skip rendering for non-current month days
     }
 
     return GestureDetector(
-      onTap: () => controller.selectDate(dayData['date']),
+      onTap: () {
+        controller.selectDate(date);
+        // Show event details popup if there are events
+        if (events.isNotEmpty) {
+          _showEventDetailsDialog(date, events);
+        }
+      },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 4,vertical: 12).r,
-        //padding: EdgeInsets.only(top: 5.h, bottom: 6.h, left: 6.w, right: 6.w),
+        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12).r,
         decoration: BoxDecoration(
           color: _getCellColor(isCurrentMonth, isToday, isSelected),
           borderRadius: BorderRadius.circular(8.r),
@@ -373,6 +379,349 @@ class CalendarView extends GetView<CalendarController> {
             color: Colors.white,
           ),
         ),
+      ),
+    );
+  }
+
+  void _showEventDetailsDialog(DateTime selectedDate, List<Map<String, dynamic>> events) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          width: 387.w,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(30.r),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Header with date and close button
+              Container(
+
+                decoration: BoxDecoration(
+                  color: AppColors.lightPurplePink2,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(29.r),
+                    topRight: Radius.circular(29.r),
+                  ),
+                ),
+                padding: EdgeInsets.all(16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _getFormattedDate(selectedDate),
+                            style: h2.copyWith(
+                              fontSize: 18.43.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            '${events.length} Event${events.length != 1 ? 's' : ''} Scheduled',
+                            style: h2.copyWith(
+                              fontSize: 11.64.sp,
+                              color: Colors.white.withOpacity(0.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        padding: EdgeInsets.all(8.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: AppColors.gray,
+                          size: 20.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Events list
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: events.length,
+                  itemBuilder: (context, index) {
+                    final event = events[index];
+                    return _buildEventItem(event, index == events.length - 1);
+                  },
+                ),
+              ),
+
+              SizedBox(height: 16.h),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }
+
+  Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
+    // Get event type color
+    Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
+
+    return Container(
+      margin: EdgeInsets.only(
+        left: 12.w,
+        right: 12.w,
+        top: 12.h,
+        bottom: isLast ? 12.h : 0,
+      ),
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: eventColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Event title
+          Row(
+            children: [
+              Text(
+                event['title'] ?? 'Untitled Event',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.darkSlateBlue,
+                ),
+              ),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: eventColor,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Text(
+                  _getEventTypeLabel(event['type'] ?? 'personal'),
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          if (event['description'] != null && event['description'].toString().isNotEmpty) ...[
+            SizedBox(height: 4.h),
+            Text(
+              event['description'],
+              style: TextStyle(
+                fontSize: 12.sp,
+                color: AppColors.textColor7,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+
+          SizedBox(height: 8.h),
+
+          // Event time and frequency
+          Row(
+            children: [
+              Icon(
+                Icons.access_time,
+                size: 14.sp,
+                color: AppColors.darkSlateBlue,
+              ),
+              SizedBox(width: 4.w),
+              Text(
+                event['time'] ?? '9:00 AM',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: AppColors.darkSlateBlue,
+                ),
+              ),
+              SizedBox(width: 16.w),
+              Icon(
+                Icons.repeat,
+                size: 14.sp,
+                color: AppColors.darkSlateBlue,
+              ),
+              SizedBox(width: 4.w),
+              Text(
+                event['frequency'] ?? 'Once',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: AppColors.darkSlateBlue,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+// Helper method to get formatted date string
+  String _getFormattedDate(DateTime date) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const weekdays = [
+      'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+    ];
+
+    return '${weekdays[date.weekday - 1]}, ${months[date.month - 1]} ${date.day}';
+  }
+
+// Helper method to get event type color
+  Color _getEventTypeColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'work':
+        return const Color(0xFF4CAF50); // Green
+      case 'personal':
+        return const Color(0xFF2196F3); // Blue
+      case 'family':
+        return const Color(0xFFFF9800); // Orange
+      case 'holiday':
+        return const Color(0xFFE91E63); // Pink
+      case 'school':
+        return const Color(0xFF4CAF50); // Green
+      default:
+        return const Color(0xFF9C27B0); // Purple
+    }
+  }
+
+// Helper method to get event type label
+  String _getEventTypeLabel(String type) {
+    switch (type.toLowerCase()) {
+      case 'work':
+        return 'Work';
+      case 'personal':
+        return 'Activity';
+      case 'family':
+        return 'Family';
+      case 'holiday':
+        return 'Holiday';
+      case 'school':
+        return 'School';
+      default:
+        return 'Event';
+    }
+  }
+
+// Method to show event options (edit, delete, etc.)
+  void _showEventOptions(Map<String, dynamic> event) {
+    Get.bottomSheet(
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 8.h),
+              width: 40.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(2.r),
+              ),
+            ),
+
+            SizedBox(height: 20.h),
+
+            ListTile(
+              leading: Icon(Icons.edit, color: AppColors.darkSlateBlue),
+              title: Text('Edit Event'),
+              onTap: () {
+                Get.back();
+                _showEditEventDialog(event);
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.delete, color: Colors.red),
+              title: Text('Delete Event'),
+              onTap: () {
+                Get.back();
+                _showDeleteConfirmation(event);
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.share, color: AppColors.darkSlateBlue),
+              title: Text('Share Event'),
+              onTap: () {
+                Get.back();
+                // Implement share functionality
+                Get.snackbar('Info', 'Share functionality coming soon!');
+              },
+            ),
+
+            SizedBox(height: 20.h),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+    );
+  }
+
+// Method to show edit event dialog
+  void _showEditEventDialog(Map<String, dynamic> event) {
+    // Implementation for editing events - similar to _showAddEventDialog
+    // but pre-filled with existing event data
+    Get.snackbar('Info', 'Edit event functionality - implement based on your needs');
+  }
+
+// Method to show delete confirmation
+  void _showDeleteConfirmation(Map<String, dynamic> event) {
+    Get.dialog(
+      AlertDialog(
+        title: Text('Delete Event'),
+        content: Text('Are you sure you want to delete "${event['title']}"?'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Delete event using title and date
+              controller.deleteEvent(
+                event['title'],
+                eventDate: event['date'] as DateTime?,
+              );
+              Get.back(); // Close delete confirmation
+              Get.back(); // Close event details dialog
+              Get.snackbar('Success', 'Event deleted successfully');
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            child: Text('Delete', style: TextStyle(color: Colors.white)),
+          ),
+        ],
       ),
     );
   }

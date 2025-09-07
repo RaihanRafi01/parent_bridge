@@ -50,6 +50,7 @@ class AppColors {
   static const Color lightPurplePink2 = Color(0xFFBD9DED);
   static const Color calenderG1 = Color(0xFF82BFE8);
   static const Color calenderG2 = Color(0xFF9199E7);
+  static const Color gray = Color(0xFF737373);
 
   // #7F4BE7 - Deep Purple
   static const Color deepPurple = Color(0xFF7F4BE7);

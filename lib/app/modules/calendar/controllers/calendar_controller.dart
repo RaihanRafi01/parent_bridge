@@ -14,16 +14,82 @@ class CalendarController extends GetxController {
     _initializeSampleEvents();
   }
 
+  // Replace your _initializeSampleEvents method with this updated version:
+
   void _initializeSampleEvents() {
     final today = DateTime.now();
-    final dateKey = '${today.year}-${today.month.toString().padLeft(2, '0')}-01';
-    events[dateKey] = [
-      {'title': 'Meeting', 'description': 'Team meeting', 'type': 'work'}
+
+    // Today's events
+    final todayKey = '${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}';
+    events[todayKey] = [
+      {
+        'id': '1',
+        'title': 'Team Meeting',
+        'description': 'Weekly team sync meeting',
+        'type': 'work',
+        'time': '10:00 AM',
+        'frequency': 'Weekly',
+        'date': today,
+        'createdAt': DateTime.now(),
+      }
     ];
 
+    // Sample event for the 12th
+    final date12 = DateTime(today.year, today.month, 12);
     final dateKey2 = '${today.year}-${today.month.toString().padLeft(2, '0')}-12';
     events[dateKey2] = [
-      {'title': 'Doctor Appointment', 'description': 'Annual checkup', 'type': 'personal'}
+      {
+        'id': '2',
+        'title': 'Doctor Appointment',
+        'description': 'Annual checkup with Dr. Smith',
+        'type': 'personal',
+        'time': '2:30 PM',
+        'frequency': 'Yearly',
+        'date': date12,
+        'createdAt': DateTime.now(),
+      }
+    ];
+
+    // Sample school event for the 16th
+    final date16 = DateTime(today.year, today.month, 16);
+    final dateKey3 = '${today.year}-${today.month.toString().padLeft(2, '0')}-16';
+    events[dateKey3] = [
+      {
+        'id': '3',
+        'title': "Emma's Soccer Practice",
+        'description': 'Community Sports Center',
+        'type': 'school',
+        'time': '4:00 PM',
+        'frequency': 'Weekly',
+        'date': date16,
+        'createdAt': DateTime.now(),
+      },
+      {
+        'id': '4',
+        'title': 'Parent-Teacher Conference',
+        'description': 'Meet with Ms. Johnson',
+        'type': 'school',
+        'time': '6:30 PM',
+        'frequency': 'Once',
+        'date': date16,
+        'createdAt': DateTime.now(),
+      }
+    ];
+
+    // Sample family event for the 20th
+    final date20 = DateTime(today.year, today.month, 20);
+    final dateKey4 = '${today.year}-${today.month.toString().padLeft(2, '0')}-20';
+    events[dateKey4] = [
+      {
+        'id': '5',
+        'title': 'Family Dinner',
+        'description': 'Birthday celebration for Mom',
+        'type': 'family',
+        'time': '7:00 PM',
+        'frequency': 'Once',
+        'date': date20,
+        'createdAt': DateTime.now(),
+      }
     ];
   }
 
@@ -50,6 +116,85 @@ class CalendarController extends GetxController {
   void selectDate(DateTime date) {
     selectedDate.value = date;
   }
+
+  // Add these methods to your CalendarController class
+
+// Method to delete an event by title (since your current structure uses title as identifier)
+  void deleteEvent(String eventTitle, {DateTime? eventDate}) {
+    final date = eventDate ?? selectedDate.value;
+    if (date != null) {
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+      if (events[dateKey] != null) {
+        events[dateKey]!.removeWhere((event) => event['title'] == eventTitle);
+
+        // Remove the date key if no events left
+        if (events[dateKey]!.isEmpty) {
+          events.remove(dateKey);
+        }
+
+        events.refresh(); // Trigger UI update
+      }
+    }
+  }
+
+// Method to update an event
+  void updateEvent(String originalTitle, Map<String, dynamic> updatedEvent, {DateTime? eventDate}) {
+    final date = eventDate ?? selectedDate.value;
+    if (date != null) {
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+      if (events[dateKey] != null) {
+        final eventIndex = events[dateKey]!.indexWhere((event) => event['title'] == originalTitle);
+        if (eventIndex != -1) {
+          events[dateKey]![eventIndex] = {
+            ...events[dateKey]![eventIndex],
+            ...updatedEvent,
+          };
+          events.refresh(); // Trigger UI update
+        }
+      }
+    }
+  }
+
+// Enhanced addEvent method with more properties (updated to work with your structure)
+  void addEvent({
+    required String title,
+    String description = '',
+    String type = 'personal',
+    String time = '9:00 AM',
+    String frequency = 'Once',
+    DateTime? eventDate,
+  }) {
+    final date = eventDate ?? selectedDate.value;
+    if (date != null) {
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+
+      if (events[dateKey] == null) {
+        events[dateKey] = [];
+      }
+
+      final newEvent = {
+        'id': DateTime.now().millisecondsSinceEpoch.toString(), // Add unique ID
+        'title': title,
+        'description': description,
+        'type': type,
+        'time': time,
+        'frequency': frequency,
+        'date': date,
+        'createdAt': DateTime.now(),
+      };
+
+      events[dateKey]!.add(newEvent);
+      events.refresh(); // Trigger UI update
+    }
+  }
+
+// Method to get events for a specific date (public version of your private method)
+  List<Map<String, dynamic>> getEventsForDate(DateTime date) {
+    return _getEventsForDate(date);
+  }
+
 
   List<Map<String, dynamic>> getDaysInMonth() {
     final year = currentDate.value.year;
@@ -119,28 +264,9 @@ class CalendarController extends GetxController {
     return events[dateKey] ?? [];
   }
 
-  void addEvent({required String title, required String description, required String type}) {
-    if (selectedDate.value != null) {
-      final date = selectedDate.value!;
-      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-
-      if (events[dateKey] == null) {
-        events[dateKey] = [];
-      }
-
-      events[dateKey]!.add({
-        'title': title,
-        'description': description,
-        'type': type,
-        'date': date,
-      });
-
-      events.refresh(); // Trigger UI update
-    }
-  }
-
   List<Map<String, dynamic>> getEventsForSelectedDate() {
     if (selectedDate.value == null) return [];
     return _getEventsForDate(selectedDate.value!);
   }
+
 }
