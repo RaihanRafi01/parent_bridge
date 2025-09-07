@@ -8,6 +8,45 @@ class AppColors {
 
   /// use color based on your design
 
+
+  static const Color darkSlateBlue = Color(0xFF1D3856);
+
+  // #6B5ADA - Medium Purple / Indigo
+  static const Color mediumPurple = Color(0xFF6B5ADA);
+
+  // #76D7FF - Light Sky Blue
+  static const Color customLightBlue = Color(0xFF76D7FF);
+
+  // #C47FF5 - Light Purple
+  static const Color customLightPurple = Color(0xFFC47FF5);
+
+  // #FFFFFF - White
+  static const Color white = Color(0xFFFFFFFF);
+
+  // #B260EB - Purple / Lilac
+  static const Color customPurple = Color(0xFFB260EB);
+
+  // #86D0F3 - Light Sky Blue
+  static const Color customSkyBlue = Color(0xFF86D0F3);
+
+  // #A14CDD - Deep Purple
+  static const Color customDeepPurple = Color(0xFFA14CDD);
+
+  // #52B6E4 - Medium Sky Blue
+  static const Color customSkyBlue2 = Color(0xFF52B6E4);
+
+  // #715FDE - Purple (from SVG divider lines)
+  static const Color dividerPurple = Color(0xFF715FDE);
+
+  // #583BDC - Violet
+  static const Color violet = Color(0xFF583BDC);
+
+  // #DAB1F7 - Light Purple/Pink
+  static const Color lightPurplePink = Color(0xFFDAB1F7);
+
+  // #7F4BE7 - Deep Purple
+  static const Color deepPurple = Color(0xFF7F4BE7);
+
   static const Color appColor3 = Color(0xFF195EB8);
   static const Color textInputBorder2 = Color(0xFF616F83);
   static const Color textColor = Color(0xFF6E6E6E);
@@ -30,6 +69,7 @@ class AppColors {
   static const Color textColor18 = Color(0xFFB5B9BE);
   static const Color textColor19 = Color(0xFFD3CBCB);
   static const Color textColor20 = Color(0xFF34312F);
+  static const Color textColor21 = Color(0xFF6B5ADA);
   static const Color chatBg = Color(0xFFEDFAFF);
   static const Color chatInputField = Color(0xFFC4DFFF);
   static const Color clrSky2 = Color(0xFFECF4FF);
