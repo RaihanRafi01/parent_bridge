@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 import 'package:parent_bridge/app/modules/onboarding/views/splash_view.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
@@ -29,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ONBOARDING;
+  static const INITIAL = Routes.AUTHENTICATION;
 
   static final routes = [
     GetPage(
@@ -39,7 +40,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AUTHENTICATION,
-      page: () => const AuthenticationView(),
+      page: () => const SignInView(),
       binding: AuthenticationBinding(),
     ),
     GetPage(
