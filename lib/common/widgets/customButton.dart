@@ -142,7 +142,6 @@ class CustomGoogleAppleButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(HomeView()),
       child: Container(
-        width: 387.w,
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.r),
@@ -153,18 +152,13 @@ class CustomGoogleAppleButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 16,
             children: [
-              Image.asset(
-                icon,
-                scale: 4,
-              ),
+              SvgPicture.asset(icon),
 
               Text(
                 text,
-                style: TextStyle(
+                style: h4.copyWith(
                   color: AppColors.textColor20,
-                  fontFamily: 'lato',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 16.sp,
                 ),
               ),
             ],

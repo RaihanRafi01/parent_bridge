@@ -20,7 +20,7 @@ class OnboardingController extends GetxController {
   }
 
   void openSignIn() => Get.to(SignInView());
-  void openSignUp() => Get.to(SignUpView());
+  //void openSignUp() => Get.to(SignUpView());
 
   @override
   void onClose() {
