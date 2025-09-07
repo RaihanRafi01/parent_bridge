@@ -89,16 +89,20 @@ class CustomButton extends StatelessWidget {
 
 class CustomPBButton extends StatelessWidget {
   final String text;
+  final String icon;
+  final VoidCallback onPressed;
 
   const CustomPBButton({
     required this.text,
+    this.icon = '',
+    required this.onPressed,
     super.key
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(HomeView()),
+      onTap: onPressed,
       child: Container(
         width: 387.w,
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
@@ -112,14 +116,24 @@ class CustomPBButton extends StatelessWidget {
             )
         ),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: AppColors.clrWhite,
-              fontFamily: 'lato',
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w700,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10.w,
+            children: [
+              icon != '' ? SvgPicture.asset(
+                'assets/images/sign_up_process/share.svg'
+              ) : SizedBox.shrink(),
+
+              Text(
+                text,
+                style: TextStyle(
+                  color: AppColors.clrWhite,
+                  fontFamily: 'lato',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
         ),
       ),

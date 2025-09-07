@@ -13,7 +13,6 @@ class AuthenticationController extends GetxController {
   final sateController = TextEditingController();
   final exampleController = TextEditingController();
 
-
   final isPasswordVisible = false.obs;
   final isConfirmPasswordVisible = false.obs;
   final rememberMe = false.obs;
