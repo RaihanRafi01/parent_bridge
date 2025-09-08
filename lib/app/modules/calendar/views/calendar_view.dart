@@ -483,97 +483,189 @@ class CalendarView extends GetView<CalendarController> {
 
     return Container(
       margin: EdgeInsets.only(
-        left: 12.w,
-        right: 12.w,
         top: 12.h,
         bottom: isLast ? 12.h : 0,
       ),
-      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         color: eventColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Event title
-          Row(
-            children: [
-              Text(
-                event['title'] ?? 'Untitled Event',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.darkSlateBlue,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 8.w,
+              // Removed height: double.infinity, using stretch alignment instead
+              decoration: BoxDecoration(
+                color: eventColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.r),
+                  bottomLeft: Radius.circular(10.r),
                 ),
               ),
-              Spacer(),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+            ),
+            SizedBox(width: 10),
+            // Time section on the left
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30).r,
+              child: Container(
                 decoration: BoxDecoration(
-                  color: eventColor,
-                  borderRadius: BorderRadius.circular(12.r),
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x40B1B1B1), // #B1B1B1 with 25% opacity
+                      offset: Offset(0, 3.88), // x: 0, y: 3.88
+                      blurRadius: 3.88, // Blur radius
+                      spreadRadius: 0, // No spread
+                    ),
+                  ],
                 ),
-                child: Text(
-                  _getEventTypeLabel(event['type'] ?? 'personal'),
-                  style: TextStyle(
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+                width: 43.65.w,
+                height: 75.65.h,
+                padding: EdgeInsets.all(5).r,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      event['startTime'] ?? '4:00 PM',
+                      style: h0.copyWith(
+                        fontSize: 8.sp,
+                        color: eventColor,
+                      ),
+                    ),
+                    SizedBox(height: 2.h),
+                    Text(
+                      'To',
+                      style: h0.copyWith(
+                        fontSize: 8.sp,
+                        color: eventColor,
+                      ),
+                    ),
+                    SizedBox(height: 2.h),
+                    Text(
+                      event['endTime'] ?? '5:30 PM',
+                      style: h0.copyWith(
+                        fontSize: 8.sp,
+                        color: eventColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
 
-          if (event['description'] != null && event['description'].toString().isNotEmpty) ...[
-            SizedBox(height: 4.h),
-            Text(
-              event['description'],
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: AppColors.textColor7,
+            SizedBox(width: 16.w),
+
+            // Event details section
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title and type badge row
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              event['title'] ?? 'Untitled Event',
+                              style: h2.copyWith(
+                                fontSize: 16.62.sp,
+                                color: AppColors.darkSlateBlue,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                            decoration: BoxDecoration(
+                              color: eventColor,
+                              borderRadius: BorderRadius.circular(16.r),
+                            ),
+                            child: Text(
+                              _getEventTypeLabel(event['type'] ?? 'personal'),
+                              style: h3.copyWith(
+                                fontSize: 10.54.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 8.h),
+
+                    // Location
+                      Row(
+                        children: [
+                          SvgPicture.asset('assets/images/calendar/location_icon.svg'),
+                          SizedBox(width: 6.w),
+                          Text(
+                            event['location'] ?? 'Community Park',
+                            style: h4.copyWith(
+                              fontSize: 11.08.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 6.h),
+
+
+                    // Organizer/Person
+                      Row(
+                        children: [
+                          SvgPicture.asset('assets/images/calendar/child_icon.svg'),
+                          SizedBox(width: 6.w),
+                          Text(
+                            event['organizer'] ?? 'Max Smith',
+                            style: h4.copyWith(
+                              fontSize: 11.08.sp,
+                              color: Colors.green,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 6.h),
+
+                    // Attendee (You)
+                    Row(
+                      children: [
+                        SvgPicture.asset('assets/images/calendar/person_icon.svg'),
+                        SizedBox(width: 6.w),
+                        Text(
+                          'You',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 8.h),
+
+                    // Frequency
+                    Text(
+                      event['frequency'] ?? 'Weekly',
+                      style: h4.copyWith(
+                        fontSize: 11.08.sp,
+                        color: AppColors.darkSlateBlue,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
-
-          SizedBox(height: 8.h),
-
-          // Event time and frequency
-          Row(
-            children: [
-              Icon(
-                Icons.access_time,
-                size: 14.sp,
-                color: AppColors.darkSlateBlue,
-              ),
-              SizedBox(width: 4.w),
-              Text(
-                event['time'] ?? '9:00 AM',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: AppColors.darkSlateBlue,
-                ),
-              ),
-              SizedBox(width: 16.w),
-              Icon(
-                Icons.repeat,
-                size: 14.sp,
-                color: AppColors.darkSlateBlue,
-              ),
-              SizedBox(width: 4.w),
-              Text(
-                event['frequency'] ?? 'Once',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: AppColors.darkSlateBlue,
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
