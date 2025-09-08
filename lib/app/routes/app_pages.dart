@@ -32,7 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CALENDAR;
+  static const INITIAL = Routes.AUTHENTICATION;
 
   static final routes = [
     GetPage(

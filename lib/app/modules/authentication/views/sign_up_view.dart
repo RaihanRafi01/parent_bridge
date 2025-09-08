@@ -192,17 +192,19 @@ class SignUpView extends GetView<AuthenticationController> {
                   ),
         
                   SizedBox(height: 20.h),
-        
+
+                  // ... (Previous code remains unchanged until the "Court Mandated" section)
+
                   GestureDetector(
                     onTap: () {
                       controller.courtMandatedActive.value = !controller.courtMandatedActive.value;
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.18.w, vertical: 17.h,),
+                      padding: EdgeInsets.symmetric(horizontal: 16.18.w, vertical: 17.h),
                       decoration: BoxDecoration(
                         color: AppColors.clrWhite,
                         borderRadius: BorderRadius.circular(50.r),
-                        border: Border.all(color: AppColors.borderColor,),
+                        border: Border.all(color: AppColors.borderColor),
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.boxShadowColor.withAlpha(36),
@@ -218,33 +220,28 @@ class SignUpView extends GetView<AuthenticationController> {
                             spacing: 12.62.w,
                             children: [
                               SvgPicture.asset('assets/images/auth/court_icon.svg'),
-        
                               Text(
                                 'Is use of this app court mandated?',
-                                style: TextStyle(
+                                style: h4.copyWith(
                                   color: AppColors.textColorHint,
-                                  fontFamily: 'lato',
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
                                 ),
-                              )
+                              ),
                             ],
                           ),
-
                           SvgPicture.asset('assets/images/auth/dropdown_icon.svg'),
                         ],
                       ),
                     ),
                   ),
-        
-                  controller.courtMandatedActive.value ? SizedBox(height: 12.h) : SizedBox.shrink(),
-        
-                  controller.courtMandatedActive.value ? Container(
+
+                  Obx(() => controller.courtMandatedActive.value
+                      ? Container(
                     padding: EdgeInsets.all(20.r),
                     decoration: BoxDecoration(
                       color: AppColors.clrWhite,
                       borderRadius: BorderRadius.circular(50.r),
-                      border: Border.all(color: AppColors.borderColor,),
+                      border: Border.all(color: AppColors.borderColor),
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.boxShadowColor.withAlpha(36),
@@ -256,39 +253,38 @@ class SignUpView extends GetView<AuthenticationController> {
                     child: Column(
                       spacing: 13.h,
                       children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
-                          decoration: BoxDecoration(
-                            color: AppColors.card3,
-                            borderRadius: BorderRadius.circular(43.63.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.boxShadowColor.withAlpha(36),
-                                blurRadius: 11.r,
-                                offset: Offset(0.w, 6.98.h),
-                              ),
-                            ],
-                            border: Border.all(color: AppColors.borderColor, width: 0.87.r),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Yes, court mandated',
-                                style: TextStyle(
-                                  color: AppColors.textColorHint,
-                                  fontFamily: 'lato',
-                                  fontSize: 12.22.sp,
-                                  fontWeight: FontWeight.w400,
+                        GestureDetector(
+                          onTap: () {
+                            controller.isCourtMandated2.value = true;
+                            controller.isVoluntaryUse2.value = false;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
+                            decoration: BoxDecoration(
+                              color: AppColors.card3,
+                              borderRadius: BorderRadius.circular(43.63.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.boxShadowColor.withAlpha(36),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0.w, 6.98.h),
                                 ),
-                              ),
-        
-                              GestureDetector(
-                                onTap: () {
-                                  controller.isCourtMandated2.value = true;
-                                  controller.isVoluntaryUse2.value = false;
-                                },
-                                child: Container(
+                              ],
+                              border: Border.all(color: AppColors.borderColor, width: 0.87.r),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Yes, court mandated',
+                                  style: TextStyle(
+                                    color: AppColors.textColorHint,
+                                    fontFamily: 'lato',
+                                    fontSize: 12.22.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Container(
                                   padding: EdgeInsets.all(3.5.r),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -297,52 +293,52 @@ class SignUpView extends GetView<AuthenticationController> {
                                       width: 0.62.r,
                                     ),
                                   ),
-                                  child: controller.isCourtMandated2.value ? Container(
+                                  child: controller.isCourtMandated2.value
+                                      ? Container(
                                     padding: EdgeInsets.all(7.42.r),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.radioColor,
                                     ),
-                                  ) : SizedBox(width: 14.84.w, height: 14.84.h,),
+                                  )
+                                      : SizedBox(width: 14.84.w, height: 14.84.h),
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-        
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
-                          decoration: BoxDecoration(
-                            color: AppColors.card3,
-                            borderRadius: BorderRadius.circular(43.63.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.boxShadowColor.withAlpha(36),
-                                blurRadius: 11.r,
-                                offset: Offset(0.w, 6.98.h),
-                              ),
-                            ],
-                            border: Border.all(color: AppColors.borderColor, width: 0.87.r),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'No, voluntary use',
-                                style: TextStyle(
-                                  color: AppColors.textColorHint,
-                                  fontFamily: 'lato',
-                                  fontSize: 12.22.sp,
-                                  fontWeight: FontWeight.w400,
+                        GestureDetector(
+                          onTap: () {
+                            controller.isCourtMandated2.value = false;
+                            controller.isVoluntaryUse2.value = true;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
+                            decoration: BoxDecoration(
+                              color: AppColors.card3,
+                              borderRadius: BorderRadius.circular(43.63.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.boxShadowColor.withAlpha(36),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0.w, 6.98.h),
                                 ),
-                              ),
-        
-                              GestureDetector(
-                                onTap: () {
-                                  controller.isCourtMandated2.value = false;
-                                  controller.isVoluntaryUse2.value = true;
-                                },
-                                child: Container(
+                              ],
+                              border: Border.all(color: AppColors.borderColor, width: 0.87.r),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'No, voluntary use',
+                                  style: TextStyle(
+                                    color: AppColors.textColorHint,
+                                    fontFamily: 'lato',
+                                    fontSize: 12.22.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Container(
                                   padding: EdgeInsets.all(3.5.r),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -351,32 +347,197 @@ class SignUpView extends GetView<AuthenticationController> {
                                       width: 0.62.r,
                                     ),
                                   ),
-                                  child: controller.isVoluntaryUse2.value ? Container(
+                                  child: controller.isVoluntaryUse2.value
+                                      ? Container(
                                     padding: EdgeInsets.all(7.42.r),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: AppColors.radioColor,
                                     ),
-                                  ) : SizedBox(width: 14.84.w, height: 14.84.h,),
+                                  )
+                                      : SizedBox(width: 14.84.w, height: 14.84.h),
                                 ),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  ) : SizedBox.shrink(),
+                  )
+                      : SizedBox.shrink()),
+
+                  SizedBox(height: 20.h),
+
+// Select Role Section
+                  GestureDetector(
+                    onTap: () {
+                      controller.roleActive.value = !controller.roleActive.value;
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16.18.w, vertical: 17.h),
+                      decoration: BoxDecoration(
+                        color: AppColors.clrWhite,
+                        borderRadius: BorderRadius.circular(50.r),
+                        border: Border.all(color: AppColors.borderColor),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.boxShadowColor.withAlpha(36),
+                            blurRadius: 12.6.r,
+                            offset: Offset(0.w, 8.h),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            spacing: 12.62.w,
+                            children: [
+                              SvgPicture.asset('assets/images/auth/role_icon.svg'),
+                              Text(
+                                'Select your role',
+                                style: h4.copyWith(
+                                  color: AppColors.textColorHint,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SvgPicture.asset('assets/images/auth/dropdown_icon.svg'),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Obx(() => controller.roleActive.value
+                      ? Container(
+                    padding: EdgeInsets.all(20.r),
+                    decoration: BoxDecoration(
+                      color: AppColors.clrWhite,
+                      borderRadius: BorderRadius.circular(50.r),
+                      border: Border.all(color: AppColors.borderColor),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.boxShadowColor.withAlpha(36),
+                          blurRadius: 12.6.r,
+                          offset: Offset(0.w, 8.h),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      spacing: 13.h,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            controller.role1.value = true;
+                            controller.role2.value = false;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
+                            decoration: BoxDecoration(
+                              color: AppColors.card3,
+                              borderRadius: BorderRadius.circular(43.63.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.boxShadowColor.withAlpha(36),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0.w, 6.98.h),
+                                ),
+                              ],
+                              border: Border.all(color: AppColors.borderColor, width: 0.87.r),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Mom',
+                                  style: h4.copyWith(
+                                    color: AppColors.textColorHint,
+                                    fontSize: 12.22.sp,
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(3.5.r),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.radioColor,
+                                      width: 0.62.r,
+                                    ),
+                                  ),
+                                  child: controller.role1.value
+                                      ? Container(
+                                    padding: EdgeInsets.all(7.42.r),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColors.radioColor,
+                                    ),
+                                  )
+                                      : SizedBox(width: 14.84.w, height: 14.84.h),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            controller.role1.value = false;
+                            controller.role2.value = true;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 23.56.w, vertical: 18.33.h),
+                            decoration: BoxDecoration(
+                              color: AppColors.card3,
+                              borderRadius: BorderRadius.circular(43.63.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.boxShadowColor.withAlpha(36),
+                                  blurRadius: 11.r,
+                                  offset: Offset(0.w, 6.98.h),
+                                ),
+                              ],
+                              border: Border.all(color: AppColors.borderColor, width: 0.87.r),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Dad',
+                                  style: h4.copyWith(
+                                    color: AppColors.textColorHint,
+                                    fontSize: 12.22.sp,
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(3.5.r),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.radioColor,
+                                      width: 0.62.r,
+                                    ),
+                                  ),
+                                  child: controller.role2.value
+                                      ? Container(
+                                    padding: EdgeInsets.all(7.42.r),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColors.radioColor,
+                                    ),
+                                  )
+                                      : SizedBox(width: 14.84.w, height: 14.84.h),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                      : SizedBox.shrink()),
+
         
                   SizedBox(height: 20.h),
-        
-                  CustomTextField(
-                    controller: controller.emailController,
-                    hintText: 'Select your role.',
-                    prefixIcon: 'assets/images/auth/adoption.png',
-                    suffixIcon: 'assets/images/auth/dropdown.png',
-                  ),
-        
-                  SizedBox(height: 25.h),
         
                   Row(
                     children: [
@@ -428,6 +589,8 @@ class SignUpView extends GetView<AuthenticationController> {
                   ),
         
                   SizedBox(height: 60.h),
+
+                  CustomTextField(hintText: 'f', controller: controller.childAgeController),
         
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

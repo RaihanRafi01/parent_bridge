@@ -61,10 +61,17 @@ class CustomTextField extends StatelessWidget {
           ),
         ],
       ),
-
       child: TextField(
+        controller: controller,
+        obscureText: isPassword ? ctrl.obscureText.value : false,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.18.w, vertical: 17.h),
+          // Dynamically adjust contentPadding based on prefixIcon
+          contentPadding: EdgeInsets.only(
+            left:  16.18.w ,
+            right: 16.18.w,
+            top: 17.h,
+            bottom: 17.h,
+          ),
           filled: true,
           fillColor: AppColors.clrWhite,
           border: OutlineInputBorder(
@@ -87,15 +94,16 @@ class CustomTextField extends StatelessWidget {
           ),
           prefixIcon: prefixIcon != ''
               ? Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(15.w),
             child: SvgPicture.asset(
               prefixIcon,
+              fit: BoxFit.contain,
             ),
           )
-              : const SizedBox.shrink(),
+              : null, // Use null instead of SizedBox.shrink() for better alignment
           suffixIcon: isPassword
               ? Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(15.w),
             child: GestureDetector(
               onTap: () {
                 ctrl.toggleObscureText();
@@ -111,7 +119,7 @@ class CustomTextField extends StatelessWidget {
           )
               : suffixIcon != ''
               ? Padding(
-            padding: EdgeInsets.all(12.w),
+            padding: EdgeInsets.all(15.w),
             child: GestureDetector(
               onTap: onSuffixTap,
               child: SvgPicture.asset(
@@ -120,13 +128,14 @@ class CustomTextField extends StatelessWidget {
               ),
             ),
           )
-              : const SizedBox.shrink(),
+              : null, // Use null instead of SizedBox.shrink() for better alignment
           hintText: hintText,
           hintStyle: h4.copyWith(
             color: AppColors.textColorHint,
             fontSize: 14.sp,
           ),
         ),
-      ));
+      ),
+    );
   }
 }
