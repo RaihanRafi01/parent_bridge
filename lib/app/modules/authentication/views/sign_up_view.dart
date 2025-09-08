@@ -589,8 +589,6 @@ class SignUpView extends GetView<AuthenticationController> {
                   ),
         
                   SizedBox(height: 60.h),
-
-                  CustomTextField(hintText: 'f', controller: controller.childAgeController),
         
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
