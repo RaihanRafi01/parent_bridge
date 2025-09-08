@@ -20,3 +20,11 @@ final h3 = GoogleFonts.lato(
 final h4 = GoogleFonts.lato(
   fontWeight: FontWeight.w400,
 );
+
+final h1Inter = GoogleFonts.inter(
+  fontWeight: FontWeight.w700,
+);
+
+final h2Inter = GoogleFonts.inter(
+  fontWeight: FontWeight.w600,
+);

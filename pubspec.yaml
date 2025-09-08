@@ -68,6 +68,9 @@ flutter:
     - assets/images/onboarding/
     - assets/images/auth/
     - assets/images/sign_up_process/
+    - assets/images/home/
+    - assets/images/calendar/
+    - assets/images/common/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
