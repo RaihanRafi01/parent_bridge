@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/views/forgot_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
@@ -97,11 +98,18 @@ class SignInView extends GetView<AuthenticationController> {
                       ],
                     ),
         
-                    Text(
-                      'Forgot Password?',
-                      style: h2.copyWith(
-                        color: AppColors.switchColorBg,
-                        fontSize: 12.84.sp,
+                    GestureDetector(
+                      onTap: () => Get.to(
+                          ForgotPasswordView(
+                            emailController: controller.emailController,
+                          )
+                      ),
+                      child: Text(
+                        'Forgot Password?',
+                        style: h2.copyWith(
+                          color: AppColors.switchColorBg,
+                          fontSize: 12.84.sp,
+                        ),
                       ),
                     ),
                   ],
@@ -109,7 +117,7 @@ class SignInView extends GetView<AuthenticationController> {
         
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Log In'),
+                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.to(HomeView()),),
                 ),
 
         

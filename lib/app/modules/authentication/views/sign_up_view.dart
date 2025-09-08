@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/sign_up_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
+import 'package:parent_bridge/app/modules/sign_up_process/views/sign_up_process_view.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
@@ -406,7 +407,7 @@ class SignUpView extends GetView<AuthenticationController> {
         
                   SizedBox(height: 27.h),
         
-                  CustomPBButton(text: 'Sign Up'),
+                  CustomPBButton(text: 'Sign Up', onPressed: () => Get.to(SignUpProcessView()),),
         
                   SizedBox(height: 14.h),
         

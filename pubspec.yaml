@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   google_fonts: ^6.3.1
   intl: ^0.20.2
+  get_cli: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
   assets:
     - assets/images/onboarding/
     - assets/images/auth/
+    - assets/images/sign_up_process/
     - assets/images/home/
     - assets/images/calendar/
     - assets/images/common/

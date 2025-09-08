@@ -97,6 +97,8 @@ class AppColors {
 
 
   static const Color clrWhite = Color(0xFFFFFFFF);
+  static const Color clrBlack = Color(0xFF000000);
+  static const Color clrTransparent = Colors.transparent;
   static const Color clrSky = Color(0xFF9CE8FF);
   static const Color clrSky4 = Color(0xFFAFE4FF);
   static const Color clrRed = Color(0xFFAF2A4D);
@@ -133,4 +135,26 @@ class AppColors {
   static const Color buttonColor3 = Color(0xFFF6F0FB);
 
   static const Color radioColor = Color(0xFFBE9DED);
+
+
+
+
+
+
+
+
+  /// Rubaid
+
+  static const Color textColor51 = Color(0xFF1D3855);
+  static const Color textColor52 = Color(0xFF8B8888);
+  static const Color textColor53 = Color(0xFF758290);
+
+  static const Color card51 = Color(0xFFF0F0F0);
+  static const Color card52 = Color(0xFFE4F5FF);
+  static const Color card53 = Color(0xFF90C6E5);
+
+  static const Color borderColor51 = Color(0xFFEEEEEE);
+  static const Color borderColor52 = Color(0xFFEAEAEA);
+
+  static const Color boxShadowColor51 = Color(0xFFD1D1D1);
 }
