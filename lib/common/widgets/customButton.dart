@@ -90,11 +90,17 @@ class CustomButton extends StatelessWidget {
 class CustomPBButton extends StatelessWidget {
   final String text;
   final String icon;
+  final double width;
+  final Color color1;
+  final Color color2;
   final VoidCallback onPressed;
 
   const CustomPBButton({
     required this.text,
     this.icon = '',
+    this.width = 387,
+    this.color1 = AppColors.buttonColor,
+    this.color2 = AppColors.buttonColor2,
     required this.onPressed,
     super.key
   });
@@ -104,14 +110,14 @@ class CustomPBButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 387.w,
+        width: width.w,
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.r),
             gradient: LinearGradient(
               colors: [
-                AppColors.buttonColor,
-                AppColors.buttonColor2,
+                color1,
+                color2,
               ],
             )
         ),

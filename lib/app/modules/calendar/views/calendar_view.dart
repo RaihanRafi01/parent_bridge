@@ -44,7 +44,7 @@ class CalendarView extends GetView<CalendarController> {
             child: _buildCalendarContent(),
           ),
          //  _buildAddEventButton(),
-          CustomPBButton(text: 'Add Event'),
+          CustomPBButton(text: 'Add Event', onPressed: () {  }),
           SizedBox(height: 40.h)
         ],
       ),
