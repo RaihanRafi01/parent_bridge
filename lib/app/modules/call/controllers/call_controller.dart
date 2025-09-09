@@ -1,23 +1,31 @@
 import 'package:get/get.dart';
 
 class CallController extends GetxController {
-  //TODO: Implement CallController
+  var isCallAccepted = false.obs;
+  var isAcceptingCall = false.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  var isMuted = false.obs;
+  var isSpeakerOn = false.obs;
+
+  Future<void> acceptCall() async {
+    isAcceptingCall.value = true;
+    await Future.delayed(const Duration(milliseconds: 500));
+    isCallAccepted.value = true;
+    isAcceptingCall.value = false;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void toggleMute() {
+    isMuted.value = !isMuted.value;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void toggleSpeaker() {
+    isSpeakerOn.value = !isSpeakerOn.value;
   }
 
-  void increment() => count.value++;
+  void endCall() {
+    isCallAccepted.value = false;
+    isMuted.value = false;
+    isSpeakerOn.value = false;
+    Get.back();
+  }
 }

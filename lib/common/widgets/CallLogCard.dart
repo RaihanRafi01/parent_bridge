@@ -79,27 +79,32 @@ class CustomCallCard extends StatelessWidget {
             ),
           ),
 
-          // ডান পাশের 'Play Recording' বাটন
-          //SizedBox(width: 38,),
-          // Only show button if onPlayRecording is not null
+
           if (onPlayRecording != null)
             SizedBox(
-              height: 35,
-              width: 130,
-              child: ElevatedButton.icon(
+              height: 32,
+              width: 122,
+              child: ElevatedButton(
                 onPressed: onPlayRecording,
-                icon: const Icon(Icons.play_arrow, size: 14),
-                label: const Text(
-                  'Play Recording',
-                  style: TextStyle(fontSize: 12),
-                ),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.yellow.shade600,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+
+                  padding: EdgeInsets.zero,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.play_arrow, size: 23),
+                    const SizedBox(width: 3),
+                    const Text(
+                      'Play Recording',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
                 ),
               ),
             ),

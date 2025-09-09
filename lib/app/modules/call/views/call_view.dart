@@ -4,7 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/call/views/call_recording.dart';
-import 'package:parent_bridge/app/modules/call/views/incomingeCalli_view.dart';
+import 'package:parent_bridge/app/modules/call/views/incoming_ongoing_call.dart';
+
 
 import '../../../../common/widgets/CallLogCard.dart';
 import '../controllers/call_controller.dart';
@@ -83,7 +84,7 @@ class CallView extends GetView<CallController> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Get.to(IncomingecalliView());
+                      Get.to(IncomingOngoingCallView());
                     },
                     icon: SvgPicture.asset(
                       "assets/svg/call2.svg",
@@ -110,9 +111,24 @@ class CallView extends GetView<CallController> {
               padding: EdgeInsets.all(16.w), // responsive padding
               child: Row(
                 children: [
-                  ChoiceChip(label: const Text("All (10)"), selectedColor: Color(0xFF90CAE2), selected: true),
-                  SizedBox(width: 8.w), // responsive width
-                  ChoiceChip(label: Text("Missed (1)", style: TextStyle(fontSize: 14.sp)), selected: false), // responsive font size
+                  ChoiceChip(
+
+                    label: const Text("All (10)"),
+                    selectedColor: const Color(0xFF90CAE2),
+                    selected: true,
+                    showCheckmark: false,
+
+                    labelStyle: const TextStyle(color: Colors.black),
+                  ),
+                  SizedBox(width: 8.w),
+                  ChoiceChip(
+                    // 1.
+                    label: Text("Missed (1)"),
+                    selected: false,
+                    showCheckmark: false,
+                    // 2. এখানেও সামঞ্জস্যের জন্য labelStyle যোগ করুন
+                    labelStyle: TextStyle(fontSize: 14.sp, color: Colors.black),
+                  ),
                 ],
               ),
             ),
@@ -121,12 +137,12 @@ class CallView extends GetView<CallController> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Search Calls, Date",
-                  prefixIcon: const Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search,color: Colors.grey,size: 30,),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0.r), // responsive radius
                     borderSide: BorderSide(
                       color: Colors.grey,
-                      width: 1.w, // responsive width
+                      width: .5.w, // responsive width
                     ),
                   ),
                 ),
