@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
-import '../modules/authentication/views/authentication_view.dart';
 import '../modules/authentication/views/sign_in_view.dart';
 import '../modules/calendar/bindings/calendar_binding.dart';
 import '../modules/calendar/views/calendar_view.dart';
@@ -18,7 +17,6 @@ import '../modules/home/views/home_view.dart';
 import '../modules/legal_records/bindings/legal_records_binding.dart';
 import '../modules/legal_records/views/legal_records_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
-import '../modules/onboarding/views/onboarding_view.dart';
 import '../modules/onboarding/views/splash_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
@@ -32,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CALENDAR;
+  static const INITIAL = Routes.SUPPORT_FORUM;
 
   static final routes = [
     GetPage(
