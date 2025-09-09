@@ -99,12 +99,16 @@ class CustomPBButton extends StatelessWidget {
   final String text;
   final String icon;
   final VoidCallback onPressed;
+  final bool isWhite; // Added isWhite parameter
+  final Color txtClr; // Added txtClr parameter for text color customization
 
   const CustomPBButton({
     required this.text,
     this.icon = '',
     required this.onPressed,
-    super.key
+    this.isWhite = false, // Default to false
+    this.txtClr = AppColors.clrWhite, // Default text color
+    super.key,
   });
 
   @override
@@ -113,29 +117,34 @@ class CustomPBButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: 387.w,
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.r),
-            gradient: LinearGradient(
-              colors: [
-                AppColors.buttonColor,
-                AppColors.buttonColor2,
-              ],
-            )
+          color: isWhite ? Colors.white : null, // Use white background if isWhite is true
+          gradient: isWhite
+              ? null
+              : LinearGradient(
+            colors: [
+              AppColors.buttonColor,
+              AppColors.buttonColor2,
+            ],
+          ), // Use gradient if isWhite is false
+          borderRadius: BorderRadius.circular(30.r),
+          border: isWhite ? Border.all(color: AppColors.btnBorder, width: 1.w) : null, // Add border for white button
         ),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 10.w,
             children: [
-              icon != '' ? SvgPicture.asset(
-                'assets/images/sign_up_process/share.svg'
-              ) : SizedBox.shrink(),
-
+              if (icon.isNotEmpty) ...[
+                SvgPicture.asset(
+                  icon, // Use the provided icon path
+                ),
+                SizedBox(width: 10.w),
+              ],
               Text(
                 text,
                 style: TextStyle(
-                  color: AppColors.clrWhite,
+                  color: txtClr, // Use customizable text color
                   fontFamily: 'lato',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,

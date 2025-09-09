@@ -14,7 +14,6 @@ class CalendarView extends GetView<CalendarController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8E4F3),
       body: Column(
         children: [
           Container(

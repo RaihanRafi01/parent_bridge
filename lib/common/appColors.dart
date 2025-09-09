@@ -10,6 +10,8 @@ class AppColors {
   ///
 
 
+  static const Color textInputFillColor = Color(0xFFEAF8FF);
+
   static const Color clrSky6 = Color(0xFFB8E8FE);
 
   static const Color darkSlateBlue = Color(0xFF1D3856);
@@ -115,6 +117,8 @@ class AppColors {
   static const Color clrGray1 = Color(0xFFC2C6C8);
   static const Color clrGray2 = Color(0xFFCECECE);
   static const Color clrGray3 = Color(0xFFE5EDFC);
+  static const Color clrPurple = Color(0xFFC698F0);
+  static const Color btnBorder = Color(0xFFEBEBEB);
 
   static const Color textInputFillSky = Color(0xFFEFF5FF);
   static const Color textInputFillRed = Color(0xFFFFDFE7);
