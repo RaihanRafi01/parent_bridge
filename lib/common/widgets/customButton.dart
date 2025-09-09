@@ -17,6 +17,8 @@ class CustomButton extends StatelessWidget {
   final String? svgPath2;
   final Color? borderColor;
   final double? width;
+  final Widget? leading;
+
   final double? height;
   final double radius;
   final double fontSize;
@@ -26,16 +28,17 @@ class CustomButton extends StatelessWidget {
     Key? key,
     required this.label,
     required this.onPressed,
+    this.leading,
     this.isWhite = false,
     this.bgClr = AppColors.appColor, // Default to single color
     this.txtClr = Colors.white,
     this.svgPath,
     this.svgPath2,
     this.borderColor,
-    this.width = double.infinity,
-    this.height = 61,
+    this.width ,
+    this.height,
     this.radius = 13,
-    this.fontSize = 19.63,
+    this.fontSize = 16,
     this.isLoading = false,
   }) : super(key: key);
 
@@ -64,6 +67,11 @@ class CustomButton extends StatelessWidget {
             : Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (leading != null) ...[
+              leading!,
+              SizedBox(width: 8.w),
+            ],
+
             if (svgPath != null) ...[
               SvgPicture.asset(
                 svgPath!,
