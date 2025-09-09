@@ -7,6 +7,53 @@ class AppColors {
 
 
   /// use color based on your design
+  ///
+
+
+  static const Color clrSky6 = Color(0xFFB8E8FE);
+
+  static const Color darkSlateBlue = Color(0xFF1D3856);
+
+  // #6B5ADA - Medium Purple / Indigo
+  static const Color mediumPurple = Color(0xFF6B5ADA);
+
+  // #76D7FF - Light Sky Blue
+  static const Color customLightBlue = Color(0xFF76D7FF);
+
+  // #C47FF5 - Light Purple
+  static const Color customLightPurple = Color(0xFFC47FF5);
+
+  // #FFFFFF - White
+  static const Color white = Color(0xFFFFFFFF);
+
+  // #B260EB - Purple / Lilac
+  static const Color customPurple = Color(0xFFB260EB);
+
+  // #86D0F3 - Light Sky Blue
+  static const Color customSkyBlue = Color(0xFF86D0F3);
+
+  // #A14CDD - Deep Purple
+  static const Color customDeepPurple = Color(0xFFA14CDD);
+
+  // #52B6E4 - Medium Sky Blue
+  static const Color customSkyBlue2 = Color(0xFF52B6E4);
+  static const Color customSkyBlue3 = Color(0xFF90CAE2);
+
+  // #715FDE - Purple (from SVG divider lines)
+  static const Color dividerPurple = Color(0xFF715FDE);
+
+  // #583BDC - Violet
+  static const Color violet = Color(0xFF583BDC);
+
+  // #DAB1F7 - Light Purple/Pink
+  static const Color lightPurplePink = Color(0xFFDAB1F7);
+  static const Color lightPurplePink2 = Color(0xFFBD9DED);
+  static const Color calenderG1 = Color(0xFF82BFE8);
+  static const Color calenderG2 = Color(0xFF9199E7);
+  static const Color gray = Color(0xFF737373);
+
+  // #7F4BE7 - Deep Purple
+  static const Color deepPurple = Color(0xFF7F4BE7);
 
   static const Color appColor3 = Color(0xFF195EB8);
   static const Color textInputBorder2 = Color(0xFF616F83);
@@ -25,6 +72,13 @@ class AppColors {
   static const Color textColor13 = Color(0xFF515151);
   static const Color textColor14 = Color(0xFF555555);
   static const Color textColor15 = Color(0xFF626770);
+  static const Color textColor16 = Color(0xFF333333);
+  static const Color textColor17 = Color(0xFF7B7B7B);
+  static const Color textColor18 = Color(0xFFB5B9BE);
+  static const Color textColor19 = Color(0xFFD3CBCB);
+  static const Color textColor20 = Color(0xFF34312F);
+  static const Color textColor21 = Color(0xFF989898);
+  static const Color textColor22 = Color(0xFF6B5ADA);
   static const Color chatBg = Color(0xFFEDFAFF);
   static const Color chatInputField = Color(0xFFC4DFFF);
   static const Color clrSky2 = Color(0xFFECF4FF);
@@ -33,6 +87,7 @@ class AppColors {
 
   static const Color card1 = Color(0xFF16437E);
   static const Color card2 = Color(0xFF1356AD);
+  static const Color card3 = Color(0xFFD2ECF9);
 
   static const Color progress1 = Color(0xFF032A5B);
   static const Color progress2 = Color(0xFF5A224F);
@@ -42,6 +97,8 @@ class AppColors {
 
 
   static const Color clrWhite = Color(0xFFFFFFFF);
+  static const Color clrBlack = Color(0xFF000000);
+  static const Color clrTransparent = Colors.transparent;
   static const Color clrSky = Color(0xFF9CE8FF);
   static const Color clrSky4 = Color(0xFFAFE4FF);
   static const Color clrRed = Color(0xFFAF2A4D);
@@ -65,6 +122,39 @@ class AppColors {
 
   static const Color nav1 = Color(0xFF52A7F9);
   static const Color nav2 = Color(0xFF186FC4);
+  static const Color nav3 = Color(0xFF4F4F4F);
+
+  static const Color borderColor = Color(0xFFEDEDED);
+
+  static const Color boxShadowColor = Color(0xFFCC94EF);
+
+  static const Color switchColorBg = Color(0xFF8FC8E3);
+
+  static const Color buttonColor = Color(0xFF8EC7E4);
+  static const Color buttonColor2 = Color(0xFFC995F1);
+  static const Color buttonColor3 = Color(0xFFF6F0FB);
+
+  static const Color radioColor = Color(0xFFBE9DED);
 
 
+
+
+
+
+
+
+  /// Rubaid
+
+  static const Color textColor51 = Color(0xFF1D3855);
+  static const Color textColor52 = Color(0xFF8B8888);
+  static const Color textColor53 = Color(0xFF758290);
+
+  static const Color card51 = Color(0xFFF0F0F0);
+  static const Color card52 = Color(0xFFE4F5FF);
+  static const Color card53 = Color(0xFF90C6E5);
+
+  static const Color borderColor51 = Color(0xFFEEEEEE);
+  static const Color borderColor52 = Color(0xFFEAEAEA);
+
+  static const Color boxShadowColor51 = Color(0xFFD1D1D1);
 }

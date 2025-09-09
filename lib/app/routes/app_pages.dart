@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
+import '../modules/authentication/views/sign_in_view.dart';
 import '../modules/calendar/bindings/calendar_binding.dart';
 import '../modules/calendar/views/calendar_view.dart';
 import '../modules/call/bindings/call_binding.dart';
@@ -18,8 +19,11 @@ import '../modules/legal_records/bindings/legal_records_binding.dart';
 import '../modules/legal_records/views/legal_records_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/onboarding/views/splash_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
+import '../modules/sign_up_process/bindings/sign_up_process_binding.dart';
+import '../modules/sign_up_process/views/sign_up_process_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
 
@@ -28,7 +32,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
+
   static const INITIAL = Routes.CALL;
+
+  static const INITIAL = Routes.AUTHENTICATION;
 
   static final routes = [
     GetPage(
@@ -38,12 +45,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.AUTHENTICATION,
-      page: () => const AuthenticationView(),
+      page: () => const SignInView(),
       binding: AuthenticationBinding(),
     ),
     GetPage(
       name: _Paths.ONBOARDING,
-      page: () => const OnboardingView(),
+      page: () => const SplashView(),
       binding: OnboardingBinding(),
     ),
     GetPage(
@@ -85,6 +92,11 @@ class AppPages {
       name: _Paths.SETTINGS,
       page: () => const SettingsView(),
       binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGN_UP_PROCESS,
+      page: () => const SignUpProcessView(),
+      binding: SignUpProcessBinding(),
     ),
   ];
 }
