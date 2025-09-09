@@ -193,9 +193,9 @@ class CalendarView extends GetView<CalendarController> {
         margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12).r,
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFF7B68EE).withOpacity(0.4)
+              ? AppColors.calenderSelect.withOpacity(0.4)
               : isToday
-              ? const Color(0xFF7B68EE).withOpacity(0.2)
+              ? AppColors.calenderSelect.withOpacity(0.2)
               : Colors.white,
           borderRadius: BorderRadius.circular(8.r),
           boxShadow: [BoxShadow(color: Color(0x40000000), offset: Offset(0, 4), blurRadius: 4)],
