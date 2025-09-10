@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/sign_in_view.dart';
 import '../modules/calendar/bindings/calendar_binding.dart';
@@ -24,7 +23,6 @@ import '../modules/sign_up_process/bindings/sign_up_process_binding.dart';
 import '../modules/sign_up_process/views/sign_up_process_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
-
 part 'app_routes.dart';
 
 class AppPages {

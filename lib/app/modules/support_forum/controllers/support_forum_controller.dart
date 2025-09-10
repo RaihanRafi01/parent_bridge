@@ -1,6 +1,20 @@
 import 'package:get/get.dart';
 
 class SupportForumController extends GetxController {
+
+
+  // list for dropdown menu .. 
+  var selectedValue='Scheduling'.obs;
+    final items=['Scheduling','Parenting','Communication','Success Story'].obs;
+
+  void setSelected(String value){
+    selectedValue.value=value;
+  }
+
+
+
+
+
   //TODO: Implement SupportForumController
 
   final count = 0.obs;
