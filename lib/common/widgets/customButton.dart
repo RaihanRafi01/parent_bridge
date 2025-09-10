@@ -104,6 +104,8 @@ class CustomPBButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isWhite; // Added isWhite parameter
   final Color txtClr; // Added txtClr parameter for text color customization
+  final double horizontalPadding;
+  final double verticalPadding;
 
   const CustomPBButton({
     required this.text,
@@ -114,6 +116,8 @@ class CustomPBButton extends StatelessWidget {
     required this.onPressed,
     this.isWhite = false, // Default to false
     this.txtClr = AppColors.clrWhite, // Default text color
+    this.horizontalPadding = 30,
+    this.verticalPadding = 15,
     super.key,
   });
 
@@ -123,7 +127,7 @@ class CustomPBButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width.w,
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding.w, vertical: verticalPadding.h,),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.r),
             gradient: LinearGradient(

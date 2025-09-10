@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ExpenseTrackerController extends GetxController {
-  //TODO: Implement ExpenseTrackerController
+  TextEditingController searchController = TextEditingController();
 
   final count = 0.obs;
   @override

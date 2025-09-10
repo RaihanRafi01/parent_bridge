@@ -157,6 +157,11 @@ class AppColors {
   static const Color textColor54 = Color(0xFF7D4AD4);
   static const Color textColor55 = Color(0xFFEBCE12);
   static const Color textColor56 = Color(0xFFF03ED9);
+  static const Color textColor57 = Color(0xFF0A1D32);
+  static const Color textColor58 = Color(0xFF0A1D33);
+  static const Color textColor59 = Color(0xFFAE0808);
+  static const Color textColor60 = Color(0xFF75828F);
+  static const Color textColor61 = Color(0xFF7DC1E3);
 
   static const Color card51 = Color(0xFFF0F0F0);
   static const Color card52 = Color(0xFFE4F5FF);
@@ -166,12 +171,23 @@ class AppColors {
 
   static const Color borderColor51 = Color(0xFFEEEEEE);
   static const Color borderColor52 = Color(0xFFEAEAEA);
+  static const Color borderColor53 = Color(0xFFEEEDF9);
+  static const Color borderColor54 = Color(0xFF93C7E3);
 
   static const Color boxShadowColor51 = Color(0xFFD1D1D1);
+  static const Color boxShadowColor52 = Color(0xFFCC94EF);
 
   static const Color bgColor51 = Color(0xFF90CAE3);
   static const Color bgColor52 = Color(0xFFCF91F1);
 
   static const Color buttonColor51 = Color(0xFF731AE8);
   static const Color buttonColor52 = Color(0xFFC198F7);
+
+  static const Color containerColor51 = Color(0xFF705ADD);
+  static const Color containerColor52 = Color(0xFFDFF5FF);
+
+  static const Color dividerCyan = Color(0xFF91C9E3);
+
+  static const Color gradientColor51 = Color(0xFF9757D0);
+  static const Color gradientColor52 = Color(0xFFC9E8F7);
 }
