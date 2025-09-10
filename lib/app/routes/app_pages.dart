@@ -24,6 +24,8 @@ import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/sign_up_process/bindings/sign_up_process_binding.dart';
 import '../modules/sign_up_process/views/sign_up_process_view.dart';
+import '../modules/subscription/bindings/subscription_binding.dart';
+import '../modules/subscription/views/subscription_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
 
@@ -32,7 +34,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CALENDAR;
+  static const INITIAL = Routes.EXPENSE_TRACKER;
 
   static final routes = [
     GetPage(
@@ -94,6 +96,11 @@ class AppPages {
       name: _Paths.SIGN_UP_PROCESS,
       page: () => const SignUpProcessView(),
       binding: SignUpProcessBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUBSCRIPTION,
+      page: () => const SubscriptionView(),
+      binding: SubscriptionBinding(),
     ),
   ];
 }
