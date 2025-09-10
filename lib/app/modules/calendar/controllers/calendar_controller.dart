@@ -1,7 +1,34 @@
 // Controller code
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class CalendarController extends GetxController {
+
+
+  final eventName = TextEditingController();
+  final eventType = TextEditingController();
+  final eventDate = TextEditingController();
+  final eventSTime = TextEditingController();
+  final eventETime = TextEditingController();
+  final eventLocation = TextEditingController();
+  final eventDescription = TextEditingController();
+  final eventReminderTime = TextEditingController();
+
+
+  final allDayEvent = false.obs;
+
+  void toggleAllDayEvent() => allDayEvent.value = !allDayEvent.value;
+
+  final Rx<String?> selectedEventType = Rx<String?>(null);
+  final List<String> eventItems = ['Activity', 'School', 'Custody', 'Medical'];
+
+
+  final Rx<String?> selectedRepeatType = Rx<String?>(null);
+  final List<String> repeatItems = ['Does not repeat', 'Daily', 'Weekly', 'Every 2 weeks', 'Monthly'];
+
+
+
+
   final Rx<DateTime> currentDate = DateTime.now().obs;
   final Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   final RxString selectedView = 'Month'.obs;

@@ -17,6 +17,8 @@ class CustomButton extends StatelessWidget {
   final String? svgPath2;
   final Color? borderColor;
   final double? width;
+  final Widget? leading;
+
   final double? height;
   final double radius;
   final double fontSize;
@@ -26,16 +28,17 @@ class CustomButton extends StatelessWidget {
     Key? key,
     required this.label,
     required this.onPressed,
+    this.leading,
     this.isWhite = false,
     this.bgClr = AppColors.appColor, // Default to single color
     this.txtClr = Colors.white,
     this.svgPath,
     this.svgPath2,
     this.borderColor,
-    this.width = double.infinity,
-    this.height = 61,
+    this.width ,
+    this.height,
     this.radius = 13,
-    this.fontSize = 19.63,
+    this.fontSize = 16,
     this.isLoading = false,
   }) : super(key: key);
 
@@ -64,6 +67,11 @@ class CustomButton extends StatelessWidget {
             : Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (leading != null) ...[
+              leading!,
+              SizedBox(width: 8.w),
+            ],
+
             if (svgPath != null) ...[
               SvgPicture.asset(
                 svgPath!,
@@ -94,6 +102,8 @@ class CustomPBButton extends StatelessWidget {
   final Color color1;
   final Color color2;
   final VoidCallback onPressed;
+  final bool isWhite; // Added isWhite parameter
+  final Color txtClr; // Added txtClr parameter for text color customization
 
   const CustomPBButton({
     required this.text,
@@ -102,7 +112,9 @@ class CustomPBButton extends StatelessWidget {
     this.color1 = AppColors.buttonColor,
     this.color2 = AppColors.buttonColor2,
     required this.onPressed,
-    super.key
+    this.isWhite = false, // Default to false
+    this.txtClr = AppColors.clrWhite, // Default text color
+    super.key,
   });
 
   @override
@@ -124,16 +136,17 @@ class CustomPBButton extends StatelessWidget {
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 10.w,
             children: [
-              icon != '' ? SvgPicture.asset(
-                'assets/images/sign_up_process/share.svg'
-              ) : SizedBox.shrink(),
-
+              if (icon.isNotEmpty) ...[
+                SvgPicture.asset(
+                  icon, // Use the provided icon path
+                ),
+                SizedBox(width: 10.w),
+              ],
               Text(
                 text,
                 style: TextStyle(
-                  color: AppColors.clrWhite,
+                  color: txtClr, // Use customizable text color
                   fontFamily: 'lato',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,

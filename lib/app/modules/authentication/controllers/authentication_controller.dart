@@ -6,7 +6,6 @@ class AuthenticationController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
   final phoneController = TextEditingController();
   final childNameController = TextEditingController();
   final childAgeController = TextEditingController();
@@ -19,23 +18,46 @@ class AuthenticationController extends GetxController {
 
   RxBool addMoreDropdownActive = false.obs;
   RxBool courtMandatedActive = false.obs;
-
-
-  RxBool isCourtMandated = false.obs;
-  RxBool isVoluntaryUse = false.obs;
+  RxBool roleActive = false.obs;
 
   RxBool isCourtMandated2 = false.obs;
   RxBool isVoluntaryUse2 = false.obs;
 
+  RxBool role1 = false.obs;
+  RxBool role2 = false.obs;
 
   void togglePasswordVisibility() => isPasswordVisible.value = !isPasswordVisible.value;
   void toggleConfirmPasswordVisibility() => isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   void toggleRememberMe() => rememberMe.value = !rememberMe.value;
-  //void login() { Get.offAll(DashboardView()); }
-  //void navigateToSignUp() { Get.to(SignupView()); }
-  //void navigateToSignIn() { Get.to(LoginView());}
- // void navigateToForgetPassword() { Get.to(ForgetPasswordView());}
- // void navigateVerifyOtp() { Get.to(VerifyOtpView()); }
- // void navigateCreatePassword({required String otp}) { Get.to(CreatePasswordView()); }
- // void navigateToSuccess() { Get.to(SuccessView()); }
+
+  // Optional: Add methods to handle court-mandated and role toggles explicitly
+  void setCourtMandated(bool value) {
+    isCourtMandated2.value = value;
+    isVoluntaryUse2.value = !value;
+  }
+
+  void setRoleMom(bool value) {
+    role1.value = value;
+    role2.value = !value;
+  }
+
+  void setRoleDad(bool value) {
+    role1.value = !value;
+    role2.value = value;
+  }
+
+  @override
+  void onClose() {
+    // Dispose controllers to prevent memory leaks
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneController.dispose();
+    childNameController.dispose();
+    childAgeController.dispose();
+    sateController.dispose();
+    exampleController.dispose();
+    super.onClose();
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
 import '../appColors.dart';
 import '../customFont.dart';
 
@@ -10,12 +12,10 @@ class CustomDropdown<T> extends StatelessWidget {
   final Rx<T?> value; // Reactive value for GetX
   final Function(T?)? onChanged;
   final double radius;
-  final Color bgClr;
-  final Color focusedBgClr;
+  final Color? fillColor; // New parameter for fill color
   final Color menuBgClr; // Background color for dropdown menu
   final bool readOnly;
   final String? uniqueTag; // Optional unique tag for controller
-  final bool useBaseBgColor; // Parameter to force bgClr as fill color
 
   const CustomDropdown({
     super.key,
@@ -23,13 +23,11 @@ class CustomDropdown<T> extends StatelessWidget {
     required this.items,
     required this.value, // Require Rx<T?> for reactive value
     this.onChanged,
-    this.radius = 13.09,
-    this.bgClr = AppColors.clrWhite,
-    this.focusedBgClr = AppColors.textInputFocus,
-    this.menuBgClr = AppColors.clrSky2, // Default menu color
+    this.radius = 50.0, // Match CustomTextField's border radius
+    this.fillColor, // Use fillColor instead of bgClr/focusedBgClr
+    this.menuBgClr = AppColors.textInputFillColor, // Default menu color
     this.readOnly = false,
     this.uniqueTag, // Add uniqueTag as an optional parameter
-    this.useBaseBgColor = false, // Default to false
   });
 
   @override
@@ -43,10 +41,17 @@ class CustomDropdown<T> extends StatelessWidget {
     );
 
     return Obx(() => Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 12).r, // Match CustomTextField padding
       decoration: BoxDecoration(
-        color: AppColors.textInputBorder2,
-        borderRadius: BorderRadius.circular(6.r),
+        color: Colors.transparent, // Match CustomTextField
+        borderRadius: BorderRadius.circular(radius.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.boxShadowColor.withAlpha(36), // Match CustomTextField shadow
+            blurRadius: 12.6.r,
+            offset: Offset(0.w, 8.h),
+          ),
+        ],
       ),
       child: InkWell(
         onTap: readOnly
@@ -61,39 +66,37 @@ class CustomDropdown<T> extends StatelessWidget {
         focusNode: controller.focusNode,
         child: InputDecorator(
           decoration: InputDecoration(
-            hintText: labelText.toUpperCase(),
+            hintText: labelText,
             hintStyle: h4.copyWith(
               color: AppColors.textColorHint,
-              fontSize: 15.sp,
+              fontSize: 14.sp, // Match CustomTextField hint font size
             ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 8.h,
-              horizontal: 10.w,
-            ),
+            contentPadding: EdgeInsets.only(
+              left: 16.18.w,
+              right: 16.18.w,
+              top: 17.h,
+              bottom: 17.h,
+            ), // Match CustomTextField padding
             filled: true,
-            fillColor: useBaseBgColor
-                ? bgClr
-                : (controller.isFocused.value || controller.hasSelection.value
-                ? focusedBgClr
-                : bgClr),
+            fillColor: fillColor ?? AppColors.clrWhite, // Use provided fillColor or default
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius.r),
               borderSide: BorderSide(
-                color: AppColors.textInputBorder,
+                color: AppColors.borderColor, // Match CustomTextField border
                 width: 1.w,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius.r),
               borderSide: BorderSide(
-                color: AppColors.textInputBorder,
+                color: AppColors.borderColor,
                 width: 1.w,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(radius.r),
               borderSide: BorderSide(
-                color: AppColors.textInputBorder,
+                color: AppColors.borderColor,
                 width: 1.w,
               ),
             ),
@@ -103,22 +106,19 @@ class CustomDropdown<T> extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  value.value?.toString().toUpperCase() ??
-                      labelText.toUpperCase(),
+                  value.value?.toString() ??
+                      labelText,
                   style: h4.copyWith(
-                    color: useBaseBgColor
-                        ? Colors.white
-                        : (value.value != null
+                    color: value.value != null
                         ? AppColors.textColorHint
-                        : AppColors.textColorHint.withOpacity(0.5)),
-                    fontSize: 15.sp,
+                        : AppColors.textColorHint.withOpacity(0.5),
+                    fontSize: 14.sp, // Match CustomTextField font size
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: useBaseBgColor ? Colors.white : Colors.black,
+              SvgPicture.asset(
+                'assets/images/calendar/dropdown_icon.svg', // Use an SVG for consistency
               ),
             ],
           ),
@@ -148,10 +148,10 @@ class CustomDropdown<T> extends StatelessWidget {
             width: double.infinity, // Ensure item takes full width
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             child: Text(
-              item.toString().toUpperCase(),
+              item.toString(),
               style: h4.copyWith(
                 color: AppColors.textColorHint,
-                fontSize: 15.sp,
+                fontSize: 14.sp, // Match CustomTextField font size
               ),
             ),
           ),
@@ -159,13 +159,13 @@ class CustomDropdown<T> extends StatelessWidget {
       }).toList(),
       elevation: 8.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius.r), // Apply border radius to menu
+        borderRadius: BorderRadius.circular(radius.r), // Match border radius
         side: BorderSide(
-          color: AppColors.textInputBorder,
+          color: AppColors.borderColor, // Match border color
           width: 1.w,
-        ), // Match border style
+        ),
       ),
-      color: menuBgClr, // Use custom menu background color
+      color: menuBgClr, // Retain custom menu background color
       constraints: BoxConstraints(
         maxHeight: 200.h, // Limit menu height
         minWidth: button.size.width, // Match dropdown field width

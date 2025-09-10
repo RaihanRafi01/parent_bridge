@@ -10,6 +10,8 @@ class AppColors {
   ///
 
 
+  static const Color textInputFillColor = Color(0xFFEAF8FF);
+
   static const Color clrSky6 = Color(0xFFB8E8FE);
 
   static const Color darkSlateBlue = Color(0xFF1D3856);
@@ -52,6 +54,7 @@ class AppColors {
   static const Color calenderG1 = Color(0xFF82BFE8);
   static const Color calenderG2 = Color(0xFF9199E7);
   static const Color gray = Color(0xFF737373);
+  static const Color calenderSelect = Color(0xFF0084C1);
 
   // #7F4BE7 - Deep Purple
   static const Color deepPurple = Color(0xFF7F4BE7);
@@ -102,9 +105,9 @@ class AppColors {
   static const Color clrTransparent = Colors.transparent;
   static const Color clrSky = Color(0xFF9CE8FF);
   static const Color clrSky4 = Color(0xFFAFE4FF);
-  static const Color clrRed = Color(0xFFAF2A4D);
-  static const Color clrGreen = Color(0xFF12BA71);
-  static const Color clrGreen2 = Color(0xFF06BF00);
+  static const Color clrRed = Color(0xFFFE1C1F);
+  static const Color clrGreen = Color(0xFF68B961);
+  static const Color clrGreen2 = Color(0xFFE7FAE5);
   static const Color clrGreen3 = Color(0xFF15CB70);
   static const Color clrRed2 = Color(0xFFD00023);
   static const Color clrRed3 = Color(0xFFD22853);
@@ -116,6 +119,8 @@ class AppColors {
   static const Color clrGray1 = Color(0xFFC2C6C8);
   static const Color clrGray2 = Color(0xFFCECECE);
   static const Color clrGray3 = Color(0xFFE5EDFC);
+  static const Color clrPurple = Color(0xFFC698F0);
+  static const Color btnBorder = Color(0xFFEBEBEB);
 
   static const Color textInputFillSky = Color(0xFFEFF5FF);
   static const Color textInputFillRed = Color(0xFFFFDFE7);
