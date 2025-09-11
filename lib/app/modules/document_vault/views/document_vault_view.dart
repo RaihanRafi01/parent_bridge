@@ -6,7 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
 
 import '../controllers/document_vault_controller.dart';
-import 'Document_Widget/document_card.dart';
+import 'Document_Widget/custom_document_dialog.dart';
+import 'Document_Widget/custom_document_dialog2.dart';
+import 'Document_Widget/custom_floating_button.dart';
+import 'Document_Widget/custom_document_card.dart';
 
 class DocumentVaultView extends GetView<DocumentVaultController> {
   const DocumentVaultView({super.key});
@@ -290,7 +293,95 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: document_card(),
+                  child: Column(
+                    children: [
+                      DocumentCard(
+                        onTap: () {
+                          Get.dialog(
+                            Document_dialog(),
+                            barrierColor: const Color(
+                              0xFFBD9DED,
+                            ).withOpacity(0.80),
+                          );
+                        },
+                        exp_date: '',
+                        title: 'Parenting Plan Agreement',
+                        label: 'Legal',
+                        type: 'PDF',
+
+                        person: 'Michael',
+
+                        date: '2024-12-10',
+                        labelcontainer: Color(0xFFFFAD13),
+                        bgcolor: const Color(0xFFFCF9F1),
+                        sidebar: Color(0xFFFFAD13),
+                      ),
+                      SizedBox(height: 20.h),
+                      DocumentCard(
+                        onTap: () {
+                          Get.dialog(
+                            Document_dialog2_preview(),
+                            barrierColor: const Color(
+                              0xFFBD9DED,
+                            ).withOpacity(0.80),
+                          );
+                        },
+                        exp_date: '',
+                        title: 'Emma Medical Insurance Card',
+                        label: 'Medical',
+                        type: 'Image',
+
+                        person: 'You',
+
+                        date: '2024-12-10',
+                        labelcontainer: Color(0xFFEF4444),
+                        bgcolor: Color(0xFFFDEEEE),
+                        sidebar: Color(0xFFEF4444),
+                      ),
+                      SizedBox(height: 20.h),
+                      DocumentCard(
+                        onTap: () {
+                          Get.dialog(
+                            Document_dialog(),
+                            barrierColor: const Color(
+                              0xFFBD9DED,
+                            ).withOpacity(0.80),
+                          );
+                        },
+                        title: 'School Emergency Contact Form',
+                        label: 'School',
+                        type: 'Image',
+                        exp_date: 'Expires.2024-12-10',
+                        person: 'Michael',
+
+                        date: '2024-12-10',
+                        labelcontainer: Color(0xFF68B961),
+                        bgcolor: Color(0xFFF6FFF6),
+                        sidebar: Color(0xFF68B961),
+                      ),
+                      SizedBox(height: 20.h),
+                      DocumentCard(
+                        onTap: () {
+                          Get.dialog(
+                            Document_dialog(),
+                            barrierColor: const Color(
+                              0xFFBD9DED,
+                            ).withOpacity(0.80),
+                          );
+                        },
+                        title: 'Soccer Team Schedule',
+                        label: 'Activities',
+                        type: 'DOC',
+                        exp_date: '',
+                        person: 'Michael',
+
+                        date: '2024-12-10',
+                        labelcontainer: Color(0xFF1E40AF),
+                        bgcolor: Color(0xFFF0F4FF),
+                        sidebar: Color(0xFF1E40AF),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -299,6 +390,8 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
           ],
         ),
       ),
+      floatingActionButton: Custom_floating_button(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

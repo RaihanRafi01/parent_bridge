@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'custom_document_dialog_preview.dart';
 
 class Document_dialog extends StatelessWidget {
   const Document_dialog({super.key});
@@ -10,14 +13,14 @@ class Document_dialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
       child: Container(
         width: 390.w,
         height: 531.h,
         // padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.r),
+          color: Color(0xFFFFFFFF),
+          borderRadius: BorderRadius.circular(30.r),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -29,8 +32,8 @@ class Document_dialog extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFF68B961),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.r),
-                  topRight: Radius.circular(16.r),
+                  topLeft: Radius.circular(30.r),
+                  topRight: Radius.circular(30.r),
                 ),
               ),
               child: Row(
@@ -38,15 +41,19 @@ class Document_dialog extends StatelessWidget {
                 children: [
                   Text(
                     "School Emergency Contact Form",
-                    style: TextStyle(
+                    style: GoogleFonts.lato(
                       color: Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  InkWell(
-                    onTap: () => Get.back(),
-                    child: const Icon(Icons.close, color: Colors.white),
+                  CircleAvatar(
+                    maxRadius: 20.r,
+                    backgroundColor: Color(0xFFFFFFFF),
+                    child: InkWell(
+                      onTap: () => Get.back(),
+                      child: const Icon(Icons.close, color: Colors.grey),
+                    ),
                   ),
                 ],
               ),
@@ -58,50 +65,105 @@ class Document_dialog extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: Container(
-                color: Color(0xFFEEFEED),
-                height: 65.h,
+                height: 65.16.h,
                 width: 355.w,
+                decoration: BoxDecoration(
+                  color: Color(0xFF68B961).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(9.73.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
-                        child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.remove_red_eye,
-                            color: Colors.white,
-                          ),
-                          label: const Text(
-                            "Preview",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF68B961),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.r),
+                        child: InkWell(
+                          onTap: () {
+                            Get.dialog(
+                              Document_dialog_preview(),
+                              barrierColor: Color(0xFFBD9DED).withOpacity(0.10),
+                            );
+                          },
+                          child: Container(
+                            width: 162.42.w,
+                            height: 42.79.h,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(9.73.r),
+                              border: Border.all(
+                                width: 1.w,
+                                color: Color(0xFF68B961),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/document_svg/eye.svg',
+                                  height: 12,
+                                  width: 12,
+                                  colorFilter: ColorFilter.mode(
+                                    Color(0xFF68B961),
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                                SizedBox(width: 10.w),
+                                Text(
+                                  'Preview',
+                                  style: GoogleFonts.lato(
+                                    fontSize: 14.49,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF68B961),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
                       SizedBox(width: 12.w),
                       Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.description,
+                        child: Container(
+                          width: 162.42.w,
+                          height: 42.79.h,
+                          decoration: BoxDecoration(
                             color: Color(0xFF68B961),
-                          ),
-                          label: const Text(
-                            "Details",
-                            style: TextStyle(color: Color(0xFF68B961)),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Color(0xFF68B961)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.r),
+                            borderRadius: BorderRadius.circular(9.73.r),
+                            border: Border.all(
+                              width: 1.w,
+                              color: Color(0xFF68B961),
                             ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/document_svg/file.svg',
+                                height: 22,
+                                width: 22,
+                                colorFilter: ColorFilter.mode(
+                                  Color(0xFFFFFFFF),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              Text(
+                                'Details',
+                                style: GoogleFonts.lato(
+                                  fontSize: 14.49,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -115,7 +177,7 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 User Info + Tag
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
               child: Row(
                 children: [
                   const Icon(Icons.person_outline, color: Colors.black54),
@@ -169,7 +231,7 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 Description Box
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
               child: Container(
                 height: 88.h,
                 width: 347.w,
@@ -191,7 +253,7 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 Footer buttons
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
