@@ -5,10 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class custom_react_comment extends StatelessWidget {
-  const custom_react_comment({super.key, this.svg_image, this.count});
+  const custom_react_comment({super.key, this.svg_image, this.count, this.comment_ontap});
 
   final String? svg_image;
   final String? count;
+  final VoidCallback?comment_ontap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class custom_react_comment extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('$svg_image'),
+               GestureDetector(onTap:comment_ontap,child: SvgPicture.asset('$svg_image')),
               SizedBox(width: 5.sp),
               Text(
                 '$count',

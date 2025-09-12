@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_page.dart';
 
 import 'custom_react_comment.dart';
 
@@ -11,9 +14,11 @@ class custom_anonymous_parent extends StatelessWidget {
     super.key,
     this.color,
     this.sche_title,
-    this.ontap,
+    this.threeDot_ontap,
     this.body_title,
-    this.body_subtitle, this.bg_color,
+    this.body_subtitle,
+    this.bg_color,
+    this.dialog_ontap,
   });
 
   final Color? color;
@@ -21,7 +26,8 @@ class custom_anonymous_parent extends StatelessWidget {
   final String? sche_title;
   final String? body_title;
   final String? body_subtitle;
-  final VoidCallback? ontap;
+  final VoidCallback? threeDot_ontap;
+  final VoidCallback? dialog_ontap;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +80,7 @@ class custom_anonymous_parent extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          SizedBox(width: 25),
+                          SizedBox(width: 20),
 
                           // scheduling part...
                           Container(
@@ -98,7 +104,7 @@ class custom_anonymous_parent extends StatelessWidget {
                           SizedBox(width: 30),
                           // three dot ...
                           GestureDetector(
-                            onTap: ontap,
+                            onTap: threeDot_ontap,
                             child: SizedBox(
                               height: 21.48.h,
                               width: 21.48.w,
@@ -129,6 +135,7 @@ class custom_anonymous_parent extends StatelessWidget {
 
             /// body start ..
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // body title text ..
                 Text(
@@ -142,9 +149,7 @@ class custom_anonymous_parent extends StatelessWidget {
                 SizedBox(height: 10),
                 // body part ...
                 GestureDetector(
-                  onTap: () {
-
-                  },
+                  onTap:dialog_ontap,
                   child: RichText(
                     text: TextSpan(
                       text: "$body_subtitle",
