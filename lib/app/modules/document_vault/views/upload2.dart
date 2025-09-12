@@ -92,8 +92,8 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1), // shadow color
-                      spreadRadius: 1, // how much it spreads
-                      blurRadius: 6, // softness
+                      spreadRadius: 1.r, // how much it spreads
+                      blurRadius: 6.r, // softness
                       offset: const Offset(1, 3), // shadow position (x, y)
                     ),
                   ],
@@ -149,10 +149,10 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
 
             // 🔹 Select Child's
             CustomButtonAddDocument(
-              padding3: 10,
-              padding2: 10,
-              padding4: 20,
-              padding: 10,
+              padding3: 10.r,
+              padding2: 10.r,
+              padding4: 20.r,
+              padding: 10.r,
               height: 56.h,
               width: 382.73.w,
               text: "Select child's",
@@ -177,8 +177,8 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFFEDEDED).withValues(alpha: 1.0),
-                      spreadRadius: 1,
-                      blurRadius: 6,
+                      spreadRadius: 1.r,
+                      blurRadius: 6.r,
                       offset: const Offset(0, 3),
                     ),
                   ],
@@ -212,10 +212,10 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
 
             // 🔹 Select Category Title
             CustomButtonAddDocument(
-              padding3: 10,
-              padding2: 10,
-              padding4: 20,
-              padding: 10,
+              padding3: 10.r,
+              padding2: 10.r,
+              padding4: 20.r,
+              padding: 10.r,
               height: 56.h,
               width: 382.73.w,
               text: "Select Category",
@@ -244,8 +244,8 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0xFFEDEDED).withValues(alpha: 0.5),
-                          spreadRadius: 1,
-                          blurRadius: 6,
+                          spreadRadius: 1.r,
+                          blurRadius: 6.r,
                           offset: const Offset(0, 3),
                         ),
                       ],
@@ -312,8 +312,8 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFFEDEDED).withValues(alpha: 1.0),
-                      spreadRadius: 1,
-                      blurRadius: 6,
+                      spreadRadius: 1.r,
+                      blurRadius: 6.r,
                       offset: const Offset(0, 5),
                     ),
                   ],

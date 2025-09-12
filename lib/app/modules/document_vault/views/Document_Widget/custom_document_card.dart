@@ -37,16 +37,16 @@ class DocumentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 399,
-      height: 176, //change
+      width: 399.w,
+      height: 176.h, //change
       decoration: BoxDecoration(
         color: bgcolor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 5,
+            spreadRadius: 2.r,
+            blurRadius: 5.r,
             offset: const Offset(0, 3),
           ),
         ],
@@ -56,17 +56,17 @@ class DocumentCard extends StatelessWidget {
         children: [
           // Left red bar
           Container(
-            width: 8,
-            height: 166,
+            width: 8.w,
+            height: 166.h,
             decoration: BoxDecoration(
               color: sidebar,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
+                topLeft: Radius.circular(16.r),
+                bottomLeft: Radius.circular(16.r),
               ),
             ),
           ),
-          SizedBox(width: 12, height: 166),
+          SizedBox(width: 12.w, height: 166.h),
           // Right content
           Expanded(
             child: Padding(
@@ -82,7 +82,7 @@ class DocumentCard extends StatelessWidget {
                         child: Text(
                           title,
                           style: GoogleFonts.lato(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF1D3856),
                           ),
@@ -92,26 +92,26 @@ class DocumentCard extends StatelessWidget {
                       InkWell(
                         onTap: onTap,
                         child: Container(
-                          width: 41,
-                          height: 33,
+                          width: 41.w,
+                          height: 33.h,
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFFFFF),
                             borderRadius: BorderRadius.circular(5.r),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 5,
+                                spreadRadius: 2.r,
+                                blurRadius: 5.r,
                                 offset: const Offset(0, 3),
                               ),
                             ],
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(5.0.r),
                             child: SvgPicture.asset(
                               'assets/images/document_svg/download.svg',
-                              height: 2,
-                              width: 2,
+                              height: 2.h,
+                              width: 2.w,
                               colorFilter: ColorFilter.mode(
                                 Color(0xFF93C7E3),
                                 BlendMode.srcIn,
@@ -126,28 +126,31 @@ class DocumentCard extends StatelessWidget {
 
                   // Legal tag
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 15.r,
+                      vertical: 4.r,
+                    ),
                     decoration: BoxDecoration(
                       color: labelcontainer,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
                       label,
                       style: GoogleFonts.lato(
-                        fontSize: 12,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
                         color: Color(0xFFFFFFFF),
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 5.h),
 
                   // People
                   Row(
                     children: [
                       SizedBox(
-                        width: 12,
-                        height: 12,
+                        width: 12.w,
+                        height: 12.h,
                         child: SvgPicture.asset(
                           'assets/images/document_svg/people.svg',
 
@@ -157,14 +160,14 @@ class DocumentCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         person,
                         style: GoogleFonts.lato(color: Color(0xFF666666)),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
 
                   // Upload date + file type
                   Column(

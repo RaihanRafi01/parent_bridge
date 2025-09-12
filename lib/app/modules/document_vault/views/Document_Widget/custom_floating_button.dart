@@ -20,7 +20,7 @@ class Custom_floating_button extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              blurRadius: 8,
+              blurRadius: 8.r,
               color: Colors.grey.withOpacity(.5),
               offset: Offset(0, 3),
             ),

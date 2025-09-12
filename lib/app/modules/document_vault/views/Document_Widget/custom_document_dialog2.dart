@@ -64,7 +64,7 @@ class Document_dialog2_preview extends StatelessWidget {
 
             /// 🔹 Buttons Row (Preview, Details)
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: EdgeInsets.all(18.0.r),
               child: Container(
                 height: 65.16.h,
                 width: 355.w,
@@ -73,15 +73,15 @@ class Document_dialog2_preview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 5,
+                      color: Colors.white.withOpacity(0.1.sp),
+                      spreadRadius: 2.r,
+                      blurRadius: 5.r,
                       offset: Offset(0, 3),
                     ),
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: EdgeInsets.all(12.0.r),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -102,8 +102,8 @@ class Document_dialog2_preview extends StatelessWidget {
                             children: [
                               SvgPicture.asset(
                                 'assets/images/document_svg/eye.svg',
-                                height: 12,
-                                width: 12,
+                                height: 12.h,
+                                width: 12.w,
                                 colorFilter: ColorFilter.mode(
                                   Color(0xFFFFFFFF),
                                   BlendMode.srcIn,
@@ -113,7 +113,7 @@ class Document_dialog2_preview extends StatelessWidget {
                               Text(
                                 'Preview',
                                 style: GoogleFonts.lato(
-                                  fontSize: 14.49,
+                                  fontSize: 14.49.sp,
                                   fontWeight: FontWeight.w500,
                                   color: Color(0xFFFFFFFF),
                                 ),
@@ -145,8 +145,8 @@ class Document_dialog2_preview extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   'assets/images/document_svg/file.svg',
-                                  height: 22,
-                                  width: 22,
+                                  height: 22.h,
+                                  width: 22.w,
                                   colorFilter: ColorFilter.mode(
                                     Color(0xFFEF4444),
                                     BlendMode.srcIn,

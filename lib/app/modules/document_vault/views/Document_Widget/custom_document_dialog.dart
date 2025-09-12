@@ -73,8 +73,8 @@ class Document_dialog extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.white.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 5,
+                      spreadRadius: 2.r,
+                      blurRadius: 5.r,
                       offset: Offset(0, 3),
                     ),
                   ],
@@ -209,7 +209,7 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 File Info
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: EdgeInsets.all(18.0.r),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Column(
@@ -231,19 +231,19 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 Description Box
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
+              padding: EdgeInsets.only(left: 18.0.r, right: 18.0.r, top: 10.r),
               child: Container(
                 height: 88.h,
                 width: 347.w,
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDEFDDB),
+                  color: Color(0xFFDEFDDB),
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Center(
                   child: Text(
                     "Emergency Contact Information Form For Emma's School Including Medical Conditions And Authorized",
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 12.sp),
                   ),
                 ),
               ),
@@ -253,7 +253,7 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 Footer buttons
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30),
+              padding: EdgeInsets.only(left: 18.r, right: 18.0.r, top: 30.r),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -279,9 +279,9 @@ class Document_dialog extends StatelessWidget {
                         Text(
                           "Edit",
                           style: TextStyle(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.black,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
@@ -309,9 +309,9 @@ class Document_dialog extends StatelessWidget {
                         Text(
                           "Download",
                           style: TextStyle(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.black,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
@@ -339,9 +339,9 @@ class Document_dialog extends StatelessWidget {
                         Text(
                           "Delete",
                           style: TextStyle(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.red,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],

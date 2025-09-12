@@ -24,7 +24,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
             Container(
               height: 147.h,
               // responsive height
-              padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
+              padding: EdgeInsets.only(top: 20.r, left: 16.r, right: 16.r),
               // responsive padding
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -92,12 +92,12 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(
-                    color: const Color(0xFFEBEBEB), // set your border color
+                    color: Color(0xFFEBEBEB), // set your border color
                     width: 1.5.w, // border width
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0.r),
                   child: TextField(
                     decoration: InputDecoration(
                       hintText: "Search Documents",
@@ -123,7 +123,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
             ),
             //All & Select Category
             Padding(
-              padding: EdgeInsets.all(16.w), // responsive padding
+              padding: EdgeInsets.all(16.r), // responsive padding
               child: Row(
                 children: [
                   SizedBox(
@@ -292,7 +292,11 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(
+                    left: 18.0.r,
+                    top: 10.0.r,
+                    right: 18.r,
+                  ),
                   child: Column(
                     children: [
                       DocumentCard(
@@ -301,7 +305,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                             Document_dialog(),
                             barrierColor: const Color(
                               0xFFBD9DED,
-                            ).withOpacity(0.80),
+                            ).withOpacity(0.80.sp),
                           );
                         },
                         exp_date: '',
@@ -323,7 +327,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                             Document_dialog2_preview(),
                             barrierColor: const Color(
                               0xFFBD9DED,
-                            ).withOpacity(0.80),
+                            ).withOpacity(0.80.sp),
                           );
                         },
                         exp_date: '',
@@ -345,7 +349,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                             Document_dialog(),
                             barrierColor: const Color(
                               0xFFBD9DED,
-                            ).withOpacity(0.80),
+                            ).withOpacity(0.80.sp),
                           );
                         },
                         title: 'School Emergency Contact Form',

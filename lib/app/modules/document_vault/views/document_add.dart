@@ -110,8 +110,8 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                               color: Color(
                                 0xFFEBEBEB,
                               ).withOpacity(0.2), // shadow color
-                              spreadRadius: 1, // how much it spreads
-                              blurRadius: 6, // softness
+                              spreadRadius: 1.r, // how much it spreads
+                              blurRadius: 6.r, // softness
                               offset: const Offset(
                                 0,
                                 3,
@@ -124,7 +124,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                         child: Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0.r),
                               child: Container(
                                 height: 46.h,
                                 width: 46.w,
@@ -135,7 +135,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                                 ),
                                 child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
+                                    padding: EdgeInsets.all(12.0.r),
                                     child: SvgPicture.asset(
                                       'assets/images/document_svg/upload.svg',
                                       width: 24.w, // smaller so it fits well
@@ -185,9 +185,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                       width: 301.w,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: const Color(
-                            0xFFEBEBEB,
-                          ), // set your border color
+                          color: Color(0xFFEBEBEB), // set your border color
                           width: 1.0.w, // border width
                         ),
                         boxShadow: [
@@ -195,8 +193,8 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                             color: Color(
                               0xFFEBEBEB,
                             ).withOpacity(0.2), // shadow color
-                            spreadRadius: 1, // how much it spreads
-                            blurRadius: 6, // softness
+                            spreadRadius: 1.r, // how much it spreads
+                            blurRadius: 6.r, // softness
                             offset: const Offset(
                               0,
                               3,
@@ -209,7 +207,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.0.r),
                             child: Container(
                               height: 46.h,
                               width: 46.w,
@@ -275,7 +273,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0.r),
                       child: SvgPicture.asset(
                         'assets/images/document_svg/Supporticon.svg',
                         width: 24.w, // smaller so it fits well

@@ -53,7 +53,7 @@ class Document_dialog_preview extends StatelessWidget {
                       onTap: () {
                         Get.back();
                       },
-                      child: const Icon(Icons.close, color: Colors.grey),
+                      child: Icon(Icons.close, color: Colors.grey),
                     ),
                   ),
                 ],
@@ -64,12 +64,12 @@ class Document_dialog_preview extends StatelessWidget {
 
             /// 🔹 Buttons Row (Preview, Details)
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: EdgeInsets.all(18.0.r),
               child: Container(
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: Color(0xFF68B961).withOpacity(0.15),
+                  color: Color(0xFF68B961).withOpacity(0.15.sp),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
@@ -81,7 +81,7 @@ class Document_dialog_preview extends StatelessWidget {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: EdgeInsets.all(12.0.r),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -102,8 +102,8 @@ class Document_dialog_preview extends StatelessWidget {
                             children: [
                               SvgPicture.asset(
                                 'assets/images/document_svg/eye.svg',
-                                height: 12,
-                                width: 12,
+                                height: 12.h,
+                                width: 12.w,
                                 colorFilter: ColorFilter.mode(
                                   Color(0xFFFFFFFF),
                                   BlendMode.srcIn,
@@ -113,7 +113,7 @@ class Document_dialog_preview extends StatelessWidget {
                               Text(
                                 'Preview',
                                 style: GoogleFonts.lato(
-                                  fontSize: 14.49,
+                                  fontSize: 14.49.sp,
                                   fontWeight: FontWeight.w500,
                                   color: Color(0xFFFFFFFF),
                                 ),
@@ -145,8 +145,8 @@ class Document_dialog_preview extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   'assets/images/document_svg/file.svg',
-                                  height: 22,
-                                  width: 22,
+                                  height: 22.h,
+                                  width: 22.w,
                                   colorFilter: ColorFilter.mode(
                                     Color(0xFF68B961),
                                     BlendMode.srcIn,
@@ -156,7 +156,7 @@ class Document_dialog_preview extends StatelessWidget {
                                 Text(
                                   'Details',
                                   style: GoogleFonts.lato(
-                                    fontSize: 14.49,
+                                    fontSize: 14.49.sp,
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xFF68B961),
                                   ),
@@ -174,7 +174,7 @@ class Document_dialog_preview extends StatelessWidget {
 
             SizedBox(height: 0.h),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(15.0.r),
               child: Container(
                 width: 355.w,
                 height: 288.h,
@@ -188,8 +188,8 @@ class Document_dialog_preview extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 1,
+                      spreadRadius: 1.r,
+                      blurRadius: 1.r,
                       offset: Offset(0, 1),
                     ),
                   ],
@@ -233,14 +233,14 @@ class Document_dialog_preview extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(15.0),
+                      padding: EdgeInsets.all(15.0.r),
                       child: DottedBorder(
                         options: RoundedRectDottedBorderOptions(
                           dashPattern: [8, 5],
-                          radius: Radius.circular(10),
+                          radius: Radius.circular(10.r),
                           color: Color(0xFF68B961),
                           strokeWidth: 1,
-                          padding: EdgeInsets.all(1),
+                          padding: EdgeInsets.all(1.r),
                         ),
                         child: Container(
                           width: 324.w,
@@ -262,7 +262,7 @@ class Document_dialog_preview extends StatelessWidget {
                               Text(
                                 'PDF preview available ',
                                 style: GoogleFonts.lato(
-                                  height: .6,
+                                  height: .6.h,
                                   color: Colors.black,
                                   fontSize: 15.86.sp,
                                 ),
@@ -301,7 +301,7 @@ class Document_dialog_preview extends StatelessWidget {
 
             /// 🔹 Footer buttons
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
+              padding: EdgeInsets.only(left: 18.0.r, right: 18.0.r, top: 10.r),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -327,9 +327,9 @@ class Document_dialog_preview extends StatelessWidget {
                         Text(
                           "Edit",
                           style: GoogleFonts.lato(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.black,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
@@ -357,9 +357,9 @@ class Document_dialog_preview extends StatelessWidget {
                         Text(
                           "Download",
                           style: GoogleFonts.lato(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.black,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
@@ -387,9 +387,9 @@ class Document_dialog_preview extends StatelessWidget {
                         Text(
                           "Delete",
                           style: TextStyle(
-                            height: .6,
+                            height: .6.h,
                             color: Colors.red,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],

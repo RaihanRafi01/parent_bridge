@@ -127,10 +127,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
             ),
             SizedBox(height: 20.h),
             CustomButtonAddDocument(
-              padding3: 10,
-              padding2: 10,
-              padding4: 20,
-              padding: 10,
+              padding3: 10.r,
+              padding2: 10.r,
+              padding4: 20.r,
+              padding: 10.r,
 
               height: 56.h,
               width: 382.73.sp,
@@ -196,10 +196,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 Get.to(UploadDocument2());
               },
               child: CustomButtonAddDocument(
-                padding3: 10,
-                padding2: 10,
-                padding4: 20,
-                padding: 10,
+                padding3: 10.r,
+                padding2: 10.r,
+                padding4: 20.r,
+                padding: 10.r,
 
                 height: 56.h,
                 width: 382.73.sp,
@@ -212,10 +212,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
             ),
             SizedBox(height: 20.h),
             CustomButtonAddDocument(
-              padding3: 10,
-              padding2: 10,
-              padding4: 20,
-              padding: 10,
+              padding3: 10.r,
+              padding2: 10.r,
+              padding4: 20.r,
+              padding: 10.r,
 
               height: 56.h,
               width: 382.73.sp,
@@ -240,8 +240,8 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFFEDEDED).withOpacity(1.0),
-                      spreadRadius: 1,
-                      blurRadius: 6,
+                      spreadRadius: 1.r,
+                      blurRadius: 6.r,
                       offset: const Offset(0, 5),
                     ),
                   ],
