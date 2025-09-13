@@ -10,6 +10,8 @@ class AppColors {
   ///
 
 
+  static const Color textInputFillColor = Color(0xFFEAF8FF);
+
   static const Color clrSky6 = Color(0xFFB8E8FE);
 
   static const Color darkSlateBlue = Color(0xFF1D3856);
@@ -44,6 +46,7 @@ class AppColors {
 
   // #583BDC - Violet
   static const Color violet = Color(0xFF583BDC);
+  static const Color violet2 = Color(0xFF9A89E6);
 
   // #DAB1F7 - Light Purple/Pink
   static const Color lightPurplePink = Color(0xFFDAB1F7);
@@ -51,6 +54,7 @@ class AppColors {
   static const Color calenderG1 = Color(0xFF82BFE8);
   static const Color calenderG2 = Color(0xFF9199E7);
   static const Color gray = Color(0xFF737373);
+  static const Color calenderSelect = Color(0xFF0084C1);
 
   // #7F4BE7 - Deep Purple
   static const Color deepPurple = Color(0xFF7F4BE7);
@@ -101,9 +105,9 @@ class AppColors {
   static const Color clrTransparent = Colors.transparent;
   static const Color clrSky = Color(0xFF9CE8FF);
   static const Color clrSky4 = Color(0xFFAFE4FF);
-  static const Color clrRed = Color(0xFFAF2A4D);
-  static const Color clrGreen = Color(0xFF12BA71);
-  static const Color clrGreen2 = Color(0xFF06BF00);
+  static const Color clrRed = Color(0xFFFE1C1F);
+  static const Color clrGreen = Color(0xFF68B961);
+  static const Color clrGreen2 = Color(0xFFE7FAE5);
   static const Color clrGreen3 = Color(0xFF15CB70);
   static const Color clrRed2 = Color(0xFFD00023);
   static const Color clrRed3 = Color(0xFFD22853);
@@ -115,6 +119,8 @@ class AppColors {
   static const Color clrGray1 = Color(0xFFC2C6C8);
   static const Color clrGray2 = Color(0xFFCECECE);
   static const Color clrGray3 = Color(0xFFE5EDFC);
+  static const Color clrPurple = Color(0xFFC698F0);
+  static const Color btnBorder = Color(0xFFEBEBEB);
 
   static const Color textInputFillSky = Color(0xFFEFF5FF);
   static const Color textInputFillRed = Color(0xFFFFDFE7);
@@ -148,13 +154,24 @@ class AppColors {
   static const Color textColor51 = Color(0xFF1D3855);
   static const Color textColor52 = Color(0xFF8B8888);
   static const Color textColor53 = Color(0xFF758290);
+  static const Color textColor54 = Color(0xFF7D4AD4);
+  static const Color textColor55 = Color(0xFFEBCE12);
+  static const Color textColor56 = Color(0xFFF03ED9);
 
   static const Color card51 = Color(0xFFF0F0F0);
   static const Color card52 = Color(0xFFE4F5FF);
   static const Color card53 = Color(0xFF90C6E5);
+  static const Color card54 = Color(0xFF91C9E2);
+  static const Color card55 = Color(0xFF060213);
 
   static const Color borderColor51 = Color(0xFFEEEEEE);
   static const Color borderColor52 = Color(0xFFEAEAEA);
 
   static const Color boxShadowColor51 = Color(0xFFD1D1D1);
+
+  static const Color bgColor51 = Color(0xFF90CAE3);
+  static const Color bgColor52 = Color(0xFFCF91F1);
+
+  static const Color buttonColor51 = Color(0xFF731AE8);
+  static const Color buttonColor52 = Color(0xFFC198F7);
 }

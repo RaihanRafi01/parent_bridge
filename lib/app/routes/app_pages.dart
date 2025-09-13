@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-
+import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
+import '../modules/authentication/views/sign_in_view.dart';
 import '../modules/calendar/bindings/calendar_binding.dart';
 import '../modules/calendar/views/calendar_view.dart';
 import '../modules/call/bindings/call_binding.dart';
@@ -22,8 +23,15 @@ import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
-
-
+import '../modules/onboarding/views/splash_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/settings_view.dart';
+import '../modules/sign_up_process/bindings/sign_up_process_binding.dart';
+import '../modules/sign_up_process/views/sign_up_process_view.dart';
+import '../modules/subscription/bindings/subscription_binding.dart';
+import '../modules/subscription/views/subscription_view.dart';
+import '../modules/support_forum/bindings/support_forum_binding.dart';
+import '../modules/support_forum/views/support_forum_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
@@ -37,6 +45,11 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.DOCUMENT_VAULT,
+    //   page: () => const DocumentAdd(),
+    //   binding: DocumentVaultBinding(),
+    // ),
     GetPage(
       name: _Paths.AUTHENTICATION,
       page: () => const AuthenticationView(),
@@ -87,7 +100,16 @@ class AppPages {
       page: () => const SettingsView(),
       binding: SettingsBinding(),
     ),
- 
+    GetPage(
+      name: _Paths.SIGN_UP_PROCESS,
+      page: () => const SignUpProcessView(),
+      binding: SignUpProcessBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUBSCRIPTION,
+      page: () => const SubscriptionView(),
+      binding: SubscriptionBinding(),
+    ),
   ];
 }
 

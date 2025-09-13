@@ -98,13 +98,23 @@ class CustomButton extends StatelessWidget {
 class CustomPBButton extends StatelessWidget {
   final String text;
   final String icon;
+  final double width;
+  final Color color1;
+  final Color color2;
   final VoidCallback onPressed;
+  final bool isWhite; // Added isWhite parameter
+  final Color txtClr; // Added txtClr parameter for text color customization
 
   const CustomPBButton({
     required this.text,
     this.icon = '',
+    this.width = 387,
+    this.color1 = AppColors.buttonColor,
+    this.color2 = AppColors.buttonColor2,
     required this.onPressed,
-    super.key
+    this.isWhite = false, // Default to false
+    this.txtClr = AppColors.clrWhite, // Default text color
+    super.key,
   });
 
   @override
@@ -112,30 +122,31 @@ class CustomPBButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 387.w,
+        width: width.w,
         padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.r),
             gradient: LinearGradient(
               colors: [
-                AppColors.buttonColor,
-                AppColors.buttonColor2,
+                color1,
+                color2,
               ],
             )
         ),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 10.w,
             children: [
-              icon != '' ? SvgPicture.asset(
-                'assets/images/sign_up_process/share.svg'
-              ) : SizedBox.shrink(),
-
+              if (icon.isNotEmpty) ...[
+                SvgPicture.asset(
+                  icon, // Use the provided icon path
+                ),
+                SizedBox(width: 10.w),
+              ],
               Text(
                 text,
                 style: TextStyle(
-                  color: AppColors.clrWhite,
+                  color: txtClr, // Use customizable text color
                   fontFamily: 'lato',
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,
