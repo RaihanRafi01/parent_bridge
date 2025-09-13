@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/customFont.dart';
 
 import '../controllers/document_vault_controller.dart';
 import 'Custom_button_add_document.dart';
@@ -28,10 +30,10 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
         ),
         child: Text(
           label,
-          style: TextStyle(
+          style: h3.copyWith(
             fontSize: 14.sp,
-            fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : textColor, // text toggle
+
+            color: isSelected ? AppColors.white : textColor, // text toggle
           ),
         ),
       ),
@@ -51,7 +53,7 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
               padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                  colors: [AppColors.appColor2, AppColors.appColor],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -70,10 +72,10 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   Expanded(
                     child: Text(
                       "Add Document",
-                      style: GoogleFonts.lato(
+                      style: h2.copyWith(
                         fontSize: 24.47.sp,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFF1D3856),
+
+                        color: AppColors.darkSlateBlue,
                       ),
                     ),
                   ),
@@ -91,13 +93,16 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1), // shadow color
-                      spreadRadius: 1.r, // how much it spreads
-                      blurRadius: 6.r, // softness
+                      color: AppColors.clrBlack.withOpacity(0.1),
+                      // shadow color
+                      spreadRadius: 1.r,
+                      // how much it spreads
+                      blurRadius: 6.r,
+                      // softness
                       offset: const Offset(1, 3), // shadow position (x, y)
                     ),
                   ],
-                  color: Color(0xFFFFFFFF),
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(
@@ -113,7 +118,7 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                             width: 13.w, // smaller so it fits well
                             height: 13.h,
                             colorFilter: ColorFilter.mode(
-                              Color(0xFF000000),
+                              AppColors.clrBlack,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -127,18 +132,18 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                     ),
                     Text(
                       'JPG',
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 14.14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF747688),
+
+                        color: AppColors.textColorHint,
                       ),
                     ),
                     Text(
                       '2.6MB',
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 6.29.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF747688),
+
+                        color: AppColors.textColorHint,
                       ),
                     ),
                   ],
@@ -158,7 +163,7 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
               text: "Select child's",
               icon: const Icon(
                 Icons.keyboard_arrow_down_outlined,
-                color: Color(0xFF747688),
+                color: AppColors.textColorHint,
               ),
             ),
 
@@ -170,34 +175,30 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                 height: 56.h,
                 width: 382.73.w,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEBEBEB),
-                    width: 1.0.w,
-                  ),
+                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFEDEDED).withValues(alpha: 1.0),
+                      color: AppColors.borderColor.withValues(alpha: 1.0),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(0, 3),
                     ),
                   ],
-                  color: const Color(0xFFEAF8FF),
+                  color: AppColors.textInputFillColor,
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsetsGeometry.all(15.r),
                   child: TextField(
-                    style: TextStyle(
-                      color: const Color(0xFF747688),
+                    style: h4.copyWith(
+                      color: AppColors.textColorHint,
                       fontSize: 14.sp,
                     ),
                     decoration: InputDecoration(
                       hintText: 'Enter Document Name',
-                      hintStyle: TextStyle(
-                        color: const Color(0xFF747688),
+                      hintStyle: h4.copyWith(
+                        color: AppColors.textColorHint,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
                       isDense: true,
@@ -221,7 +222,7 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
               text: "Select Category",
               icon: const Icon(
                 Icons.keyboard_arrow_down_outlined,
-                color: Color(0xFF747688),
+                color: AppColors.textColorHint,
               ),
             ),
 
@@ -238,18 +239,18 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                     padding: EdgeInsets.all(12.w),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: const Color(0xFF93C7E3),
+                        color: AppColors.category,
                         width: 0.7.w,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFEDEDED).withValues(alpha: 0.5),
+                          color: AppColors.borderColor.withValues(alpha: 0.5),
                           spreadRadius: 1.r,
                           blurRadius: 6.r,
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: const Color(0xFFFFFFFF),
+                      color: AppColors.white,
                       borderRadius: BorderRadius.circular(100.r),
                     ),
                     child: Wrap(
@@ -259,22 +260,22 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                         SizedBox(width: 25.w),
                         _buildCategoryChip(
                           "Legal",
-                          Color(0xFFFFEDCA),
-                          Color(0xFFFFAD13),
+                          AppColors.textCategory1,
+                          AppColors.category1,
                           selectedCategory == "Legal",
                           () => setState(() => selectedCategory = "Legal"),
                         ),
                         _buildCategoryChip(
                           "Activities",
-                          Color(0xFFE4E9F4),
-                          Color(0xFF1E40AF),
+                          AppColors.textCategory2,
+                          AppColors.category2,
                           selectedCategory == "Activities",
                           () => setState(() => selectedCategory = "Activities"),
                         ),
                         _buildCategoryChip(
                           "Medical Records",
-                          Color(0xFFFFE5E5),
-                          Color(0xFFEF4444),
+                          AppColors.textCategory3,
+                          AppColors.category3,
                           selectedCategory == "Medical Records",
                           () => setState(
                             () => selectedCategory = "Medical Records",
@@ -283,8 +284,8 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                         SizedBox(width: 25.w),
                         _buildCategoryChip(
                           "School Documents",
-                          Color(0xFFDEFDDB),
-                          Color(0xFF68B961),
+                          AppColors.textCategory4,
+                          AppColors.clrGreen,
                           selectedCategory == "School Documents",
                           () => setState(
                             () => selectedCategory = "School Documents",
@@ -305,19 +306,16 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                 height: 94.h,
                 width: 383.w,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEBEBEB),
-                    width: 1.0.w,
-                  ),
+                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFEDEDED).withValues(alpha: 1.0),
+                      color: AppColors.borderColor.withValues(alpha: 1.0),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(0, 5),
                     ),
                   ],
-                  color: const Color(0xFFEAF8FF),
+                  color: AppColors.textInputFillColor,
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Padding(
@@ -326,16 +324,15 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                     vertical: 15.h,
                   ),
                   child: TextField(
-                    style: TextStyle(
-                      color: const Color(0xFF747688),
+                    style: h4.copyWith(
+                      color: AppColors.textColorHint,
                       fontSize: 14.sp,
                     ),
                     decoration: InputDecoration(
                       hintText: 'Add a Description',
-                      hintStyle: TextStyle(
-                        color: const Color(0xFF747688),
+                      hintStyle: h4.copyWith(
+                        color: AppColors.textColorHint,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
                       isDense: true,
@@ -352,24 +349,28 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  height: 52.h,
-                  width: 181.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xFFEBEBEB),
-                      width: 1.0.w,
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 52.h,
+                    width: 181.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.btnBorder,
+                        width: 1.0.w,
+                      ),
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(100.r),
                     ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: const Color(0xFFBD9DED),
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
+                    child: Center(
+                      child: Text(
+                        'Cancel',
+                        style: h1.copyWith(
+                          color: AppColors.radioColor,
+                          fontSize: 18.sp,
+                        ),
                       ),
                     ),
                   ),
@@ -380,11 +381,11 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   width: 181.w,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: const Color(0xFFEBEBEB),
+                      color: AppColors.btnBorder,
                       width: 1.0.w,
                     ),
                     gradient: const LinearGradient(
-                      colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                      colors: [AppColors.appColor2, AppColors.appColor],
                       begin: Alignment.centerRight,
                       end: Alignment.centerLeft,
                     ),
@@ -393,10 +394,9 @@ class UploadDocument2 extends GetView<DocumentVaultController> {
                   child: Center(
                     child: Text(
                       'Add Document',
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: h1Inter.copyWith(
+                        color: AppColors.white,
                         fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),

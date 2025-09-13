@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
+import '../../../../common/appColors.dart';
 
 class DocumentVaultController extends GetxController {
   // 🔹 For "Select Category"
@@ -24,3 +27,6 @@ class DocumentVaultController extends GetxController {
     super.onClose();
   }
 }
+
+// list for dropdown menu ..
+var selectedCategory = RxnString();

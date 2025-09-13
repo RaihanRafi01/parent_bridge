@@ -5,7 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/upload_document.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
+import '../../../../common/customFont.dart';
 import '../controllers/document_vault_controller.dart';
 
 class DocumentAdd extends GetView<DocumentVaultController> {
@@ -25,7 +27,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
               // responsive padding
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                  colors: [AppColors.appColor2, AppColors.appColor],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -50,10 +52,10 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                       children: [
                         Text(
                           "Add Document",
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 24.47.sp, // responsive font size
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1D3856),
+
+                            color: AppColors.darkSlateBlue,
                           ),
                         ),
                       ],
@@ -68,7 +70,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                 height: 330.h,
                 width: 389.w,
                 decoration: BoxDecoration(
-                  color: Color(0xFFEAF8FF),
+                  color: AppColors.textInputFillColor,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(
@@ -76,18 +78,18 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                   children: [
                     Text(
                       'Add New Document',
-                      style: GoogleFonts.lato(
+                      style: h1.copyWith(
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF1D3856),
+
+                        color: AppColors.darkSlateBlue,
                       ),
                     ),
                     Text(
                       "Choose How You'd Like To Add Your Document",
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 12.47.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF747688),
+
+                        color: AppColors.textColorHint,
                       ),
                     ),
                     SizedBox(height: 20.h),
@@ -101,7 +103,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                         width: 301.w,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: const Color(0xFFEBEBEB),
+                            color: AppColors.btnBorder,
                             // set your border color
                             width: 1.0.w, // border width
                           ),
@@ -118,7 +120,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                               ), // shadow position (x, y)
                             ),
                           ],
-                          color: Color(0xFFFFFFFF),
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(100.r),
                         ),
                         child: Row(
@@ -129,7 +131,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                                 height: 46.h,
                                 width: 46.w,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFBD9DED),
+                                  color: AppColors.lightPurplePink2,
                                   shape:
                                       BoxShape.circle, // 👈 makes it circular
                                 ),
@@ -141,7 +143,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                                       width: 24.w, // smaller so it fits well
                                       height: 24.h,
                                       colorFilter: ColorFilter.mode(
-                                        Color(0xFF000000),
+                                        AppColors.clrBlack,
                                         BlendMode.srcIn,
                                       ),
                                     ),
@@ -157,19 +159,19 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                                 Text(
                                   'Upload From Device',
                                   textAlign: TextAlign.left,
-                                  style: GoogleFonts.lato(
+                                  style: h2.copyWith(
                                     fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF1D3856),
+
+                                    color: AppColors.darkSlateBlue,
                                     letterSpacing: 0.2.sp,
                                   ),
                                 ),
                                 Text(
                                   "Select files from your device",
-                                  style: GoogleFonts.lato(
+                                  style: h4.copyWith(
                                     fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xFF747688),
+
+                                    color: AppColors.textColorHint,
                                   ),
                                 ),
                               ],
@@ -185,23 +187,24 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                       width: 301.w,
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Color(0xFFEBEBEB), // set your border color
+                          color: AppColors.btnBorder, // set your border color
                           width: 1.0.w, // border width
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Color(
-                              0xFFEBEBEB,
-                            ).withOpacity(0.2), // shadow color
-                            spreadRadius: 1.r, // how much it spreads
-                            blurRadius: 6.r, // softness
+                            color: AppColors.btnBorder.withOpacity(0.2),
+                            // shadow color
+                            spreadRadius: 1.r,
+                            // how much it spreads
+                            blurRadius: 6.r,
+                            // softness
                             offset: const Offset(
                               0,
                               3,
                             ), // shadow position (x, y)
                           ),
                         ],
-                        color: Color(0xFFFFFFFF),
+                        color: AppColors.white,
                         borderRadius: BorderRadius.circular(100.r),
                       ),
                       child: Row(
@@ -212,7 +215,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                               height: 46.h,
                               width: 46.w,
                               decoration: BoxDecoration(
-                                color: Color(0xFF89C5E1),
+                                color: AppColors.appColor,
                                 shape: BoxShape.circle, // 👈 makes it circular
                               ),
                               child: Center(
@@ -221,7 +224,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                                   width: 24.w, // smaller so it fits well
                                   height: 24.h,
                                   colorFilter: ColorFilter.mode(
-                                    Color(0xFF000000),
+                                    AppColors.clrBlack,
                                     BlendMode.srcIn,
                                   ),
                                 ),
@@ -236,19 +239,19 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                               Text(
                                 'Take Photo',
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.lato(
+                                style: h1.copyWith(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFF1D3856),
+
+                                  color: AppColors.darkSlateBlue,
                                   letterSpacing: 0.2.sp,
                                 ),
                               ),
                               Text(
                                 "Capture Document With Camera ",
-                                style: GoogleFonts.lato(
+                                style: h4.copyWith(
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF747688),
+
+                                  color: AppColors.textColorHint,
                                 ),
                               ),
                             ],
@@ -267,7 +270,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                 height: 74.h,
                 width: 389.h,
                 decoration: BoxDecoration(
-                  color: Color(0xFFEAFBD9),
+                  color: AppColors.liteGreenBg,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Row(
@@ -279,7 +282,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                         width: 24.w, // smaller so it fits well
                         height: 24.h,
                         colorFilter: ColorFilter.mode(
-                          Color(0xFF000000),
+                          AppColors.clrBlack,
                           BlendMode.srcIn,
                         ),
                       ),
@@ -290,18 +293,17 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                       children: [
                         Text(
                           'Supported Formats',
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 15.29.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF1D3856),
+                            color: AppColors.textColor7,
                           ),
                         ),
                         Text(
                           'PDF, DOC, DOCX, JPG, PNG files up to 10MB each',
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF605959),
+
+                            color: AppColors.greyClr,
                           ),
                         ),
                       ],
