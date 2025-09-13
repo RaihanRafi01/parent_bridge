@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/expense_tracker/views/empty_expense_tracker_view.dart';
+import 'package:parent_bridge/app/modules/expense_tracker/views/non_empty_expense_tracker_view.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
@@ -163,55 +165,32 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        StatusCategoryDropdown(text: 'All Status',),
-                        StatusCategoryDropdown(text: 'All categories',),
+                        StatusCategoryDropdown(
+                          text: 'All Status',
+                          selected: controller.selectedStatus,
+                          items: controller.statusItems,
+                          width: 186.w,
+                        ),
+                        StatusCategoryDropdown(
+                          text: 'All categories',
+                          selected: controller.selectedCategory,
+                          items: controller.categoryItems,
+                          width: 186.w,
+                        ),
                       ],
                     ),
           
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 66.w, vertical: 32.h),
-                      decoration: BoxDecoration(
-                        color: AppColors.containerColor52,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-          
-                      child: Column(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/expense_tracker/dollar.svg'
-                          ),
-          
-                          SizedBox(height: 21.5.h,),
-          
-                          Text(
-                            'No Expenses Found',
-                            style: h2.copyWith(
-                              color: AppColors.darkSlateBlue,
-                              fontSize: 20.sp,
-                            ),
-                          ),
-          
-                          SizedBox(height: 21.5.h,),
-          
-                          Text(
-                            'Start By Adding Your First Shared Expense',
-                            style: h2.copyWith(
-                              color: AppColors.textColor60,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-
-                          SizedBox(height: 24.h,),
-                          
-                          CustomPBButton(
-                            text: 'Add first expense',
-                            width: 196,
-                            horizontalPadding: 24,
-                            onPressed: () => Get.to(AddExpenseView()),
-                          ),
-                        ],
-                      ),
+                    controller.isExpenseEmpty.value ?
+                    EmptyExpenseTrackerView(
+                      isExpenseEmpty: controller.isExpenseEmpty,
                     )
+                        :
+                    NonEmptyExpenseTrackerView(
+                      amountController: controller.amountController,
+                      paymentMethodController: controller.paymentMethodController,
+                      selectedPaymentMethod: controller.selectedPaymentMethod2,
+                      paymentMethodItems: controller.paymentMethodItems
+                    ),
                   ],
                 ),
               ),
@@ -424,43 +403,76 @@ class MonthlySummaryContainer extends StatelessWidget {
 
 class StatusCategoryDropdown extends StatelessWidget {
   final String text;
+  final Rx<String?> selected;
+  final List<String> items;
+  final double? width;
 
   const StatusCategoryDropdown({
     required this.text,
+    required this.selected,
+    required this.items,
+    this.width,
     super.key
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.51.w, vertical: 10.96.h),
-      decoration: BoxDecoration(
+    return Obx(() {
+      final value = (items.contains(selected.value)) ? selected.value : null;
+
+      return Container(
+        width: width,
+        padding: EdgeInsets.symmetric(horizontal: 8.51.w),
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.96.r),
           color: AppColors.clrWhite,
           border: Border.all(
             color: AppColors.borderColor54,
             width: 0.7.r,
-          )
-      ),
-
-      child: Row(
-        spacing: 68.51.w,
-        children: [
-          Text(
-            text,
+          ),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: value,
+            hint: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  text,
+                  style: h3.copyWith(
+                    color: AppColors.borderColor54,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              ],
+            ),
+            icon: Icon(
+              Icons.keyboard_arrow_down_outlined,
+              size: 24.r,
+              color: AppColors.borderColor54,
+            ),
+            dropdownColor: AppColors.clrWhite,
             style: h3.copyWith(
               color: AppColors.borderColor54,
               fontSize: 14.sp,
             ),
+            items: items
+                .map((item) => DropdownMenuItem<String>(
+              value: item,
+              child: Text(
+                item,
+                style: h3.copyWith(
+                  color: AppColors.borderColor54,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ))
+                .toList(),
+            onChanged: (val) => selected.value = val,
           ),
-
-          Icon(
-            Icons.keyboard_arrow_down_outlined,
-            size: 24.r,
-            color: AppColors.borderColor54,
-          )
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }

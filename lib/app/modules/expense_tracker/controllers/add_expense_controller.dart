@@ -3,6 +3,31 @@ import 'package:get/get.dart';
 
 class AddExpenseController extends GetxController {
   TextEditingController expenseTitleController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
+  final Rx<String?> selectedChild = Rx<String?>(null);
+  final List<String> childItems = ['Emma smith, 10 years', 'Emma smith, 10 years', 'Emma smith, 10 years'];
+
+  final Rx<String?> selectedPaymentMethod = Rx<String?>(null);
+  final List<String> paymentMethodItems = [
+    'All Method',
+    'Credit Card',
+    'Debit Card',
+    'Cash',
+    'Check',
+    'Mobile Payment',
+    'Bank Transfer',
+  ];
+
+  final Rx<String?> selectedCategory = Rx<String?>(null);
+  final List<String> categoryItems = [
+    'Medical',
+    'School',
+    'Activity',
+    'Clothing',
+    'Food',
+    'Other',
+  ];
 
   // total bill and the other person's name; adjust as you need
   final double total = 85.98; // 42.99 + 42.99 shown in the screenshot

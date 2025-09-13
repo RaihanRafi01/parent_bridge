@@ -235,7 +235,6 @@ class ProSubscriptionCard extends StatelessWidget {
 
                   CustomPBButton(
                     text: 'Buy Now',
-                    width: 325,
                     color1: AppColors.buttonColor51,
                     color2: AppColors.buttonColor52,
                     onPressed: () => Get.to(HomeView()),
