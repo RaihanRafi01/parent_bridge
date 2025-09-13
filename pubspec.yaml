@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^6.3.1
   intl: ^0.20.2
   get_cli: ^1.9.1
+  dropdown_button2: ^2.3.9
   dotted_border: ^3.1.0
 
 dev_dependencies:
@@ -76,6 +77,7 @@ flutter:
     - assets/images/home/
     - assets/images/calendar/
     - assets/images/common/
+    - assets/svg/support_forum_/icons/
     - assets/images/document_svg/
     - assets/images/subscription/
 
