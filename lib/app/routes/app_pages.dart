@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
 
 import '../modules/authentication/bindings/authentication_binding.dart';
 import '../modules/authentication/views/authentication_view.dart';
@@ -34,7 +35,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.EXPENSE_TRACKER;
+  static const INITIAL = Routes.DOCUMENT_VAULT;
 
   static final routes = [
     GetPage(
@@ -42,6 +43,11 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.DOCUMENT_VAULT,
+    //   page: () => const DocumentAdd(),
+    //   binding: DocumentVaultBinding(),
+    // ),
     GetPage(
       name: _Paths.AUTHENTICATION,
       page: () => const SignInView(),

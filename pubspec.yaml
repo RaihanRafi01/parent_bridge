@@ -40,7 +40,7 @@ dependencies:
   google_fonts: ^6.3.1
   intl: ^0.20.2
   get_cli: ^1.9.1
-
+  dotted_border: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -66,8 +66,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    #   - images/a_dot_burr.jpeg
+    #   - images/a_dot_ham.jpeg
     - assets/images/auth/img.png
     - assets/svg/
     - assets/images/onboarding/
@@ -76,6 +76,7 @@ flutter:
     - assets/images/home/
     - assets/images/calendar/
     - assets/images/common/
+    - assets/images/document_svg/
     - assets/images/subscription/
 
   # An image asset can refer to one or more resolution-specific "variants", see
