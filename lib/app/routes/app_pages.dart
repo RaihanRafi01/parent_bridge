@@ -23,12 +23,13 @@ import '../modules/settings/views/settings_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
 
+
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CALL;
+  static const INITIAL = Routes.SETTINGS;
 
   static final routes = [
     GetPage(
@@ -86,5 +87,7 @@ class AppPages {
       page: () => const SettingsView(),
       binding: SettingsBinding(),
     ),
+ 
   ];
 }
+
