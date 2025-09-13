@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../app/modules/home/views/home_view.dart';
 import '../appColors.dart';
 import '../customFont.dart';
 
@@ -86,6 +89,102 @@ class CustomButton extends StatelessWidget {
               ),
             ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomPBButton extends StatelessWidget {
+  final String text;
+  final String icon;
+  final VoidCallback onPressed;
+
+  const CustomPBButton({
+    required this.text,
+    this.icon = '',
+    required this.onPressed,
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 387.w,
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.r),
+            gradient: LinearGradient(
+              colors: [
+                AppColors.buttonColor,
+                AppColors.buttonColor2,
+              ],
+            )
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 10.w,
+            children: [
+              icon != '' ? SvgPicture.asset(
+                'assets/images/sign_up_process/share.svg'
+              ) : SizedBox.shrink(),
+
+              Text(
+                text,
+                style: TextStyle(
+                  color: AppColors.clrWhite,
+                  fontFamily: 'lato',
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomGoogleAppleButton extends StatelessWidget {
+  final String text;
+  final String icon;
+
+  const CustomGoogleAppleButton({
+    required this.text,
+    required this.icon,
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Get.to(HomeView()),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30.r),
+            color: AppColors.buttonColor3,
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 16,
+            children: [
+              SvgPicture.asset(icon),
+
+              Text(
+                text,
+                style: h4.copyWith(
+                  color: AppColors.textColor20,
+                  fontSize: 16.sp,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

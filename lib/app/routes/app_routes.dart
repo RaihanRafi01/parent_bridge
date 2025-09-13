@@ -14,6 +14,7 @@ abstract class Routes {
   static const SUPPORT_FORUM = _Paths.SUPPORT_FORUM;
   static const LEGAL_RECORDS = _Paths.LEGAL_RECORDS;
   static const SETTINGS = _Paths.SETTINGS;
+  static const SIGN_UP_PROCESS = _Paths.SIGN_UP_PROCESS;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const SUPPORT_FORUM = '/support-forum';
   static const LEGAL_RECORDS = '/legal-records';
   static const SETTINGS = '/settings';
+  static const SIGN_UP_PROCESS = '/sign-up-process';
 }
