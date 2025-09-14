@@ -273,7 +273,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                                     textAlign: TextAlign.center,
                                   )
                                 : Container(
-                                    padding: EdgeInsetsGeometry.all(2),
+                                    padding: EdgeInsets.all(2.r),
                                     decoration: BoxDecoration(
                                       color: _getCategoryColor(
                                         dropdown_Controler
