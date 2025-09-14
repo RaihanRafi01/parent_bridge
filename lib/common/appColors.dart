@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   static const Color appColor = Color(0xFF89C5E1);
   static const Color appColor2 = Color(0xFFCB93F2);
 
-
   /// use color based on your design
   ///
-
-
+  static const Color liteGreenBg = Color(0xFFEAFBD9);
   static const Color textInputFillColor = Color(0xFFEAF8FF);
 
   static const Color clrSky6 = Color(0xFFB8E8FE);
@@ -50,7 +47,7 @@ class AppColors {
 
   // #DAB1F7 - Light Purple/Pink
   static const Color lightPurplePink = Color(0xFFDAB1F7);
-  static const Color lightPurplePink2 = Color(0xFFBD9DED);
+  static const Color lightPurplePink2 = Color(0xFFBD9DED); //lop
   static const Color calenderG1 = Color(0xFF82BFE8);
   static const Color calenderG2 = Color(0xFF9199E7);
   static const Color gray = Color(0xFF737373);
@@ -99,7 +96,6 @@ class AppColors {
 
   static const Color blurText = Color(0xFF9095A0);
 
-
   static const Color clrWhite = Color(0xFFFFFFFF);
   static const Color clrBlack = Color(0xFF000000);
   static const Color clrTransparent = Colors.transparent;
@@ -121,33 +117,41 @@ class AppColors {
   static const Color clrGray3 = Color(0xFFE5EDFC);
   static const Color clrPurple = Color(0xFFC698F0);
   static const Color btnBorder = Color(0xFFEBEBEB);
+  static const Color customGrey = Color(0xFFBEB4B4);
 
   static const Color textInputFillSky = Color(0xFFEFF5FF);
   static const Color textInputFillRed = Color(0xFFFFDFE7);
 
-
+  //category
+  static const Color category = Color(0xFF93C7E3);
+  static const Color category1 = Color(0xFFFFAD13);
+  static const Color category2 = Color(0xFF1E40AF);
+  static const Color category3 = Color(0xFFEF4444);
+  static const Color category4 = Color(0xFF68B961);
+  static const Color category1BG = Color(0xFFFFF9EF);
+  static const Color category2BG = Color(0xFFF0F4FF);
+  static const Color category3BG = Color(0xFFFDEEEE);
+  static const Color category4BG = Color(0xFFF6FFF6);
+  static const Color textCategory1 = Color(0xFFFFEDCA);
+  static const Color textCategory2 = Color(0xFFE4E9FA);
+  static const Color textCategory3 = Color(0xFFFFE5E5);
+  static const Color textCategory4 = Color(0xFFDEFDDB);
+  static const Color expDate = Color(0xFFBA0306);
   static const Color nav1 = Color(0xFF52A7F9);
   static const Color nav2 = Color(0xFF186FC4);
   static const Color nav3 = Color(0xFF4F4F4F);
-
+  static const Color svgColor = Color(0xFF666666);
   static const Color borderColor = Color(0xFFEDEDED);
 
   static const Color boxShadowColor = Color(0xFFCC94EF);
 
   static const Color switchColorBg = Color(0xFF8FC8E3);
-
+  static const Color greyClr = Color(0xFF605959);
   static const Color buttonColor = Color(0xFF8EC7E4);
   static const Color buttonColor2 = Color(0xFFC995F1);
   static const Color buttonColor3 = Color(0xFFF6F0FB);
 
   static const Color radioColor = Color(0xFFBE9DED);
-
-
-
-
-
-
-
 
   /// Rubaid
 

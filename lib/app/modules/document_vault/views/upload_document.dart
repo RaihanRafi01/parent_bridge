@@ -5,7 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/upload2.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
+import '../../../../common/customFont.dart';
 import '../controllers/document_vault_controller.dart';
 import 'Custom_button_add_document.dart';
 
@@ -25,8 +27,8 @@ class UploadDocument extends GetView<DocumentVaultController> {
               padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
               // responsive padding
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                gradient: LinearGradient(
+                  colors: [AppColors.appColor2, AppColors.appColor],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -51,10 +53,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
                       children: [
                         Text(
                           "Add Document",
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 24.47.sp, // responsive font size
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1D3856),
+
+                            color: AppColors.textColor7,
                           ),
                         ),
                       ],
@@ -71,13 +73,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1), // shadow color
-                      spreadRadius: 1, // how much it spreads
-                      blurRadius: 6, // softness
+                      color: AppColors.clrBlack.withOpacity(0.1),
+                      // shadow color
+                      spreadRadius: 1.r,
+                      // how much it spreads
+                      blurRadius: 6.r,
+                      // softness
                       offset: const Offset(1, 3), // shadow position (x, y)
                     ),
                   ],
-                  color: Color(0xFFFFFFFF),
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(
@@ -107,18 +112,18 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     ),
                     Text(
                       'JPG',
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 14.14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF747688),
+
+                        color: AppColors.textColorHint,
                       ),
                     ),
                     Text(
                       '2.6MB',
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 6.29.sp,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF747688),
+
+                        color: AppColors.textColorHint,
                       ),
                     ),
                   ],
@@ -137,7 +142,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
               text: "Select child's",
               icon: Icon(
                 Icons.keyboard_arrow_down_outlined,
-                color: Color(0xFF747688),
+                color: AppColors.textColorHint,
               ),
             ),
             SizedBox(height: 20.h),
@@ -147,19 +152,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 height: 56.h,
                 width: 382.73.w, // 👈 should use .w instead of .sp for width
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEBEBEB),
-                    width: 1.0.w,
-                  ),
+                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFEDEDED).withOpacity(1),
-                      spreadRadius: 1,
-                      blurRadius: 6,
+                      color: AppColors.btnBorder.withOpacity(1),
+                      spreadRadius: 1.r,
+                      blurRadius: 6.r,
                       offset: const Offset(0, 3),
                     ),
                   ],
-                  color: const Color(0xFFEAF8FF),
+                  color: AppColors.textInputFillColor,
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Padding(
@@ -170,14 +172,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     left: 20.sp,
                   ),
                   child: TextField(
-                    style: TextStyle(color: Color(0xFF747688), fontSize: 14.sp),
+                    style: TextStyle(
+                      color: AppColors.textColorHint,
+                      fontSize: 14.sp,
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Enter Document Name',
                       // ✅ correct way
-                      hintStyle: TextStyle(
-                        color: Color(0xFF747688),
+                      hintStyle: h4.copyWith(
+                        color: AppColors.textColorHint,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
                       // ✅ removes default underline
@@ -206,7 +210,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 text: "Select Category",
                 icon: Icon(
                   Icons.keyboard_arrow_down_outlined,
-                  color: Color(0xFF747688),
+                  color: AppColors.textColorHint,
                 ),
               ),
             ),
@@ -223,7 +227,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
               icon: Icon(
                 Icons.calendar_today_outlined,
                 size: 20.sp,
-                color: Color(0xFF747688),
+                color: AppColors.textColorHint,
               ),
             ),
             SizedBox(height: 20.h),
@@ -233,19 +237,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 height: 94.h,
                 width: 383.w, // 👈 should use .w instead of .sp for width
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xFFEBEBEB),
-                    width: 1.0.w,
-                  ),
+                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFEDEDED).withOpacity(1.0),
+                      color: AppColors.borderColor.withOpacity(1.0),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(0, 5),
                     ),
                   ],
-                  color: const Color(0xFFEAF8FF),
+                  color: AppColors.textInputFillColor,
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Padding(
@@ -256,14 +257,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     left: 30.sp,
                   ),
                   child: TextField(
-                    style: TextStyle(color: Color(0xFF747688), fontSize: 14.sp),
+                    style: TextStyle(
+                      color: AppColors.textColorHint,
+                      fontSize: 14.sp,
+                    ),
                     decoration: InputDecoration(
                       hintText: 'Add a Description',
                       // ✅ correct way
-                      hintStyle: TextStyle(
-                        color: Color(0xFF747688),
+                      hintStyle: h4.copyWith(
+                        color: AppColors.textColorHint,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
                       // ✅ removes default underline
@@ -280,25 +283,29 @@ class UploadDocument extends GetView<DocumentVaultController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: 52.h,
-                  width: 181.w, // 👈 should use .w instead of .sp for width
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xFFEBEBEB),
-                      width: 1.0.w,
-                    ),
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 52.h,
+                    width: 181.w, // 👈 should use .w instead of .sp for width
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.btnBorder,
+                        width: 1.0.w,
+                      ),
 
-                    color: const Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.circular(100.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Color(0xFFBD9DED),
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w700,
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(100.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Cancel',
+                        style: h1.copyWith(
+                          color: AppColors.radioColor,
+                          fontSize: 18.sp,
+                        ),
                       ),
                     ),
                   ),
@@ -313,12 +320,12 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     width: 181.w, // 👈 should use .w instead of .sp for width
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: const Color(0xFFEBEBEB),
+                        color: AppColors.btnBorder,
                         width: 1.0.w,
                       ),
 
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                      gradient: LinearGradient(
+                        colors: [AppColors.appColor2, AppColors.appColor],
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
                       ),
@@ -327,10 +334,9 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     child: Center(
                       child: Text(
                         'Add Document',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
+                        style: h1.copyWith(
+                          color: AppColors.clrWhite,
                           fontSize: 18.sp,
-                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),

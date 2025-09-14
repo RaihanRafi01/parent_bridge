@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
+
+import '../../../../common/customFont.dart';
 
 class CustomButtonAddDocument extends StatelessWidget {
   const CustomButtonAddDocument({
@@ -34,18 +37,18 @@ class CustomButtonAddDocument extends StatelessWidget {
         // add some padding
         decoration: BoxDecoration(
           border: Border.all(
-            color: const Color(0xFFEBEBEB), // border color
+            color: AppColors.btnBorder, // border color
             width: 1.0.w, // border width
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFEDEDED).withOpacity(1),
-              spreadRadius: 1,
-              blurRadius: 6,
+              color: AppColors.btnBorder.withOpacity(1),
+              spreadRadius: 1.r,
+              blurRadius: 6.r,
               offset: const Offset(0, 3),
             ),
           ],
-          color: const Color(0xFFEAF8FF),
+          color: AppColors.textInputFillColor,
           borderRadius: BorderRadius.circular(100.r),
         ),
         child: Row(
@@ -61,7 +64,7 @@ class CustomButtonAddDocument extends StatelessWidget {
               ),
               child: Text(
                 text,
-                style: GoogleFonts.lato(
+                style: h4.copyWith(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: const Color(0xFF747688),
