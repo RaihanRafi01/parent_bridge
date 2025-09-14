@@ -8,6 +8,7 @@ import 'package:parent_bridge/app/modules/document_vault/views/upload_document.d
 import 'package:parent_bridge/common/appColors.dart';
 
 import '../../../../common/customFont.dart';
+import '../bindings/document_vault_binding.dart';
 import '../controllers/document_vault_controller.dart';
 
 class DocumentAdd extends GetView<DocumentVaultController> {
@@ -96,7 +97,10 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                     //box container
                     InkWell(
                       onTap: () {
-                        Get.to(UploadDocument());
+                        Get.to(
+                          UploadDocument(),
+                          binding: DocumentVaultBinding(),
+                        );
                       },
                       child: Container(
                         height: 62.h,
