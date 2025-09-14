@@ -97,11 +97,12 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                     //box container
                     InkWell(
                       onTap: () {
-                        Get.to(
-                          UploadDocument(),
-                          binding: DocumentVaultBinding(),
+                        Get.lazyPut<DocumentVaultController>(
+                          () => DocumentVaultController(),
                         );
+                        Get.to(() => const UploadDocument());
                       },
+
                       child: Container(
                         height: 62.h,
                         width: 301.w,
