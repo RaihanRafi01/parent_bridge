@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/showDiolog_Cmt_Section.dart';
+import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/customFont.dart';
 
 import '../common/custom_react_comment.dart';
 
@@ -19,7 +21,7 @@ class show_dialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
 
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.r))),
       child: SingleChildScrollView(
         child: SizedBox(
 
@@ -30,29 +32,32 @@ class show_dialog extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: color,
-                  borderRadius:BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
+                  borderRadius:BorderRadius.only(topLeft: Radius.circular(20.r),topRight: Radius.circular(20.r))
                 ),
                 child: Padding(
-                  padding: EdgeInsetsGeometry.all(10),
+                  padding: EdgeInsetsGeometry.all(10.r),
                   child: Stack(
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
                         children: [
+
                           // text logo ..
                           Container(
-                            width: 37.sp,
-                            height: 37.sp,
+                            width: 37.w,
+                            height: 37.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(1000.r),
-                              color: Color(0xffffffff),
+                              color: AppColors.white,
                             ),
                             child: Center(
                               child: Text(
                                 'AP',
-                                style: GoogleFonts.lato(
+                                style: h2.copyWith(
                                   fontSize: 18.16.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                  color: AppColors.darkSlateBlue,
+                                )
                               ),
                             ),
                           ),
@@ -66,10 +71,10 @@ class show_dialog extends StatelessWidget {
                                 children: [
                                   Text(
                                     'Anonymous Parent',
-                                    style: GoogleFonts.lato(
+                                    style:h3.copyWith(
                                       fontSize: 17.9.sp,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                      color: AppColors.white,
+                                    )
                                   ),
                                 ],
                               ),
@@ -77,10 +82,10 @@ class show_dialog extends StatelessWidget {
                               // time ..
                               Text(
                                 '3d',
-                                style: GoogleFonts.lato(
+                                style:h4.copyWith(
                                   fontSize: 14.32.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                  color: AppColors.white,
+                                )
                               ),
         
                             ],
@@ -119,37 +124,36 @@ class show_dialog extends StatelessWidget {
                   padding:   EdgeInsets.all(10.sp),
                   child: Column(
                     children: [
-                      SizedBox(height: 30.h),
+                      SizedBox(height: 10.h),
                       Text(
                         "$body_title",
-                        style: GoogleFonts.lato(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
+                        style: h2.copyWith(
                           color: color,
-                        ),
+                          fontSize: 20.sp
+                        )
                       ),
                       SizedBox(height: 20.h),
 
                       Text(
                         "$body_subtitle",
-                        style: GoogleFonts.lato(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        style: h4.copyWith(
+                          color:AppColors.custom_anonymous_parent_02,
+                            fontSize: 14.sp
+                        )
                       ),
                       SizedBox(height: 40.h),
 
                       // react and comments ....
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
+                        padding:   EdgeInsets.only(bottom: 30.r),
                         child: Row(
                           children: [
                             custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/heart_shape.svg'),
                             SizedBox(width: 30.w),
                             custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/message_icon.svg',comment_ontap: () {
+                           // second show dialog with comments ..
                              Get.dialog(show_dialog_cmt_section(
-                               color: Color(0xffFFAD13),
+                               color: AppColors.anonymous_parent_01,
                                body_title: 'How do you handle holiday scheduling conflicts?',
                                body_subtitle:
                                'One of the most difficult aspects of co-parenting has been dealing with last-minute changes made by my co-parent.'

@@ -162,4 +162,51 @@ class AppColors {
   static const Color borderColor52 = Color(0xFFEAEAEA);
 
   static const Color boxShadowColor51 = Color(0xFFD1D1D1);
+
+  /// Pronoy used these colors ...
+
+      //support forum
+      static const Color support_forum_view_blue01 =Color(0xff93C7E3);
+
+      // appbar colors
+      static const Color appbar_color_01 =Color(0xFFBD9DED);
+      static const Color appbar_color_02 =  Color(0xFF90CAE2);
+
+      // drop-down controler's color
+      static const Color controler_list_color_00 =Color(0xffFFEDCA);
+      static const Color controler_list_color_01 =Color(0xffFFAD13);
+      static const Color controler_list_color_10 =Color(0xffE4E9FA);
+      static const Color controler_list_color_11 =Color(0xff1E40AF);
+      static const Color controler_list_color_20 =Color(0xffFFE5E5);
+      static const Color controler_list_color_21 =Color(0xffEF4444);
+      static const Color controler_list_color_30 =Color(0xffDEFDDB);
+      static const Color controler_list_color_31 =Color(0xff68B961);
+
+     //anonymous_parent_part
+     static const Color anonymous_parent_01 = Color(0xffFFAD13);
+     static const Color anonymous_parent_02 = Color(0xffFFFBF3);
+     static const Color anonymous_parent_03 = Color(0xffbd9ded);
+     static const Color anonymous_parent_04 = Color(0xffDEE6FF);
+     static const Color anonymous_parent_05 = Color(0xff089F0A);
+     static const Color anonymous_parent_06 = Color(0xffE6FFE7);
+     static const Color anonymous_parent_07 = Color(0xffEF4444);
+     static const Color anonymous_parent_08 = Color(0xffFFEBEB);
+
+     static const Color custom_anonymous_parent_01 = Color(0xff6D6D6D);
+     static const Color custom_anonymous_parent_02 = Color(0xff253240);
+     static const Color custom_anonymous_parent_03 = Color(0xff535353);
+     static const Color search_bar_01 = Color(0xffBEB4B4);
+     static const Color show_dialog_with_Comment_01 = Color(0xff595959);
+     static const Color show_dialog_with_Comment_02 = Color(0xff8E8E8E);
+     static const Color show_dialog_with_Comment_03 = Color(0xffB9B9B9);
+     static const Color reply_msg = Color(0xffF9EED9);
+     static const Color reply_msg_1 = Color(0xff5F5F5F);
+
+
+
+
+
+
+
+
 }

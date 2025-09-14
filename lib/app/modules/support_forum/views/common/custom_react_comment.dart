@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
+
+import '../../../../../common/customFont.dart';
 
 class custom_react_comment extends StatelessWidget {
   const custom_react_comment({super.key, this.svg_image, this.count, this.comment_ontap});
@@ -20,13 +23,13 @@ class custom_react_comment extends StatelessWidget {
           height: 26.85.h,
           width: 74.29.w,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(875.sp),
-            color: Color(0xffffffff),
+            borderRadius: BorderRadius.circular(875.r),
+            color: AppColors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                blurRadius: 3,
-                offset: Offset(0, 4),
+                color: AppColors.clrBlack.withOpacity(0.5),
+                blurRadius: 3.r,
+                offset: Offset(0, 3),
               ),
             ],
           ),
@@ -37,11 +40,10 @@ class custom_react_comment extends StatelessWidget {
               SizedBox(width: 5.sp),
               Text(
                 '$count',
-                style: GoogleFonts.lato(
+                style:h4.copyWith(
                   fontSize: 16.11.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xff253240),
-                ),
+                  color: AppColors.custom_anonymous_parent_03,
+                )
               ),
             ],
           ),

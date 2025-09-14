@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_page.dart';
 
+import '../../../../../common/appColors.dart';
+import '../../../../../common/customFont.dart';
 import 'custom_react_comment.dart';
 
 class custom_anonymous_parent extends StatelessWidget {
@@ -35,11 +37,11 @@ class custom_anonymous_parent extends StatelessWidget {
       width: 394.w,
       height: 310.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.r),
         color: bg_color,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding:   EdgeInsets.all(15.0.r),
         child: Column(
           children: [
             /// header ..
@@ -52,21 +54,19 @@ class custom_anonymous_parent extends StatelessWidget {
                     width: 37.sp,
                     height: 37.sp,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1000),
-                      color: Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(1000.r),
+                      color: AppColors.white,
                     ),
                     child: Center(
                       child: Text(
                         'AP',
-                        style: GoogleFonts.lato(
-                          fontSize: 18.16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style:h2.copyWith(fontSize: 18.16.sp,
+                          color: AppColors.darkSlateBlue,)
                       ),
                     ),
                   ),
                   // space ..
-                  SizedBox(width: 15),
+                  SizedBox(width: 15.w),
                   // title ..
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,17 +75,17 @@ class custom_anonymous_parent extends StatelessWidget {
                         children: [
                           Text(
                             'Anonymous Parent',
-                            style: GoogleFonts.lato(
-                              fontSize: 17.9.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style:h3.copyWith(
+                              color:AppColors.darkSlateBlue,
+                              fontSize: 17.9.sp
+                            )
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: 20.w),
 
                           // scheduling part...
                           Container(
                             width: 72.w,
-                            height: 22.w,
+                            height: 22.h,
                             decoration: BoxDecoration(
                               color: color,
                               borderRadius: BorderRadius.circular(850.75.sp),
@@ -93,11 +93,10 @@ class custom_anonymous_parent extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 '$sche_title',
-                                style: GoogleFonts.lato(
+                                style: h3.copyWith(
                                   fontSize: 11.91.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xffffffff),
-                                ),
+                                  color: AppColors.white,
+                                )
                               ),
                             ),
                           ),
@@ -119,10 +118,10 @@ class custom_anonymous_parent extends StatelessWidget {
                       // time ..
                       Text(
                         '3d',
-                        style: GoogleFonts.lato(
-                          fontSize: 14.32.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
+                        style: h4.copyWith(
+                          color: AppColors.custom_anonymous_parent_01,
+                          fontSize: 14.32
+                        )
                       ),
                     ],
                   ),
@@ -140,11 +139,10 @@ class custom_anonymous_parent extends StatelessWidget {
                 // body title text ..
                 Text(
                   "$body_title",
-                  style: GoogleFonts.lato(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
+                  style: h2.copyWith(
                     color: color,
-                  ),
+                    fontSize: 20.sp
+                  )
                 ),
                 SizedBox(height: 10),
                 // body part ...
@@ -153,19 +151,17 @@ class custom_anonymous_parent extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       text: "$body_subtitle",
-                      style: GoogleFonts.lato(
+                      style: h4.copyWith(
                         fontSize: 14.32.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff253240),
+                        color: AppColors.custom_anonymous_parent_02
                       ),
                       children: [
                         TextSpan(
-                          text: ' See More',
-                          style: GoogleFonts.lato(
-                            fontSize: 14.32.sp,
-                            fontWeight: FontWeight.w600,
-                            color: color,
-                          ),
+                          text: ' See more',
+                          style: h2.copyWith(
+                            fontSize: 14.32,
+                            color: color
+                          )
                         ),
 
 
