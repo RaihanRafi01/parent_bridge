@@ -109,11 +109,12 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(
-                                0xFFEBEBEB,
-                              ).withOpacity(0.2), // shadow color
-                              spreadRadius: 1.r, // how much it spreads
-                              blurRadius: 6.r, // softness
+                              color: AppColors.white.withOpacity(0.2),
+                              // shadow color
+                              spreadRadius: 1.r,
+                              // how much it spreads
+                              blurRadius: 6.r,
+                              // softness
                               offset: const Offset(
                                 0,
                                 3,

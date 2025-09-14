@@ -4,9 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/common/appColors.dart';
-
 import '../../../../../common/customFont.dart';
-import 'custom_document_dialog.dart';
 
 class DocumentCard extends StatelessWidget {
   const DocumentCard({
@@ -15,9 +13,7 @@ class DocumentCard extends StatelessWidget {
     required this.label,
     required this.date,
     required this.type,
-
     required this.person,
-
     required this.labelcontainer,
     required this.bgcolor,
     required this.sidebar,
@@ -40,7 +36,7 @@ class DocumentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 399.w,
-      height: 176.h, //change
+      height: 176.h,
       decoration: BoxDecoration(
         color: bgcolor,
         borderRadius: BorderRadius.circular(16.r),
@@ -56,7 +52,7 @@ class DocumentCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left red bar
+          // Left colored bar
           Container(
             width: 8.w,
             height: 166.h,
@@ -85,7 +81,6 @@ class DocumentCard extends StatelessWidget {
                           title,
                           style: h2.copyWith(
                             fontSize: 18.sp,
-
                             color: AppColors.darkSlateBlue,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -126,7 +121,7 @@ class DocumentCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
 
-                  // Legal tag
+                  // Category tag
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 15.r,
@@ -146,7 +141,7 @@ class DocumentCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
 
-                  // People
+                  // Person row
                   Row(
                     children: [
                       SizedBox(
@@ -154,7 +149,6 @@ class DocumentCard extends StatelessWidget {
                         height: 12.h,
                         child: SvgPicture.asset(
                           'assets/images/document_svg/people.svg',
-
                           colorFilter: ColorFilter.mode(
                             AppColors.svgColor,
                             BlendMode.srcIn,
@@ -170,25 +164,21 @@ class DocumentCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
 
-                  // Upload date + file type
+                  // Dates + type
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(
                             'Uploaded • ',
-
                             style: h2.copyWith(
-                              fontSize: 12.sp, // responsive font size
-
+                              fontSize: 12.sp,
                               color: AppColors.darkSlateBlue,
                             ),
                           ),
                           Text(
                             date,
-
                             style: h4.copyWith(
                               fontSize: 12.52.sp,
                               color: AppColors.darkSlateBlue,
@@ -201,34 +191,29 @@ class DocumentCard extends StatelessWidget {
                         children: [
                           Text(
                             'File Type • ',
-
                             style: h4.copyWith(
-                              fontSize: 12.52.sp, // responsive font size
-
+                              fontSize: 12.52.sp,
                               color: AppColors.darkSlateBlue,
                             ),
                           ),
                           Text(
                             type,
-
                             style: h4.copyWith(
-                              fontSize: 12.52.sp, // responsive font size
-
+                              fontSize: 12.52.sp,
                               color: AppColors.darkSlateBlue,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: .6.h),
-                      Text(
-                        exp_date!,
-
-                        style: h4.copyWith(
-                          fontSize: 12.52.sp, // responsive font size
-
-                          color: AppColors.expDate,
+                      if (exp_date != null && exp_date!.isNotEmpty)
+                        Text(
+                          exp_date!,
+                          style: h4.copyWith(
+                            fontSize: 12.52.sp,
+                            color: AppColors.expDate,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ],
