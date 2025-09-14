@@ -83,6 +83,7 @@ flutter:
     - assets/svg/support_forum_/icons/
     - assets/images/document_svg/
     - assets/images/subscription/
+    - assets/images/expense_tracker/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

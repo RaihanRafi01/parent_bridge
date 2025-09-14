@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ExpenseTrackerController extends GetxController {
-  TextEditingController searchController = TextEditingController();
-
-  RxBool isExpenseEmpty = true.obs;
-
+class AddExpenseController extends GetxController {
+  TextEditingController expenseTitleController = TextEditingController();
   TextEditingController amountController = TextEditingController();
-  TextEditingController paymentMethodController = TextEditingController();
+
+  final Rx<String?> selectedChild = Rx<String?>(null);
+  final List<String> childItems = ['Emma smith, 10 years', 'Emma smith, 10 years', 'Emma smith, 10 years'];
 
   final Rx<String?> selectedPaymentMethod = Rx<String?>(null);
-  final Rx<String?> selectedPaymentMethod2 = Rx<String?>(null);
   final List<String> paymentMethodItems = [
     'All Method',
     'Credit Card',
@@ -19,14 +17,6 @@ class ExpenseTrackerController extends GetxController {
     'Check',
     'Mobile Payment',
     'Bank Transfer',
-  ];
-
-  final Rx<String?> selectedStatus = Rx<String?>(null);
-  final List<String> statusItems = [
-    'Pending',
-    'Approved',
-    'Paid',
-    'Rejected',
   ];
 
   final Rx<String?> selectedCategory = Rx<String?>(null);
@@ -38,6 +28,18 @@ class ExpenseTrackerController extends GetxController {
     'Food',
     'Other',
   ];
+
+  // total bill and the other person's name; adjust as you need
+  final double total = 85.98; // 42.99 + 42.99 shown in the screenshot
+  final String otherName = 'Michael';
+
+  final RxDouble percent = 50.0.obs;
+
+  void minus([double step = 1]) => percent.value = (percent.value - step).clamp(0, 100);
+  void plus([double step = 1]) => percent.value = (percent.value + step).clamp(0, 100);
+
+  double get yourAmount => total * (percent.value / 100);
+  double get otherAmount => total - yourAmount;
 
   final count = 0.obs;
   @override

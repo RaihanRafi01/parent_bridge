@@ -157,6 +157,13 @@ class AppColors {
   static const Color textColor54 = Color(0xFF7D4AD4);
   static const Color textColor55 = Color(0xFFEBCE12);
   static const Color textColor56 = Color(0xFFF03ED9);
+  static const Color textColor57 = Color(0xFF0A1D32);
+  static const Color textColor58 = Color(0xFF0A1D33);
+  static const Color textColor59 = Color(0xFFAE0808);
+  static const Color textColor60 = Color(0xFF75828F);
+  static const Color textColor61 = Color(0xFF7DC1E3);
+  static const Color textColor62 = Color(0xFF21C033);
+  static const Color textColor63 = Color(0xFFCD1A1D);
 
   static const Color card51 = Color(0xFFF0F0F0);
   static const Color card52 = Color(0xFFE4F5FF);
@@ -166,12 +173,50 @@ class AppColors {
 
   static const Color borderColor51 = Color(0xFFEEEEEE);
   static const Color borderColor52 = Color(0xFFEAEAEA);
+  static const Color borderColor53 = Color(0xFFEEEDF9);
+  static const Color borderColor54 = Color(0xFF93C7E3);
 
   static const Color boxShadowColor51 = Color(0xFFD1D1D1);
+  static const Color boxShadowColor52 = Color(0xFFCC94EF);
 
   static const Color bgColor51 = Color(0xFF90CAE3);
   static const Color bgColor52 = Color(0xFFCF91F1);
 
   static const Color buttonColor51 = Color(0xFF731AE8);
   static const Color buttonColor52 = Color(0xFFC198F7);
+  static const Color buttonColor53 = Color(0xFFFE4F52);
+  static const Color buttonColor54 = Color(0xFF109F1A);
+
+  static const Color containerColor51 = Color(0xFF705ADD);
+  static const Color containerColor52 = Color(0xFFDFF5FF);
+  static const Color containerColor53 = Color(0xFFEFEFEF);
+  static const Color containerColor54 = Color(0xFFDEE2FF);
+
+  static const Color dividerCyan = Color(0xFF91C9E3);
+
+  static const Color gradientColor51 = Color(0xFF9757D0);
+  static const Color gradientColor52 = Color(0xFFC9E8F7);
+  static const Color gradientColor53 = Color(0xFFC7DFE8);
+
+  static const Color expenseCardLightColor = Color(0xFFF4F5FD);
+  static const Color expenseCardLightColor2 = Color(0xFFF8FFF8);
+  static const Color expenseCardLightColor3 = Color(0xFFFFF7F7);
+  static const Color expenseCardLightColor4 = Color(0xFFFFFBED);
+  static const Color expenseCardLightColor5 = Color(0xFFECFFFD);
+  static const Color expenseCardLightColor6 = Color(0xFFFFF1FD);
+
+  static const Color expenseCardColor = Color(0xFF7F8DF6);
+  static const Color expenseCardColor2 = Color(0xFF68B961);
+  static const Color expenseCardColor3 = Color(0xFFEF8344);
+  static const Color expenseCardColor4 = Color(0xFFFDCF2A);
+  static const Color expenseCardColor5 = Color(0xFF0F9C8C);
+  static const Color expenseCardColor6 = Color(0xFFD165BE);
+
+  static const Color expenseCardBorderColor = Color(0xFFF6F6F6);
+  static const Color expenseCardBoxShadowColor = Color(0xFFD0C0C0);
+
+  static const Color expenseCardStatusColor = Color(0xFFD77373);
+  static const Color expenseCardStatusColor2 = Color(0xFFB78818);
+  static const Color expenseCardStatusColor3 = Color(0xFF1712A2);
+  static const Color expenseCardStatusColor4 = Color(0xFFBC1B1E);
 }
