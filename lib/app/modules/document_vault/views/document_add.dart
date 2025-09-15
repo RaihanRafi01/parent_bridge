@@ -8,6 +8,7 @@ import 'package:parent_bridge/app/modules/document_vault/views/upload_document.d
 import 'package:parent_bridge/common/appColors.dart';
 
 import '../../../../common/customFont.dart';
+import '../bindings/document_vault_binding.dart';
 import '../controllers/document_vault_controller.dart';
 
 class DocumentAdd extends GetView<DocumentVaultController> {
@@ -96,8 +97,12 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                     //box container
                     InkWell(
                       onTap: () {
-                        Get.to(UploadDocument());
+                        Get.lazyPut<DocumentVaultController>(
+                          () => DocumentVaultController(),
+                        );
+                        Get.to(() => const UploadDocument());
                       },
+
                       child: Container(
                         height: 62.h,
                         width: 301.w,
@@ -109,11 +114,12 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(
-                                0xFFEBEBEB,
-                              ).withOpacity(0.2), // shadow color
-                              spreadRadius: 1.r, // how much it spreads
-                              blurRadius: 6.r, // softness
+                              color: AppColors.white.withOpacity(0.2),
+                              // shadow color
+                              spreadRadius: 1.r,
+                              // how much it spreads
+                              blurRadius: 6.r,
+                              // softness
                               offset: const Offset(
                                 0,
                                 3,

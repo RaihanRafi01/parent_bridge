@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/app/modules/document_vault/views/upload2.dart';
+import '../controllers/document_vault_controller.dart';
 import 'package:parent_bridge/common/appColors.dart';
-
 import '../../../../common/customFont.dart';
 import '../controllers/document_vault_controller.dart';
 import 'Custom_button_add_document.dart';
@@ -21,11 +19,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Header
             Container(
               height: 147.h,
-              // responsive height
               padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
-              // responsive padding
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [AppColors.appColor2, AppColors.appColor],
@@ -33,8 +30,8 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.r), // responsive radius
-                  bottomRight: Radius.circular(40.r), // responsive radius
+                  bottomLeft: Radius.circular(40.r),
+                  bottomRight: Radius.circular(40.r),
                 ),
               ),
               child: Row(
@@ -45,7 +42,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     },
                     icon: const Icon(Icons.arrow_back),
                   ),
-                  SizedBox(width: 12.w), // responsive width
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,8 +51,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                         Text(
                           "Add Document",
                           style: h2.copyWith(
-                            fontSize: 24.47.sp, // responsive font size
-
+                            fontSize: 24.47.sp,
                             color: AppColors.textColor7,
                           ),
                         ),
@@ -65,7 +61,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 ],
               ),
             ),
+
             SizedBox(height: 40.h),
+
+            // File preview box
             Center(
               child: Container(
                 height: 109.h,
@@ -74,12 +73,9 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.clrBlack.withOpacity(0.1),
-                      // shadow color
                       spreadRadius: 1.r,
-                      // how much it spreads
                       blurRadius: 6.r,
-                      // softness
-                      offset: const Offset(1, 3), // shadow position (x, y)
+                      offset: const Offset(1, 3),
                     ),
                   ],
                   color: AppColors.white,
@@ -95,9 +91,9 @@ class UploadDocument extends GetView<DocumentVaultController> {
                           padding: EdgeInsets.all(3.0),
                           child: SvgPicture.asset(
                             'assets/images/document_svg/loading.svg',
-                            width: 13.w, // smaller so it fits well
+                            width: 13.w,
                             height: 13.h,
-                            colorFilter: ColorFilter.mode(
+                            colorFilter: const ColorFilter.mode(
                               Color(0xFF000000),
                               BlendMode.srcIn,
                             ),
@@ -114,7 +110,6 @@ class UploadDocument extends GetView<DocumentVaultController> {
                       'JPG',
                       style: h4.copyWith(
                         fontSize: 14.14.sp,
-
                         color: AppColors.textColorHint,
                       ),
                     ),
@@ -122,7 +117,6 @@ class UploadDocument extends GetView<DocumentVaultController> {
                       '2.6MB',
                       style: h4.copyWith(
                         fontSize: 6.29.sp,
-
                         color: AppColors.textColorHint,
                       ),
                     ),
@@ -130,27 +124,31 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 ),
               ),
             ),
+
             SizedBox(height: 20.h),
+
+            // Select child button
             CustomButtonAddDocument(
               padding3: 10.r,
               padding2: 10.r,
               padding4: 20.r,
               padding: 10.r,
-
               height: 56.h,
               width: 382.73.sp,
               text: "Select child's",
-              icon: Icon(
+              icon: const Icon(
                 Icons.keyboard_arrow_down_outlined,
                 color: AppColors.textColorHint,
               ),
             ),
+
             SizedBox(height: 20.h),
 
+            // Document name input
             Center(
               child: Container(
                 height: 56.h,
-                width: 382.73.w, // 👈 should use .w instead of .sp for width
+                width: 382.73.w,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
@@ -178,16 +176,13 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Enter Document Name',
-                      // ✅ correct way
                       hintStyle: h4.copyWith(
                         color: AppColors.textColorHint,
                         fontSize: 14.sp,
                       ),
                       border: InputBorder.none,
-                      // ✅ removes default underline
                       isDense: true,
-                      // ✅ keeps it compact
-                      contentPadding: EdgeInsets.zero, // ✅ aligns nicely
+                      contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 ),
@@ -195,32 +190,67 @@ class UploadDocument extends GetView<DocumentVaultController> {
             ),
 
             SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {
-                Get.to(UploadDocument2());
-              },
-              child: CustomButtonAddDocument(
-                padding3: 10.r,
-                padding2: 10.r,
-                padding4: 20.r,
-                padding: 10.r,
 
-                height: 56.h,
-                width: 382.73.sp,
-                text: "Select Category",
-                icon: Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: AppColors.textColorHint,
+            // ✅ Select Category with same logic as first page
+            Obx(
+              () => InkWell(
+                onTap: () {
+                  showMenu<String>(
+                    context: context,
+
+                    position: RelativeRect.fromLTRB(50.w, 530.h, 50.w, 200.h),
+                    items: [
+                      _buildCategoryMenu(
+                        "Legal",
+                        AppColors.textCategory1,
+                        AppColors.category1,
+                      ),
+                      _buildCategoryMenu(
+                        "Activities",
+                        AppColors.textCategory2,
+                        AppColors.category2,
+                      ),
+                      _buildCategoryMenu(
+                        "Medical Records",
+                        AppColors.textCategory3,
+                        AppColors.category3,
+                      ),
+                      _buildCategoryMenu(
+                        "School Documents",
+                        AppColors.textCategory4,
+                        AppColors.category4,
+                      ),
+                    ],
+                  ).then((value) {
+                    if (value != null) {
+                      controller.selectedCategory.value = value;
+                    }
+                  });
+                },
+                child: CustomButtonAddDocument(
+                  padding3: 10.r,
+                  padding2: 10.r,
+                  padding4: 20.r,
+                  padding: 10.r,
+                  height: 56.h,
+                  width: 382.73.sp,
+                  text: controller.selectedCategory.value ?? "Select Category",
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_outlined,
+                    color: AppColors.textColorHint,
+                  ),
                 ),
               ),
             ),
+
             SizedBox(height: 20.h),
+
+            // Expiry date button
             CustomButtonAddDocument(
               padding3: 10.r,
               padding2: 10.r,
               padding4: 20.r,
               padding: 10.r,
-
               height: 56.h,
               width: 382.73.sp,
               text: "EXPIRY DATE",
@@ -230,12 +260,14 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 color: AppColors.textColorHint,
               ),
             ),
+
             SizedBox(height: 20.h),
 
+            // Description input
             Center(
               child: Container(
                 height: 94.h,
-                width: 383.w, // 👈 should use .w instead of .sp for width
+                width: 383.w,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
@@ -263,22 +295,22 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Add a Description',
-                      // ✅ correct way
                       hintStyle: h4.copyWith(
                         color: AppColors.textColorHint,
                         fontSize: 14.sp,
                       ),
                       border: InputBorder.none,
-                      // ✅ removes default underline
                       isDense: true,
-                      // ✅ keeps it compact
-                      contentPadding: EdgeInsets.zero, // ✅ aligns nicely
+                      contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 ),
               ),
             ),
+
             SizedBox(height: 70.h),
+
+            // Action buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -289,13 +321,12 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   },
                   child: Container(
                     height: 52.h,
-                    width: 181.w, // 👈 should use .w instead of .sp for width
+                    width: 181.w,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.btnBorder,
                         width: 1.0.w,
                       ),
-
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(100.r),
                     ),
@@ -313,17 +344,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 SizedBox(width: 20.w),
                 InkWell(
                   onTap: () {
-                    Get.to(UploadDocument2());
+                    Get.back();
                   },
                   child: Container(
                     height: 52.h,
-                    width: 181.w, // 👈 should use .w instead of .sp for width
+                    width: 181.w,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: AppColors.btnBorder,
                         width: 1.0.w,
                       ),
-
                       gradient: LinearGradient(
                         colors: [AppColors.appColor2, AppColors.appColor],
                         begin: Alignment.centerRight,
@@ -349,4 +379,30 @@ class UploadDocument extends GetView<DocumentVaultController> {
       ),
     );
   }
+}
+
+// ✅ Reused from first page
+PopupMenuItem<String> _buildCategoryMenu(
+  String value,
+  Color bgColor,
+  Color textColor,
+) {
+  return PopupMenuItem(
+    height: 30.h,
+    value: value,
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 3.r, vertical: 2.r),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: Center(
+        child: Text(
+          value,
+          style: h4.copyWith(color: textColor, fontSize: 12.09.sp),
+          textAlign: TextAlign.left,
+        ),
+      ),
+    ),
+  );
 }
