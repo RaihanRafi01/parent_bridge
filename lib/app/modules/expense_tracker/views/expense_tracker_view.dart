@@ -11,6 +11,7 @@ import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
 
 import '../../../../common/widgets/home/circularfabmenu.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/expense_tracker_controller.dart';
 import 'add_expense_view.dart';
 
@@ -207,69 +208,7 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
 
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 20.0.h, bottom: 20.h),
-        child: CircularMenu(
-          fabMargin: EdgeInsets.only(top: 1.h),
-          ringGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          alignment: Alignment.bottomCenter,
-          ringDiameter: 285.r,
-          ringWidth: 90.w,
-          fabSize: 70.w,
-          fabOpenIcon: Icon(Icons.add, color: AppColors.white, size: 40.sp),
-          fabCloseIcon: Icon(Icons.close, color: AppColors.white, size: 35.sp),
-          fabOpenGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          fabGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          fabCloseGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          children: <Widget>[
-            _buildMenuIcon(
-              svg: 'assets/images/home/home.svg',
-              onPressed: () {},
-              ishome: true,
-            ),
-            _buildMenuIcon(svg: 'assets/images/home/chaticon.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/schedule.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/form.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/settings.svg', onPressed: () {}),
-          ],
-        ),
-      ),
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 

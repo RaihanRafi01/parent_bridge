@@ -17,6 +17,7 @@ import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/circularfabmenu.dart';
 import '../../../../common/widgets/home/dashboard_container.dart';
 import '../../../../common/widgets/home/home_container.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -102,7 +103,7 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(ChatView());
                         },
                         childImage: Image.asset(
@@ -115,7 +116,7 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(CallView());
                         },
                         childImage: Image.asset(
@@ -128,7 +129,7 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(DocumentVaultView());
                         },
                         childImage: Image.asset(
@@ -147,7 +148,7 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(CalendarView());
                         },
                         childImage: Image.asset(
@@ -160,7 +161,7 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(ExpenseTrackerView());
                         },
                         childImage: Image.asset(
@@ -173,7 +174,7 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
-                        onPressed: (){
+                        onPressed: () {
                           Get.to(SupportForumView());
                         },
                         childImage: Image.asset(
@@ -189,9 +190,9 @@ class HomeView extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Align(
-                    alignment: Alignment.topLeft, // Fixed from AlignmentGeometry.topLeft
+                    alignment: Alignment.topLeft,
                     child: IconWithBadge(
-                      onPressed: (){
+                      onPressed: () {
                         Get.to(LegalRecordsView());
                       },
                       childImage: Image.asset(
@@ -211,112 +212,7 @@ class HomeView extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 20.0.h),
-        child: CircularMenu(
-          fabMargin: EdgeInsets.only(top: 1.h),
-          ringGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          alignment: Alignment.bottomCenter,
-          ringDiameter: 285.r,
-          ringWidth: 90.w,
-          fabSize: 70.w,
-          fabOpenIcon: Icon(Icons.add, color: AppColors.white, size: 40.sp),
-          fabCloseIcon: Icon(Icons.close, color: AppColors.white, size: 35.sp),
-          fabOpenGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          fabGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          fabCloseGradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.customSkyBlue2,
-              Color(0xFF9AA0FF),
-              AppColors.customDeepPurple,
-            ],
-            stops: [0.0, 0.3, 1.0],
-          ),
-          children: <Widget>[
-            _buildMenuIcon(
-              svg: 'assets/images/home/home.svg',
-              onPressed: () {},
-              ishome: true,
-            ),
-            _buildMenuIcon(svg: 'assets/images/home/chaticon.svg', onPressed: () {Get.to(ChatView());}),
-            _buildMenuIcon(svg: 'assets/images/home/schedule.svg', onPressed: () {Get.to(CalendarView());}),
-            _buildMenuIcon(svg: 'assets/images/home/form.svg', onPressed: () {Get.to(DocumentVaultView());}),
-            _buildMenuIcon(svg: 'assets/images/home/settings.svg', onPressed: () {Get.to(SettingsView());}),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuIcon({
-    bool ishome = false,
-    required String svg,
-    required VoidCallback onPressed,
-  }) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      shape: const CircleBorder(),
-      fillColor: Colors.transparent,
-      elevation: 4,
-      constraints: BoxConstraints.tightFor(width: 70.w, height: 60.h),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 2.w,
-            color: ishome ? AppColors.white : Colors.transparent,
-          ),
-          gradient: ishome
-              ? const LinearGradient(
-            colors: [
-              Color(0xFFA14CDD),
-              Color(0xFF52B6E4),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          )
-              : LinearGradient(
-            colors: [
-              AppColors.white,
-              AppColors.white,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: SvgPicture.asset(svg, height: 25.h, width: 25.w),
-        ),
-      ),
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 }

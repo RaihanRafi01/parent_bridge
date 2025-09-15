@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum/search_part.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/support_forum_controller.dart';
 import 'common/custom_floating_button.dart';
 import 'support_forum/anonymous_parent_part.dart';
@@ -122,8 +123,8 @@ class SupportForumView extends GetView<SupportForumController> {
           ],
         ),
       ),
-      floatingActionButton: Custom_floating_button(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/legal_records_controller.dart';
 
 class LegalRecordsView extends GetView<LegalRecordsController> {
@@ -19,6 +20,8 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 }

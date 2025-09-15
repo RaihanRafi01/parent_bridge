@@ -6,6 +6,7 @@ import '../../../../common/customFont.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/document_vault_controller.dart' as dropdown_Controler;
 import '../controllers/document_vault_controller.dart';
 import 'Document_Widget/custom_document_dialog.dart';
@@ -325,8 +326,8 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
           ),
         ],
       ),
-      floatingActionButton: const Custom_floating_button(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 3),
     );
   }
 }
