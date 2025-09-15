@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import '../../../../common/customFont.dart';
 import 'package:get/get.dart';
@@ -89,7 +90,10 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.arrow_back),
+                GestureDetector(
+                  onTap: Get.back,
+                  child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                ),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(

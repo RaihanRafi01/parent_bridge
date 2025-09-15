@@ -45,6 +45,10 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        GestureDetector(
+                          onTap: Get.back,
+                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                        ),
                         Text(
                           'Expense Tracker',
                           style: h2.copyWith(

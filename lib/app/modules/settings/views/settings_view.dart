@@ -27,27 +27,21 @@ class SettingsView extends StatelessWidget {
             children: [
               SizedBox(height: 40.h),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_back_outlined,
-                        color: Colors.black,
-                        size: 28,
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        'Settings',
-                        style: GoogleFonts.lato(
-                          fontSize: 28.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF1D3856),
-                        ),
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: Get.back,
+                    child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
                   ),
+                  Text(
+                    'Settings',
+                    style: GoogleFonts.lato(
+                      fontSize: 28.sp,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xFF1D3856),
+                    ),
+                  ),
+                  SizedBox(width: 40.w)
                 ],
               ),
               SizedBox(height: 12.h),

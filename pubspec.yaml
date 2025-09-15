@@ -69,11 +69,11 @@ flutter:
 
 
   assets:
-    - assets/images/
+    - assets/images/home/
     - assets/svg/
     #   - images/a_dot_burr.jpeg
     #   - images/a_dot_ham.jpeg
-    - assets/images/auth/img.png
+    - assets/images/auth/
     - assets/svg/
     - assets/images/onboarding/
     - assets/images/auth/

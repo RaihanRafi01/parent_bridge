@@ -3,6 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/calendar/views/calendar_view.dart';
+import 'package:parent_bridge/app/modules/call/views/call_view.dart';
+import 'package:parent_bridge/app/modules/chat/views/chat_view.dart';
+import 'package:parent_bridge/app/modules/document_vault/views/document_vault_view.dart';
+import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
+import 'package:parent_bridge/app/modules/legal_records/views/legal_records_view.dart';
+import 'package:parent_bridge/app/modules/settings/views/settings_view.dart';
+import 'package:parent_bridge/app/modules/support_forum/views/support_forum_view.dart';
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/circularfabmenu.dart';
@@ -93,6 +102,9 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(ChatView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_3.png',
                           height: 68.h,
@@ -103,6 +115,9 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(CallView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_4.png',
                           height: 68.h,
@@ -113,6 +128,9 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(DocumentVaultView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_5.png',
                           height: 68.h,
@@ -129,6 +147,9 @@ class HomeView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(CalendarView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_8.png',
                           height: 68.h,
@@ -139,6 +160,9 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(ExpenseTrackerView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_6.png',
                           height: 68.h,
@@ -149,6 +173,9 @@ class HomeView extends StatelessWidget {
                         badgeCount: 3,
                       ),
                       IconWithBadge(
+                        onPressed: (){
+                          Get.to(SupportForumView());
+                        },
                         childImage: Image.asset(
                           'assets/images/home/img_7.png',
                           height: 68.h,
@@ -164,6 +191,9 @@ class HomeView extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft, // Fixed from AlignmentGeometry.topLeft
                     child: IconWithBadge(
+                      onPressed: (){
+                        Get.to(LegalRecordsView());
+                      },
                       childImage: Image.asset(
                         'assets/images/home/img_9.png',
                         height: 68.h,
@@ -237,10 +267,10 @@ class HomeView extends StatelessWidget {
               onPressed: () {},
               ishome: true,
             ),
-            _buildMenuIcon(svg: 'assets/images/home/chaticon.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/schedule.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/form.svg', onPressed: () {}),
-            _buildMenuIcon(svg: 'assets/images/home/settings.svg', onPressed: () {}),
+            _buildMenuIcon(svg: 'assets/images/home/chaticon.svg', onPressed: () {Get.to(ChatView());}),
+            _buildMenuIcon(svg: 'assets/images/home/schedule.svg', onPressed: () {Get.to(CalendarView());}),
+            _buildMenuIcon(svg: 'assets/images/home/form.svg', onPressed: () {Get.to(DocumentVaultView());}),
+            _buildMenuIcon(svg: 'assets/images/home/settings.svg', onPressed: () {Get.to(SettingsView());}),
           ],
         ),
       ),

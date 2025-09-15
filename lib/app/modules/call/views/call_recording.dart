@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../common/customFont.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';
 import '../../../../common/widgets/speedButton.dart';
-
 
 class CallRecording extends StatefulWidget {
   const CallRecording({super.key});
@@ -19,6 +19,7 @@ class CallRecording extends StatefulWidget {
 
 class _CallRecordingState extends State<CallRecording> {
   double selectedSpeed = 1.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,14 +46,9 @@ class _CallRecordingState extends State<CallRecording> {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: EdgeInsets.only(top: 40.h, left: 16.w),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
+                        child: GestureDetector(
+                          onTap: Get.back,
+                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
                         ),
                       ),
                     ),
@@ -120,7 +116,8 @@ class _CallRecordingState extends State<CallRecording> {
                                       width: 15.w,
                                       color: const Color(0xFF1D3856),
                                     ),
-                                    SizedBox(width: 10.w), // Changed height to width
+                                    SizedBox(width: 10.w),
+                                    // Changed height to width
                                     Text(
                                       "Outgoing",
                                       style: GoogleFonts.lato(
@@ -194,7 +191,10 @@ class _CallRecordingState extends State<CallRecording> {
                       SizedBox(height: 10.h),
                       Container(
                         padding: EdgeInsets.all(16.r),
-                        child: SvgPicture.asset("assets/svg/wave.svg", width: 100.w),
+                        child: SvgPicture.asset(
+                          "assets/svg/wave.svg",
+                          width: 100.w,
+                        ),
                         height: 92.h,
                         width: 344.w,
                         decoration: BoxDecoration(
@@ -203,22 +203,19 @@ class _CallRecordingState extends State<CallRecording> {
                             begin: Alignment.bottomLeft,
                             end: Alignment.bottomRight,
                           ),
-                          border: Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                          border: Border.all(
+                            color: Color(0x4DFFFFFF),
+                            width: 1.0.w,
+                          ),
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
                       SizedBox(height: 25.h),
-                      LinearProgressIndicator(
-                        value: 0.6,
-                        minHeight: 8.h,
-                      ),
+                      LinearProgressIndicator(value: 0.6, minHeight: 8.h),
                       SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('0:16'),
-                          Text('8:24'),
-                        ],
+                        children: [Text('0:16'), Text('8:24')],
                       ),
                       SizedBox(height: 10.h), // Added space
                       Row(
@@ -239,7 +236,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_prev.svg", width: 15.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_prev.svg",
+                                width: 15.w,
+                              ),
                               color: Colors.black,
                               onPressed: () {},
                             ),
@@ -256,7 +256,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ),
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_button.svg", width: 30.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_button.svg",
+                                width: 30.w,
+                              ),
                               color: Colors.white,
                               onPressed: () {},
                             ),
@@ -277,7 +280,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_next.svg", width: 15.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_next.svg",
+                                width: 15.w,
+                              ),
                               color: Colors.black,
                               onPressed: () {},
                             ),
@@ -290,9 +296,17 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset("assets/svg/recordV.svg", width: 20.w, height: 15.h),
+                              SvgPicture.asset(
+                                "assets/svg/recordV.svg",
+                                width: 20.w,
+                                height: 15.h,
+                              ),
                               SizedBox(width: 10.w),
-                              SvgPicture.asset("assets/svg/pbar.svg", width: 40.w, height: 10.h),
+                              SvgPicture.asset(
+                                "assets/svg/pbar.svg",
+                                width: 40.w,
+                                height: 10.h,
+                              ),
                               SizedBox(width: 10.w),
                               Text("70%", style: TextStyle(fontSize: 12.sp)),
                             ],
@@ -312,19 +326,22 @@ class _CallRecordingState extends State<CallRecording> {
                               SpeedButton(
                                 speed: 0.5,
                                 isSelected: selectedSpeed == 0.5,
-                                onTap: () => setState(() => selectedSpeed = 0.5),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 0.5),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 1.0,
                                 isSelected: selectedSpeed == 1.0,
-                                onTap: () => setState(() => selectedSpeed = 1.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 1.0),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 2.0,
                                 isSelected: selectedSpeed == 2.0,
-                                onTap: () => setState(() => selectedSpeed = 2.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 2.0),
                               ),
                             ],
                           ),
@@ -357,7 +374,6 @@ class _CallRecordingState extends State<CallRecording> {
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF1D3856),
-
                         ),
                       ),
                       SizedBox(height: 15.h),

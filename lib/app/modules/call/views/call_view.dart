@@ -34,7 +34,10 @@ class CallView extends GetView<CallController> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.arrow_back),
+                  GestureDetector(
+                    onTap: Get.back,
+                    child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                  ),
                   SizedBox(width: 12.w), // responsive width
                   CircleAvatar(
                     backgroundImage: const AssetImage("assets/images/auth/img.png"),
