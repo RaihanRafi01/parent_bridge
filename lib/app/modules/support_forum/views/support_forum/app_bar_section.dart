@@ -28,8 +28,8 @@ class app_bar_section extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(40.sp),
-          bottomRight: Radius.circular(40.sp),
+          bottomLeft: Radius.circular(40.r),
+          bottomRight: Radius.circular(40.r),
         ),
       ),
       child: Padding(
@@ -58,37 +58,33 @@ class app_bar_section extends StatelessWidget {
                   Spacer(),
                   // post button
                   GestureDetector(
-                    // ontap ..
+
                     onTap: () {
+                      Get.to(()=>post_page());
                       print('This is Post button ');
                     },
                     child: Container(
                       width: 74.w,
                       height: 35.16.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.sp),
-                        color: Color(0xFFBD9DED),
+                        borderRadius: BorderRadius.circular(10.r),
+                        color: AppColors.appbar_color_01,
                       ),
                       child: Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(UploadDocument());
-                          },
-                          child: Text(
-                            'Post',
-                            style:h2.copyWith(
-                              fontSize: 18.16.sp
-                            )
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+                        child: Text(
+                          'Post',
+                          style:h2.copyWith(
+                            fontSize: 18.16.sp
+                          )
+                        )
+                      )
+                    )
+                  )
+                ]
+              )
+            )
+          ]
+        )
       ),
     );
   }

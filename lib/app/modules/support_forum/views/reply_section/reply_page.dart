@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/cmnt_profile_details.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/commet_section.dart';
-
 import '../../../../../common/appColors.dart';
 import '../../../../../common/customFont.dart';
-import '../common/custom_react_comment.dart';
-
 class reply_page extends StatelessWidget {
-  const reply_page({super.key, this.color});
+  const reply_page({super.key, required this.color });
 
-  final Color? color;
+  final Color color;
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +88,12 @@ class reply_page extends StatelessWidget {
                               height: 43,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: AppColors.anonymous_parent_01,
+                                  color: color.withOpacity(0.5), // the problem is here
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100.r),
                                 ),
-                                color: AppColors.reply_msg,
+                                color: color.withOpacity(0.1),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -121,11 +116,14 @@ class reply_page extends StatelessWidget {
                             ),
                             // sent button ..
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 10),
                                 child: SvgPicture.asset(
                                   'assets/svg/support_forum_/icons/sent.svg',
+                                  color: color,
                                 ),
                               ),
                             ),

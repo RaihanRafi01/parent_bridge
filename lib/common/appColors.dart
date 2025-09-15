@@ -202,6 +202,17 @@ class AppColors {
      static const Color reply_msg = Color(0xffF9EED9);
      static const Color reply_msg_1 = Color(0xff5F5F5F);
 
+     //
+    static const Color post_page_01=Color(0xffBD9DED);
+    static const Color post_page_02=Color(0xff90CAE2);
+
+    static const Color post_page_03=Color(0xffCC94EF);
+    static const Color post_page_04=Color(0xff9140D3);
+    static const Color post_page_0= Color(0xFFBD9DED);
+
+
+    static const Color Transperent=Colors.transparent;
+
 
 
 

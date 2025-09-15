@@ -14,7 +14,7 @@ class search_partl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: EdgeInsetsGeometry.only(top: 8,bottom: 12),
+    return Container(padding: EdgeInsetsGeometry.only(top: 8.r,bottom: 12.r),
       width: 394.w,
       height: 46.h,
       decoration: BoxDecoration(
@@ -28,9 +28,8 @@ class search_partl extends StatelessWidget {
           prefixIcon: SvgPicture.asset('assets/svg/support_forum_/icons/search_icon.svg',color: AppColors.search_bar_01 ),
           border: InputBorder.none,
           hintStyle: h4.copyWith(
-
               color:AppColors.search_bar_01,
-            fontSize: 14.sp
+              fontSize: 14.sp
           )
         ),
 

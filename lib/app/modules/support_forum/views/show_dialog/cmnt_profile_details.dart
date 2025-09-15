@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
 
@@ -56,7 +56,7 @@ class cmt_profile_details extends StatelessWidget {
 
             // Comment text
             Text(
-              "I am a Flutter App Devoloper \ni am from Bangladesh ",
+              "I am a Flutter App Devoloper \nfrom Noakhali ",
               style: h4.copyWith(
                 fontSize: 13.14.sp,
                 color: AppColors.show_dialog_with_Comment_01,

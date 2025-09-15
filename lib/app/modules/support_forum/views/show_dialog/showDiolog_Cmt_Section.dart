@@ -15,17 +15,18 @@ class show_dialog_cmt_section extends StatelessWidget {
   const show_dialog_cmt_section({
     super.key,
     this.body_title,
-    this.color,
-    this.body_subtitle,
+    required this.color,
+    this.cmt_dialog_subtitle,
   });
 
   final String? body_title;
-  final String? body_subtitle;
-  final Color? color;
+  final String? cmt_dialog_subtitle;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
@@ -146,7 +147,7 @@ class show_dialog_cmt_section extends StatelessWidget {
                       SizedBox(height: 20.h),
 
                       Text(
-                        "$body_subtitle",
+                        "$cmt_dialog_subtitle",
                         style: h4.copyWith(
                           color: AppColors.custom_anonymous_parent_02,
                           fontSize: 14.sp,
@@ -201,12 +202,12 @@ class show_dialog_cmt_section extends StatelessWidget {
                               height: 43,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: AppColors.anonymous_parent_01,
+                                  color: color,
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100.r),
                                 ),
-                                color: AppColors.reply_msg,
+                                color: color.withOpacity(0.1),
                               ),
                               child: Padding(
                                 padding:   EdgeInsets.only(bottom: 12.0,right: 15,left: 20),
@@ -224,19 +225,17 @@ class show_dialog_cmt_section extends StatelessWidget {
                               ),
                             ),
                             // sent button ..
-                            GestureDetector(
-                              onTap: () {
-                                Get.dialog(reply_page(color: AppColors.controler_list_color_01),barrierColor: AppColors.anonymous_parent_03);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: SvgPicture.asset('assets/svg/support_forum_/icons/sent.svg'),
-                              ),
-                            )
+
+
+                             Padding(
+                                padding:   EdgeInsets.only(left: 10.r),
+                                child: SvgPicture.asset('assets/svg/support_forum_/icons/sent.svg',color: color,),
+
+                              )
                           ],
                         ),
                       ),
-                      SizedBox(height: 10)
+                      SizedBox(height: 10.h)
                     ],
                   ),
                 ),

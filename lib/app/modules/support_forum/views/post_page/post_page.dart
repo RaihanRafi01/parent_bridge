@@ -1,231 +1,255 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import '../../../../../common/appColors.dart';
+import '../../../../../common/customFont.dart';
 
-
-import '../../../document_vault/controllers/document_vault_controller.dart';
-import 'custom_textfeild.dart';
-
-class UploadDocument extends GetView<DocumentVaultController> {
-  const UploadDocument({super.key});
+class post_page extends StatelessWidget {
+  const post_page({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( //  Added scroll
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // header ..
             Container(
               height: 147.h,
-              // responsive height
-              padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
-              // responsive padding
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.appColor2, AppColors.appColor],
+                  colors: [AppColors.post_page_01, AppColors.post_page_02],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.r), // responsive radius
-                  bottomRight: Radius.circular(40.r), // responsive radius
+                  bottomLeft: Radius.circular(40.r),
+                  bottomRight: Radius.circular(40.r),
                 ),
               ),
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
+                    onPressed: () => Get.back(),
                     icon: const Icon(Icons.arrow_back),
                   ),
-                  SizedBox(width: 12.w), // responsive width
+                  SizedBox(width: 12.w),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "New Post",
-                          style: h2.copyWith(
-                            fontSize: 24.47.sp, // responsive font size
-
-                            color: AppColors.textColor7,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      "New Post",
+                      style: h2.copyWith(
+                        fontSize: 24.47.sp,
+                        color: AppColors.textColor7,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 40.h),
+
+            SizedBox(height: 30.h),
 
 
-            SizedBox(height: 20.h),
-
-            Center(
-              child: Container(
-                height: 56.h,
-                width: 382.73.w, // 👈 should use .w instead of .sp for width
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.btnBorder.withOpacity(1),
-                      spreadRadius: 1.r,
-                      blurRadius: 6.r,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                  color: AppColors.textInputFillColor,
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 20.sp,
-                    top: 15.sp,
-                    right: 20.sp,
-                    left: 20.sp,
-                  ),
-                  child: TextField(
-                    style: TextStyle(
-                      color: AppColors.textColorHint,
-                      fontSize: 14.sp,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Title',
-                      //  correct way
-                      hintStyle: h4.copyWith(
-                        color: AppColors.textColorHint,
-                        fontSize: 14.sp,
-                      ),
-                      border: InputBorder.none,
-                      //  removes default underline
-                      isDense: true,
-                      //  keeps it compact
-                      contentPadding: EdgeInsets.zero, //  aligns nicely
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {
-                // Get.to(UploadDocument2());
-              },
-              child: CustomButtonAddDocument(
-                padding3: 10.r,
-                padding2: 10.r,
-                padding4: 20.r,
-                padding: 10.r,
-
-                height: 56.h,
-                width: 382.73.sp,
-                text: "Select Category",
-                icon: Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: AppColors.textColorHint,
-                ),
-              ),
-            ),
-            SizedBox(height: 20.h),
-
-
-            Center(
-              child: Container(
-                height: 94.h,
-                width: 383.w, // 👈 should use .w instead of .sp for width
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.borderColor.withOpacity(1.0),
-                      spreadRadius: 1.r,
-                      blurRadius: 6.r,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                  color: AppColors.textInputFillColor,
-                  borderRadius: BorderRadius.circular(100.r),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: 20.sp,
-                    top: 15.sp,
-                    right: 20.sp,
-                    left: 30.sp,
-                  ),
-                  child: TextField(
-                    style: TextStyle(
-                      color: AppColors.textColorHint,
-                      fontSize: 14.sp,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Add a Description',
-                      // ✅ correct way
-                      hintStyle: h4.copyWith(
-                        color: AppColors.textColorHint,
-                        fontSize: 14.sp,
-                      ),
-                      border: InputBorder.none,
-                      // ✅ removes default underline
-                      isDense: true,
-                      // ✅ keeps it compact
-                      contentPadding: EdgeInsets.zero, // ✅ aligns nicely
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 70.h),
-            Row(
+          SizedBox(
+            height: 750.h,
+            width: 383.w,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+
               children: [
-
-                InkWell(
-                  onTap: () {
-                    // Get.to(UploadDocument2());
-                  },
+                // 🔹 Title Input
+                Center(
                   child: Container(
-                    height: 52.h,
-                    width: double.infinity, // 👈 should use .w instead of .sp for width
+                    height: 56.h,
+                    width: 382.73.w,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColors.btnBorder,
-
-                      ),
-
-                      gradient: LinearGradient(
-                        colors: [AppColors.appColor2, AppColors.appColor],
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                      ),
-                      borderRadius: BorderRadius.circular(100.r),
+                      border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.post_page_03.withOpacity(0.1.r),
+                          spreadRadius: 1.r,
+                          blurRadius: 6.r,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                      color: AppColors.textInputFillColor,
+                      borderRadius: BorderRadius.circular(50.r),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Add Document',
-                        style: h1.copyWith(
-                          color: AppColors.clrWhite,
-                          fontSize: 18.sp,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter Title',
+                          hintStyle: h4.copyWith(
+                            color: AppColors.textColorHint,
+                            fontSize: 14.sp,
+                          ),
+                          border: InputBorder.none,
                         ),
                       ),
                     ),
                   ),
                 ),
+
+                SizedBox(height: 30.h),
+
+                // 🔹 Category field (fake dropdown look)
+                Container(
+                  height: 56.h,
+                  width: 382.73.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.post_page_03.withOpacity(.2),
+                        spreadRadius: 1.r,
+                        blurRadius: 6.r,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                    color: AppColors.textInputFillColor,
+                    borderRadius: BorderRadius.circular(50.r),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Select Category',
+                          style: h4.copyWith(
+                            color: AppColors.textColorHint,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                        IconButton(onPressed: (){}, icon: Icon(Icons.keyboard_arrow_down_outlined,color: AppColors.textColorHint))
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 30.h),
+
+                // 🔹 Description
+                Container(
+                  height: 94.h,
+                  width: 383.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.post_page_03.withOpacity(0.2.r),
+                        spreadRadius: 1.r,
+                        blurRadius: 6.r,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                    color: AppColors.textInputFillColor,
+                    borderRadius: BorderRadius.circular(50.r),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 25.r,top: 10.r),
+                    child: TextField(
+                      maxLines: null,
+                      expands: true,
+
+                      decoration: InputDecoration(
+                        hintText: 'Share your thoughts, questions, or experiences',
+                        hintStyle: h4.copyWith(
+                          color: AppColors.textColorHint,
+                          fontSize: 14.sp,
+                        ),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(height: 50.h),
+
+                // Post  Button
+                  SizedBox(
+                    width:double.infinity,
+                    height: 52.h,
+
+                    child: InkWell(
+                      onTap: () {
+                        // Get.to(UploadDocument2());
+                      },
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      child: Container(
+
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.btnBorder),
+                          gradient: LinearGradient(
+                            colors: [AppColors.appColor2, AppColors.appColor],
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                          ),
+
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Post Anonymously',
+                            style: h1.copyWith(
+                              color: AppColors.clrWhite,
+                              fontSize: 18.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                SizedBox(height: 80.h),
+                // Text ..
+
+                Container(
+                  width: double.infinity,
+                  height: 86.h,
+                  padding: EdgeInsets.all(16.r),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEFD9FF), // light purple background
+                    borderRadius: BorderRadius.circular(12.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.post_page_03.withOpacity(0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Remember: ",
+                          style: h3.copyWith( // your custom font
+                            color: AppColors.post_page_04,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                          "All Posts Are Anonymous And Your Co-Parent Cannot See Your Contributions To Maintain \nPrivacy.",
+                          style: h4.copyWith(
+                            color: AppColors.post_page_04,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+
               ],
             ),
+          )
           ],
         ),
       ),

@@ -33,19 +33,22 @@ class custom_react_comment extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-               GestureDetector(onTap:comment_ontap,child: SvgPicture.asset('$svg_image')),
-              SizedBox(width: 5.sp),
-              Text(
-                '$count',
-                style:h4.copyWith(
-                  fontSize: 16.11.sp,
-                  color: AppColors.custom_anonymous_parent_03,
-                )
-              ),
-            ],
+          child: GestureDetector(
+            onTap: comment_ontap,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                 SvgPicture.asset('$svg_image'),
+                SizedBox(width: 5.sp),
+                Text(
+                  '$count',
+                  style:h4.copyWith(
+                    fontSize: 16.11.sp,
+                    color: AppColors.custom_anonymous_parent_03,
+                  )
+                ),
+              ],
+            ),
           ),
         ),
       ],
