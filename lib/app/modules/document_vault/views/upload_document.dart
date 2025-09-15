@@ -191,42 +191,14 @@ class UploadDocument extends GetView<DocumentVaultController> {
 
             SizedBox(height: 20.h),
 
-            // ✅ Select Category with same logic as first page
             Obx(
-              () => InkWell(
-                onTap: () {
-                  showMenu<String>(
-                    context: context,
+                  () => PopupMenuButton<String>(
+                offset: const Offset(0, 0), // Optional: Fine-tune the offset if needed
 
-                    position: RelativeRect.fromLTRB(50.w, 530.h, 50.w, 200.h),
-                    items: [
-                      _buildCategoryMenu(
-                        "Legal",
-                        AppColors.textCategory1,
-                        AppColors.category1,
-                      ),
-                      _buildCategoryMenu(
-                        "Activities",
-                        AppColors.textCategory2,
-                        AppColors.category2,
-                      ),
-                      _buildCategoryMenu(
-                        "Medical Records",
-                        AppColors.textCategory3,
-                        AppColors.category3,
-                      ),
-                      _buildCategoryMenu(
-                        "School Documents",
-                        AppColors.textCategory4,
-                        AppColors.category4,
-                      ),
-                    ],
-                  ).then((value) {
-                    if (value != null) {
-                      controller.selectedCategory.value = value;
-                    }
-                  });
-                },
+                constraints: BoxConstraints(
+                  minWidth: 382.73.w, // Match the button width
+                  maxWidth: 382.73.w, // Prevent it from exceeding the button width
+                ),
                 child: CustomButtonAddDocument(
                   padding3: 10.r,
                   padding2: 10.r,
@@ -240,6 +212,31 @@ class UploadDocument extends GetView<DocumentVaultController> {
                     color: AppColors.textColorHint,
                   ),
                 ),
+                itemBuilder: (BuildContext context) => [
+                  _buildCategoryMenu(
+                    "Legal",
+                    AppColors.textCategory1,
+                    AppColors.category1,
+                  ),
+                  _buildCategoryMenu(
+                    "Activities",
+                    AppColors.textCategory2,
+                    AppColors.category2,
+                  ),
+                  _buildCategoryMenu(
+                    "Medical Records",
+                    AppColors.textCategory3,
+                    AppColors.category3,
+                  ),
+                  _buildCategoryMenu(
+                    "School Documents",
+                    AppColors.textCategory4,
+                    AppColors.category4,
+                  ),
+                ],
+                onSelected: (String value) {
+                  controller.selectedCategory.value = value;
+                },
               ),
             ),
 
@@ -383,15 +380,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
 
 // ✅ Reused from first page
 PopupMenuItem<String> _buildCategoryMenu(
-  String value,
-  Color bgColor,
-  Color textColor,
-) {
+    String value,
+    Color bgColor,
+    Color textColor,
+    ) {
   return PopupMenuItem(
     height: 30.h,
     value: value,
     child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 3.r, vertical: 2.r),
+      width: double.infinity, // Stretch to full width of the menu
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(20.r),
@@ -400,7 +398,7 @@ PopupMenuItem<String> _buildCategoryMenu(
         child: Text(
           value,
           style: h4.copyWith(color: textColor, fontSize: 12.09.sp),
-          textAlign: TextAlign.left,
+          textAlign: TextAlign.center, // Center text for better appearance
         ),
       ),
     ),
