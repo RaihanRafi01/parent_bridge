@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
 class Subscription extends StatelessWidget {
   const Subscription({super.key});
@@ -25,7 +26,7 @@ class Subscription extends StatelessWidget {
                     onTap: () => Get.back(),
                     child: Icon(
                       Icons.arrow_back_outlined,
-                      color: Colors.black,
+                      color: AppColors.clrBlack,
                       size: 28.sp, // responsive size
                     ),
                   ),
@@ -34,7 +35,7 @@ class Subscription extends StatelessWidget {
                     style: GoogleFonts.lato(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D3856),
+                      color: AppColors.txtclr4,
                     ),
                   ),
                   SizedBox(width: 28.w), // right side spacing
@@ -89,7 +90,7 @@ class Subscription extends StatelessWidget {
                     style: GoogleFonts.lato(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: AppColors.clrWhite,
                     ),
                   ),
                 ),
@@ -110,14 +111,14 @@ class Subscription extends StatelessWidget {
         style: GoogleFonts.lato(
           fontSize: 18.sp,
           fontWeight: FontWeight.w600,
-          color: const Color(0xFF818181),
+          color: AppColors.txtclr3,
         ),
         children: [
           TextSpan(
             text: '$label : ',
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D3856),
+              color: AppColors.textColor7,
               fontSize: 18.sp,
             ),
           ),

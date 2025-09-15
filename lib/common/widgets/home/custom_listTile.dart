@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../appColors.dart';
+
 class CustomListTile extends StatelessWidget {
   final String leadingSvgAsset;
   final String title;
@@ -31,12 +33,12 @@ class CustomListTile extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
         decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
+          color: AppColors.clrWhite,
           borderRadius: BorderRadius.circular(50.0),
-          border: Border.all(color: Color(0xFFEDEDED), width: 1.0.w),
+          border: Border.all( color: AppColors.borderColor, width: 1.0.w),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFCC94EF).withOpacity(0.14),
+              color: AppColors.boxShadowColor.withOpacity(0.14),
               spreadRadius: 0,
               blurRadius:  12.6,
               offset: const Offset(0, 8),
@@ -50,10 +52,7 @@ class CustomListTile extends StatelessWidget {
               leadingSvgAsset,
               width: 22,
               height: 22,
-              colorFilter: ColorFilter.mode(
-                Colors.grey.shade600,
-                BlendMode.srcIn,
-              ),
+              color :AppColors.gray2,
             ),
             const SizedBox(width: 16),
 
@@ -64,7 +63,7 @@ class CustomListTile extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF747688),
+                  color: AppColors.gray2,
                 ),
               ),
             ),

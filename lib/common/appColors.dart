@@ -174,4 +174,21 @@ class AppColors {
 
   static const Color buttonColor51 = Color(0xFF731AE8);
   static const Color buttonColor52 = Color(0xFFC198F7);
+
+
+
+ // Hasan_Abir
+  static const Color txtclr1 = Color(0xFF63768A);
+  static const Color titlepurple= Color(0xFF9045F7);
+  static const Color profileboxclr= Color(0xFFB7E8FC);
+  static const Color gray2= Color(0xFF747688);
+  static const Color gray3= Color(0xFFCDCDCD);
+  static const Color blackactive= Color(0xFF171717);
+  static const Color logout= Color(0xFFD22853);
+  static const Color pchangeButtonclr= Color(0xFFCFF0FF);
+  static const Color txtclr2 = Color(0xFF393939);
+  static const Color borderclr = Color(0xFFB7E7FC);
+  static const Color txtclr3 = Color(0xFF818181);
+  static const Color txtclr4 = Color(0xFF474747);
+
 }

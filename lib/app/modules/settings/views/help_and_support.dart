@@ -51,7 +51,7 @@ class HelpAndSupport extends StatelessWidget {
 
               SizedBox(height: 30.h),
 
-              SizedBox(
+             SizedBox(
                 height: 0.6.sh, // responsive height (60% of screen height)
                 child: Obx(() {
                   return controller.selectedTab.value == 0
