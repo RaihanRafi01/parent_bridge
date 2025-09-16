@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/call/views/call_recording.dart';
 import 'package:parent_bridge/app/modules/call/views/incoming_ongoing_call.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
 
 import '../../../../common/widgets/CallLogCard.dart';
@@ -51,7 +52,7 @@ class CallView extends GetView<CallController> {
                             style: GoogleFonts.lato(
                                 fontSize: 24.47.sp, // responsive font size
                                 fontWeight: FontWeight.w600,
-                                color: const Color(0xFF1D3856))),
+                                color: AppColors.txtclr5)),
                         Row(
                           children: [
                             Icon(Icons.circle,
@@ -76,7 +77,7 @@ class CallView extends GetView<CallController> {
                                 style: GoogleFonts.lato(
                                     fontSize: 13.77.sp, // responsive font size
                                     fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF1D3856))),
+                                    color:  AppColors.txtclr5)),
                           ],
                         ),
                       ],
@@ -156,7 +157,7 @@ class CallView extends GetView<CallController> {
                 style: GoogleFonts.lato(
                   fontSize: 20.sp, // responsive font size
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF1D3856),
+                  color: AppColors.txtclr5,
                 ),
               ),
             ),

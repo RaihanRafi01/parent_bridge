@@ -169,7 +169,7 @@ class SettingsView extends StatelessWidget {
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/settings/help_s.svg',
-                title: 'Help & suppor',
+                title: 'Help & support',
                 trailingWidget: SvgPicture.asset(
                   'assets/images/settings/arrow.svg',
                 ),

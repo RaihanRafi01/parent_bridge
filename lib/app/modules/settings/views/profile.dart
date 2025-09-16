@@ -95,7 +95,7 @@ class Profile extends StatelessWidget {
                             horizontal: 16.w, vertical: 8.h),
                         decoration: BoxDecoration(
                           color: AppColors.pchangeButtonclr,
-                           border: Border.all( color: AppColors.borderclr, width: 1.0.w),
+                           border: Border.all( color: AppColors.customblueclr, width: 1.0.w),
                           borderRadius: BorderRadius.circular(10.r),
 
 
@@ -146,7 +146,7 @@ class Profile extends StatelessWidget {
                   'child’s (2)',
                   style: h2.copyWith(
                     fontSize: 18.sp,
-                    color: const Color(0xFF474747),
+                    color: AppColors.txtclr4,
                   ),
                 ),
               ),

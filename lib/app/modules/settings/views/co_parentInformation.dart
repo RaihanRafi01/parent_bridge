@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../../common/customFont.dart';
 
+import 'package:get/get.dart';
+
+import '../../../../common/appColors.dart';
 import '../../../../common/widgets/home/custom_listTile.dart';
 
 class CoParentinformation extends StatelessWidget {
@@ -11,14 +13,14 @@ class CoParentinformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.clrWhite,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w), // used ScreenUtil for width
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 70.h), // responsive height
+              SizedBox(height: 70.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -28,71 +30,66 @@ class CoParentinformation extends StatelessWidget {
                     },
                     child: Icon(
                       Icons.arrow_back_outlined,
-                      color: Colors.black,
-                      size: 28.sp, // responsive icon size
+                      color: AppColors.blackactive,
+                      size: 28.sp,
                     ),
                   ),
                   Text(
                     'Co-parent Information',
-                    style: GoogleFonts.lato(
+                    style: h2.copyWith( // FontWeight.w600
                       fontSize: 28.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D3856),
+                      color: AppColors.txtclr5,
                     ),
                   ),
-                  SizedBox(width: 28.w), // keep space on the right side
+                  SizedBox(width: 28.w),
                 ],
               ),
-
               SizedBox(height: 24.h),
               Text(
                 'Full name',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // FontWeight.w600
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.txtclr4,
                 ),
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/settings/profile.svg',
                 title: 'Michael Smith',
               ),
-
               SizedBox(height: 16.h),
               Text(
                 'Email',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // FontWeight.w600
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.txtclr4,
                 ),
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/profile/mail.svg',
                 title: 'michaelsmith@gmail.com',
               ),
-
               SizedBox(height: 16.h),
               Text(
                 'Contact number',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // FontWeight.w600
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.txtclr4,
                 ),
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/profile/contact.svg',
                 title: '+881 01405366393',
               ),
-
               SizedBox(height: 40.h),
               Container(
                 height: 45.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFBD9DED), Color(0xFF90CAE2)],
+                    colors: [
+                      AppColors.lightPurplePink2,
+                      AppColors.customSkyBlue3,
+                    ],
                     begin: Alignment.bottomRight,
                     end: Alignment.topLeft,
                   ),
@@ -101,10 +98,9 @@ class CoParentinformation extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "Save",
-                    style: GoogleFonts.lato(
+                    style: h2.copyWith( // FontWeight.w600
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: AppColors.clrWhite,
                     ),
                   ),
                 ),

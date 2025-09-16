@@ -187,8 +187,17 @@ class AppColors {
   static const Color logout= Color(0xFFD22853);
   static const Color pchangeButtonclr= Color(0xFFCFF0FF);
   static const Color txtclr2 = Color(0xFF393939);
-  static const Color borderclr = Color(0xFFB7E7FC);
+  static const Color customblueclr = Color(0xFFB7E7FC);
   static const Color txtclr3 = Color(0xFF818181);
   static const Color txtclr4 = Color(0xFF474747);
+  static const Color txtclr5 = Color(0xFF1D3856);
+  static const Color txtclr6 = Color(0xFF535356);
+  static const Color txtclr7 = Color(0xFF838CDE);
+  static const Color boxShadow = Color(0xFFCC94EF);
+  static const Color boxclr1 = Color(0xFFE8F8FF);
+  static const Color txtclr8 = Color(0xFF363636);
+  static const Color iconclr = Color(0xFF807A7A);
+  static const Color iconclr2 = Color(0xFF807A7A);
+  static const Color customblueclr2 = Color(0xFFDFF5FF);
 
 }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../common/appColors.dart';
 import '../controllers/chat_controller.dart';
 
 class ChatView extends GetView<ChatController> {
@@ -31,7 +32,7 @@ class ChatView extends GetView<ChatController> {
             style: GoogleFonts.lato(
               fontSize: 28.sp,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF1D3856),
+                color: AppColors.txtclr5,
             ),
           ),
           SizedBox(width: 28),

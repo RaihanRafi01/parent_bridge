@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import 'package:parent_bridge/common/appColors.dart';
+import '../../../../common/customFont.dart';
 import '../controllers/help_support_controller.dart';
 
 class HelpAndSupport extends StatelessWidget {
@@ -12,55 +12,43 @@ class HelpAndSupport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Wrapped main Column with SingleChildScrollView
-      // so that scrolling works when content overflows
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w), // responsive padding
-          child: Column(
-            children: [
-              SizedBox(height: 50.h),
-              // Custom App Bar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(
-                      Icons.arrow_back_outlined,
-                      color: Colors.black,
-                      size: 28.sp, // responsive icon size
-                    ),
-                  ),
-                  Text(
-                    'Help & Support',
-                    style: GoogleFonts.lato(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D3856),
-                    ),
-                  ),
-                  SizedBox(width: 28.w), // keep space on the right
-                ],
-              ),
-              SizedBox(height: 30.h),
-
-              _buildToggleButtons(context),
-
-              SizedBox(height: 30.h),
-
-             SizedBox(
-                height: 0.6.sh, // responsive height (60% of screen height)
-                child: Obx(() {
-                  return controller.selectedTab.value == 0
-                      ? const FaqSection()
-                      : const ContactUsSection();
-                }),
-              ),
-            ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back_outlined,
+            color: AppColors.clrBlack,
+            size: 28.sp,
           ),
+        ),
+        title: Text(
+          'Help & Support',
+          style: h2.copyWith( // FontWeight.w600
+            fontSize: 24.sp,
+            color: AppColors.txtclr5,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: Column(
+          children: [
+            SizedBox(height: 40.h),
+            _buildToggleButtons(context),
+            SizedBox(height: 40.h),
+            Expanded(
+              child: Obx(() {
+                return controller.selectedTab.value == 0
+                    ? const FaqSection()
+                    : const ContactUsSection();
+              }),
+            ),
+          ],
         ),
       ),
     );
@@ -71,12 +59,12 @@ class HelpAndSupport extends StatelessWidget {
           () => Container(
         height: 50.h,
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: const Color(0xFFEDEDED)),
+          color: AppColors.clrWhite,
+          border: Border.all(color: AppColors.borderColor),
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.purple.withOpacity(0.07),
+              color: AppColors.boxShadow.withOpacity(0.14),
               spreadRadius: 10,
               blurRadius: 10,
             ),
@@ -87,7 +75,6 @@ class HelpAndSupport extends StatelessWidget {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
-              // half of total width (minus padding 40)
               left: controller.selectedTab.value == 0
                   ? 0
                   : (MediaQuery.of(context).size.width - 40.w) / 2,
@@ -95,7 +82,7 @@ class HelpAndSupport extends StatelessWidget {
                 width: (MediaQuery.of(context).size.width - 40.w) / 2,
                 height: 50.h,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFB7E7FC),
+                  color: AppColors.customblueclr,
                   borderRadius: BorderRadius.circular(25.r),
                 ),
               ),
@@ -108,10 +95,9 @@ class HelpAndSupport extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'FAQ Questions',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
+                        style: h4.copyWith( // FontWeight.w400
                           fontSize: 16.sp,
-                          color: const Color(0xFF1D3856),
+                          color: AppColors.txtclr5,
                         ),
                       ),
                     ),
@@ -123,10 +109,9 @@ class HelpAndSupport extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Contact Us',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
+                        style: h4.copyWith( // FontWeight.w400
                           fontSize: 16.sp,
-                          color: const Color(0xFF1D3856),
+                          color: AppColors.txtclr5,
                         ),
                       ),
                     ),
@@ -141,7 +126,6 @@ class HelpAndSupport extends StatelessWidget {
   }
 }
 
-// FAQ Section
 class FaqSection extends StatelessWidget {
   const FaqSection({super.key});
   @override
@@ -171,55 +155,99 @@ class FaqSection extends StatelessWidget {
         'answer':
         'The app can still be used independently, including messaging features. In independent mode, a new number will be assigned to the co-parent using the app.',
       },
+      {
+        'question': 'This is a test question 3',
+        'answer': 'This is a test answer to make the content longer.',
+      },
+      {
+        'question': 'This is a test question 4',
+        'answer': 'This is a test answer to make the content longer.',
+      },
     ];
+
     return ListView.builder(
       itemCount: faqs.length,
-      itemBuilder: (context, index) => _buildExpansionTile(
+      itemBuilder: (context, index) => CustomExpansionTile(
         question: faqs[index]['question']!,
         answer: faqs[index]['answer']!,
       ),
     );
   }
+}
 
-  Widget _buildExpansionTile({
-    required String question,
-    required String answer,
-  }) {
+class CustomExpansionTile extends StatefulWidget {
+  final String question;
+  final String answer;
+
+  const CustomExpansionTile({
+    Key? key,
+    required this.question,
+    required this.answer,
+  }) : super(key: key);
+
+  @override
+  State<CustomExpansionTile> createState() => _CustomExpansionTileState();
+}
+
+class _CustomExpansionTileState extends State<CustomExpansionTile> {
+  bool _isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 15.h),
-      padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: const Color(0xFFE8F8FF),
-        border: Border.all(color: const Color(0xFFEDEDED)),
+        color: AppColors.boxclr1,
+        border: Border.all(color: AppColors.borderColor),
         borderRadius: BorderRadius.circular(50.r),
         boxShadow: [
           BoxShadow(
-              color: const Color(0xFFEDEDED), spreadRadius: 2, blurRadius: 15),
+              color: AppColors.borderColor, spreadRadius: 2, blurRadius: 15),
         ],
       ),
       child: Theme(
         data: ThemeData(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          iconColor: Colors.lightBlue,
-          collapsedIconColor: Colors.black54,
+          onExpansionChanged: (bool expanded) {
+            setState(() {
+              _isExpanded = expanded;
+            });
+          },
+          trailing: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 300),
+            firstChild: Icon(
+              Icons.south_east,
+              size: 20.sp,
+              color: Colors.black54,
+            ),
+            secondChild: Icon(
+              Icons.north_east,
+              size: 20.sp,
+              color: Colors.lightBlue,
+            ),
+            crossFadeState: _isExpanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+          ),
           title: Text(
-            question,
-            style: TextStyle(
-              color: const Color(0xFF1D3856),
-              fontWeight: FontWeight.w500,
+            widget.question,
+            style: h3.copyWith( // FontWeight.w500
+              color: AppColors.txtclr5,
               fontSize: 18.sp,
             ),
           ),
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 20.h),
-              child: Text(
-                answer,
-                style: TextStyle(
-                  color: const Color(0xFF363636),
-                  height: 1.5,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.answer,
+                  style: h4.copyWith( // FontWeight.w400
+                    color: AppColors.txtclr8,
+                    height: 1.5,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
             ),
@@ -230,7 +258,6 @@ class FaqSection extends StatelessWidget {
   }
 }
 
-// Contact Us Section
 class ContactUsSection extends StatelessWidget {
   const ContactUsSection({super.key});
   @override
@@ -240,11 +267,11 @@ class ContactUsSection extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30.r), // fully rounded
+              color: AppColors.clrWhite,
+              borderRadius: BorderRadius.circular(30.r),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFE0D7F1).withOpacity(0.6),
+                  color: AppColors.boxShadow.withOpacity(0.14),
                   blurRadius: 15.r,
                   spreadRadius: 1.r,
                   offset: const Offset(0, 4),
@@ -254,9 +281,10 @@ class ContactUsSection extends StatelessWidget {
             child: TextField(
               decoration: InputDecoration(
                 prefixIcon:
-                Icon(Icons.email_outlined, color: Colors.grey[500]),
+                Icon(Icons.email_outlined, color: AppColors.iconclr),
                 hintText: 'abc@email.com',
-                hintStyle: TextStyle(color: const Color(0xFF747688), fontSize: 14.sp),
+                hintStyle: h4.copyWith( // FontWeight.w400
+                    color: AppColors.textColorHint, fontSize: 14.sp),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -270,10 +298,10 @@ class ContactUsSection extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(30.r), // fully rounded
+              borderRadius: BorderRadius.circular(30.r),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFE0D7F1).withOpacity(0.6),
+                  color: AppColors.boxShadow.withOpacity(0.14),
                   blurRadius: 15.r,
                   spreadRadius: 1.r,
                   offset: const Offset(0, 4),
@@ -284,7 +312,8 @@ class ContactUsSection extends StatelessWidget {
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: 'Explain the problem',
-                hintStyle: TextStyle(color: const Color(0xFF747688), fontSize: 14.sp),
+                hintStyle: h4.copyWith( // FontWeight.w400
+                    color: AppColors.textColorHint, fontSize: 14.sp),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -301,24 +330,16 @@ class ContactUsSection extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.r),
               gradient: LinearGradient(
-                colors: [Colors.blue.shade300, Colors.purple.shade300],
+                colors: [AppColors.buttonColor, AppColors.buttonColor2],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.purple.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 10,
-                ),
-              ],
             ),
             child: Center(
               child: Text(
                 'Send',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                style: h1.copyWith( // FontWeight.bold is w700, so h1
+                  color: AppColors.clrWhite,
                   fontSize: 18.sp,
                 ),
               ),

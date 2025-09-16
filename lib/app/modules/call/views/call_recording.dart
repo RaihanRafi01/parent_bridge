@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // <-- প্যাকেজটি ইম্পোর্ট করুন
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../common/appColors.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';
 import '../../../../common/widgets/speedButton.dart';
-
 
 class CallRecording extends StatefulWidget {
   const CallRecording({super.key});
@@ -19,11 +19,13 @@ class CallRecording extends StatefulWidget {
 
 class _CallRecordingState extends State<CallRecording> {
   double selectedSpeed = 1.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
+          // Background gradient
           Container(
             width: double.infinity,
             height: double.infinity,
@@ -35,6 +37,8 @@ class _CallRecordingState extends State<CallRecording> {
               ),
             ),
           ),
+
+          // Foreground UI
           SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -66,14 +70,17 @@ class _CallRecordingState extends State<CallRecording> {
                           style: GoogleFonts.lato(
                             fontSize: 30.sp,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1D3856),
+                            color: AppColors.txtclr5,
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
+
                 SizedBox(height: 47.h),
+
+                // Call details card
                 Container(
                   width: 377.w,
                   padding: EdgeInsets.all(16.r),
@@ -93,9 +100,8 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           SizedBox(width: 5.w),
                           CircleAvatar(
-                            backgroundImage: AssetImage(
-                              "assets/images/auth/img.png",
-                            ),
+                            backgroundImage:
+                            const AssetImage("assets/images/auth/img.png"),
                             radius: 35.r,
                           ),
                           SizedBox(width: 10.w),
@@ -120,7 +126,7 @@ class _CallRecordingState extends State<CallRecording> {
                                       width: 15.w,
                                       color: const Color(0xFF1D3856),
                                     ),
-                                    SizedBox(width: 10.w), // Changed height to width
+                                    SizedBox(width: 10.w),
                                     Text(
                                       "Outgoing",
                                       style: GoogleFonts.lato(
@@ -142,17 +148,18 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           SizedBox(width: 5.w),
                           BuildDetailItem(
-                            icon: SvgPicture.asset("assets/svg/calender.svg"),
+                            icon:
+                            SvgPicture.asset("assets/svg/calender.svg"),
                             value: "2024-01-12",
                             label: "Call date",
                           ),
-                          Spacer(),
+                          const Spacer(),
                           BuildDetailItem(
                             icon: SvgPicture.asset("assets/svg/clock.svg"),
                             value: "4:20 PM",
-                            label: "start time", // Corrected typo
+                            label: "Start time",
                           ),
-                          Spacer(),
+                          const Spacer(),
                           BuildDetailItem(
                             icon: SvgPicture.asset("assets/svg/timer.svg"),
                             value: "8:12",
@@ -163,11 +170,13 @@ class _CallRecordingState extends State<CallRecording> {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 24.h),
+
+                // Waveform container
                 Container(
                   padding: EdgeInsets.all(16.r),
                   width: 377.w,
-                  // height: 357.h, // Using intrinsic height is better
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [Color(0x807222EA), Color(0x802FCEF1)],
@@ -194,7 +203,8 @@ class _CallRecordingState extends State<CallRecording> {
                       SizedBox(height: 10.h),
                       Container(
                         padding: EdgeInsets.all(16.r),
-                        child: SvgPicture.asset("assets/svg/wave.svg", width: 100.w),
+                        child: SvgPicture.asset("assets/svg/wave.svg",
+                            width: 100.w),
                         height: 92.h,
                         width: 344.w,
                         decoration: BoxDecoration(
@@ -203,7 +213,8 @@ class _CallRecordingState extends State<CallRecording> {
                             begin: Alignment.bottomLeft,
                             end: Alignment.bottomRight,
                           ),
-                          border: Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                          border:
+                          Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
@@ -215,12 +226,14 @@ class _CallRecordingState extends State<CallRecording> {
                       SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('0:16'),
                           Text('8:24'),
                         ],
                       ),
-                      SizedBox(height: 10.h), // Added space
+                      SizedBox(height: 10.h),
+
+                      // Player controls
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -239,8 +252,8 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_prev.svg", width: 15.w),
-                              color: Colors.black,
+                              icon: SvgPicture.asset("assets/svg/play_prev.svg",
+                                  width: 15.w),
                               onPressed: () {},
                             ),
                           ),
@@ -256,8 +269,9 @@ class _CallRecordingState extends State<CallRecording> {
                               ),
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_button.svg", width: 30.w),
-                              color: Colors.white,
+                              icon: SvgPicture.asset(
+                                  "assets/svg/play_button.svg",
+                                  width: 30.w),
                               onPressed: () {},
                             ),
                           ),
@@ -277,22 +291,27 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon:SvgPicture.asset("assets/svg/play_next.svg", width: 15.w),
-                              color: Colors.black,
+                              icon: SvgPicture.asset("assets/svg/play_next.svg",
+                                  width: 15.w),
                               onPressed: () {},
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.h), // Added space
+
+                      SizedBox(height: 10.h),
+
+                      // Speed + Recording Row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset("assets/svg/recordV.svg", width: 20.w, height: 15.h),
+                              SvgPicture.asset("assets/svg/recordV.svg",
+                                  width: 20.w, height: 15.h),
                               SizedBox(width: 10.w),
-                              SvgPicture.asset("assets/svg/pbar.svg", width: 40.w, height: 10.h),
+                              SvgPicture.asset("assets/svg/pbar.svg",
+                                  width: 40.w, height: 10.h),
                               SizedBox(width: 10.w),
                               Text("70%", style: TextStyle(fontSize: 12.sp)),
                             ],
@@ -312,19 +331,22 @@ class _CallRecordingState extends State<CallRecording> {
                               SpeedButton(
                                 speed: 0.5,
                                 isSelected: selectedSpeed == 0.5,
-                                onTap: () => setState(() => selectedSpeed = 0.5),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 0.5),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 1.0,
                                 isSelected: selectedSpeed == 1.0,
-                                onTap: () => setState(() => selectedSpeed = 1.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 1.0),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 2.0,
                                 isSelected: selectedSpeed == 2.0,
-                                onTap: () => setState(() => selectedSpeed = 2.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 2.0),
                               ),
                             ],
                           ),
@@ -333,12 +355,15 @@ class _CallRecordingState extends State<CallRecording> {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 24.h),
+
+                // Call details bottom card
                 Container(
                   width: 377.w,
                   padding: EdgeInsets.all(20.r),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [Color(0x802FCEF1), Color(0x807222EA)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -349,49 +374,49 @@ class _CallRecordingState extends State<CallRecording> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children: [
+                    children: const [
                       Text(
                         "Call Details",
-                        style: GoogleFonts.lato(
-                          fontSize: 18.sp,
+                        style: TextStyle(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF1D3856),
-
                         ),
                       ),
-                      SizedBox(height: 15.h),
-                      const DetailRowWidget(
+                      SizedBox(height: 15),
+                      DetailRowWidget(
                         title: "Initiated By:",
                         value: "you",
                       ),
-                      SizedBox(height: 10.h),
-                      const DetailRowWidget(
+                      SizedBox(height: 10),
+                      DetailRowWidget(
                         title: "Ended By:",
-                        value: "Micheal",
+                        value: "Michael",
                       ),
                     ],
                   ),
                 ),
+
                 SizedBox(height: 30.h),
+
+                // Bottom buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomButton(
                       label: "Download",
-                      svgPath: ("assets/svg/B_downlod_icon.svg"),
+                      svgPath: "assets/svg/B_downlod_icon.svg",
                       onPressed: () {},
                       height: 54.h,
                       width: 183.w,
-                      bgClr: Color(0xFF6A30F4),
+                      bgClr: const Color(0xFF6A30F4),
                       radius: 30.r,
                     ),
                     SizedBox(width: 16.w),
                     CustomButton(
-                      borderColor: Color(0xFF7222EA),
-
+                      borderColor: const Color(0xFF7222EA),
                       label: "Share",
-                      svgPath: ("assets/svg/B_downlod_icon.svg"),
+                      svgPath: "assets/svg/B_downlod_icon.svg",
                       onPressed: () {},
                       height: 54.h,
                       width: 183.w,
@@ -400,6 +425,7 @@ class _CallRecordingState extends State<CallRecording> {
                     ),
                   ],
                 ),
+
                 SizedBox(height: 24.h),
               ],
             ),

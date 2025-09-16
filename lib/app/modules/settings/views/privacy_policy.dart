@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
 import '../../../../common/customFont.dart';
 
@@ -12,15 +13,15 @@ class PrivacyPolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         elevation:  0,
         scrolledUnderElevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_outlined,
-            color: Colors.black,
+            color:AppColors.clrBlack,
             size: 28.sp,
           ),
           onPressed: () => Get.back(),
@@ -29,7 +30,7 @@ class PrivacyPolicy extends StatelessWidget {
           'ParentBridge Privacy Policy',
           style: h2.copyWith(
             fontSize: 24.sp,
-            color: const Color(0xFF1D3856),
+            color:AppColors.txtclr5,
           ),
           overflow: TextOverflow.ellipsis,
         ),
@@ -46,8 +47,8 @@ class PrivacyPolicy extends StatelessWidget {
               child: Text(
                 'Effective 06/16/2023',
                 style: h2.copyWith( // Using h2 for bold text
-                  fontSize: 20.sp,
-                  color: Colors.black,
+                  fontSize: 16.sp,
+                  color: AppColors.txtclr5,
                 ),
               ),
             ),
@@ -57,8 +58,8 @@ class PrivacyPolicy extends StatelessWidget {
               child: Text(
                 'ParentBridge values your privacy. This Privacy Policy explains how we collect, use, and protect your information when you use our services. By using ParentBridge, you agree to the practices described below.',
                 style: h4.copyWith( // Using h4 for regular text
-                  fontSize: 16.sp,
-                  color: Colors.black87,
+                  fontSize: 12.sp,
+                  color: AppColors.txtclr6,
                 ),
               ),
             ),
@@ -69,7 +70,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'We may collect the following types of information:',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 14.sp,  color: AppColors.txtclr5,),
             ),
             SizedBox(height: 8.h),
             _buildBulletPoint('Account Information: Name, Email, Phone, Login Credentials.'),
@@ -82,6 +83,11 @@ class PrivacyPolicy extends StatelessWidget {
 
             // Section 2
             _buildSectionTitle('2. How We Use Your Information'),
+            SizedBox(height: 8.h),
+            Text(
+              'We use your data to:',
+              style: h4.copyWith(fontSize: 14.sp,  color: AppColors.txtclr5,),
+            ),
             SizedBox(height: 8.h),
             _buildBulletPoint('Provide and improve the App’s features,'),
             _buildBulletPoint('Power AI message filtering, formatting, and communication tools,'),
@@ -96,7 +102,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'ParentBridge uses artificial intelligence to filter and reframe messages. This process may involve temporarily analyzing your communication content. AI processing is automated, and we do not manually review your private communications unless legally required or for technical troubleshooting.',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 10.sp,    color: AppColors.txtclr6,),
             ),
 
             SizedBox(height: 16.h),
@@ -106,7 +112,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'If you choose to enable call or voice recording:',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 14.sp,    color: AppColors.txtclr6,),
             ),
             SizedBox(height: 8.h),
             _buildBulletPoint('Consent is required by law, and laws vary by jurisdiction. It is your responsibility to obtain consent from all parties before recording.'),
@@ -120,7 +126,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'We do not sell Personal Information. We may share only with:',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 14.sp,    color: AppColors.txtclr5,),
             ),
             SizedBox(height: 8.h),
             _buildBulletPoint('Service Providers (e.g., hosting, payment, or AI processing partners).'),
@@ -134,7 +140,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'We implement encryption and security safeguards to protect your data. However, no system is 100% secure. You are encouraged to maintain secure passwords and protect your devices.',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 10.sp,    color: AppColors.txtclr6,),
             ),
 
             SizedBox(height: 16.h),
@@ -144,7 +150,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'We retain your data as long as your account is active or needed to provide services. You may request account deletion, after which we will delete or anonymize your personal data, unless required by law to retain it.',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 10.sp,   color: AppColors.txtclr6,),
             ),
 
             SizedBox(height: 16.h),
@@ -154,7 +160,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'ParentBridge is not intended for children under 13 (or under the minimum legal age in your jurisdiction). We do not knowingly collect personal information from children.',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 10.sp,    color: AppColors.txtclr6,),
             ),
 
             SizedBox(height: 16.h),
@@ -164,13 +170,32 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'Depending on your location, you may have the right to:',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 14.sp,    color: AppColors.txtclr5,),
             ),
             SizedBox(height: 8.h),
             _buildBulletPoint('Access, update, or delete your data.'),
             _buildBulletPoint('Opt out of marketing communications.'),
             _buildBulletPoint('Request data portability.'),
             _buildBulletPoint('File complaints with a data protection authority.'),
+            RichText(
+              text: TextSpan(
+                style: h4.copyWith(fontSize: 13.sp, color: AppColors.txtclr6),
+                children: [
+                  const TextSpan(
+                    text: 'Requests may be made via ',
+                  ),
+                  TextSpan(
+                    text: 'myparentbridge@gmail.com',
+                    style: h4.copyWith(
+                      fontSize: 13.sp,
+                      color: AppColors.txtclr7,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
 
             SizedBox(height: 16.h),
 
@@ -179,7 +204,7 @@ class PrivacyPolicy extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               'We may update this Privacy Policy from time to time. Users will be notified of material changes, and continued use of the App indicates acceptance of the updated policy.',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+              style: h4.copyWith(fontSize: 16.sp,    color: AppColors.txtclr6,),
             ),
 
             SizedBox(height: 16.h),
@@ -187,12 +212,27 @@ class PrivacyPolicy extends StatelessWidget {
             // Section 11
             _buildSectionTitle('11. Contact'),
             SizedBox(height: 8.h),
-            Text(
-              'If you have questions about this privacy policy, contact us at privacy@parentbridge.com',
-              style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+            RichText(
+              text: TextSpan(
+                style: h4.copyWith(fontSize: 13.sp, color: AppColors.txtclr6),
+                children: [
+                  const TextSpan(
+                    text:
+                    'If you have questions about this privacy policy, please contact us : ',
+                  ),
+                  TextSpan(
+                    text: 'myparentbridge@gmail.com',
+                    style: h4.copyWith(
+                      fontSize: 13.sp,
+                      color: AppColors.txtclr7, // 👉 এখানে আলাদা কালার দাও
+                      fontWeight: FontWeight.bold,   // চাইলে আলাদা স্টাইলও দিতে পারো
+                    ),
+                  ),
+                ],
+              ),
             ),
 
-            SizedBox(height: 20.h),
+            SizedBox(height: 50.h),
           ],
         ),
       ),
@@ -204,8 +244,8 @@ class PrivacyPolicy extends StatelessWidget {
     return Text(
       title,
       style: h2.copyWith( // Using h2 for bold text
-        fontSize: 20.sp,
-        color: Colors.black,
+        fontSize: 16.sp,
+          color: AppColors.txtclr5,
       ),
     );
   }
@@ -217,14 +257,15 @@ class PrivacyPolicy extends StatelessWidget {
       children: [
         Text(
           '• ',
-          style: h4.copyWith(color: Colors.black, fontSize: 16.sp),
+          style: h4.copyWith(   color: AppColors.txtclr5, fontSize: 13.sp),
         ),
         Expanded(
           child: Text(
             text,
-            style: h4.copyWith(fontSize: 16.sp, color: Colors.black87),
+            style: h4.copyWith(fontSize: 13.sp,    color: AppColors.txtclr6,),
           ),
         ),
+
       ],
     );
   }
