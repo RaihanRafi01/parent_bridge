@@ -114,7 +114,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                     child: Center(
                       child: Text(
                         'Add document',
-                        style: GoogleFonts.lato(
+                        style: h2.copyWith(
                           fontSize: 18.16.sp,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textColor7,
@@ -142,7 +142,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: "Search Documents",
-                    hintStyle: GoogleFonts.lato(
+                    hintStyle: h2.copyWith(
                       color: AppColors.customGrey,
                       fontSize: 14.sp,
                     ),
@@ -179,7 +179,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                     ),
                     child: Text(
                       "All (${docs.length})",
-                      style: GoogleFonts.lato(
+                      style: h2.copyWith(
                         fontSize: 14.sp,
                         color: AppColors.darkSlateBlue,
                       ),
