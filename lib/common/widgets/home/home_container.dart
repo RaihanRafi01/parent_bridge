@@ -47,7 +47,6 @@ class IconWithBadge extends StatelessWidget {
                   right: 0,
                   top: 0,
                   child: Container(
-                    width: 20.w,
 
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -65,11 +64,14 @@ class IconWithBadge extends StatelessWidget {
                       ),
                     ),
                     child: Center(
-                      child: Text(
-                        "$badgeCount",
-                        style: h1.copyWith(
-                          color: AppColors.white,
-                          fontSize: 14.sp,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4).r,
+                        child: Text(
+                          "$badgeCount",
+                          style: h1.copyWith(
+                            color: AppColors.white,
+                            fontSize: 14.sp,
+                          ),
                         ),
                       ),
                     ),

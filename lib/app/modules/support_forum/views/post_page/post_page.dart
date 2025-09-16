@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/appColors.dart';
@@ -28,23 +29,25 @@ class post_page extends StatelessWidget {
                   bottomRight: Radius.circular(40.r),
                 ),
               ),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () => Get.back(),
-                    icon: const Icon(Icons.arrow_back),
-                  ),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: Text(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: Get.back,
+                      child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
+                    ),
+                    Text(
                       "New Post",
                       style: h2.copyWith(
                         fontSize: 24.47.sp,
                         color: AppColors.textColor7,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 40.w),
+                  ],
+                ),
               ),
             ),
 

@@ -113,7 +113,7 @@ class HomeView extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                         label: "Message",
-                        badgeCount: 3,
+                        badgeCount: 100,
                       ),
                       IconWithBadge(
                         onPressed: () {
@@ -139,7 +139,7 @@ class HomeView extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                         label: "Documents",
-                        badgeCount: 3,
+                        badgeCount: 10,
                       ),
                     ],
                   ),
@@ -158,7 +158,7 @@ class HomeView extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                         label: "Calender",
-                        badgeCount: 3,
+                        badgeCount: 2,
                       ),
                       IconWithBadge(
                         onPressed: () {
@@ -171,7 +171,7 @@ class HomeView extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                         label: "Expenses",
-                        badgeCount: 3,
+                        badgeCount: 6,
                       ),
                       IconWithBadge(
                         onPressed: () {
@@ -184,7 +184,7 @@ class HomeView extends StatelessWidget {
                           fit: BoxFit.contain,
                         ),
                         label: "Support",
-                        badgeCount: 3,
+                        badgeCount: 5,
                       ),
                     ],
                   ),
@@ -201,8 +201,8 @@ class HomeView extends StatelessWidget {
                         width: 68.w,
                         fit: BoxFit.contain,
                       ),
-                      label: "Legit Records",
-                      badgeCount: 3,
+                      label: "Legal Records",
+                      badgeCount: 2,
                     ),
                   ),
                 ],

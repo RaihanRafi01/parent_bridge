@@ -20,195 +20,194 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(27.r),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.r),
-                    bottomRight: Radius.circular(40.r),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.lightPurplePink2,
-                      AppColors.customSkyBlue3,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(27.r),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40.r),
+                  bottomRight: Radius.circular(40.r),
                 ),
-                child: Column(
-                  spacing: 23.h,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: Get.back,
-                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
-                        ),
-                        Text(
-                          'Expense Tracker',
-                          style: h2.copyWith(
-                            color: AppColors.textColor51,
-                            fontSize: 24.47.sp,
-                          ),
-                        ),
-          
-                        Container(
-                          padding: EdgeInsets.all(9.08.r),
-                          decoration: BoxDecoration(
-                            color: AppColors.card54,
-                            borderRadius: BorderRadius.circular(10.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.clrBlack.withAlpha(64),
-                                blurRadius: 4.r,
-                                offset: Offset(0.w, 4.h),
-                              ),
-                            ],
-                          ),
-          
-                          child: Text(
-                            'Add Expense',
-                            style: h3.copyWith(
-                              color: AppColors.textColor51,
-                              fontSize: 18.16.sp,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-          
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 25.w,
-                        vertical: 26.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/images/expense_tracker/expanse_tracker_bg.png',
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-          
-                      child: Column(
-                        spacing: 16.h,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'July\n2025 Summary',
-                                style: h1.copyWith(
-                                  color: AppColors.textColor57,
-                                  fontSize: 23.43.sp,
-                                ),
-                              ),
-          
-                              Container(
-                                padding: EdgeInsets.all(8.r),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.containerColor51,
-                                ),
-          
-                                child: SvgPicture.asset(
-                                  'assets/images/expense_tracker/calender_icon.svg'
-                                ),
-                              )
-                            ],
-                          ),
-          
-                          MonthlySummaryContainer(
-                            bgColors: [AppColors.dividerPurple, AppColors.dividerCyan],
-                            info1: 0,
-                            info2: 0,
-                            infoTexts: ['Total Expenses', 'Pending '],
-                            infoColors: [AppColors.textColor58, AppColors.textColor59],
-                          ),
-          
-                          MonthlySummaryContainer(
-                            bgColors: [AppColors.gradientColor51, AppColors.gradientColor52],
-                            info1: 20.50,
-                            info2: 45,
-                            infoTexts: ['Your Share', 'Co-parent'],
-                            infoColors: [AppColors.textColor58, AppColors.textColor58],
-                          ),
-                        ],
-                      ),
-                    ),
-          
-                    SizedBox(height: 17.h,),
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.lightPurplePink2,
+                    AppColors.customSkyBlue3,
                   ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
               ),
-          
-              SizedBox(height: 32.h,),
-          
-              CustomTextField(
-                hintText: 'Search',
-                prefixIcon: 'assets/images/expense_tracker/search.svg',
-                width: 394,
-                controller: controller.searchController,
-              ),
-          
-              SizedBox(height: 20.h,),
-          
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.25.w),
-                child: Column(
-                  spacing: 53.h,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        StatusCategoryDropdown(
-                          text: 'All Status',
-                          selected: controller.selectedStatus,
-                          items: controller.statusItems,
-                          width: 186.w,
+              child: Column(
+                spacing: 23.h,
+                children: [
+                  SizedBox(height: 16.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: Get.back,
+                        child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                      ),
+                      Text(
+                        'Expense Tracker',
+                        style: h2.copyWith(
+                          color: AppColors.textColor51,
+                          fontSize: 24.47.sp,
                         ),
-                        StatusCategoryDropdown(
-                          text: 'All categories',
-                          selected: controller.selectedCategory,
-                          items: controller.categoryItems,
-                          width: 186.w,
-                        ),
-                      ],
-                    ),
-          
-                    controller.isExpenseEmpty.value ?
-                    EmptyExpenseTrackerView(
-                      isExpenseEmpty: controller.isExpenseEmpty,
-                    )
-                        :
-                    NonEmptyExpenseTrackerView(
-                      amountController: controller.amountController,
-                      paymentMethodController: controller.paymentMethodController,
-                      selectedPaymentMethod: controller.selectedPaymentMethod2,
-                      paymentMethodItems: controller.paymentMethodItems
-                    ),
-                  ],
-                ),
-              ),
+                      ),
 
-              SizedBox(height: 179.h,),
-            ],
-          ),
+                      Container(
+                        padding: EdgeInsets.all(9.08.r),
+                        decoration: BoxDecoration(
+                          color: AppColors.card54,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.clrBlack.withAlpha(64),
+                              blurRadius: 4.r,
+                              offset: Offset(0.w, 4.h),
+                            ),
+                          ],
+                        ),
+
+                        child: Text(
+                          'Add Expense',
+                          style: h3.copyWith(
+                            color: AppColors.textColor51,
+                            fontSize: 18.16.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 25.w,
+                      vertical: 26.h,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/expense_tracker/expanse_tracker_bg.png',
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+
+                    child: Column(
+                      spacing: 16.h,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'July\n2025 Summary',
+                              style: h1.copyWith(
+                                color: AppColors.textColor57,
+                                fontSize: 23.43.sp,
+                              ),
+                            ),
+
+                            Container(
+                              padding: EdgeInsets.all(8.r),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.containerColor51,
+                              ),
+
+                              child: SvgPicture.asset(
+                                'assets/images/expense_tracker/calender_icon.svg'
+                              ),
+                            )
+                          ],
+                        ),
+
+                        MonthlySummaryContainer(
+                          bgColors: [AppColors.dividerPurple, AppColors.dividerCyan],
+                          info1: 0,
+                          info2: 0,
+                          infoTexts: ['Total Expenses', 'Pending '],
+                          infoColors: [AppColors.textColor58, AppColors.textColor59],
+                        ),
+
+                        MonthlySummaryContainer(
+                          bgColors: [AppColors.gradientColor51, AppColors.gradientColor52],
+                          info1: 20.50,
+                          info2: 45,
+                          infoTexts: ['Your Share', 'Co-parent'],
+                          infoColors: [AppColors.textColor58, AppColors.textColor58],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 17.h,),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 32.h,),
+
+            CustomTextField(
+              hintText: 'Search',
+              prefixIcon: 'assets/images/expense_tracker/search.svg',
+              width: 394,
+              controller: controller.searchController,
+            ),
+
+            SizedBox(height: 20.h,),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.25.w),
+              child: Column(
+                spacing: 53.h,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      StatusCategoryDropdown(
+                        text: 'All Status',
+                        selected: controller.selectedStatus,
+                        items: controller.statusItems,
+                        width: 186.w,
+                      ),
+                      StatusCategoryDropdown(
+                        text: 'All categories',
+                        selected: controller.selectedCategory,
+                        items: controller.categoryItems,
+                        width: 186.w,
+                      ),
+                    ],
+                  ),
+
+                  controller.isExpenseEmpty.value ?
+                  EmptyExpenseTrackerView(
+                    isExpenseEmpty: controller.isExpenseEmpty,
+                  )
+                      :
+                  NonEmptyExpenseTrackerView(
+                    amountController: controller.amountController,
+                    paymentMethodController: controller.paymentMethodController,
+                    selectedPaymentMethod: controller.selectedPaymentMethod2,
+                    paymentMethodItems: controller.paymentMethodItems
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 179.h,),
+          ],
         ),
       ),
 
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CircularMenuWidget(),
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
     );
   }
 

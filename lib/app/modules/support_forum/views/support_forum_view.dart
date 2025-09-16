@@ -160,7 +160,7 @@ class SupportForumView extends GetView<SupportForumController> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CircularMenuWidget(),
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
     );
   }
 }

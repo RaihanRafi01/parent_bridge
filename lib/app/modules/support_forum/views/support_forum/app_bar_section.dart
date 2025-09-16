@@ -45,41 +45,33 @@ class app_bar_section extends StatelessWidget {
             ),
 
             /// page name and post button  ..
-            Expanded(
-              child: Row(
-                children: [
-                  // page name
-                  Text(
-                    'Support Forum',
-                    style:h2.copyWith(fontSize: 24.47.sp)
-                  ),
-                  // space between two item
-                  Spacer(),
-                  // post button
-                  GestureDetector(
+            Text(
+              'Support Forum',
+              style:h2.copyWith(fontSize: 24.47.sp)
+            ),
+            // space between two item
+            // post button
+            GestureDetector(
 
-                    onTap: () {
-                      Get.to(()=>post_page());
-                      print('This is Post button ');
-                    },
-                    child: Container(
-                      width: 74.w,
-                      height: 35.16.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: AppColors.appbar_color_01,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Post',
-                          style:h2.copyWith(
-                            fontSize: 18.16.sp
-                          )
-                        )
-                      )
+              onTap: () {
+                Get.to(()=>post_page());
+                print('This is Post button ');
+              },
+              child: Container(
+                width: 74.w,
+                height: 35.16.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: AppColors.appbar_color_01,
+                ),
+                child: Center(
+                  child: Text(
+                    'Post',
+                    style:h2.copyWith(
+                      fontSize: 18.16.sp
                     )
                   )
-                ]
+                )
               )
             )
           ]

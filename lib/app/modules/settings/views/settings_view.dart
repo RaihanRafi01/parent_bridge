@@ -25,13 +25,12 @@ class SettingsView extends StatelessWidget {
         elevation:  0,
         scrolledUnderElevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_outlined,
-            color: AppColors.clrBlack,
-            size: 28,
+        leading: GestureDetector(
+          onTap: Get.back,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16).r,
+            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
           ),
-          onPressed: () => Get.back(),
         ),
         title: Text(
           'Settings',
