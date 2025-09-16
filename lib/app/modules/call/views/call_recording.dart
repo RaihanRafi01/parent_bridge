@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/appColors.dart';
+import '../../../../common/customFont.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';
@@ -49,14 +50,9 @@ class _CallRecordingState extends State<CallRecording> {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: EdgeInsets.only(top: 40.h, left: 16.w),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
+                        child: GestureDetector(
+                          onTap: Get.back,
+                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
                         ),
                       ),
                     ),
@@ -219,10 +215,7 @@ class _CallRecordingState extends State<CallRecording> {
                         ),
                       ),
                       SizedBox(height: 25.h),
-                      LinearProgressIndicator(
-                        value: 0.6,
-                        minHeight: 8.h,
-                      ),
+                      LinearProgressIndicator(value: 0.6, minHeight: 8.h),
                       SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

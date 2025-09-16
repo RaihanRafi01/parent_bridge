@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
 
+import '../../../../../common/customFont.dart';
 import 'custom_document_dialog_preview.dart';
 
 class Document_dialog extends StatelessWidget {
@@ -19,7 +21,7 @@ class Document_dialog extends StatelessWidget {
         height: 531.h,
         // padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(30.r),
         ),
         child: Column(
@@ -30,7 +32,7 @@ class Document_dialog extends StatelessWidget {
               height: 67.89.h,
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
               decoration: BoxDecoration(
-                color: const Color(0xFF68B961),
+                color: AppColors.clrGreen,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.r),
                   topRight: Radius.circular(30.r),
@@ -41,15 +43,11 @@ class Document_dialog extends StatelessWidget {
                 children: [
                   Text(
                     "School Emergency Contact Form",
-                    style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: h2.copyWith(color: AppColors.white, fontSize: 18.sp),
                   ),
                   CircleAvatar(
                     maxRadius: 20.r,
-                    backgroundColor: Color(0xFFFFFFFF),
+                    backgroundColor: AppColors.white,
                     child: InkWell(
                       onTap: () => Get.back(),
                       child: const Icon(Icons.close, color: Colors.grey),
@@ -63,16 +61,16 @@ class Document_dialog extends StatelessWidget {
 
             /// 🔹 Buttons Row (Preview, Details)
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: EdgeInsets.all(18.0.r),
               child: Container(
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: Color(0xFF68B961).withOpacity(0.15),
+                  color: AppColors.clrGreen.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.1),
+                      color: AppColors.white.withOpacity(0.1),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: Offset(0, 3),
@@ -89,7 +87,8 @@ class Document_dialog extends StatelessWidget {
                           onTap: () {
                             Get.dialog(
                               Document_dialog_preview(),
-                              barrierColor: Color(0xFFBD9DED).withOpacity(0.10),
+                              barrierColor: AppColors.lightPurplePink2
+                                  .withOpacity(0.10),
                             );
                           },
                           child: Container(
@@ -100,7 +99,7 @@ class Document_dialog extends StatelessWidget {
                               borderRadius: BorderRadius.circular(9.73.r),
                               border: Border.all(
                                 width: 1.w,
-                                color: Color(0xFF68B961),
+                                color: AppColors.clrGreen,
                               ),
                             ),
                             child: Row(
@@ -108,20 +107,20 @@ class Document_dialog extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   'assets/images/document_svg/eye.svg',
-                                  height: 12,
-                                  width: 12,
+                                  height: 12.h,
+                                  width: 12.w,
                                   colorFilter: ColorFilter.mode(
-                                    Color(0xFF68B961),
+                                    AppColors.clrGreen,
                                     BlendMode.srcIn,
                                   ),
                                 ),
                                 SizedBox(width: 10.w),
                                 Text(
                                   'Preview',
-                                  style: GoogleFonts.lato(
-                                    fontSize: 14.49,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF68B961),
+                                  style: h3.copyWith(
+                                    fontSize: 14.49.sp,
+
+                                    color: AppColors.category4,
                                   ),
                                 ),
                               ],
@@ -135,11 +134,11 @@ class Document_dialog extends StatelessWidget {
                           width: 162.42.w,
                           height: 42.79.h,
                           decoration: BoxDecoration(
-                            color: Color(0xFF68B961),
+                            color: AppColors.category4,
                             borderRadius: BorderRadius.circular(9.73.r),
                             border: Border.all(
                               width: 1.w,
-                              color: Color(0xFF68B961),
+                              color: AppColors.category4,
                             ),
                           ),
                           child: Row(
@@ -147,20 +146,20 @@ class Document_dialog extends StatelessWidget {
                             children: [
                               SvgPicture.asset(
                                 'assets/images/document_svg/file.svg',
-                                height: 22,
-                                width: 22,
+                                height: 22.h,
+                                width: 22.w,
                                 colorFilter: ColorFilter.mode(
-                                  Color(0xFFFFFFFF),
+                                  AppColors.white,
                                   BlendMode.srcIn,
                                 ),
                               ),
                               SizedBox(width: 10.w),
                               Text(
                                 'Details',
-                                style: GoogleFonts.lato(
-                                  fontSize: 14.49,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFFFFFF),
+                                style: h3.copyWith(
+                                  fontSize: 14.49.sp,
+
+                                  color: AppColors.white,
                                 ),
                               ),
                             ],
@@ -180,11 +179,14 @@ class Document_dialog extends StatelessWidget {
               padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 10),
               child: Row(
                 children: [
-                  const Icon(Icons.person_outline, color: Colors.black54),
+                  Icon(
+                    Icons.person_outline,
+                    color: AppColors.clrBlack.withOpacity(0.5),
+                  ),
                   SizedBox(width: 8.w),
-                  const Text(
+                  Text(
                     "Michael",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: h2.copyWith(fontWeight: FontWeight.w600),
                   ),
                   const Spacer(),
                   Container(
@@ -193,12 +195,12 @@ class Document_dialog extends StatelessWidget {
                       vertical: 4.h,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF68B961),
+                      color: AppColors.clrGreen,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
-                    child: const Text(
+                    child: Text(
                       "School",
-                      style: TextStyle(color: Colors.white, fontSize: 12),
+                      style: h4.copyWith(color: AppColors.white, fontSize: 12),
                     ),
                   ),
                 ],
@@ -214,11 +216,14 @@ class Document_dialog extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text("Uploaded • 2024-12-10"),
                     Text(
-                      "Expires • 2024-12-10",
-                      style: TextStyle(color: Colors.red),
+                      'Expires • 2024-12-10',
+                      style: h4.copyWith(
+                        fontSize: 14.sp,
+                        color: AppColors.category3,
+                      ),
                     ),
                     Text("File Type • Image"),
                     Text("File Size • 856 KB"),
@@ -237,13 +242,13 @@ class Document_dialog extends StatelessWidget {
                 width: 347.w,
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: Color(0xFFDEFDDB),
+                  color: AppColors.textCategory4,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Center(
                   child: Text(
                     "Emergency Contact Information Form For Emma's School Including Medical Conditions And Authorized",
-                    style: TextStyle(fontSize: 12.sp),
+                    style: h2.copyWith(fontSize: 12.sp),
                   ),
                 ),
               ),
@@ -262,7 +267,7 @@ class Document_dialog extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.black),
+                      border: Border.all(color: AppColors.clrBlack),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -272,15 +277,15 @@ class Document_dialog extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Color(0xFF000000),
+                            AppColors.clrBlack,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Edit",
-                          style: TextStyle(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.black,
+                            color: AppColors.clrBlack,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -292,7 +297,7 @@ class Document_dialog extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.black),
+                      border: Border.all(color: AppColors.clrBlack),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -302,15 +307,15 @@ class Document_dialog extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Color(0xFF000000),
+                            AppColors.clrBlack,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Download",
-                          style: TextStyle(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.black,
+                            color: AppColors.clrBlack,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -322,7 +327,7 @@ class Document_dialog extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.red),
+                      border: Border.all(color: AppColors.category3),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -332,15 +337,15 @@ class Document_dialog extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Colors.red,
+                            AppColors.category3,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Delete",
-                          style: TextStyle(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.red,
+                            color: AppColors.category3,
                             fontSize: 12.sp,
                           ),
                         ),

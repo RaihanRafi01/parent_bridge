@@ -62,6 +62,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onIncrement; // Callback for increment
   final VoidCallback? onDecrement; // Callback for decrement
   final Color? fillColor;
+  final double width;
 
   const CustomTextField({
     required this.hintText,
@@ -79,6 +80,7 @@ class CustomTextField extends StatelessWidget {
     this.onIncrement,
     this.onDecrement,
     this.fillColor,
+    this.width = 382.7314147949219,
     super.key,
   });
 
@@ -117,6 +119,7 @@ class CustomTextField extends StatelessWidget {
     }
 
     return Container(
+      width: width.w,
       padding: EdgeInsets.symmetric(vertical: 12).r,
       decoration: BoxDecoration(
         color: Colors.transparent,
