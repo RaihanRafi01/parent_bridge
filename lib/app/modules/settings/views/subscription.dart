@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../common/customFont.dart';
+
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
+
 
 class Subscription extends StatelessWidget {
   const Subscription({super.key});
@@ -12,12 +16,10 @@ class Subscription extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.w), // responsive padding
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
           child: Column(
             children: [
-              SizedBox(height: 20.h), // top spacing
-
-              // ---------- Header Row ----------
+              SizedBox(height: 20.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -25,30 +27,26 @@ class Subscription extends StatelessWidget {
                     onTap: () => Get.back(),
                     child: Icon(
                       Icons.arrow_back_outlined,
-                      color: Colors.black,
-                      size: 28.sp, // responsive size
+                      color: AppColors.clrBlack,
+                      size: 28.sp,
                     ),
                   ),
                   Text(
                     'Subscription',
-                    style: GoogleFonts.lato(
+                    style: h2.copyWith(
                       fontSize: 24.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D3856),
+                      color: AppColors.txtclr4,
                     ),
                   ),
-                  SizedBox(width: 28.w), // right side spacing
+                  SizedBox(width: 28.w),
                 ],
               ),
-
               SizedBox(height: 28.h),
-
-              // ---------- Subscription Info Box ----------
               Container(
                 padding: EdgeInsets.all(16.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDFF5FF),
+                  color: AppColors.customblueclr2,
                   borderRadius: BorderRadius.circular(22.r),
                 ),
                 child: Column(
@@ -68,16 +66,16 @@ class Subscription extends StatelessWidget {
                   ],
                 ),
               ),
-
               const Spacer(),
-
-              // ---------- Update Button ----------
               Container(
                 height: 45.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Color(0xFFBD9DED), Color(0xFF90CAE2)],
+                    colors: [
+                      AppColors.lightPurplePink2,
+                      AppColors.customSkyBlue3,
+                    ],
                     begin: Alignment.bottomRight,
                     end: Alignment.topLeft,
                   ),
@@ -86,15 +84,13 @@ class Subscription extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "Update",
-                    style: GoogleFonts.lato(
+                    style: h2.copyWith(
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: AppColors.clrWhite,
                     ),
                   ),
                 ),
               ),
-
               SizedBox(height: 30.h),
             ],
           ),
@@ -103,21 +99,18 @@ class Subscription extends StatelessWidget {
     );
   }
 
-  // ---------- Reusable Info Row ----------
   Widget _buildInfoRow(String label, String value) {
     return RichText(
       text: TextSpan(
-        style: GoogleFonts.lato(
+        style: h2.copyWith(
           fontSize: 18.sp,
-          fontWeight: FontWeight.w600,
-          color: const Color(0xFF818181),
+          color: AppColors.txtclr3,
         ),
         children: [
           TextSpan(
             text: '$label : ',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              color: const Color(0xFF1D3856),
+            style: h4.copyWith(
+              color: AppColors.textColor7,
               fontSize: 18.sp,
             ),
           ),

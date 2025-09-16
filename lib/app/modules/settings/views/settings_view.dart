@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/settings/views/co_parentInformation.dart';
 import 'package:parent_bridge/app/modules/settings/views/help_and_support.dart';
 import 'package:parent_bridge/app/modules/settings/views/privacy_policy.dart';
 import 'package:parent_bridge/app/modules/settings/views/profile.dart';
 import 'package:parent_bridge/app/modules/settings/views/subscription.dart';
 import 'package:parent_bridge/common/widgets/home/custom_listTile.dart';
-import 'package:get/get.dart';
-
+import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/showLogout_dialog.dart';
+import '../../../../common/appColors.dart';
+
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -18,38 +19,40 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.clrWhite,
+      appBar: AppBar(
+        backgroundColor: AppColors.clrWhite,
+        elevation:  0,
+        scrolledUnderElevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+            color: AppColors.clrBlack,
+            size: 28,
+          ),
+          onPressed: () => Get.back(),
+        ),
+        title: Text(
+          'Settings',
+          style: h2.copyWith( // Using h2 from your custom typography file
+            fontSize: 28.sp,
+            color:  AppColors.darkSlateBlue,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: Get.back,
-                    child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
-                  ),
-                  Text(
-                    'Settings',
-                    style: GoogleFonts.lato(
-                      fontSize: 28.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF1D3856),
-                    ),
-                  ),
-                  SizedBox(width: 40.w)
-                ],
-              ),
               SizedBox(height: 12.h),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 height: 110.h,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFB7E8FC),
+                  color: AppColors.profileboxclr,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Column(
@@ -61,16 +64,15 @@ class SettingsView extends StatelessWidget {
                           height: 21.18.h,
                           width: 100.13.w,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF7A5CF1),
+                            color: AppColors.titlepurple,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(
                             child: Text(
                               'ParentBridge Pro(+)',
-                              style: TextStyle(
-                                color: Colors.white,
+                              style: h4.copyWith( // Using h4 from your custom typography file
+                                color: AppColors.clrWhite,
                                 fontSize: 9.sp,
-                                fontWeight: FontWeight.w400,
                                 height: 1,
                               ),
                             ),
@@ -99,18 +101,16 @@ class SettingsView extends StatelessWidget {
                           children: [
                             Text(
                               "Michael Smith",
-                              style: GoogleFonts.lato(
+                              style: h2.copyWith( // Using h2
                                 fontSize: 24.sp,
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFF1D3856),
+                                color: AppColors.darkSlateBlue,
                               ),
                             ),
                             Text(
                               'michaelsmith@gmail.com',
-                              style: GoogleFonts.lato(
+                              style: h4.copyWith( // Using h4
                                 fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xFF63768A),
+                                color:  AppColors.txtclr1,
                               ),
                             ),
                           ],
@@ -123,10 +123,9 @@ class SettingsView extends StatelessWidget {
               SizedBox(height: 13.h),
               Text(
                 'Account',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // Using h2
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.darkSlateBlue,
                 ),
               ),
               CustomListTile(
@@ -142,7 +141,8 @@ class SettingsView extends StatelessWidget {
                 title: 'Subscription',
                 trailingWidget: SvgPicture.asset(
                   'assets/images/settings/arrow.svg',
-                ), onTap: () => Get.to(() => Subscription()),
+                ),
+                onTap: () => Get.to(() => Subscription()),
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/settings/choose_app.svg',
@@ -161,15 +161,15 @@ class SettingsView extends StatelessWidget {
               ),
               Text(
                 'contact',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // Using h2
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.darkSlateBlue,
+
                 ),
               ),
               CustomListTile(
                 leadingSvgAsset: 'assets/images/settings/help_s.svg',
-                title: 'Help & suppor',
+                title: 'Help & support',
                 trailingWidget: SvgPicture.asset(
                   'assets/images/settings/arrow.svg',
                 ),
@@ -192,10 +192,10 @@ class SettingsView extends StatelessWidget {
               ),
               Text(
                 'notifications',
-                style: GoogleFonts.lato(
+                style: h2.copyWith( // Using h2
                   fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF474747),
+                  color: AppColors.darkSlateBlue,
+
                 ),
               ),
               CustomListTile(
@@ -206,10 +206,10 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: true,
                     onChanged: (value) {},
-                    activeColor: Colors.white,
-                    activeTrackColor: Color(0xFF171717),
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey.shade300,
+                    activeColor: AppColors.clrWhite,
+                    activeTrackColor: AppColors.blackactive,
+                    inactiveThumbColor:AppColors.clrWhite,
+                    inactiveTrackColor: AppColors.gray3,
                   ),
                 ),
               ),
@@ -221,10 +221,10 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: true,
                     onChanged: (value) {},
-                    activeColor: Colors.white,
-                    activeTrackColor: Color(0xFF171717),
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey.shade300,
+                    activeColor: AppColors.clrWhite,
+                    activeTrackColor: AppColors.blackactive,
+                    inactiveThumbColor:AppColors.clrWhite,
+                    inactiveTrackColor: AppColors.gray3,
                   ),
                 ),
               ),
@@ -236,10 +236,10 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: false,
                     onChanged: (value) {},
-                    activeColor: Colors.white,
-                    activeTrackColor: Color(0xFF171717),
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey,
+                    activeColor: AppColors.clrWhite,
+                    activeTrackColor: AppColors.blackactive,
+                    inactiveThumbColor:AppColors.clrWhite,
+                    inactiveTrackColor: AppColors.gray3,
                   ),
                 ),
               ),
@@ -251,10 +251,10 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: false,
                     onChanged: (value) {},
-                    activeColor: Colors.white,
-                    activeTrackColor: Color(0xFF171717),
-                    inactiveThumbColor: Colors.white,
-                    inactiveTrackColor: Colors.grey,
+                    activeColor: AppColors.clrWhite,
+                    activeTrackColor: AppColors.blackactive,
+                    inactiveThumbColor:AppColors.clrWhite,
+                    inactiveTrackColor: AppColors.gray3,
                   ),
                 ),
               ),
@@ -266,28 +266,26 @@ class SettingsView extends StatelessWidget {
                     barrierColor: Colors.deepPurpleAccent.withOpacity(0.4),
                   );
                 },
-            child: Container(
-              height: 45.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color(0xFFD22853),
-                borderRadius: BorderRadius.circular(22.r),
-              ),
-              child: Center(
-                child: Text(
-                  "Log Out",
-                  style: GoogleFonts.lato(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFFFFFF),
+                child: Container(
+                  height: 45.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD22853),
+                    borderRadius: BorderRadius.circular(22.r),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Log Out",
+                      style: h2.copyWith( // Using h2
+                        fontSize: 18.sp,
+                        color: AppColors.clrWhite,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-              ),
               SizedBox(height: 30.h),
             ],
-
           ),
         ),
       ),
