@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/forgot_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
+import 'package:parent_bridge/app/modules/subscription/views/subscription_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
 
@@ -117,7 +118,7 @@ class SignInView extends GetView<AuthenticationController> {
         
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.to(HomeView()),),
+                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.to(SubscriptionView()),),
                 ),
 
         

@@ -1,9 +1,17 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
+import '../../../../common/appColors.dart';
 
 class DocumentVaultController extends GetxController {
-  //TODO: Implement DocumentVaultController
+  // 🔹 For "Select Category"
+  var selectedCategory = "Select category".obs;
 
+  // 🔹 Example counter (optional, if you still need it)
   final count = 0.obs;
+
+  void increment() => count.value++;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +26,7 @@ class DocumentVaultController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
+
+// list for dropdown menu ..
+var selectedCategory = RxnString();

@@ -16,6 +16,8 @@ class CustomDropdown<T> extends StatelessWidget {
   final Color menuBgClr; // Background color for dropdown menu
   final bool readOnly;
   final String? uniqueTag; // Optional unique tag for controller
+  final double width;
+  final Color labelTxtClr;
 
   const CustomDropdown({
     super.key,
@@ -28,6 +30,8 @@ class CustomDropdown<T> extends StatelessWidget {
     this.menuBgClr = AppColors.textInputFillColor, // Default menu color
     this.readOnly = false,
     this.uniqueTag, // Add uniqueTag as an optional parameter
+    this.width = 382.7314147949219,
+    this.labelTxtClr = AppColors.textColorHint,
   });
 
   @override
@@ -41,6 +45,7 @@ class CustomDropdown<T> extends StatelessWidget {
     );
 
     return Obx(() => Container(
+      width: width.w,
       padding: EdgeInsets.symmetric(vertical: 12).r, // Match CustomTextField padding
       decoration: BoxDecoration(
         color: Colors.transparent, // Match CustomTextField
@@ -68,7 +73,7 @@ class CustomDropdown<T> extends StatelessWidget {
           decoration: InputDecoration(
             hintText: labelText,
             hintStyle: h4.copyWith(
-              color: AppColors.textColorHint,
+              color: labelTxtClr,
               fontSize: 14.sp, // Match CustomTextField hint font size
             ),
             contentPadding: EdgeInsets.only(
@@ -110,8 +115,8 @@ class CustomDropdown<T> extends StatelessWidget {
                       labelText,
                   style: h4.copyWith(
                     color: value.value != null
-                        ? AppColors.textColorHint
-                        : AppColors.textColorHint.withOpacity(0.5),
+                        ? labelTxtClr
+                        : labelTxtClr,
                     fontSize: 14.sp, // Match CustomTextField font size
                   ),
                   overflow: TextOverflow.ellipsis,

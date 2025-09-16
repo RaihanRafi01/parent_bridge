@@ -5,6 +5,7 @@ import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_d
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum/search_part.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/support_forum_controller.dart';
 import 'common/custom_anonymous_parent.dart';
 import 'common/custom_floating_button.dart';
@@ -158,8 +159,8 @@ class SupportForumView extends GetView<SupportForumController> {
           // space
         ],
       ),
-      floatingActionButton: Custom_floating_button(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 }

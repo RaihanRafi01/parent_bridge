@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/post_page/custom_textfeild.dart';
 import 'package:parent_bridge/common/appColors.dart';
@@ -35,14 +36,12 @@ class app_bar_section extends StatelessWidget {
       child: Padding(
         padding:   EdgeInsets.all(8.0.r),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             /// back button ...
-            IconButton(
-              onPressed: () {
-                // return back ..
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back),
+            GestureDetector(
+              onTap: Get.back,
+              child: SvgPicture.asset('assets/images/common/back_icon.svg'),
             ),
 
             /// page name and post button  ..
