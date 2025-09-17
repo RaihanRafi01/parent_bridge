@@ -66,6 +66,21 @@ class CalendarController extends GetxController {
         : '${startFormat.format(startOfWeek)} - ${endFormat.format(endOfWeek)}';
   }
 
+  String getFormattedDate(DateTime date) {
+    return DateFormat('EEEE, MMMM d').format(date);
+  }
+
+  String getViewHeaderString() {
+    switch (selectedView.value) {
+      case 'Week':
+        return getWeekRangeString();
+      case 'Day':
+        return selectedDate.value != null ? getFormattedDate(selectedDate.value!) : getMonthYearString();
+      default:
+        return getMonthYearString();
+    }
+  }
+
   void previousMonth() => currentDate.value = DateTime(currentDate.value.year, currentDate.value.month - 1);
   void nextMonth() => currentDate.value = DateTime(currentDate.value.year, currentDate.value.month + 1);
   void previousWeek() => currentDate.value = currentDate.value.subtract(Duration(days: 7));
@@ -76,12 +91,18 @@ class CalendarController extends GetxController {
     if (view == 'Week' && selectedDate.value != null) {
       currentDate.value = selectedDate.value!.subtract(Duration(days: selectedDate.value!.weekday % 7));
     }
+    if (view == 'Day' && selectedDate.value != null) {
+      currentDate.value = selectedDate.value!;
+    }
   }
 
   void selectDate(DateTime date) {
     selectedDate.value = date;
     if (selectedView.value == 'Week') {
       currentDate.value = date.subtract(Duration(days: date.weekday % 7));
+    }
+    if (selectedView.value == 'Day') {
+      currentDate.value = date;
     }
   }
 
@@ -146,6 +167,24 @@ class CalendarController extends GetxController {
       if (events.isNotEmpty) weeklyEvents.add({'date': date, 'events': events});
     }
     return weeklyEvents;
+  }
+
+  List<Map<String, dynamic>> getMonthEvents() {
+    final firstDay = DateTime(currentDate.value.year, currentDate.value.month, 1);
+    final lastDay = DateTime(currentDate.value.year, currentDate.value.month + 1, 0);
+    List<Map<String, dynamic>> monthEvents = [];
+    for (var date = firstDay; date.isBefore(lastDay.add(Duration(days: 1))); date = date.add(Duration(days: 1))) {
+      final events = _getEventsForDate(date);
+      if (events.isNotEmpty) monthEvents.add({'date': date, 'events': events});
+    }
+    return monthEvents;
+  }
+
+  List<Map<String, dynamic>> getDayEvents() {
+    if (selectedDate.value == null) return [];
+    final events = _getEventsForDate(selectedDate.value!);
+    if (events.isEmpty) return [];
+    return [{'date': selectedDate.value, 'events': events}];
   }
 
   List<Map<String, dynamic>> getDaysInMonth() {
