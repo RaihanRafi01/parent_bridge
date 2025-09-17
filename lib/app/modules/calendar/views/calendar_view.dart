@@ -538,6 +538,7 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
+    // Updated to use dynamic event data
     Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
     return Container(
       margin: EdgeInsets.only(top: 12.h, bottom: isLast ? 12.h : 0),
@@ -546,27 +547,36 @@ class CalendarView extends GetView<CalendarController> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(width: 8.w, decoration: BoxDecoration(color: eventColor, borderRadius: BorderRadius.horizontal(left: Radius.circular(10.r)))),
+            Container(
+              width: 8.w,
+              decoration: BoxDecoration(
+                color: eventColor,
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(10.r)),
+              ),
+            ),
             SizedBox(width: 10.w),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.r),
+              padding: EdgeInsets.symmetric(vertical: 30).r,
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(20.r),
                   boxShadow: [BoxShadow(color: Color(0x40B1B1B1), offset: Offset(0, 3.88), blurRadius: 3.88)],
                 ),
-                width: 43.65.w,
-                padding: EdgeInsets.all(5.r),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(event['time'], style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
-                    SizedBox(height: 2.h),
-                    Text('To', style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
-                    SizedBox(height: 2.h),
-                    Text(event['time'], style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
-                  ],
+                //width: 53.65.w,
+                padding: EdgeInsets.all(5).r,
+                child: Padding(
+                  padding: const EdgeInsets.all(4).r,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(event['time'], style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
+                      SizedBox(height: 2.h),
+                      Text('To', style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
+                      SizedBox(height: 2.h),
+                      Text(event['time'], style: h0.copyWith(fontSize: 8.sp, color: eventColor)),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -583,8 +593,10 @@ class CalendarView extends GetView<CalendarController> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                           decoration: BoxDecoration(color: eventColor, borderRadius: BorderRadius.circular(16.r)),
-                          child: Text(_getEventTypeLabel(event['type'] ?? 'personal'),
-                              style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white)),
+                          child: Text(
+                            _getEventTypeLabel(event['type'] ?? 'personal'),
+                            style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
