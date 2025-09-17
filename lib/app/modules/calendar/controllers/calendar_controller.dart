@@ -86,6 +86,20 @@ class CalendarController extends GetxController {
   void previousWeek() => currentDate.value = currentDate.value.subtract(Duration(days: 7));
   void nextWeek() => currentDate.value = currentDate.value.add(Duration(days: 7));
 
+  void previousDay() {
+    if (selectedDate.value != null) {
+      selectedDate.value = selectedDate.value!.subtract(Duration(days: 1));
+      currentDate.value = selectedDate.value!;
+    }
+  }
+
+  void nextDay() {
+    if (selectedDate.value != null) {
+      selectedDate.value = selectedDate.value!.add(Duration(days: 1));
+      currentDate.value = selectedDate.value!;
+    }
+  }
+
   void changeView(String view) {
     selectedView.value = view;
     if (view == 'Week' && selectedDate.value != null) {
