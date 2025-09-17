@@ -199,5 +199,14 @@ class AppColors {
   static const Color iconclr = Color(0xFF807A7A);
   static const Color iconclr2 = Color(0xFF807A7A);
   static const Color customblueclr2 = Color(0xFFDFF5FF);
+  static const Color txtclr9 = Color(0xFFED7F42);
+  static const Color txtclr10 = Color(0xFF919191);
+  static const Color customskyblue4= Color(0xFFDAECF3);
+  static const Color customyellow= Color(0xFFE0CA26);
+  static const Color customsky= Color(0xFFE4EEF2);
+  static const Color txtclr11 = Color(0xFF938686);
+  static const Color txtclr12 = Color(0xFF8E44AD);
+  static const Color gray4= Color(0xFF667479);
+  static const Color alertbackground= Color(0xFFF3EFFF);
 
 }
