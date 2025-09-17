@@ -6,8 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_card_legal.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_legaldialog.dart';
 
+
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/legal_records_controller.dart';
 
 class LegalRecordsView extends GetView<LegalRecordsController> {
@@ -108,6 +110,8 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
           // Document list
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(),
     );
   }
 }

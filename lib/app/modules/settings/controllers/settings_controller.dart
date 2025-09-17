@@ -1,23 +1,24 @@
 import 'package:get/get.dart';
 
 class SettingsController extends GetxController {
-  //TODO: Implement SettingsController
+  var messageNotifications = true.obs;
+  var callNotifications = true.obs;
+  var calendarNotifications = true.obs;
+  var expenseRequests = false.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void toggleMessageNotifications(bool value) {
+    messageNotifications.value = value;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  void toggleCallNotifications(bool value) {
+    callNotifications.value = value;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void toggleCalendarNotifications(bool value) {
+    calendarNotifications.value = value;
   }
 
-  void increment() => count.value++;
+  void toggleExpenseRequests(bool value) {
+    expenseRequests.value = value;
+  }
 }

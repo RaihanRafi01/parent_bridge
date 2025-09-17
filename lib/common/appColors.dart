@@ -166,6 +166,13 @@ class AppColors {
   static const Color textColor54 = Color(0xFF7D4AD4);
   static const Color textColor55 = Color(0xFFEBCE12);
   static const Color textColor56 = Color(0xFFF03ED9);
+  static const Color textColor57 = Color(0xFF0A1D32);
+  static const Color textColor58 = Color(0xFF0A1D33);
+  static const Color textColor59 = Color(0xFFAE0808);
+  static const Color textColor60 = Color(0xFF75828F);
+  static const Color textColor61 = Color(0xFF7DC1E3);
+  static const Color textColor62 = Color(0xFF21C033);
+  static const Color textColor63 = Color(0xFFCD1A1D);
 
   static const Color card51 = Color(0xFFF0F0F0);
   static const Color card52 = Color(0xFFE4F5FF);
@@ -175,12 +182,134 @@ class AppColors {
 
   static const Color borderColor51 = Color(0xFFEEEEEE);
   static const Color borderColor52 = Color(0xFFEAEAEA);
+  static const Color borderColor53 = Color(0xFFEEEDF9);
+  static const Color borderColor54 = Color(0xFF93C7E3);
 
   static const Color boxShadowColor51 = Color(0xFFD1D1D1);
+
+  /// Pronoy used these colors ...
+
+      //support forum
+      static const Color support_forum_view_blue01 =Color(0xff93C7E3);
+
+      // appbar colors
+      static const Color appbar_color_01 =Color(0xFFBD9DED);
+      static const Color appbar_color_02 =  Color(0xFF90CAE2);
+
+      // drop-down controler's color
+      static const Color controler_list_color_00 =Color(0xffFFEDCA);
+      static const Color controler_list_color_01 =Color(0xffFFAD13);
+      static const Color controler_list_color_10 =Color(0xffE4E9FA);
+      static const Color controler_list_color_11 =Color(0xff1E40AF);
+      static const Color controler_list_color_20 =Color(0xffFFE5E5);
+      static const Color controler_list_color_21 =Color(0xffEF4444);
+      static const Color controler_list_color_30 =Color(0xffDEFDDB);
+      static const Color controler_list_color_31 =Color(0xff68B961);
+
+     //anonymous_parent_part
+     static const Color anonymous_parent_01 = Color(0xffFFAD13);
+     static const Color anonymous_parent_02 = Color(0xffFFFBF3);
+     static const Color anonymous_parent_03 = Color(0xffbd9ded);
+     static const Color anonymous_parent_04 = Color(0xffDEE6FF);
+     static const Color anonymous_parent_05 = Color(0xff089F0A);
+     static const Color anonymous_parent_06 = Color(0xffE6FFE7);
+     static const Color anonymous_parent_07 = Color(0xffEF4444);
+     static const Color anonymous_parent_08 = Color(0xffFFEBEB);
+
+     static const Color custom_anonymous_parent_01 = Color(0xff6D6D6D);
+     static const Color custom_anonymous_parent_02 = Color(0xff253240);
+     static const Color custom_anonymous_parent_03 = Color(0xff535353);
+     static const Color search_bar_01 = Color(0xffBEB4B4);
+     static const Color show_dialog_with_Comment_01 = Color(0xff595959);
+     static const Color show_dialog_with_Comment_02 = Color(0xff8E8E8E);
+     static const Color show_dialog_with_Comment_03 = Color(0xffB9B9B9);
+     static const Color reply_msg = Color(0xffF9EED9);
+     static const Color reply_msg_1 = Color(0xff5F5F5F);
+
+     //
+    static const Color post_page_01=Color(0xffBD9DED);
+    static const Color post_page_02=Color(0xff90CAE2);
+
+    static const Color post_page_03=Color(0xffCC94EF);
+    static const Color post_page_04=Color(0xff9140D3);
+    static const Color post_page_0= Color(0xFFBD9DED);
+
+
+    static const Color Transperent=Colors.transparent;
+
+
+
+
+
+
+
+
+  static const Color boxShadowColor52 = Color(0xFFCC94EF);
 
   static const Color bgColor51 = Color(0xFF90CAE3);
   static const Color bgColor52 = Color(0xFFCF91F1);
 
   static const Color buttonColor51 = Color(0xFF731AE8);
   static const Color buttonColor52 = Color(0xFFC198F7);
+
+
+
+ // Hasan_Abir
+  static const Color txtclr1 = Color(0xFF63768A);
+  static const Color titlepurple= Color(0xFF9045F7);
+  static const Color profileboxclr= Color(0xFFB7E8FC);
+  static const Color gray2= Color(0xFF747688);
+  static const Color gray3= Color(0xFFCDCDCD);
+  static const Color blackactive= Color(0xFF171717);
+  static const Color logout= Color(0xFFD22853);
+  static const Color pchangeButtonclr= Color(0xFFCFF0FF);
+  static const Color txtclr2 = Color(0xFF393939);
+  static const Color customblueclr = Color(0xFFB7E7FC);
+  static const Color txtclr3 = Color(0xFF818181);
+  static const Color txtclr4 = Color(0xFF474747);
+  static const Color txtclr5 = Color(0xFF1D3856);
+  static const Color txtclr6 = Color(0xFF535356);
+  static const Color txtclr7 = Color(0xFF838CDE);
+  static const Color boxShadow = Color(0xFFCC94EF);
+  static const Color boxclr1 = Color(0xFFE8F8FF);
+  static const Color txtclr8 = Color(0xFF363636);
+  static const Color iconclr = Color(0xFF807A7A);
+  static const Color iconclr2 = Color(0xFF807A7A);
+  static const Color customblueclr2 = Color(0xFFDFF5FF);
+  static const Color buttonColor53 = Color(0xFFFE4F52);
+  static const Color buttonColor54 = Color(0xFF109F1A);
+
+  static const Color containerColor51 = Color(0xFF705ADD);
+  static const Color containerColor52 = Color(0xFFDFF5FF);
+  static const Color containerColor53 = Color(0xFFEFEFEF);
+  static const Color containerColor54 = Color(0xFFDEE2FF);
+
+  static const Color dividerCyan = Color(0xFF91C9E3);
+
+  static const Color gradientColor51 = Color(0xFF9757D0);
+  static const Color gradientColor52 = Color(0xFFC9E8F7);
+  static const Color gradientColor53 = Color(0xFFC7DFE8);
+
+  static const Color expenseCardLightColor = Color(0xFFF4F5FD);
+  static const Color expenseCardLightColor2 = Color(0xFFF8FFF8);
+  static const Color expenseCardLightColor3 = Color(0xFFFFF7F7);
+  static const Color expenseCardLightColor4 = Color(0xFFFFFBED);
+  static const Color expenseCardLightColor5 = Color(0xFFECFFFD);
+  static const Color expenseCardLightColor6 = Color(0xFFFFF1FD);
+
+  static const Color expenseCardColor = Color(0xFF7F8DF6);
+  static const Color expenseCardColor2 = Color(0xFF68B961);
+  static const Color expenseCardColor3 = Color(0xFFEF8344);
+  static const Color expenseCardColor4 = Color(0xFFFDCF2A);
+  static const Color expenseCardColor5 = Color(0xFF0F9C8C);
+  static const Color expenseCardColor6 = Color(0xFFD165BE);
+
+  static const Color expenseCardBorderColor = Color(0xFFF6F6F6);
+  static const Color expenseCardBoxShadowColor = Color(0xFFD0C0C0);
+
+  static const Color expenseCardStatusColor = Color(0xFFD77373);
+  static const Color expenseCardStatusColor2 = Color(0xFFB78818);
+  static const Color expenseCardStatusColor3 = Color(0xFF1712A2);
+  static const Color expenseCardStatusColor4 = Color(0xFFBC1B1E);
+
 }

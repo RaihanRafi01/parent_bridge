@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../appColors.dart';
+
 class BuildDetailItem extends StatelessWidget {
   final Widget icon;
   final String value;
@@ -43,7 +45,7 @@ class BuildDetailItem extends StatelessWidget {
             Text(
               value,
               style: GoogleFonts.lato(
-                color: const Color(0xFF1D3856),
+                color: AppColors.txtclr5,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import '../../../../common/customFont.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/document_vault_controller.dart' as dropdown_Controler;
 import '../controllers/document_vault_controller.dart';
 import 'Document_Widget/custom_document_dialog.dart';
@@ -89,7 +91,10 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.arrow_back),
+                GestureDetector(
+                  onTap: Get.back,
+                  child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                ),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
@@ -321,8 +326,8 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
           ),
         ],
       ),
-      floatingActionButton: const Custom_floating_button(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 3),
     );
   }
 }

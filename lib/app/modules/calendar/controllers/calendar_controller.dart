@@ -1,6 +1,6 @@
-// Controller code
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CalendarController extends GetxController {
   final eventName = TextEditingController();
@@ -31,8 +31,7 @@ class CalendarController extends GetxController {
   final Rx<DateTime> currentDate = DateTime.now().obs;
   final Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
   final RxString selectedView = 'Month'.obs;
-  final RxMap<String, List<Map<String, dynamic>>> events =
-      <String, List<Map<String, dynamic>>>{}.obs;
+  final RxMap<String, List<Map<String, dynamic>>> events = <String, List<Map<String, dynamic>>>{}.obs;
 
   @override
   void onInit() {
@@ -41,14 +40,11 @@ class CalendarController extends GetxController {
     _initializeSampleEvents();
   }
 
-  // Replace your _initializeSampleEvents method with this updated version:
-
   void _initializeSampleEvents() {
+    // Unchanged
     final today = DateTime.now();
 
-    // Today's events
-    final todayKey =
-        '${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}';
+    final todayKey = '${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}';
     events[todayKey] = [
       {
         'id': '1',
@@ -62,10 +58,8 @@ class CalendarController extends GetxController {
       },
     ];
 
-    // Sample event for the 12th
     final date12 = DateTime(today.year, today.month, 12);
-    final dateKey2 =
-        '${today.year}-${today.month.toString().padLeft(2, '0')}-12';
+    final dateKey2 = '${today.year}-${today.month.toString().padLeft(2, '0')}-12';
     events[dateKey2] = [
       {
         'id': '2',
@@ -79,11 +73,8 @@ class CalendarController extends GetxController {
       },
     ];
 
-    // Sample school event for the 16th
-
     final date16 = DateTime(today.year, today.month, 16);
-    final dateKey3 =
-        '${today.year}-${today.month.toString().padLeft(2, '0')}-16';
+    final dateKey3 = '${today.year}-${today.month.toString().padLeft(2, '0')}-16';
     events[dateKey3] = [
       {
         'id': '3',
@@ -107,10 +98,8 @@ class CalendarController extends GetxController {
       },
     ];
 
-    // Sample family event for the 20th
     final date20 = DateTime(today.year, today.month, 20);
-    final dateKey4 =
-        '${today.year}-${today.month.toString().padLeft(2, '0')}-20';
+    final dateKey4 = '${today.year}-${today.month.toString().padLeft(2, '0')}-20';
     events[dateKey4] = [
       {
         'id': '5',
@@ -143,77 +132,81 @@ class CalendarController extends GetxController {
     return '${months[currentDate.value.month - 1]} ${currentDate.value.year}';
   }
 
+  String getWeekRangeString() {
+    // Calculate the start and end of the week (Sunday to Saturday)
+    final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday % 7));
+    final endOfWeek = startOfWeek.add(Duration(days: 6));
+    final startFormat = DateFormat('MMM d');
+    final endFormat = DateFormat('MMM d, yyyy');
+    if (startOfWeek.month == endOfWeek.month) {
+      return '${startFormat.format(startOfWeek)} - ${endOfWeek.day}, ${endOfWeek.year}';
+    } else {
+      return '${startFormat.format(startOfWeek)} - ${endFormat.format(endOfWeek)}';
+    }
+  }
+
   void previousMonth() {
-    currentDate.value = DateTime(
-      currentDate.value.year,
-      currentDate.value.month - 1,
-    );
+    currentDate.value = DateTime(currentDate.value.year, currentDate.value.month - 1);
   }
 
   void nextMonth() {
-    currentDate.value = DateTime(
-      currentDate.value.year,
-      currentDate.value.month + 1,
-    );
+    currentDate.value = DateTime(currentDate.value.year, currentDate.value.month + 1);
+  }
+
+  void previousWeek() {
+    currentDate.value = currentDate.value.subtract(Duration(days: 7));
+  }
+
+  void nextWeek() {
+    currentDate.value = currentDate.value.add(Duration(days: 7));
   }
 
   void changeView(String view) {
     selectedView.value = view;
+    if (view == 'Week' && selectedDate.value != null) {
+      // Adjust currentDate to the start of the week containing selectedDate
+      currentDate.value = selectedDate.value!.subtract(Duration(days: selectedDate.value!.weekday % 7));
+    }
   }
 
   void selectDate(DateTime date) {
     selectedDate.value = date;
+    if (selectedView.value == 'Week') {
+      // Adjust currentDate to the start of the week containing the selected date
+      currentDate.value = date.subtract(Duration(days: date.weekday % 7));
+    }
   }
 
-  // Add these methods to your CalendarController class
-
-  // Method to delete an event by title (since your current structure uses title as identifier)
   void deleteEvent(String eventTitle, {DateTime? eventDate}) {
+    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
-      final dateKey =
-          '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       if (events[dateKey] != null) {
         events[dateKey]!.removeWhere((event) => event['title'] == eventTitle);
-
-        // Remove the date key if no events left
         if (events[dateKey]!.isEmpty) {
           events.remove(dateKey);
         }
-
-        events.refresh(); // Trigger UI update
+        events.refresh();
       }
     }
   }
 
-  // Method to update an event
-  void updateEvent(
-    String originalTitle,
-    Map<String, dynamic> updatedEvent, {
-    DateTime? eventDate,
-  }) {
+  void updateEvent(String originalTitle, Map<String, dynamic> updatedEvent, {DateTime? eventDate}) {
+    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
-      final dateKey =
-          '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       if (events[dateKey] != null) {
-        final eventIndex = events[dateKey]!.indexWhere(
-          (event) => event['title'] == originalTitle,
-        );
+        final eventIndex = events[dateKey]!.indexWhere((event) => event['title'] == originalTitle);
         if (eventIndex != -1) {
-          events[dateKey]![eventIndex] = {
-            ...events[dateKey]![eventIndex],
-            ...updatedEvent,
-          };
-          events.refresh(); // Trigger UI update
+          events[dateKey]![eventIndex] = {...events[dateKey]![eventIndex], ...updatedEvent};
+          events.refresh();
         }
       }
     }
   }
 
-  // Enhanced addEvent method with more properties (updated to work with your structure)
   void addEvent({
     required String title,
     String description = '',
@@ -222,17 +215,15 @@ class CalendarController extends GetxController {
     String frequency = 'Once',
     DateTime? eventDate,
   }) {
+    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
-      final dateKey =
-          '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-
+      final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       if (events[dateKey] == null) {
         events[dateKey] = [];
       }
-
       final newEvent = {
-        'id': DateTime.now().millisecondsSinceEpoch.toString(), // Add unique ID
+        'id': DateTime.now().millisecondsSinceEpoch.toString(),
         'title': title,
         'description': description,
         'type': type,
@@ -241,18 +232,18 @@ class CalendarController extends GetxController {
         'date': date,
         'createdAt': DateTime.now(),
       };
-
       events[dateKey]!.add(newEvent);
-      events.refresh(); // Trigger UI update
+      events.refresh();
     }
   }
 
-  // Method to get events for a specific date (public version of your private method)
   List<Map<String, dynamic>> getEventsForDate(DateTime date) {
+    // Unchanged
     return _getEventsForDate(date);
   }
 
   List<Map<String, dynamic>> getDaysInMonth() {
+    // Unchanged
     final year = currentDate.value.year;
     final month = currentDate.value.month;
     final firstDayOfMonth = DateTime(year, month, 1);
@@ -261,7 +252,6 @@ class CalendarController extends GetxController {
 
     List<Map<String, dynamic>> days = [];
 
-    // Add empty cells for days before the first day of the month
     for (int i = 0; i < firstDayOfWeek; i++) {
       final date = firstDayOfMonth.subtract(Duration(days: firstDayOfWeek - i));
       days.add({
@@ -274,7 +264,6 @@ class CalendarController extends GetxController {
       });
     }
 
-    // Add days of the current month
     for (int day = 1; day <= lastDayOfMonth.day; day++) {
       final date = DateTime(year, month, day);
       days.add({
@@ -287,8 +276,7 @@ class CalendarController extends GetxController {
       });
     }
 
-    // Add empty cells for days after the last day of the month
-    final remainingCells = 42 - days.length; // 6 rows * 7 days = 42 cells
+    final remainingCells = 42 - days.length;
     for (int i = 1; i <= remainingCells; i++) {
       final date = lastDayOfMonth.add(Duration(days: i));
       days.add({
@@ -304,28 +292,47 @@ class CalendarController extends GetxController {
     return days;
   }
 
+  List<Map<String, dynamic>> getDaysInWeek() {
+    // New method to get days for the selected week
+    final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday % 7));
+    List<Map<String, dynamic>> days = [];
+
+    for (int i = 0; i < 7; i++) {
+      final date = startOfWeek.add(Duration(days: i));
+      days.add({
+        'day': date.day,
+        'date': date,
+        'isCurrentMonth': true, // Treat all week days as "current" for display
+        'isToday': _isToday(date),
+        'isSelected': _isSelected(date),
+        'events': _getEventsForDate(date),
+      });
+    }
+
+    return days;
+  }
+
   bool _isToday(DateTime date) {
+    // Unchanged
     final today = DateTime.now();
-    return date.year == today.year &&
-        date.month == today.month &&
-        date.day == today.day;
+    return date.year == today.year && date.month == today.month && date.day == today.day;
   }
 
   bool _isSelected(DateTime date) {
+    // Unchanged
     if (selectedDate.value == null) return false;
     final selected = selectedDate.value!;
-    return date.year == selected.year &&
-        date.month == selected.month &&
-        date.day == selected.day;
+    return date.year == selected.year && date.month == selected.month && date.day == selected.day;
   }
 
   List<Map<String, dynamic>> _getEventsForDate(DateTime date) {
-    final dateKey =
-        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    // Unchanged
+    final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
     return events[dateKey] ?? [];
   }
 
   List<Map<String, dynamic>> getEventsForSelectedDate() {
+    // Unchanged
     if (selectedDate.value == null) return [];
     return _getEventsForDate(selectedDate.value!);
   }
