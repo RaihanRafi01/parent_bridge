@@ -13,25 +13,16 @@ class CalendarController extends GetxController {
   final eventReminderTime = TextEditingController();
 
   final allDayEvent = false.obs;
-
+  final selectedEventType = Rx<String?>(null);
+  final selectedRepeatType = Rx<String?>(null);
+  final currentDate = DateTime.now().obs;
+  final selectedDate = Rx<DateTime?>(null);
+  final selectedView = 'Month'.obs;
+  final events = <String, List<Map<String, dynamic>>>{}.obs;
   void toggleAllDayEvent() => allDayEvent.value = !allDayEvent.value;
 
-  final Rx<String?> selectedEventType = Rx<String?>(null);
-  final List<String> eventItems = ['Activity', 'School', 'Custody', 'Medical'];
-
-  final Rx<String?> selectedRepeatType = Rx<String?>(null);
-  final List<String> repeatItems = [
-    'Does not repeat',
-    'Daily',
-    'Weekly',
-    'Every 2 weeks',
-    'Monthly',
-  ];
-
-  final Rx<DateTime> currentDate = DateTime.now().obs;
-  final Rx<DateTime?> selectedDate = Rx<DateTime?>(null);
-  final RxString selectedView = 'Month'.obs;
-  final RxMap<String, List<Map<String, dynamic>>> events = <String, List<Map<String, dynamic>>>{}.obs;
+  final eventItems = ['Activity', 'School', 'Custody', 'Medical'];
+  final repeatItems = ['Does not repeat', 'Daily', 'Weekly', 'Every 2 weeks', 'Monthly'];
 
   @override
   void onInit() {
@@ -41,130 +32,48 @@ class CalendarController extends GetxController {
   }
 
   void _initializeSampleEvents() {
-    // Unchanged
     final today = DateTime.now();
-
-    final todayKey = '${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}';
-    events[todayKey] = [
-      {
-        'id': '1',
-        'title': 'Team Meeting',
-        'description': 'Weekly team sync meeting',
-        'type': 'work',
-        'time': '10:00 AM',
-        'frequency': 'Weekly',
-        'date': today,
-        'createdAt': DateTime.now(),
-      },
+    events['${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}'] = [
+      {'id': '1', 'title': 'Team Meeting', 'description': 'Weekly team sync', 'type': 'work', 'time': '10:00 AM', 'frequency': 'Weekly', 'location': 'Conference Room A', 'organizer': 'John Doe', 'date': today, 'createdAt': DateTime.now()},
     ];
-
-    final date12 = DateTime(today.year, today.month, 12);
-    final dateKey2 = '${today.year}-${today.month.toString().padLeft(2, '0')}-12';
-    events[dateKey2] = [
-      {
-        'id': '2',
-        'title': 'Doctor Appointment',
-        'description': 'Annual checkup with Dr. Smith',
-        'type': 'personal',
-        'time': '2:30 PM',
-        'frequency': 'Yearly',
-        'date': date12,
-        'createdAt': DateTime.now(),
-      },
+    final tomorrow = today.add(Duration(days: 1));
+    events['${tomorrow.year}-${tomorrow.month.toString().padLeft(2, '0')}-${tomorrow.day.toString().padLeft(2, '0')}'] = [
+      {'id': '2', 'title': "Emma's Soccer Practice", 'description': 'Weekly training', 'type': 'school', 'time': '4:00 PM', 'frequency': 'Weekly', 'location': 'Community Sports Center', 'organizer': 'Emma Wilson', 'date': tomorrow, 'createdAt': DateTime.now()},
     ];
-
-    final date16 = DateTime(today.year, today.month, 16);
-    final dateKey3 = '${today.year}-${today.month.toString().padLeft(2, '0')}-16';
-    events[dateKey3] = [
-      {
-        'id': '3',
-        'title': "Emma's Soccer Practice",
-        'description': 'Community Sports Center',
-        'type': 'school',
-        'time': '4:00 PM',
-        'frequency': 'Weekly',
-        'date': date16,
-        'createdAt': DateTime.now(),
-      },
-      {
-        'id': '4',
-        'title': 'Parent-Teacher Conference',
-        'description': 'Meet with Ms. Johnson',
-        'type': 'school',
-        'time': '6:30 PM',
-        'frequency': 'Once',
-        'date': date16,
-        'createdAt': DateTime.now(),
-      },
+    final dayAfter = today.add(Duration(days: 2));
+    events['${dayAfter.year}-${dayAfter.month.toString().padLeft(2, '0')}-${dayAfter.day.toString().padLeft(2, '0')}'] = [
+      {'id': '3', 'title': 'Parent-Teacher Conference', 'description': 'Meet with Ms. Johnson', 'type': 'school', 'time': '6:30 PM', 'frequency': 'Once', 'location': 'Elementary School', 'organizer': 'Ms. Johnson', 'date': dayAfter, 'createdAt': DateTime.now()},
+      {'id': '4', 'title': "Mom's Work Meeting", 'description': 'Project discussion', 'type': 'work', 'time': '2:00 PM', 'frequency': 'Once', 'location': 'Downtown Office', 'organizer': 'Sarah Smith', 'date': dayAfter, 'createdAt': DateTime.now()},
     ];
-
-    final date20 = DateTime(today.year, today.month, 20);
-    final dateKey4 = '${today.year}-${today.month.toString().padLeft(2, '0')}-20';
-    events[dateKey4] = [
-      {
-        'id': '5',
-        'title': 'Family Dinner',
-        'description': 'Birthday celebration for Mom',
-        'type': 'family',
-        'time': '7:00 PM',
-        'frequency': 'Once',
-        'date': date20,
-        'createdAt': DateTime.now(),
-      },
+    final laterDate = today.add(Duration(days: 5));
+    events['${laterDate.year}-${laterDate.month.toString().padLeft(2, '0')}-${laterDate.day.toString().padLeft(2, '0')}'] = [
+      {'id': '5', 'title': 'Family Dinner', 'description': 'Birthday celebration', 'type': 'family', 'time': '7:00 PM', 'frequency': 'Once', 'location': 'The Italian Place', 'organizer': 'Family', 'date': laterDate, 'createdAt': DateTime.now()},
     ];
   }
 
   String getMonthYearString() {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return '${months[currentDate.value.month - 1]} ${currentDate.value.year}';
   }
 
   String getWeekRangeString() {
-    // Calculate the start and end of the week (Sunday to Saturday)
     final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday % 7));
     final endOfWeek = startOfWeek.add(Duration(days: 6));
     final startFormat = DateFormat('MMM d');
     final endFormat = DateFormat('MMM d, yyyy');
-    if (startOfWeek.month == endOfWeek.month) {
-      return '${startFormat.format(startOfWeek)} - ${endOfWeek.day}, ${endOfWeek.year}';
-    } else {
-      return '${startFormat.format(startOfWeek)} - ${endFormat.format(endOfWeek)}';
-    }
+    return startOfWeek.month == endOfWeek.month
+        ? '${startFormat.format(startOfWeek)} - ${endOfWeek.day}, ${endOfWeek.year}'
+        : '${startFormat.format(startOfWeek)} - ${endFormat.format(endOfWeek)}';
   }
 
-  void previousMonth() {
-    currentDate.value = DateTime(currentDate.value.year, currentDate.value.month - 1);
-  }
-
-  void nextMonth() {
-    currentDate.value = DateTime(currentDate.value.year, currentDate.value.month + 1);
-  }
-
-  void previousWeek() {
-    currentDate.value = currentDate.value.subtract(Duration(days: 7));
-  }
-
-  void nextWeek() {
-    currentDate.value = currentDate.value.add(Duration(days: 7));
-  }
+  void previousMonth() => currentDate.value = DateTime(currentDate.value.year, currentDate.value.month - 1);
+  void nextMonth() => currentDate.value = DateTime(currentDate.value.year, currentDate.value.month + 1);
+  void previousWeek() => currentDate.value = currentDate.value.subtract(Duration(days: 7));
+  void nextWeek() => currentDate.value = currentDate.value.add(Duration(days: 7));
 
   void changeView(String view) {
     selectedView.value = view;
     if (view == 'Week' && selectedDate.value != null) {
-      // Adjust currentDate to the start of the week containing selectedDate
       currentDate.value = selectedDate.value!.subtract(Duration(days: selectedDate.value!.weekday % 7));
     }
   }
@@ -172,37 +81,28 @@ class CalendarController extends GetxController {
   void selectDate(DateTime date) {
     selectedDate.value = date;
     if (selectedView.value == 'Week') {
-      // Adjust currentDate to the start of the week containing the selected date
       currentDate.value = date.subtract(Duration(days: date.weekday % 7));
     }
   }
 
   void deleteEvent(String eventTitle, {DateTime? eventDate}) {
-    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
       final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      if (events[dateKey] != null) {
-        events[dateKey]!.removeWhere((event) => event['title'] == eventTitle);
-        if (events[dateKey]!.isEmpty) {
-          events.remove(dateKey);
-        }
-        events.refresh();
-      }
+      events[dateKey]?.removeWhere((event) => event['title'] == eventTitle);
+      if (events[dateKey]?.isEmpty ?? false) events.remove(dateKey);
+      events.refresh();
     }
   }
 
   void updateEvent(String originalTitle, Map<String, dynamic> updatedEvent, {DateTime? eventDate}) {
-    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
       final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      if (events[dateKey] != null) {
-        final eventIndex = events[dateKey]!.indexWhere((event) => event['title'] == originalTitle);
-        if (eventIndex != -1) {
-          events[dateKey]![eventIndex] = {...events[dateKey]![eventIndex], ...updatedEvent};
-          events.refresh();
-        }
+      final eventIndex = events[dateKey]?.indexWhere((event) => event['title'] == originalTitle) ?? -1;
+      if (eventIndex != -1) {
+        events[dateKey]![eventIndex] = {...events[dateKey]![eventIndex], ...updatedEvent};
+        events.refresh();
       }
     }
   }
@@ -213,127 +113,96 @@ class CalendarController extends GetxController {
     String type = 'personal',
     String time = '9:00 AM',
     String frequency = 'Once',
+    String location = '',
+    String organizer = '',
     DateTime? eventDate,
   }) {
-    // Unchanged
     final date = eventDate ?? selectedDate.value;
     if (date != null) {
       final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      if (events[dateKey] == null) {
-        events[dateKey] = [];
-      }
-      final newEvent = {
+      events[dateKey] ??= [];
+      events[dateKey]!.add({
         'id': DateTime.now().millisecondsSinceEpoch.toString(),
         'title': title,
         'description': description,
         'type': type,
         'time': time,
         'frequency': frequency,
+        'location': location,
+        'organizer': organizer,
         'date': date,
         'createdAt': DateTime.now(),
-      };
-      events[dateKey]!.add(newEvent);
+      });
       events.refresh();
     }
   }
 
-  List<Map<String, dynamic>> getEventsForDate(DateTime date) {
-    // Unchanged
-    return _getEventsForDate(date);
+  List<Map<String, dynamic>> getWeeklyEvents() {
+    final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday % 7));
+    final endOfWeek = startOfWeek.add(Duration(days: 6));
+    List<Map<String, dynamic>> weeklyEvents = [];
+    for (var date = startOfWeek; date.isBefore(endOfWeek.add(Duration(days: 1))); date = date.add(Duration(days: 1))) {
+      final events = _getEventsForDate(date);
+      if (events.isNotEmpty) weeklyEvents.add({'date': date, 'events': events});
+    }
+    return weeklyEvents;
   }
 
   List<Map<String, dynamic>> getDaysInMonth() {
-    // Unchanged
     final year = currentDate.value.year;
     final month = currentDate.value.month;
-    final firstDayOfMonth = DateTime(year, month, 1);
-    final lastDayOfMonth = DateTime(year, month + 1, 0);
-    final firstDayOfWeek = firstDayOfMonth.weekday % 7;
-
+    final firstDay = DateTime(year, month, 1);
+    final lastDay = DateTime(year, month + 1, 0);
+    final firstDayOfWeek = firstDay.weekday % 7;
     List<Map<String, dynamic>> days = [];
 
     for (int i = 0; i < firstDayOfWeek; i++) {
-      final date = firstDayOfMonth.subtract(Duration(days: firstDayOfWeek - i));
-      days.add({
-        'day': date.day,
-        'date': date,
-        'isCurrentMonth': false,
-        'isToday': _isToday(date),
-        'isSelected': _isSelected(date),
-        'events': _getEventsForDate(date),
-      });
+      final date = firstDay.subtract(Duration(days: firstDayOfWeek - i));
+      days.add({'day': date.day, 'date': date, 'isCurrentMonth': false, 'isToday': _isToday(date), 'isSelected': _isSelected(date), 'events': _getEventsForDate(date)});
     }
 
-    for (int day = 1; day <= lastDayOfMonth.day; day++) {
+    for (int day = 1; day <= lastDay.day; day++) {
       final date = DateTime(year, month, day);
-      days.add({
-        'day': day,
-        'date': date,
-        'isCurrentMonth': true,
-        'isToday': _isToday(date),
-        'isSelected': _isSelected(date),
-        'events': _getEventsForDate(date),
-      });
+      days.add({'day': day, 'date': date, 'isCurrentMonth': true, 'isToday': _isToday(date), 'isSelected': _isSelected(date), 'events': _getEventsForDate(date)});
     }
 
     final remainingCells = 42 - days.length;
     for (int i = 1; i <= remainingCells; i++) {
-      final date = lastDayOfMonth.add(Duration(days: i));
-      days.add({
-        'day': date.day,
-        'date': date,
-        'isCurrentMonth': false,
-        'isToday': _isToday(date),
-        'isSelected': _isSelected(date),
-        'events': _getEventsForDate(date),
-      });
+      final date = lastDay.add(Duration(days: i));
+      days.add({'day': date.day, 'date': date, 'isCurrentMonth': false, 'isToday': _isToday(date), 'isSelected': _isSelected(date), 'events': _getEventsForDate(date)});
     }
-
     return days;
   }
 
   List<Map<String, dynamic>> getDaysInWeek() {
-    // New method to get days for the selected week
     final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday % 7));
     List<Map<String, dynamic>> days = [];
-
     for (int i = 0; i < 7; i++) {
       final date = startOfWeek.add(Duration(days: i));
-      days.add({
-        'day': date.day,
-        'date': date,
-        'isCurrentMonth': true, // Treat all week days as "current" for display
-        'isToday': _isToday(date),
-        'isSelected': _isSelected(date),
-        'events': _getEventsForDate(date),
-      });
+      days.add({'day': date.day, 'date': date, 'isCurrentMonth': true, 'isToday': _isToday(date), 'isSelected': _isSelected(date), 'events': _getEventsForDate(date)});
     }
-
     return days;
   }
 
   bool _isToday(DateTime date) {
-    // Unchanged
     final today = DateTime.now();
     return date.year == today.year && date.month == today.month && date.day == today.day;
   }
 
-  bool _isSelected(DateTime date) {
-    // Unchanged
-    if (selectedDate.value == null) return false;
-    final selected = selectedDate.value!;
-    return date.year == selected.year && date.month == selected.month && date.day == selected.day;
-  }
+  bool _isSelected(DateTime date) => selectedDate.value != null && date.year == selectedDate.value!.year && date.month == selectedDate.value!.month && date.day == selectedDate.value!.day;
 
   List<Map<String, dynamic>> _getEventsForDate(DateTime date) {
-    // Unchanged
-    final dateKey = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-    return events[dateKey] ?? [];
+    return events['${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}'] ?? [];
   }
 
-  List<Map<String, dynamic>> getEventsForSelectedDate() {
-    // Unchanged
-    if (selectedDate.value == null) return [];
-    return _getEventsForDate(selectedDate.value!);
+  @override
+  void onClose() {
+    eventName.dispose();
+    eventType.dispose();
+    eventDate.dispose();
+    eventSTime.dispose();
+    eventLocation.dispose();
+    eventDescription.dispose();
+    super.onClose();
   }
 }

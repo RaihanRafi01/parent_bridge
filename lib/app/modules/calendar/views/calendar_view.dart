@@ -15,8 +15,11 @@ class CalendarView extends GetView<CalendarController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header with gradient
           Container(
             padding: EdgeInsets.only(bottom: 30, top: 60).r,
             decoration: BoxDecoration(
@@ -27,31 +30,38 @@ class CalendarView extends GetView<CalendarController> {
               ),
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
             ),
-            child: Column(children: [_buildHeader(), _buildTabBar()]),
+            child: Column(
+              children: [
+                _buildHeader(),
+                SizedBox(height: 20.h),
+                _buildTabBar(),
+              ],
+            ),
           ),
-          Expanded(child: _buildCalendarContent()),
-          CustomPBButton(text: 'Add Event', onPressed: () => Get.to(AddEventView())),
-          SizedBox(height: 40.h),
+          // Calendar content
+          Container(height: 320.h, child: _buildCalendarContent()),
+          // Weekly events
+          Expanded(child: _buildWeeklyEvents()),
+          SizedBox(height: 20.h),
         ],
       ),
     );
   }
 
   Widget _buildHeader() {
-    // Unchanged
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
       child: Row(
         children: [
           GestureDetector(
             onTap: Get.back,
-            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+            child: SvgPicture.asset('assets/images/common/back_icon.svg', width: 24.w, height: 24.h),
           ),
           SizedBox(width: 15.w),
-          Text('Shared Calendar', style: h2.copyWith(fontSize: 24.74.sp, color: AppColors.darkSlateBlue)),
-          const Spacer(),
+          Text('Shared Calendar', style: h2.copyWith(fontSize: 24.74.sp, color: AppColors.darkSlateBlue, fontWeight: FontWeight.bold)),
+          Spacer(),
           GestureDetector(
-            onTap: () => Get.to(AddEventView()),
+            onTap: () => Get.to(() => AddEventView()),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
               decoration: BoxDecoration(
@@ -68,16 +78,11 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildTabBar() {
-    // Unchanged
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [AppColors.calenderG1, AppColors.calenderG2],
-        ),
+        gradient: LinearGradient(colors: [AppColors.calenderG1, AppColors.calenderG2]),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Obx(() => Row(
@@ -89,7 +94,6 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildTabItem(String text, bool isSelected) {
-    // Unchanged
     return Expanded(
       child: GestureDetector(
         onTap: () => controller.changeView(text),
@@ -99,19 +103,18 @@ class CalendarView extends GetView<CalendarController> {
             color: isSelected ? Colors.white : Colors.transparent,
             borderRadius: BorderRadius.circular(10.r),
           ),
-          child: Center(child: Text(text, style: h3.copyWith(fontSize: 14.sp, color: AppColors.textColor7))),
+          child: Center(child: Text(text, style: h3.copyWith(fontSize: 14.sp, color: AppColors.textColor7, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500))),
         ),
       ),
     );
   }
 
   Widget _buildCalendarContent() {
-    // Unchanged structure, but content adapts to view
     return Container(
       margin: EdgeInsets.all(20.w),
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
-        color: const Color(0xFFD4E8F0),
+        color: Color(0xFFD4E8F0),
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [BoxShadow(color: Color(0x40B7B1B1), offset: Offset(0, 4), blurRadius: 4)],
       ),
@@ -128,7 +131,6 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildCalendarHeader() {
-    // Modified to show week range in Week view
     return Obx(() => Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -155,13 +157,18 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildWeekDays() {
-    // Unchanged
     const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return Row(
       children: weekDays
           .map((day) => Expanded(
         child: Center(
-          child: Text(day, style: h2.copyWith(fontSize: 13.71.sp, color: AppColors.darkSlateBlue)),
+          child: Text(
+            day,
+            style: h2.copyWith(
+              fontSize: 13.71.sp,
+              color: AppColors.darkSlateBlue,
+            ),
+          ),
         ),
       ))
           .toList(),
@@ -169,17 +176,10 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildCalendarGrid() {
-    // Modified to handle Week view
     return Obx(() {
-      final isWeekView = controller.selectedView.value == 'Week';
-      final days = isWeekView ? controller.getDaysInWeek() : controller.getDaysInMonth();
+      final days = controller.selectedView.value == 'Week' ? controller.getDaysInWeek() : controller.getDaysInMonth();
       return GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 7,
-          childAspectRatio: 0.5,
-          crossAxisSpacing: 1,
-          mainAxisSpacing: 1,
-        ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, childAspectRatio: 0.5, crossAxisSpacing: 1, mainAxisSpacing: 1),
         itemCount: days.length,
         itemBuilder: (context, index) => _buildDayCell(days[index]),
       );
@@ -187,7 +187,6 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildDayCell(Map<String, dynamic> dayData) {
-    // Modified to always show days in Week view
     final day = dayData['day'] as int?;
     final isCurrentMonth = dayData['isCurrentMonth'] as bool;
     final isToday = dayData['isToday'] as bool;
@@ -203,15 +202,11 @@ class CalendarView extends GetView<CalendarController> {
         if (events.isNotEmpty) _showEventDialog(date, events);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12).r,
+        margin: EdgeInsets.all(2.r),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.calenderSelect.withOpacity(0.4)
-              : isToday
-              ? AppColors.calenderSelect.withOpacity(0.2)
-              : Colors.white,
+          color: isSelected ? AppColors.calenderSelect.withOpacity(0.4) : isToday ? AppColors.calenderSelect.withOpacity(0.2) : Colors.white,
           borderRadius: BorderRadius.circular(8.r),
-          boxShadow: [BoxShadow(color: Color(0x40000000), offset: Offset(0, 4), blurRadius: 4)],
+          boxShadow: [BoxShadow(color: Color(0x40000000), offset: Offset(0, 2), blurRadius: 2)],
         ),
         child: Stack(
           clipBehavior: Clip.none,
@@ -224,32 +219,104 @@ class CalendarView extends GetView<CalendarController> {
                   if (events.isNotEmpty) ...[
                     SizedBox(height: 4.h),
                     Container(
-                      padding: EdgeInsets.all(3).r,
+                      padding: EdgeInsets.all(3.r),
                       decoration: BoxDecoration(color: AppColors.clrSky6, borderRadius: BorderRadius.circular(2.r)),
-                      child: Text(
-                        '${events.length}\n${events.length == 1 ? 'event' : 'events'}',
-                        textAlign: TextAlign.center,
-                        style: h4.copyWith(fontSize: 8.sp, color: AppColors.darkSlateBlue),
-                      ),
+                      child: Text('${events.length}\n${events.length == 1 ? 'event' : 'events'}',
+                          textAlign: TextAlign.center, style: h4.copyWith(fontSize: 8.sp, color: AppColors.darkSlateBlue)),
                     ),
                   ],
                 ],
               ),
             ),
             if (events.isNotEmpty)
-              Positioned(
-                top: -5.h,
-                right: -5.w,
-                child: SvgPicture.asset('assets/images/calendar/pin_icon.svg', fit: BoxFit.contain),
-              ),
+              Positioned(top: -5.h, right: -5.w, child: SvgPicture.asset('assets/images/calendar/pin_icon.svg', fit: BoxFit.contain)),
           ],
         ),
       ),
     );
   }
 
+  Widget _buildWeeklyEvents() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 16.h),
+            child: Text('This Week\'s Events', style: h2.copyWith(color: AppColors.darkSlateBlue, fontSize: 20.sp, fontWeight: FontWeight.bold)),
+          ),
+          Expanded(child: Obx(() => _buildWeeklyEventsList())),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
+            child: CustomPBButton(text: 'Add Event', onPressed: () => Get.to(() => AddEventView())),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeeklyEventsList() {
+    final weeklyEvents = controller.getWeeklyEvents();
+    if (weeklyEvents.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.event_note, size: 48.sp, color: Colors.grey[400]),
+            SizedBox(height: 16.h),
+            Text('No events this week', style: h3.copyWith(color: Colors.grey[600], fontSize: 16.sp)),
+            SizedBox(height: 8.h),
+            Text('Tap "Add Event" to create your first event', style: h4.copyWith(color: Colors.grey[500], fontSize: 14.sp)),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      itemCount: weeklyEvents.length,
+      itemBuilder: (context, index) {
+        final dayEvents = weeklyEvents[index];
+        final date = dayEvents['date'] as DateTime;
+        final events = dayEvents['events'] as List<Map<String, dynamic>>;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 8.h, top: 12.h),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: _isToday(date) ? AppColors.lightPurplePink2 : AppColors.clrSky6,
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        date.day.toString(),
+                        style: h3.copyWith(
+                          color: _isToday(date) ? Colors.white : AppColors.darkSlateBlue,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Text(DateFormat('EEEE').format(date), style: h3.copyWith(color: AppColors.darkSlateBlue, fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            ...events.asMap().entries.map((entry) => _buildEventItem(entry.value, entry.key == events.length - 1)).toList(),
+          ],
+        );
+      },
+    );
+  }
+
   void _showEventDialog(DateTime selectedDate, List<Map<String, dynamic>> events) {
-    // Unchanged
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
@@ -261,10 +328,7 @@ class CalendarView extends GetView<CalendarController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                decoration: BoxDecoration(
-                  color: AppColors.lightPurplePink2,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(29.r)),
-                ),
+                decoration: BoxDecoration(color: AppColors.lightPurplePink2, borderRadius: BorderRadius.vertical(top: Radius.circular(29.r))),
                 padding: EdgeInsets.all(16.w),
                 child: Row(
                   children: [
@@ -293,18 +357,15 @@ class CalendarView extends GetView<CalendarController> {
                 margin: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: events.length,
-                  itemBuilder: (context, index) {
-                    final event = events[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Get.back();
-                        _showEventDetailsDialog(event);
-                      },
-                      child: _buildEventItem(event, index == events.length - 1),
-                    );
-                  },
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Get.back();
+                      _showEventDetailsDialog(events[index]);
+                    },
+                    child: _buildEventItem(events[index], index == events.length - 1),
+                  ),
                 ),
               ),
               SizedBox(height: 16.h),
@@ -317,7 +378,6 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   void _showEventDetailsDialog(Map<String, dynamic> event) {
-    // Updated to use dynamic event data
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
@@ -329,10 +389,7 @@ class CalendarView extends GetView<CalendarController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                decoration: BoxDecoration(
-                  color: AppColors.lightPurplePink2,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(29.r)),
-                ),
+                decoration: BoxDecoration(color: AppColors.lightPurplePink2, borderRadius: BorderRadius.vertical(top: Radius.circular(29.r))),
                 padding: EdgeInsets.all(16.w),
                 child: Row(
                   children: [
@@ -349,97 +406,76 @@ class CalendarView extends GetView<CalendarController> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(16).r,
+                margin: EdgeInsets.all(16.r),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         SvgPicture.asset('assets/images/calendar/calender_icon.svg'),
                         SizedBox(width: 8.w),
-                        Text(
-                          DateFormat('yyyy-MM-dd').format(event['date']),
-                          style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue),
-                        ),
+                        Text(DateFormat('yyyy-MM-dd').format(event['date']), style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue)),
                         Spacer(),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                          decoration: BoxDecoration(color: AppColors.clrGreen, borderRadius: BorderRadius.circular(16.r)),
-                          child: Text(
-                            _getEventTypeLabel(event['type'] ?? 'personal'),
-                            style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white),
-                          ),
+                          decoration: BoxDecoration(color: _getEventTypeColor(event['type'] ?? 'personal'), borderRadius: BorderRadius.circular(16.r)),
+                          child: Text(_getEventTypeLabel(event['type'] ?? 'personal'),
+                              style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white)),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4).r,
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
                       child: Row(
                         children: [
                           SvgPicture.asset('assets/images/calendar/time_icon.svg'),
                           SizedBox(width: 8.w),
-                          Text(
-                            event['time'],
-                            style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue),
-                          ),
+                          Text(event['time'], style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue)),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4).r,
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
                       child: Row(
                         children: [
                           SvgPicture.asset('assets/images/calendar/location_icon.svg'),
                           SizedBox(width: 8.w),
-                          Text(
-                            event['location'] ?? 'Not specified',
-                            style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue),
-                          ),
+                          Text(event['location'] ?? 'Not specified', style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue)),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4).r,
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
                       child: Row(
                         children: [
                           SvgPicture.asset('assets/images/calendar/person_icon.svg'),
                           SizedBox(width: 8.w),
-                          Text(
-                            'You',
-                            style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue),
-                          ),
+                          Text('You', style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.darkSlateBlue)),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4).r,
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
                       child: Row(
                         children: [
                           SvgPicture.asset('assets/images/calendar/child_icon.svg'),
                           SizedBox(width: 8.w),
-                          Text(
-                            event['organizer'] ?? 'Not specified',
-                            style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.clrGreen),
-                          ),
+                          Text(event['organizer'] ?? 'Not specified', style: h4.copyWith(fontSize: 16.62.sp, color: AppColors.clrGreen)),
                         ],
                       ),
                     ),
                     SizedBox(height: 10.h),
                     Container(
                       decoration: BoxDecoration(color: AppColors.clrGreen2, borderRadius: BorderRadius.circular(16.r)),
-                      padding: EdgeInsets.all(16).r,
-                      child: Text(
-                        event['description'] ?? 'No description provided',
-                        style: h4.copyWith(fontSize: 14.sp, color: AppColors.darkSlateBlue),
-                      ),
+                      padding: EdgeInsets.all(16.r),
+                      child: Text(event['description'] ?? 'No description provided', style: h4.copyWith(fontSize: 14.sp, color: AppColors.darkSlateBlue)),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(16).r,
+                      padding: EdgeInsets.all(16.r),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              // Navigate to AddEventView with pre-filled data
                               controller.eventName.text = event['title'];
                               controller.eventType.text = event['type'];
                               controller.eventDate.text = DateFormat('yyyy-MM-dd').format(event['date']);
@@ -447,8 +483,7 @@ class CalendarView extends GetView<CalendarController> {
                               controller.eventDescription.text = event['description'] ?? '';
                               controller.eventLocation.text = event['location'] ?? '';
                               controller.selectedRepeatType.value = event['frequency'];
-                              Get.to(AddEventView())?.then((_) {
-                                // Update event on return
+                              Get.to(() => AddEventView())?.then((_) {
                                 controller.updateEvent(event['title'], {
                                   'title': controller.eventName.text,
                                   'type': controller.eventType.text,
@@ -460,11 +495,9 @@ class CalendarView extends GetView<CalendarController> {
                                 });
                               });
                             },
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: AppColors.darkSlateBlue),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.r)),
-                            ),
+                            style: OutlinedButton.styleFrom(side: BorderSide(color: AppColors.darkSlateBlue), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.r))),
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 SvgPicture.asset('assets/images/calendar/edit_icon.svg'),
                                 SizedBox(width: 4.w),
@@ -477,11 +510,9 @@ class CalendarView extends GetView<CalendarController> {
                               controller.deleteEvent(event['title'], eventDate: event['date']);
                               Get.back();
                             },
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: AppColors.clrRed),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.r)),
-                            ),
+                            style: OutlinedButton.styleFrom(side: BorderSide(color: AppColors.clrRed), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.r))),
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 SvgPicture.asset('assets/images/calendar/delete_icon.svg'),
                                 SizedBox(width: 4.w),
@@ -504,7 +535,6 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
-    // Updated to use dynamic event data
     Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
     return Container(
       margin: EdgeInsets.only(top: 12.h, bottom: isLast ? 12.h : 0),
@@ -513,16 +543,10 @@ class CalendarView extends GetView<CalendarController> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              width: 8.w,
-              decoration: BoxDecoration(
-                color: eventColor,
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(10.r)),
-              ),
-            ),
+            Container(width: 8.w, decoration: BoxDecoration(color: eventColor, borderRadius: BorderRadius.horizontal(left: Radius.circular(10.r)))),
             SizedBox(width: 10.w),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 30).r,
+              padding: EdgeInsets.symmetric(vertical: 30.r),
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColors.white,
@@ -530,7 +554,7 @@ class CalendarView extends GetView<CalendarController> {
                   boxShadow: [BoxShadow(color: Color(0x40B1B1B1), offset: Offset(0, 3.88), blurRadius: 3.88)],
                 ),
                 width: 43.65.w,
-                padding: EdgeInsets.all(5).r,
+                padding: EdgeInsets.all(5.r),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -556,10 +580,8 @@ class CalendarView extends GetView<CalendarController> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                           decoration: BoxDecoration(color: eventColor, borderRadius: BorderRadius.circular(16.r)),
-                          child: Text(
-                            _getEventTypeLabel(event['type'] ?? 'personal'),
-                            style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white),
-                          ),
+                          child: Text(_getEventTypeLabel(event['type'] ?? 'personal'),
+                              style: h3.copyWith(fontSize: 10.54.sp, fontWeight: FontWeight.w600, color: Colors.white)),
                         ),
                       ],
                     ),
@@ -600,35 +622,37 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   String _getFormattedDate(DateTime date) {
-    // Unchanged
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     return '${weekdays[date.weekday - 1]}, ${months[date.month - 1]} ${date.day}';
   }
 
   Color _getEventTypeColor(String type) {
-    // Unchanged
     switch (type.toLowerCase()) {
       case 'work':
       case 'school':
-        return const Color(0xFF4CAF50);
+        return Color(0xFF4CAF50);
       case 'personal':
-        return const Color(0xFF2196F3);
+      case 'activity':
+        return Color(0xFF2196F3);
       case 'family':
-        return const Color(0xFFFF9800);
+        return Color(0xFFFF9800);
       case 'holiday':
-        return const Color(0xFFE91E63);
+        return Color(0xFFE91E63);
+      case 'custody':
+      case 'medical':
+        return Color(0xFFF44336);
       default:
-        return const Color(0xFF9C27B0);
+        return Color(0xFF9C27B0);
     }
   }
 
   String _getEventTypeLabel(String type) {
-    // Updated to match eventItems
     switch (type.toLowerCase()) {
       case 'work':
         return 'Work';
       case 'personal':
+      case 'activity':
         return 'Activity';
       case 'family':
         return 'Family';
@@ -643,5 +667,10 @@ class CalendarView extends GetView<CalendarController> {
       default:
         return 'Event';
     }
+  }
+
+  bool _isToday(DateTime date) {
+    final today = DateTime.now();
+    return date.year == today.year && date.month == today.month && date.day == today.day;
   }
 }
