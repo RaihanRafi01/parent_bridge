@@ -16,34 +16,36 @@ class CalendarView extends GetView<CalendarController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with gradient
-          Container(
-            padding: EdgeInsets.only(bottom: 30, top: 60).r,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
+      body: SingleChildScrollView( // Make the whole screen scrollable
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header with gradient
+            Container(
+              padding: EdgeInsets.only(bottom: 30, top: 60).r,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
+                ),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
               ),
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
+              child: Column(
+                children: [
+                  _buildHeader(),
+                  SizedBox(height: 20.h),
+                  _buildTabBar(),
+                ],
+              ),
             ),
-            child: Column(
-              children: [
-                _buildHeader(),
-                SizedBox(height: 20.h),
-                _buildTabBar(),
-              ],
-            ),
-          ),
-          // Calendar content
-          Container(height: 320.h, child: _buildCalendarContent()),
-          // Weekly events
-          Expanded(child: _buildWeeklyEvents()),
-          SizedBox(height: 20.h),
-        ],
+            // Calendar content
+            _buildCalendarContent(),
+            // Weekly events
+            _buildWeeklyEvents(),
+            SizedBox(height: 20.h),
+          ],
+        ),
       ),
     );
   }
@@ -123,8 +125,7 @@ class CalendarView extends GetView<CalendarController> {
           _buildCalendarHeader(),
           SizedBox(height: 20.h),
           _buildWeekDays(),
-          SizedBox(height: 10.h),
-          Expanded(child: _buildCalendarGrid()),
+          _buildCalendarGrid(),
         ],
       ),
     );
@@ -182,6 +183,8 @@ class CalendarView extends GetView<CalendarController> {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, childAspectRatio: 0.5, crossAxisSpacing: 1, mainAxisSpacing: 1),
         itemCount: days.length,
         itemBuilder: (context, index) => _buildDayCell(days[index]),
+        shrinkWrap: true, // Ensures the grid is properly sized
+        physics: NeverScrollableScrollPhysics(), // Disable scrolling of the grid
       );
     });
   }
@@ -242,11 +245,8 @@ class CalendarView extends GetView<CalendarController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 16.h),
-            child: Text('This Week\'s Events', style: h2.copyWith(color: AppColors.darkSlateBlue, fontSize: 20.sp, fontWeight: FontWeight.bold)),
-          ),
-          Expanded(child: Obx(() => _buildWeeklyEventsList())),
+          Text('This Week\'s Events', style: h2.copyWith(color: AppColors.darkSlateBlue, fontSize: 20.sp, fontWeight: FontWeight.bold)),
+          _buildWeeklyEventsList(),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.h),
             child: CustomPBButton(text: 'Add Event', onPressed: () => Get.to(() => AddEventView())),
@@ -274,6 +274,8 @@ class CalendarView extends GetView<CalendarController> {
     }
 
     return ListView.builder(
+      shrinkWrap: true, // Ensures ListView takes only the space it needs
+      physics: const NeverScrollableScrollPhysics(), // Disables ListView's own scrolling
       itemCount: weeklyEvents.length,
       itemBuilder: (context, index) {
         final dayEvents = weeklyEvents[index];
@@ -283,7 +285,7 @@ class CalendarView extends GetView<CalendarController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 8.h, top: 12.h),
+              padding: EdgeInsets.only(bottom: 8.h,),
               child: Row(
                 children: [
                   Container(
@@ -315,6 +317,7 @@ class CalendarView extends GetView<CalendarController> {
       },
     );
   }
+
 
   void _showEventDialog(DateTime selectedDate, List<Map<String, dynamic>> events) {
     Get.dialog(
