@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,18 +38,21 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
                 children: [
                   SizedBox(height: 30.h),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(Icons.arrow_back),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: Text(
-                          "Legal Records",
-                          style: h2.copyWith(
-                            fontSize: 24.47.sp,
-                            color: AppColors.textColor7,
-                          ),
+                      GestureDetector(
+                        onTap: Get.back,
+                        child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
+                      ),
+
+                      Text(
+                        "Legal Records",
+                        style: h2.copyWith(
+                          fontSize: 24.47.sp,
+                          color: AppColors.textColor7,
                         ),
                       ),
+                      SizedBox(width: 40.w),
                     ],
                   ),
                   SizedBox(height: 200.w),
@@ -111,7 +115,7 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CircularMenuWidget(),
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
     );
   }
 }

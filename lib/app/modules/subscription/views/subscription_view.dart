@@ -21,26 +21,24 @@ class SubscriptionView extends GetView<SubscriptionController> {
         backgroundColor: AppColors.bgColor51,
         elevation: 0,
         scrolledUnderElevation: 0,
-        leading: Row(
-          children: [
-            SizedBox(width: 17.125.w,),
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                padding: EdgeInsets.all(16.r),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.clrWhite,
-                ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10).r,
+          child: GestureDetector(
+            onTap: () => Get.back(),
+            child: Container(
+              padding: EdgeInsets.all(16.r),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.clrWhite,
+              ),
 
-                child: Icon(
-                  Icons.arrow_back_ios_outlined,
-                  color: AppColors.textColor51,
-                  size: 16.r,
-                ),
+              child: Icon(
+                Icons.arrow_back_ios_outlined,
+                color: AppColors.textColor51,
+                size: 16.r,
               ),
             ),
-          ],
+          ),
         ),
         centerTitle: true,
         title: Text(
@@ -131,7 +129,7 @@ class ProSubscriptionCard extends StatelessWidget {
 
               Column(
                 children: [
-                  SizedBox(height: 85.h,),
+                  SizedBox(height: 80.h,),
 
                   Container(
                     padding: EdgeInsets.all(37.r),
@@ -231,14 +229,18 @@ class ProSubscriptionCard extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: spaceBeforeButton.h,),
+                  //SizedBox(height: 20.h,),
 
-                  CustomPBButton(
-                    text: 'Buy Now',
-                    color1: AppColors.buttonColor51,
-                    color2: AppColors.buttonColor52,
-                    onPressed: () => Get.to(HomeView()),
-                  )
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: CustomPBButton(
+                      text: 'Buy Now',
+                      color1: AppColors.buttonColor51,
+                      color2: AppColors.buttonColor52,
+                      onPressed: () => Get.to(HomeView()),
+                    ),
+                  ),
+                  SizedBox(height: 30.h)
                 ],
               )
             ]
@@ -269,8 +271,7 @@ class SubscriptionFeature extends StatelessWidget {
           image,
         ),
 
-        SizedBox(
-          width: 301.w,
+        Expanded(
           child: Text(
             text,
             style: h3.copyWith(
