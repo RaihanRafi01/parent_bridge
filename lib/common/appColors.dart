@@ -8,6 +8,10 @@ class AppColors {
   ///
   static const Color liteGreenBg = Color(0xFFEAFBD9);
   static const Color textInputFillColor = Color(0xFFEAF8FF);
+  static const Color barColor = Color(0xFF5DB0D7);
+  static const Color barColor2 = Color(0xFF4ACF76);
+  static const Color legalButton = Color(0xFFA8D46A);
+  static const Color legalText = Color(0xFF0A1D32);
 
   static const Color clrSky6 = Color(0xFFB8E8FE);
 
@@ -103,6 +107,7 @@ class AppColors {
   static const Color clrSky4 = Color(0xFFAFE4FF);
   static const Color clrRed = Color(0xFFFE1C1F);
   static const Color clrGreen = Color(0xFF68B961);
+  static const Color clrBlk = Color(0xFF686565);
   static const Color clrGreen2 = Color(0xFFE7FAE5);
   static const Color clrGreen3 = Color(0xFF15CB70);
   static const Color clrRed2 = Color(0xFFD00023);
