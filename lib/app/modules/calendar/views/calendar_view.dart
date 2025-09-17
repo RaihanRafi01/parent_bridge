@@ -281,38 +281,92 @@ class CalendarView extends GetView<CalendarController> {
         final dayEvents = weeklyEvents[index];
         final date = dayEvents['date'] as DateTime;
         final events = dayEvents['events'] as List<Map<String, dynamic>>;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 8.h,),
-              child: Row(
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 30).r,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(9.31.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x40DFD4D4),
+                  offset: Offset(1, 1),
+                  blurRadius: 4,
+                  spreadRadius: 0,
+                ),
+              ],
+              border: Border.all(
+                color: Color(0xFFF2F2F2),
+                width: 1,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16).r,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: _isToday(date) ? AppColors.lightPurplePink2 : AppColors.clrSky6,
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Center(
-                      child: Text(
-                        date.day.toString(),
-                        style: h3.copyWith(
-                          color: _isToday(date) ? Colors.white : AppColors.darkSlateBlue,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.h,),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.customblueclr2,
+                        borderRadius: BorderRadius.circular(9.31.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x40B7B1B1), // #B7B1B1 with 40% opacity
+                            offset: Offset(0, 3.72), // x: 0px, y: 3.72px
+                            blurRadius: 3.72, // blur: 3.72px
+                            spreadRadius: 0, // spread: 0px
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60.w,
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              color: AppColors.lightPurplePink2,
+                              borderRadius: BorderRadius.circular(9.31.r),
+                            ),
+                            child: Center(
+                              child: Text(
+                                date.day.toString(),
+                                style: h3.copyWith(
+                                  color: _isToday(date) ? Colors.white : AppColors.darkSlateBlue,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Text(DateFormat('EEEE').format(date), style: h3.copyWith(color: AppColors.darkSlateBlue, fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16).r,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.customSkyBlue3,
+                                borderRadius: BorderRadius.circular(50.r),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text('${events.length} ${events.length == 1 ? 'event' : 'events'}',style: h3.copyWith(fontSize: 14.59.sp,color: AppColors.darkSlateBlue),),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(width: 12.w),
-                  Text(DateFormat('EEEE').format(date), style: h3.copyWith(color: AppColors.darkSlateBlue, fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                  ...events.asMap().entries.map((entry) => _buildEventItem(entry.value, entry.key == events.length - 1)).toList(),
                 ],
               ),
             ),
-            ...events.asMap().entries.map((entry) => _buildEventItem(entry.value, entry.key == events.length - 1)).toList(),
-          ],
+          ),
         );
       },
     );
@@ -541,7 +595,7 @@ class CalendarView extends GetView<CalendarController> {
     // Updated to use dynamic event data
     Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
     return Container(
-      margin: EdgeInsets.only(top: 12.h, bottom: isLast ? 12.h : 0),
+      margin: EdgeInsets.only(top: 12.h,),
       decoration: BoxDecoration(color: eventColor.withOpacity(0.1), borderRadius: BorderRadius.circular(12.r)),
       child: IntrinsicHeight(
         child: Row(
