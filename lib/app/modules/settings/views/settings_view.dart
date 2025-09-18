@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/settings/views/Choose_the_app.dart';
+import 'package:parent_bridge/app/modules/settings/views/Choose_the_app_main.dart';
 import 'package:parent_bridge/app/modules/settings/views/co_parentInformation.dart';
 import 'package:parent_bridge/app/modules/settings/views/help_and_support.dart';
 import 'package:parent_bridge/app/modules/settings/views/privacy_policy.dart';
@@ -150,7 +151,7 @@ class SettingsView extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(ChooseTheApp());
+                  Get.to(ChooseTheAppMain());
                 },
                 child: CustomListTile(
                   leadingSvgAsset: 'assets/images/settings/choose_app.svg',
