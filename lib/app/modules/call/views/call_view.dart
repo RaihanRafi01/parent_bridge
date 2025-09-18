@@ -20,7 +20,6 @@ class CallView extends GetView<CallController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Padding(
               padding: EdgeInsets.all(16.w), // responsive padding
               child: Row(

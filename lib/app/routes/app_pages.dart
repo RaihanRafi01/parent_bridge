@@ -32,6 +32,7 @@ import '../modules/subscription/bindings/subscription_binding.dart';
 import '../modules/subscription/views/subscription_view.dart';
 import '../modules/support_forum/bindings/support_forum_binding.dart';
 import '../modules/support_forum/views/support_forum_view.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -112,4 +113,3 @@ class AppPages {
     ),
   ];
 }
-

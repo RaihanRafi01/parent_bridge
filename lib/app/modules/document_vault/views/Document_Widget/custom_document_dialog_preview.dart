@@ -4,6 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/appColors.dart';
+
+import '../../../../../common/customFont.dart';
 
 class Document_dialog_preview extends StatelessWidget {
   Document_dialog_preview({super.key});
@@ -18,7 +21,7 @@ class Document_dialog_preview extends StatelessWidget {
         height: 561.h,
         // padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: Color(0xFFFFFFFF),
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(1630.r),
         ),
         child: Column(
@@ -29,7 +32,7 @@ class Document_dialog_preview extends StatelessWidget {
               height: 67.89.h,
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
               decoration: BoxDecoration(
-                color: const Color(0xFF68B961),
+                color: AppColors.clrGreen,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30.r),
                   topRight: Radius.circular(30.r),
@@ -40,15 +43,11 @@ class Document_dialog_preview extends StatelessWidget {
                 children: [
                   Text(
                     "School Emergency Contact Form",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: h2.copyWith(color: AppColors.white, fontSize: 18.sp),
                   ),
                   CircleAvatar(
                     maxRadius: 20.r,
-                    backgroundColor: Color(0xFFFFFFFF),
+                    backgroundColor: AppColors.white,
                     child: InkWell(
                       onTap: () {
                         Get.back();
@@ -69,11 +68,11 @@ class Document_dialog_preview extends StatelessWidget {
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: Color(0xFF68B961).withOpacity(0.15.sp),
+                  color: AppColors.clrGreen.withOpacity(0.15.sp),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.1),
+                      color: AppColors.white.withOpacity(0.1),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: Offset(0, 3),
@@ -90,7 +89,7 @@ class Document_dialog_preview extends StatelessWidget {
                           width: 162.42.w,
                           height: 42.79.h,
                           decoration: BoxDecoration(
-                            color: Color(0xFF68B961),
+                            color: AppColors.category4,
                             borderRadius: BorderRadius.circular(9.73.r),
                             border: Border.all(
                               width: 1.w,
@@ -105,17 +104,17 @@ class Document_dialog_preview extends StatelessWidget {
                                 height: 12.h,
                                 width: 12.w,
                                 colorFilter: ColorFilter.mode(
-                                  Color(0xFFFFFFFF),
+                                  AppColors.white,
                                   BlendMode.srcIn,
                                 ),
                               ),
                               SizedBox(width: 10.w),
                               Text(
                                 'Preview',
-                                style: GoogleFonts.lato(
+                                style: h3.copyWith(
                                   fontSize: 14.49.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFFFFFFFF),
+
+                                  color: AppColors.white,
                                 ),
                               ),
                             ],
@@ -137,7 +136,7 @@ class Document_dialog_preview extends StatelessWidget {
                               borderRadius: BorderRadius.circular(9.73.r),
                               border: Border.all(
                                 width: 1.w,
-                                color: Color(0xFF68B961),
+                                color: AppColors.category4,
                               ),
                             ),
                             child: Row(
@@ -148,17 +147,17 @@ class Document_dialog_preview extends StatelessWidget {
                                   height: 22.h,
                                   width: 22.w,
                                   colorFilter: ColorFilter.mode(
-                                    Color(0xFF68B961),
+                                    AppColors.category4,
                                     BlendMode.srcIn,
                                   ),
                                 ),
                                 SizedBox(width: 10.w),
                                 Text(
                                   'Details',
-                                  style: GoogleFonts.lato(
+                                  style: h3.copyWith(
                                     fontSize: 14.49.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF68B961),
+
+                                    color: AppColors.category4,
                                   ),
                                 ),
                               ],
@@ -183,11 +182,11 @@ class Document_dialog_preview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
                     width: 1.w,
-                    color: Colors.grey.withOpacity(0.15),
+                    color: AppColors.greyClr.withOpacity(0.15),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
+                      color: AppColors.customGrey.withOpacity(0.1),
                       spreadRadius: 1.r,
                       blurRadius: 1.r,
                       offset: Offset(0, 1),
@@ -204,7 +203,7 @@ class Document_dialog_preview extends StatelessWidget {
                         vertical: 12.h,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0xFFE7FAE5),
+                        color: AppColors.clrGreen2,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(16.r),
                           topRight: Radius.circular(16.r),
@@ -215,18 +214,16 @@ class Document_dialog_preview extends StatelessWidget {
                         children: [
                           Text(
                             "PDF Document",
-                            style: TextStyle(
-                              color: Color(0xFF1D3856),
+                            style: h2.copyWith(
+                              color: AppColors.darkSlateBlue,
                               fontSize: 14.9.sp,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             "4 Page",
-                            style: TextStyle(
-                              color: Color(0xFF1D3856),
+                            style: h2.copyWith(
+                              color: AppColors.darkSlateBlue,
                               fontSize: 14.9.sp,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
@@ -238,7 +235,7 @@ class Document_dialog_preview extends StatelessWidget {
                         options: RoundedRectDottedBorderOptions(
                           dashPattern: [8, 5],
                           radius: Radius.circular(10.r),
-                          color: Color(0xFF68B961),
+                          color: AppColors.clrGreen,
                           strokeWidth: 1,
                           padding: EdgeInsets.all(1.r),
                         ),
@@ -250,7 +247,7 @@ class Document_dialog_preview extends StatelessWidget {
                             vertical: 12.h,
                           ),
                           decoration: BoxDecoration(
-                            color: Color(0xFFFFFFFF),
+                            color: AppColors.white,
                             borderRadius: BorderRadius.circular(7.5.r),
                           ),
                           child: Column(
@@ -261,9 +258,9 @@ class Document_dialog_preview extends StatelessWidget {
                               SizedBox(height: 20.h),
                               Text(
                                 'PDF preview available ',
-                                style: GoogleFonts.lato(
+                                style: h2.copyWith(
                                   height: .6.h,
-                                  color: Colors.black,
+                                  color: AppColors.clrBlack,
                                   fontSize: 15.86.sp,
                                 ),
                               ),
@@ -272,16 +269,16 @@ class Document_dialog_preview extends StatelessWidget {
                                 width: 142.w,
                                 height: 37.64.h,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF68B961),
+                                  color: AppColors.clrGreen,
                                   borderRadius: BorderRadius.circular(20.r),
                                 ),
                                 child: Center(
                                   child: Text(
                                     'Open Pdf',
-                                    style: GoogleFonts.lato(
+                                    style: h1.copyWith(
                                       fontSize: 15.4.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFFFFFFFF),
+
+                                      color: AppColors.white,
                                     ),
                                   ),
                                 ),
@@ -310,7 +307,7 @@ class Document_dialog_preview extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.black),
+                      border: Border.all(color: AppColors.clrBlack),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -320,15 +317,15 @@ class Document_dialog_preview extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Color(0xFF000000),
+                            AppColors.clrBlack,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Edit",
-                          style: GoogleFonts.lato(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.black,
+                            color: AppColors.clrBlack,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -340,7 +337,7 @@ class Document_dialog_preview extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.black),
+                      border: Border.all(color: AppColors.clrBlack),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -350,15 +347,15 @@ class Document_dialog_preview extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Color(0xFF000000),
+                            AppColors.clrBlack,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Download",
-                          style: GoogleFonts.lato(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.black,
+                            color: AppColors.clrBlack,
                             fontSize: 12.sp,
                           ),
                         ),
@@ -370,7 +367,7 @@ class Document_dialog_preview extends StatelessWidget {
                     width: 101.73.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: Colors.red),
+                      border: Border.all(color: AppColors.category3),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -380,15 +377,15 @@ class Document_dialog_preview extends StatelessWidget {
                           width: 18.w, // smaller so it fits well
                           height: 18.h,
                           colorFilter: ColorFilter.mode(
-                            Colors.red,
+                            AppColors.category3,
                             BlendMode.srcIn,
                           ),
                         ),
                         Text(
                           "Delete",
-                          style: TextStyle(
+                          style: h3.copyWith(
                             height: .6.h,
-                            color: Colors.red,
+                            color: AppColors.category3,
                             fontSize: 12.sp,
                           ),
                         ),

@@ -5,14 +5,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/showDiolog_Cmt_Section.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_page.dart';
 
+import '../../../../../common/appColors.dart';
+import '../../../../../common/customFont.dart';
+import '../reply_section/reply_page.dart';
 import 'custom_react_comment.dart';
 
 class custom_anonymous_parent extends StatelessWidget {
   const custom_anonymous_parent({
     super.key,
-    this.color,
+    required this.color,
     this.sche_title,
     this.threeDot_ontap,
     this.body_title,
@@ -21,7 +25,7 @@ class custom_anonymous_parent extends StatelessWidget {
     this.dialog_ontap,
   });
 
-  final Color? color;
+  final Color color;
   final Color? bg_color;
   final String? sche_title;
   final String? body_title;
@@ -31,162 +35,176 @@ class custom_anonymous_parent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 394.w,
-      height: 310.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: bg_color,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            /// header ..
-            SizedBox(
-              height: 50.h,
-              child: Row(
-                children: [
-                  // text logo ..
-                  Container(
-                    width: 37.sp,
-                    height: 37.sp,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1000),
-                      color: Color(0xffffffff),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'AP',
-                        style: GoogleFonts.lato(
-                          fontSize: 18.16,
-                          fontWeight: FontWeight.w600,
+    return Padding(
+      padding:  EdgeInsets.all(8.0.r),
+      child: Container(
+        width: 394.w,
+        height: 310.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0.r),
+          color: bg_color,
+        ),
+        child: Padding(
+          padding:   EdgeInsets.all(15.0.r),
+          child: Column(
+            children: [
+              /// header ..
+              SizedBox(
+                height: 55.h,
+                child: Row(
+                  children: [
+                    // text logo ..
+                    Container(
+                      width: 37.w,
+                      height: 37.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(1000.r),
+                        color: AppColors.white,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'AP',
+                          style:h2.copyWith(fontSize: 18.16.sp,
+                            color: AppColors.darkSlateBlue,)
                         ),
                       ),
                     ),
-                  ),
-                  // space ..
-                  SizedBox(width: 15),
-                  // title ..
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Anonymous Parent',
-                            style: GoogleFonts.lato(
-                              fontSize: 17.9.sp,
-                              fontWeight: FontWeight.w500,
+                    // space ..
+                    SizedBox(width: 15.w),
+                    // title ..
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Anonymous Parent',
+                              style:h3.copyWith(
+                                color:AppColors.darkSlateBlue,
+                                fontSize: 17.9.sp
+                              )
                             ),
-                          ),
-                          SizedBox(width: 20),
+                            SizedBox(width: 20.w),
 
-                          // scheduling part...
-                          Container(
-                            width: 72.w,
-                            height: 22.w,
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(850.75.sp),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '$sche_title',
-                                style: GoogleFonts.lato(
-                                  fontSize: 11.91.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xffffffff),
+                            // scheduling part...
+                            Container(
+
+                              height: 22.h,
+
+                              decoration: BoxDecoration(
+                                color: color,
+                                borderRadius: BorderRadius.circular(850.75.sp),
+                              ),
+                              child: Padding(
+                                padding:   EdgeInsets.only(left: 5.r,right: 5.r),
+                                child: Center(
+                                  child: Text(
+                                    '$sche_title',
+                                    style: h3.copyWith(
+                                      fontSize: 11.91.sp,
+                                      color: AppColors.white,
+                                    )
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 30),
-                          // three dot ...
-                          GestureDetector(
-                            onTap: threeDot_ontap,
-                            child: SizedBox(
-                              height: 21.48.h,
-                              width: 21.48.w,
-                              child: SvgPicture.asset(
-                                'assets/svg/support_forum_/icons/threeDot.svg',
+                            SizedBox(width: 20.h),
+                            // three dot ...
+                            GestureDetector(
+                              onTap: threeDot_ontap,
+                              child: SizedBox(
+                                height: 21.48.h,
+                                width: 21.48.w,
+                                child: SvgPicture.asset(
+                                  'assets/svg/support_forum_/icons/threeDot.svg',
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
 
-                      // time ..
-                      Text(
-                        '3d',
-                        style: GoogleFonts.lato(
-                          fontSize: 14.32.sp,
-                          fontWeight: FontWeight.w400,
+                        // time ..
+                        Text(
+                          '3d',
+                          style: h4.copyWith(
+                            color: AppColors.custom_anonymous_parent_01,
+                            fontSize: 14.32.sp
+                          )
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              /// header ends ...
+              SizedBox(height: 30.h),
+
+              /// body start ..
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // body title text ..
+                  Text(
+                    "$body_title",
+                    style: h2.copyWith(
+                      color: color,
+                      fontSize: 20.sp,
+
+                    )
+
+                  ),
+                  SizedBox(height: 10.h),
+                  // body part ...
+                  SizedBox(
+                    width: 330.w,
+                    child: GestureDetector(
+                      onTap:dialog_ontap,
+                      child: RichText(
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        text: TextSpan(
+                          text: "$body_subtitle",
+
+                          style: h4.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: 14.32.sp,
+                            color: AppColors.custom_anonymous_parent_02
+
+                          ),
+                          children: [
+                            TextSpan(
+                              text: ' See more',
+                              style: h2.copyWith(
+                                fontSize: 14.32.sp,
+                                color: color
+                              )
+                            ),
+
+
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            ),
-
-            /// header ends ...
-            SizedBox(height: 30),
-
-            /// body start ..
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // body title text ..
-                Text(
-                  "$body_title",
-                  style: GoogleFonts.lato(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                  ),
-                ),
-                SizedBox(height: 10),
-                // body part ...
-                GestureDetector(
-                  onTap:dialog_ontap,
-                  child: RichText(
-                    text: TextSpan(
-                      text: "$body_subtitle",
-                      style: GoogleFonts.lato(
-                        fontSize: 14.32.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xff253240),
-                      ),
-                      children: [
-                        TextSpan(
-                          text: ' See More',
-                          style: GoogleFonts.lato(
-                            fontSize: 14.32.sp,
-                            fontWeight: FontWeight.w600,
-                            color: color,
-                          ),
-                        ),
-
-
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            // body end ....
-            SizedBox(height: 40),
-            /// end part ....
-            // react and comments ....
-            Row(
-              children: [
-                custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/heart_shape.svg'),
-                SizedBox(width: 30),
-                custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/message_icon.svg')
-              ],
-            )
-          ],
+              // body end ....
+              SizedBox(height:25.h),
+              /// end part ....
+              // react and comments ....
+              Row(
+                children: [
+                  custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/heart_shape.svg'),
+                  SizedBox(width: 30.w),
+                  GestureDetector( onTap: () {
+                    Get.dialog(
+                        reply_page(color: color),barrierColor: AppColors.post_page_01.withOpacity(0.6));
+                  },child: custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/message_icon.svg'))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
