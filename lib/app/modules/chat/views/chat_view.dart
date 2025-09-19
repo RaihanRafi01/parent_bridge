@@ -314,6 +314,10 @@ Widget _buildBottomNavigationBar(BuildContext context) {
             child: Container(
               width: 24.w,
               height: 24.h,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(5.r),
+              ),
 
             ),
           ),

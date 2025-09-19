@@ -7,22 +7,33 @@ import '../../app/modules/home/views/home_view.dart';
 import '../appColors.dart';
 import '../customFont.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+// Assuming AppColors and h2 are defined elsewhere
+import '../appColors.dart';
+import '../customFont.dart';
+
 class CustomButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final bool isWhite;
-  final Color bgClr; // Changed to single Color
+  final Color? bgClr;
   final Color txtClr;
   final String? svgPath;
   final String? svgPath2;
   final Color? borderColor;
   final double? width;
   final Widget? leading;
-
   final double? height;
   final double radius;
   final double fontSize;
   final bool isLoading;
+  final Gradient? gradient;
+
+  final Gradient? borderGradient;
 
   const CustomButton({
     Key? key,
@@ -30,27 +41,30 @@ class CustomButton extends StatelessWidget {
     required this.onPressed,
     this.leading,
     this.isWhite = false,
-    this.bgClr = AppColors.appColor, // Default to single color
+    this.bgClr = AppColors.appColor,
     this.txtClr = Colors.white,
     this.svgPath,
     this.svgPath2,
     this.borderColor,
-    this.width ,
+    this.width,
     this.height,
     this.radius = 13,
     this.fontSize = 16,
     this.isLoading = false,
+    this.gradient,this.borderGradient,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: isLoading ? null : onPressed,
       child: Container(
-        width: width!.w,
-        height: height!.h,
+        width: width?.w,
+        height: height?.h,
         decoration: BoxDecoration(
-          color: isWhite ? Colors.white : bgClr, // Use single color
+          gradient: gradient,
+          color: gradient == null ? (isWhite ? Colors.white : bgClr) : null,
           border: borderColor != null
               ? Border.all(color: borderColor!, width: 1.w)
               : isWhite
@@ -71,7 +85,6 @@ class CustomButton extends StatelessWidget {
               leading!,
               SizedBox(width: 8.w),
             ],
-
             if (svgPath != null) ...[
               SvgPicture.asset(
                 svgPath!,
@@ -79,7 +92,7 @@ class CustomButton extends StatelessWidget {
               SizedBox(width: 8.w),
             ],
             Text(
-              label.toUpperCase(), // Apply uppercase as per previous request
+              label.toUpperCase(),
               style: h2.copyWith(fontSize: fontSize.sp, color: txtClr),
             ),
             if (svgPath2 != null) ...[
