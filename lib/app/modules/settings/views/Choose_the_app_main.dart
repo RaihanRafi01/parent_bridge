@@ -20,18 +20,22 @@ class ChooseTheAppMain extends GetView<SignUpProcessController> {
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.arrow_back_outlined),
-                ),
-                SizedBox(width: 40.h),
-                Text(
-                  'Choose the App',
-                  style: h2.copyWith(fontSize: 30, color: AppColors.txtclr4),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16).r,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: Get.back,
+                    child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
+                  ),
+                  Text(
+                    'Choose the App',
+                    style: h2.copyWith(fontSize: 30, color: AppColors.txtclr4),
+                  ),
+                  SizedBox(width: 40.h),
+                ],
+              ),
             ),
             SizedBox(height: 50.h),
 
@@ -260,7 +264,7 @@ class ChooseTheAppMain extends GetView<SignUpProcessController> {
             SizedBox(height: 450.h),
             InkWell(
               onTap: () {
-                Get.to(ChooseTheApp());
+               // Get.to(ChooseTheApp());
               },
               child: Container(
                 width: 387.w,
