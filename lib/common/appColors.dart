@@ -31,6 +31,7 @@ class AppColors {
 
   // #B260EB - Purple / Lilac
   static const Color customPurple = Color(0xFFB260EB);
+  static const Color customBox = Color(0xFFE8F7FF);
 
   // #86D0F3 - Light Sky Blue
   static const Color customSkyBlue = Color(0xFF86D0F3);
@@ -84,6 +85,7 @@ class AppColors {
   static const Color textColor20 = Color(0xFF34312F);
   static const Color textColor21 = Color(0xFF989898);
   static const Color textColor22 = Color(0xFF6B5ADA);
+  static const Color textColor23 = Color(0xFF443A3A);
   static const Color chatBg = Color(0xFFEDFAFF);
   static const Color chatInputField = Color(0xFFC4DFFF);
   static const Color clrSky2 = Color(0xFFECF4FF);
@@ -156,6 +158,7 @@ class AppColors {
   static const Color buttonColor = Color(0xFF8EC7E4);
   static const Color buttonColor2 = Color(0xFFC995F1);
   static const Color buttonColor3 = Color(0xFFF6F0FB);
+  static const Color buttonColor4 = Color(0xFF579CC7);
 
   static const Color radioColor = Color(0xFFBE9DED);
 
@@ -190,60 +193,52 @@ class AppColors {
 
   /// Pronoy used these colors ...
 
-      //support forum
-      static const Color support_forum_view_blue01 =Color(0xff93C7E3);
+  //support forum
+  static const Color support_forum_view_blue01 = Color(0xff93C7E3);
 
-      // appbar colors
-      static const Color appbar_color_01 =Color(0xFFBD9DED);
-      static const Color appbar_color_02 =  Color(0xFF90CAE2);
+  // appbar colors
+  static const Color appbar_color_01 = Color(0xFFBD9DED);
+  static const Color appbar_color_02 = Color(0xFF90CAE2);
 
-      // drop-down controler's color
-      static const Color controler_list_color_00 =Color(0xffFFEDCA);
-      static const Color controler_list_color_01 =Color(0xffFFAD13);
-      static const Color controler_list_color_10 =Color(0xffE4E9FA);
-      static const Color controler_list_color_11 =Color(0xff1E40AF);
-      static const Color controler_list_color_20 =Color(0xffFFE5E5);
-      static const Color controler_list_color_21 =Color(0xffEF4444);
-      static const Color controler_list_color_30 =Color(0xffDEFDDB);
-      static const Color controler_list_color_31 =Color(0xff68B961);
+  // drop-down controler's color
+  static const Color controler_list_color_00 = Color(0xffFFEDCA);
+  static const Color controler_list_color_01 = Color(0xffFFAD13);
+  static const Color controler_list_color_10 = Color(0xffE4E9FA);
+  static const Color controler_list_color_11 = Color(0xff1E40AF);
+  static const Color controler_list_color_20 = Color(0xffFFE5E5);
+  static const Color controler_list_color_21 = Color(0xffEF4444);
+  static const Color controler_list_color_30 = Color(0xffDEFDDB);
+  static const Color controler_list_color_31 = Color(0xff68B961);
 
-     //anonymous_parent_part
-     static const Color anonymous_parent_01 = Color(0xffFFAD13);
-     static const Color anonymous_parent_02 = Color(0xffFFFBF3);
-     static const Color anonymous_parent_03 = Color(0xffbd9ded);
-     static const Color anonymous_parent_04 = Color(0xffDEE6FF);
-     static const Color anonymous_parent_05 = Color(0xff089F0A);
-     static const Color anonymous_parent_06 = Color(0xffE6FFE7);
-     static const Color anonymous_parent_07 = Color(0xffEF4444);
-     static const Color anonymous_parent_08 = Color(0xffFFEBEB);
+  //anonymous_parent_part
+  static const Color anonymous_parent_01 = Color(0xffFFAD13);
+  static const Color anonymous_parent_02 = Color(0xffFFFBF3);
+  static const Color anonymous_parent_03 = Color(0xffbd9ded);
+  static const Color anonymous_parent_04 = Color(0xffDEE6FF);
+  static const Color anonymous_parent_05 = Color(0xff089F0A);
+  static const Color anonymous_parent_06 = Color(0xffE6FFE7);
+  static const Color anonymous_parent_07 = Color(0xffEF4444);
+  static const Color anonymous_parent_08 = Color(0xffFFEBEB);
 
-     static const Color custom_anonymous_parent_01 = Color(0xff6D6D6D);
-     static const Color custom_anonymous_parent_02 = Color(0xff253240);
-     static const Color custom_anonymous_parent_03 = Color(0xff535353);
-     static const Color search_bar_01 = Color(0xffBEB4B4);
-     static const Color show_dialog_with_Comment_01 = Color(0xff595959);
-     static const Color show_dialog_with_Comment_02 = Color(0xff8E8E8E);
-     static const Color show_dialog_with_Comment_03 = Color(0xffB9B9B9);
-     static const Color reply_msg = Color(0xffF9EED9);
-     static const Color reply_msg_1 = Color(0xff5F5F5F);
+  static const Color custom_anonymous_parent_01 = Color(0xff6D6D6D);
+  static const Color custom_anonymous_parent_02 = Color(0xff253240);
+  static const Color custom_anonymous_parent_03 = Color(0xff535353);
+  static const Color search_bar_01 = Color(0xffBEB4B4);
+  static const Color show_dialog_with_Comment_01 = Color(0xff595959);
+  static const Color show_dialog_with_Comment_02 = Color(0xff8E8E8E);
+  static const Color show_dialog_with_Comment_03 = Color(0xffB9B9B9);
+  static const Color reply_msg = Color(0xffF9EED9);
+  static const Color reply_msg_1 = Color(0xff5F5F5F);
 
-     //
-    static const Color post_page_01=Color(0xffBD9DED);
-    static const Color post_page_02=Color(0xff90CAE2);
+  //
+  static const Color post_page_01 = Color(0xffBD9DED);
+  static const Color post_page_02 = Color(0xff90CAE2);
 
-    static const Color post_page_03=Color(0xffCC94EF);
-    static const Color post_page_04=Color(0xff9140D3);
-    static const Color post_page_0= Color(0xFFBD9DED);
+  static const Color post_page_03 = Color(0xffCC94EF);
+  static const Color post_page_04 = Color(0xff9140D3);
+  static const Color post_page_0 = Color(0xFFBD9DED);
 
-
-    static const Color Transperent=Colors.transparent;
-
-
-
-
-
-
-
+  static const Color Transperent = Colors.transparent;
 
   static const Color boxShadowColor52 = Color(0xFFCC94EF);
 
@@ -253,17 +248,15 @@ class AppColors {
   static const Color buttonColor51 = Color(0xFF731AE8);
   static const Color buttonColor52 = Color(0xFFC198F7);
 
-
-
- // Hasan_Abir
+  // Hasan_Abir
   static const Color txtclr1 = Color(0xFF63768A);
-  static const Color titlepurple= Color(0xFF9045F7);
-  static const Color profileboxclr= Color(0xFFB7E8FC);
-  static const Color gray2= Color(0xFF747688);
-  static const Color gray3= Color(0xFFCDCDCD);
-  static const Color blackactive= Color(0xFF171717);
-  static const Color logout= Color(0xFFD22853);
-  static const Color pchangeButtonclr= Color(0xFFCFF0FF);
+  static const Color titlepurple = Color(0xFF9045F7);
+  static const Color profileboxclr = Color(0xFFB7E8FC);
+  static const Color gray2 = Color(0xFF747688);
+  static const Color gray3 = Color(0xFFCDCDCD);
+  static const Color blackactive = Color(0xFF171717);
+  static const Color logout = Color(0xFFD22853);
+  static const Color pchangeButtonclr = Color(0xFFCFF0FF);
   static const Color txtclr2 = Color(0xFF393939);
   static const Color customblueclr = Color(0xFFB7E7FC);
   static const Color txtclr3 = Color(0xFF818181);
@@ -321,5 +314,4 @@ class AppColors {
   static const Color expenseCardStatusColor2 = Color(0xFFB78818);
   static const Color expenseCardStatusColor3 = Color(0xFF1712A2);
   static const Color expenseCardStatusColor4 = Color(0xFFBC1B1E);
-
 }
