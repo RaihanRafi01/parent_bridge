@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
 import '../../../../common/appColors.dart';
+import '../../../../common/customFont.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';
@@ -47,14 +48,9 @@ class _CallRecordingState extends State<CallRecording> {
                       alignment: Alignment.topLeft,
                       child: Padding(
                         padding: EdgeInsets.only(top: 40.h, left: 16.w),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: AppColors.blackactive,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
+                        child: GestureDetector(
+                          onTap: Get.back,
+                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
                         ),
                       ),
                     ),

@@ -9,6 +9,7 @@ import '../controllers/chat_controller.dart';
 
 class ChatView extends GetView<ChatController> {
   const ChatView({super.key});
+
   @override
   Widget build(BuildContext context) {
     Get.put(ChatController());
@@ -18,14 +19,16 @@ class ChatView extends GetView<ChatController> {
         children: [
           _buildAppBar(),
           Expanded(
-            child: Obx(() => ListView.builder(
-              padding: EdgeInsets.all(16.r),
-              itemCount: controller.messages.length,
-              itemBuilder: (context, index) {
-                final message = controller.messages[index];
-                return _buildChatBubble(message);
-              },
-            )),
+            child: Obx(
+              () => ListView.builder(
+                padding: EdgeInsets.all(16.r),
+                itemCount: controller.messages.length,
+                itemBuilder: (context, index) {
+                  final message = controller.messages[index];
+                  return _buildChatBubble(message);
+                },
+              ),
+            ),
           ),
           Obx(() {
             if (controller.isSuggestionBoxVisible.value) {
@@ -47,9 +50,10 @@ Widget _buildAppBar() {
     padding: EdgeInsets.only(top: 50.h, left: 16.w, right: 16.w, bottom: 20.h),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-          colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter),
+        colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(40.r),
         bottomRight: Radius.circular(40.r),
@@ -58,8 +62,10 @@ Widget _buildAppBar() {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Icon(Icons.arrow_back, color: AppColors.clrBlack),
-        SizedBox(width: 12.w),
+        GestureDetector(
+          onTap: Get.back,
+          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+        ),
         CircleAvatar(
           backgroundImage: const AssetImage("assets/images/auth/img.png"),
           radius: 28.r,
@@ -70,17 +76,25 @@ Widget _buildAppBar() {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Michael",
-                  style:
-                  h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5)),
+              Text(
+                "Michael",
+                style: h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5),
+              ),
               Row(
                 children: [
-                  Icon(Icons.circle,
-                      color: const Color(0xFF14F269), size: 10.r),
+                  Icon(
+                    Icons.circle,
+                    color: const Color(0xFF14F269),
+                    size: 10.r,
+                  ),
                   SizedBox(width: 5.w),
-                  Text("Online Now",
-                      style: h4.copyWith(
-                          fontSize: 12.sp, color: AppColors.txtclr4)),
+                  Text(
+                    "Online Now",
+                    style: h4.copyWith(
+                      fontSize: 12.sp,
+                      color: AppColors.txtclr4,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -90,7 +104,7 @@ Widget _buildAppBar() {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Obx(
-                  () => Transform.scale(
+              () => Transform.scale(
                 scale: 0.6,
                 child: Switch(
                   value: controller.showOriginal.value,
@@ -100,10 +114,12 @@ Widget _buildAppBar() {
                 ),
               ),
             ),
-            Text('Show original',
-                style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp)),
+            Text(
+              'Show original',
+              style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp),
+            ),
           ],
-        )
+        ),
       ],
     ),
   );
@@ -121,10 +137,12 @@ Widget _buildChatBubble(ChatMessage message) {
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.r),
         topRight: Radius.circular(20.r),
-        bottomLeft:
-        isSentByMe ? Radius.circular(20.r) : const Radius.circular(0),
-        bottomRight:
-        isSentByMe ? const Radius.circular(0) : Radius.circular(20.r),
+        bottomLeft: isSentByMe
+            ? Radius.circular(20.r)
+            : const Radius.circular(0),
+        bottomRight: isSentByMe
+            ? const Radius.circular(0)
+            : Radius.circular(20.r),
       ),
     ),
     child: Column(
@@ -155,29 +173,34 @@ Widget _buildChatBubble(ChatMessage message) {
                     SizedBox(width: 8.w),
                     Text(
                       'Message Filtered',
-                      style:
-                      h1.copyWith(color: AppColors.txtclr9, fontSize: 10.sp),
+                      style: h1.copyWith(
+                        color: AppColors.txtclr9,
+                        fontSize: 10.sp,
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 4.h),
-                Text(message.text,
-                    style: h1.copyWith(
-                        fontSize: 14.sp, color: AppColors.txtclr5)),
+                Text(
+                  message.text,
+                  style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5),
+                ),
               ],
             ),
           )
         else
-          Text(message.text,
-              style:
-              h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5)),
+          Text(
+            message.text,
+            style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5),
+          ),
       ],
     ),
   );
 
   final messageWithTime = Column(
-    crossAxisAlignment:
-    isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+    crossAxisAlignment: isSentByMe
+        ? CrossAxisAlignment.end
+        : CrossAxisAlignment.start,
     children: [
       bubble,
       SizedBox(height: 4.h),
@@ -191,8 +214,9 @@ Widget _buildChatBubble(ChatMessage message) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 5.0.h),
     child: Row(
-      mainAxisAlignment:
-      isSentByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: isSentByMe
+          ? MainAxisAlignment.end
+          : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (!isSentByMe)
@@ -233,9 +257,10 @@ Widget _buildSuggestionItem(Suggestion suggestion) {
     decoration: BoxDecoration(
       color: AppColors.clrWhite,
       borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(25.r),
-          topLeft: Radius.circular(25.r),
-          topRight: Radius.circular(25.r)),
+        bottomLeft: Radius.circular(25.r),
+        topLeft: Radius.circular(25.r),
+        topRight: Radius.circular(25.r),
+      ),
       border: Border.all(color: AppColors.customSkyBlue3),
     ),
     child: Column(
@@ -244,23 +269,18 @@ Widget _buildSuggestionItem(Suggestion suggestion) {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5.5.w, vertical: 2.2.h),
           decoration: BoxDecoration(
-              color: suggestion.color,
-              borderRadius: BorderRadius.circular(10.r)),
+            color: suggestion.color,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
           child: Text(
             suggestion.title,
-            style: h3.copyWith(
-              color: AppColors.txtclr5,
-              fontSize: 12.sp,
-            ),
+            style: h3.copyWith(color: AppColors.txtclr5, fontSize: 12.sp),
           ),
         ),
         SizedBox(height: 5.h),
         Text(
           suggestion.text,
-          style: h4.copyWith(
-            fontSize: 14.sp,
-            color: AppColors.customSkyBlue3,
-          ),
+          style: h4.copyWith(fontSize: 14.sp, color: AppColors.customSkyBlue3),
         ),
       ],
     ),
@@ -312,6 +332,10 @@ Widget _buildBottomNavigationBar(BuildContext context) {
           InkWell(
             onTap: () => controller.toggleSuggestionBox(),
             child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6.r),
+                color: AppColors.clrGreen4,
+              ),
               width: 24.w,
               height: 24.h,
               decoration: BoxDecoration(
@@ -329,8 +353,10 @@ Widget _buildBottomNavigationBar(BuildContext context) {
                 fillColor: AppColors.customskyblue4,
                 filled: true,
                 hintText: "I Understand. Let Me...",
-                hintStyle:
-                h4.copyWith(fontSize: 14.sp, color: AppColors.txtclr10),
+                hintStyle: h4.copyWith(
+                  fontSize: 14.sp,
+                  color: AppColors.txtclr10,
+                ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.r),
                   borderSide: BorderSide(
@@ -341,8 +367,10 @@ Widget _buildBottomNavigationBar(BuildContext context) {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                  vertical: 10.h,
+                ),
               ),
             ),
           ),
@@ -358,9 +386,7 @@ void _showVoiceRecorderDialog(BuildContext context) {
   Get.dialog(
     AlertDialog(
       backgroundColor: AppColors.alertbackground,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
       contentPadding: EdgeInsets.zero,
       insetPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
       content: SizedBox(
@@ -380,9 +406,13 @@ void _showVoiceRecorderDialog(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Voice To Text',
-                      style: h2.copyWith(
-                          fontSize: 16.sp, color: AppColors.txtclr5)),
+                  Text(
+                    'Voice To Text',
+                    style: h2.copyWith(
+                      fontSize: 16.sp,
+                      color: AppColors.txtclr5,
+                    ),
+                  ),
                   InkWell(
                     onTap: () => Get.back(),
                     child: Container(
@@ -391,8 +421,11 @@ void _showVoiceRecorderDialog(BuildContext context) {
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
-                      child: Icon(Icons.close,
-                          size: 18.sp, color: Colors.black54),
+                      child: Icon(
+                        Icons.close,
+                        size: 18.sp,
+                        color: Colors.black54,
+                      ),
                     ),
                   ),
                 ],
@@ -413,22 +446,31 @@ void _showVoiceRecorderDialog(BuildContext context) {
                         CircleAvatar(
                           radius: 35.r,
                           backgroundColor: AppColors.txtclr12,
-                          child:
-                          Icon(Icons.mic, color: Colors.white, size: 30.sp),
+                          child: Icon(
+                            Icons.mic,
+                            color: Colors.white,
+                            size: 30.sp,
+                          ),
                         ),
                       ],
                     ),
                     SizedBox(height: 20.h),
                     Container(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 8.h,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.customSkyBlue3,
                         borderRadius: BorderRadius.circular(7.26.r),
                       ),
-                      child: Text('00:00:00',
-                          style: h2.copyWith(
-                              fontSize: 20.sp, color: AppColors.blackactive)),
+                      child: Text(
+                        '00:00:00',
+                        style: h2.copyWith(
+                          fontSize: 20.sp,
+                          color: AppColors.blackactive,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20.h),
                     Flexible(
@@ -444,9 +486,10 @@ void _showVoiceRecorderDialog(BuildContext context) {
                               Positioned.fill(
                                 child: TextField(
                                   controller: TextEditingController(
-                                      text:
-                                      'Can You Pick Up Emma From School Today?\n' *
-                                          2),
+                                    text:
+                                        'Can You Pick Up Emma From School Today?\n' *
+                                        2,
+                                  ),
                                   maxLines: null,
                                   expands: true,
                                   keyboardType: TextInputType.multiline,
@@ -457,17 +500,24 @@ void _showVoiceRecorderDialog(BuildContext context) {
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.fromLTRB(
-                                        12.w, 30.h, 20.w, 8.h),
+                                      12.w,
+                                      30.h,
+                                      20.w,
+                                      8.h,
+                                    ),
                                   ),
                                 ),
                               ),
                               Positioned(
                                 top: 10.h,
                                 left: 12.w,
-                                child: Text('Transcription',
-                                    style: h2.copyWith(
-                                        color: AppColors.txtclr11,
-                                        fontSize: 12.sp)),
+                                child: Text(
+                                  'Transcription',
+                                  style: h2.copyWith(
+                                    color: AppColors.txtclr11,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -486,8 +536,10 @@ void _showVoiceRecorderDialog(BuildContext context) {
                   OutlinedButton.icon(
                     onPressed: () {},
                     icon: SvgPicture.asset('assets/images/chat/refresh.svg'),
-                    label: Text('Try Again',
-                        style: h2.copyWith(fontSize: 12.sp)),
+                    label: Text(
+                      'Try Again',
+                      style: h2.copyWith(fontSize: 12.sp),
+                    ),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.black54,
                       side: BorderSide(color: AppColors.gray4),
@@ -495,15 +547,16 @@ void _showVoiceRecorderDialog(BuildContext context) {
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 18.w, vertical: 8.h),
+                        horizontal: 18.w,
+                        vertical: 8.h,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10.w),
                   OutlinedButton.icon(
                     onPressed: () {},
                     icon: SvgPicture.asset('assets/images/chat/pause.svg'),
-                    label:
-                    Text('Pause', style: h2.copyWith(fontSize: 12.sp)),
+                    label: Text('Pause', style: h2.copyWith(fontSize: 12.sp)),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.black54,
                       side: BorderSide(color: AppColors.gray4),
@@ -511,7 +564,9 @@ void _showVoiceRecorderDialog(BuildContext context) {
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 18.w, vertical: 8.h),
+                        horizontal: 18.w,
+                        vertical: 8.h,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10.w),
@@ -523,11 +578,17 @@ void _showVoiceRecorderDialog(BuildContext context) {
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       padding: EdgeInsets.symmetric(
-                          horizontal: 40.w, vertical: 10.h),
+                        horizontal: 40.w,
+                        vertical: 10.h,
+                      ),
                     ),
-                    child: Text('Use Text',
-                        style: h2.copyWith(
-                            color: AppColors.blackactive, fontSize: 12.sp)),
+                    child: Text(
+                      'Use Text',
+                      style: h2.copyWith(
+                        color: AppColors.blackactive,
+                        fontSize: 12.sp,
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'custom_document_dialog.dart';
+import 'package:parent_bridge/common/appColors.dart';
+import '../../../../../common/customFont.dart';
 
 class DocumentCard extends StatelessWidget {
   const DocumentCard({
@@ -13,9 +13,7 @@ class DocumentCard extends StatelessWidget {
     required this.label,
     required this.date,
     required this.type,
-
     required this.person,
-
     required this.labelcontainer,
     required this.bgcolor,
     required this.sidebar,
@@ -38,13 +36,13 @@ class DocumentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 399.w,
-      height: 176.h, //change
+      height: 176.h,
       decoration: BoxDecoration(
         color: bgcolor,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: AppColors.customGrey.withOpacity(0.1),
             spreadRadius: 2.r,
             blurRadius: 5.r,
             offset: const Offset(0, 3),
@@ -54,7 +52,7 @@ class DocumentCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Left red bar
+          // Left colored bar
           Container(
             width: 8.w,
             height: 166.h,
@@ -70,7 +68,7 @@ class DocumentCard extends StatelessWidget {
           // Right content
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,10 +79,9 @@ class DocumentCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           title,
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF1D3856),
+                            color: AppColors.darkSlateBlue,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -95,11 +92,11 @@ class DocumentCard extends StatelessWidget {
                           width: 41.w,
                           height: 33.h,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
+                            color: AppColors.white,
                             borderRadius: BorderRadius.circular(5.r),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
+                                color: AppColors.customGrey.withOpacity(0.1.sp),
                                 spreadRadius: 2.r,
                                 blurRadius: 5.r,
                                 offset: const Offset(0, 3),
@@ -113,7 +110,7 @@ class DocumentCard extends StatelessWidget {
                               height: 2.h,
                               width: 2.w,
                               colorFilter: ColorFilter.mode(
-                                Color(0xFF93C7E3),
+                                AppColors.category,
                                 BlendMode.srcIn,
                               ),
                             ),
@@ -124,7 +121,7 @@ class DocumentCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
 
-                  // Legal tag
+                  // Category tag
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 15.r,
@@ -136,16 +133,15 @@ class DocumentCard extends StatelessWidget {
                     ),
                     child: Text(
                       label,
-                      style: GoogleFonts.lato(
+                      style: h3.copyWith(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFFFFFFFF),
+                        color: AppColors.white,
                       ),
                     ),
                   ),
                   SizedBox(height: 5.h),
 
-                  // People
+                  // Person row
                   Row(
                     children: [
                       SizedBox(
@@ -153,9 +149,8 @@ class DocumentCard extends StatelessWidget {
                         height: 12.h,
                         child: SvgPicture.asset(
                           'assets/images/document_svg/people.svg',
-
                           colorFilter: ColorFilter.mode(
-                            Color(0xFF666666),
+                            AppColors.svgColor,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -163,35 +158,30 @@ class DocumentCard extends StatelessWidget {
                       SizedBox(width: 4.w),
                       Text(
                         person,
-                        style: GoogleFonts.lato(color: Color(0xFF666666)),
+                        style: GoogleFonts.lato(color: AppColors.svgColor),
                       ),
                     ],
                   ),
                   SizedBox(height: 4.h),
 
-                  // Upload date + file type
+                  // Dates + type
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Text(
                             'Uploaded • ',
-
-                            style: GoogleFonts.lato(
-                              fontSize: 12.sp, // responsive font size
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF1D3856),
+                            style: h2.copyWith(
+                              fontSize: 12.sp,
+                              color: AppColors.darkSlateBlue,
                             ),
                           ),
                           Text(
                             date,
-
-                            style: GoogleFonts.lato(
-                              fontSize: 12.52.sp, // responsive font size
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFF1D3856),
+                            style: h4.copyWith(
+                              fontSize: 12.52.sp,
+                              color: AppColors.darkSlateBlue,
                             ),
                           ),
                         ],
@@ -201,34 +191,29 @@ class DocumentCard extends StatelessWidget {
                         children: [
                           Text(
                             'File Type • ',
-
-                            style: GoogleFonts.lato(
-                              fontSize: 12.52.sp, // responsive font size
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFF1D3856),
+                            style: h4.copyWith(
+                              fontSize: 12.52.sp,
+                              color: AppColors.darkSlateBlue,
                             ),
                           ),
                           Text(
                             type,
-
-                            style: GoogleFonts.lato(
-                              fontSize: 12.52.sp, // responsive font size
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFF1D3856),
+                            style: h4.copyWith(
+                              fontSize: 12.52.sp,
+                              color: AppColors.darkSlateBlue,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: .6.h),
-                      Text(
-                        exp_date!,
-
-                        style: GoogleFonts.lato(
-                          fontSize: 12.52.sp, // responsive font size
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFFBA0306),
+                      if (exp_date != null && exp_date!.isNotEmpty)
+                        Text(
+                          exp_date!,
+                          style: h4.copyWith(
+                            fontSize: 12.52.sp,
+                            color: AppColors.expDate,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ],

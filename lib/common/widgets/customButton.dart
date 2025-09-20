@@ -111,22 +111,26 @@ class CustomButton extends StatelessWidget {
 class CustomPBButton extends StatelessWidget {
   final String text;
   final String icon;
-  final double width;
   final Color color1;
   final Color color2;
   final VoidCallback onPressed;
   final bool isWhite; // Added isWhite parameter
   final Color txtClr; // Added txtClr parameter for text color customization
+  final double horizontalPadding;
+  final double verticalPadding;
+  final Color borderColor;
 
   const CustomPBButton({
     required this.text,
     this.icon = '',
-    this.width = 387,
     this.color1 = AppColors.buttonColor,
     this.color2 = AppColors.buttonColor2,
     required this.onPressed,
     this.isWhite = false, // Default to false
     this.txtClr = AppColors.clrWhite, // Default text color
+    this.horizontalPadding = 30,
+    this.verticalPadding = 15,
+    this.borderColor = AppColors.clrTransparent,
     super.key,
   });
 
@@ -135,8 +139,7 @@ class CustomPBButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: width.w,
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding.w, vertical: verticalPadding.h,),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30.r),
             gradient: LinearGradient(
@@ -144,7 +147,10 @@ class CustomPBButton extends StatelessWidget {
                 color1,
                 color2,
               ],
-            )
+            ),
+          border: Border.all(
+            color: borderColor
+          )
         ),
         child: Center(
           child: Row(
