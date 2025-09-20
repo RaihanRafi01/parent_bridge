@@ -20,6 +20,98 @@ class CallView extends GetView<CallController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            Container(
+              height: 187.h, // responsive height
+              padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w), // responsive padding
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                    colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(40.r), // responsive radius
+                  bottomRight: Radius.circular(40.r), // responsive radius
+                ),
+              ),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: Get.back,
+                    child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                  ),
+                  CircleAvatar(
+                    backgroundImage: const AssetImage("assets/images/auth/img.png"),
+                    radius: 28.r, // responsive radius
+                  ),
+                  SizedBox(width: 10.w), // responsive width
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 30.h), // responsive height
+                        Text("Michael",
+                            style: GoogleFonts.lato(
+                                fontSize: 24.47.sp, // responsive font size
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.txtclr5)),
+                        Row(
+                          children: [
+                            Icon(Icons.circle,
+                                color: const Color(0xFF14F269), size: 10.r), // responsive size
+                            SizedBox(width: 5.w), // responsive width
+                            Text("Online Now",
+                                style: GoogleFonts.lato(
+                                    fontSize: 12.23.sp, // responsive font size
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF474747))),
+                          ],
+                        ),
+                        SizedBox(height: 5.83.h), // responsive height
+                        Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/svg/call3.svg",
+                              height: 15.h, // responsive height
+                              width: 15.w, // responsive width
+                            ),
+                            Text("(555) 123-4567",
+                                style: GoogleFonts.lato(
+                                    fontSize: 13.77.sp, // responsive font size
+                                    fontWeight: FontWeight.w600,
+                                    color:  AppColors.txtclr5)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.to(IncomingOngoingCallView());
+                    },
+                    icon: SvgPicture.asset(
+                      "assets/svg/call2.svg",
+                      height: 25.h, // responsive height
+                      width: 25.w, // responsive width
+                    ),
+                    label: Text("Call Now",
+                        style: GoogleFonts.lato(
+                            fontSize: 18.sp, // responsive font size
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h), // responsive padding
+                      backgroundColor: const Color(0xFFE971DD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.r), // responsive radius
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             Padding(
               padding: EdgeInsets.all(16.w), // responsive padding
               child: Row(

@@ -110,6 +110,7 @@ class AppColors {
   static const Color clrBlk = Color(0xFF686565);
   static const Color clrGreen2 = Color(0xFFE7FAE5);
   static const Color clrGreen3 = Color(0xFF15CB70);
+  static const Color clrGreen4 = Color(0xFF22D712);
   static const Color clrRed2 = Color(0xFFD00023);
   static const Color clrRed3 = Color(0xFFD22853);
   static const Color textColorHint = Color(0xFF747688);
