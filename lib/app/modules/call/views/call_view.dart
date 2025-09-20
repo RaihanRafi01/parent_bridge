@@ -21,20 +21,6 @@ class CallView extends GetView<CallController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 187.h,
-              padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                    colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.r),
-                  bottomRight: Radius.circular(40.r),
-                ),
-              ),
-
-            Container(
               height: 187.h, // responsive height
               padding: EdgeInsets.only(top: 20.h, left: 16.w, right: 16.w), // responsive padding
               decoration: BoxDecoration(
@@ -65,9 +51,8 @@ class CallView extends GetView<CallController> {
                       children: [
                         SizedBox(height: 30.h), // responsive height
                         Text("Michael",
-                            style: GoogleFonts.lato(
+                            style: h2.copyWith(
                                 fontSize: 24.47.sp, // responsive font size
-                                fontWeight: FontWeight.w600,
                                 color: AppColors.txtclr5)),
                         Row(
                           children: [
@@ -75,7 +60,7 @@ class CallView extends GetView<CallController> {
                                 color: const Color(0xFF14F269), size: 10.r), // responsive size
                             SizedBox(width: 5.w), // responsive width
                             Text("Online Now",
-                                style: GoogleFonts.lato(
+                                style: h2.copyWith(
                                     fontSize: 12.23.sp, // responsive font size
                                     fontWeight: FontWeight.w600,
                                     color: const Color(0xFF474747))),
@@ -90,9 +75,8 @@ class CallView extends GetView<CallController> {
                               width: 15.w, // responsive width
                             ),
                             Text("(555) 123-4567",
-                                style: GoogleFonts.lato(
+                                style: h2.copyWith(
                                     fontSize: 13.77.sp, // responsive font size
-                                    fontWeight: FontWeight.w600,
                                     color:  AppColors.txtclr5)),
                           ],
                         ),
@@ -109,7 +93,7 @@ class CallView extends GetView<CallController> {
                       width: 25.w, // responsive width
                     ),
                     label: Text("Call Now",
-                        style: GoogleFonts.lato(
+                        style: h2.copyWith(
                             fontSize: 18.sp, // responsive font size
                             fontWeight: FontWeight.w600,
                             color: Colors.white)),
@@ -126,77 +110,6 @@ class CallView extends GetView<CallController> {
             ),
 
             Padding(
-              padding: EdgeInsets.all(16.w), // responsive padding
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: Get.back,
-                    child: SvgPicture.asset('assets/images/common/back_icon.svg'),
-                  ),
-                  SizedBox(width: 12.w),
-                  CircleAvatar(
-                    backgroundImage: const AssetImage("assets/images/auth/img.png"),
-                    radius: 28.r,
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 30.h),
-                        Text("Michael",
-                            style: h2.copyWith(
-                                fontSize: 24.47.sp, color: AppColors.txtclr5)),
-                        Row(
-                          children: [
-                            Icon(Icons.circle,
-                                color: AppColors.greenonline, size: 10.r),
-                            SizedBox(width: 5.w),
-                            Text("Online Now",
-                                style: h2.copyWith(
-                                    fontSize: 12.23.sp, color: AppColors.txtclr4)),
-                          ],
-                        ),
-                        SizedBox(height: 5.83.h),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              "assets/svg/call3.svg",
-                              height: 15.h,
-                              width: 15.w,
-                            ),
-                            Text("(555) 123-4567",
-                                style: h2.copyWith(
-                                    fontSize: 13.77.sp, color: AppColors.txtclr5))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Get.to(IncomingOngoingCallView());
-                    },
-                    icon: SvgPicture.asset(
-                      "assets/svg/call2.svg",
-                      height: 25.h,
-                      width: 25.w,
-                    ),
-                    label: Text("Call Now",
-                        style: h2.copyWith(fontSize: 18.sp, color: AppColors.white)),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                      backgroundColor: AppColors.purplecall,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.r),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
               padding: EdgeInsets.all(16.w),
               child: ChipTheme(
                 data: ChipThemeData(
@@ -206,13 +119,10 @@ class CallView extends GetView<CallController> {
                     color: AppColors.clrBlack,
                   ),
                   selectedColor: AppColors.customSkyBlue3,
-                  // === পরিবর্তন এখানে ===
-                  // আপনার দেওয়া কালো রঙটিই ব্যবহার করা হলো
                   secondaryLabelStyle: h2.copyWith(
                     fontSize: 14.sp,
                     color: AppColors.clrBlack,
                   ),
-                  // === পরিবর্তন শেষ ===
                   side: BorderSide(color: AppColors.card51),
                   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                   showCheckmark: false,
@@ -239,7 +149,7 @@ class CallView extends GetView<CallController> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Search Calls, Date",
-                  hintStyle: h4.copyWith( // h4 (w400) ব্যবহার করা হলো
+                  hintStyle: h4.copyWith(
                     color: AppColors.grey5,
                     fontSize: 14.sp,
                   ),
