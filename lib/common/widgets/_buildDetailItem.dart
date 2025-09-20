@@ -24,6 +24,7 @@ class BuildDetailItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -32,7 +33,7 @@ class BuildDetailItem extends StatelessWidget {
           width: 15,
           child: iconColor != null
               ? IconTheme(
-            data: IconThemeData(color: Color(0xFF1D3856)),
+            data: IconThemeData(color: AppColors.txtclr5),
             child: icon,
           )
               : icon,
@@ -54,8 +55,9 @@ class BuildDetailItem extends StatelessWidget {
             Text(
               label,
               style: GoogleFonts.lato(
-                color: Color(0xFF1D3856),
+                color: AppColors.txtclr5,
                 fontSize: 10,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../appColors.dart';
+import '../customFont.dart';
+
 
 class CustomCallCard extends StatelessWidget {
-  // কার্ডটি দেখানোর জন্য প্রয়োজনীয় সব ডেটা আমরা বাইরে থেকে নেব
   final String title;
   final String dateTime;
   final String duration;
@@ -20,7 +22,7 @@ class CustomCallCard extends StatelessWidget {
     required this.icon,
     required this.iconBackgroundColor,
     required this.cardBackgroundColor,
-   this.onPlayRecording,
+    this.onPlayRecording,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,6 @@ class CustomCallCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -44,42 +45,36 @@ class CustomCallCard extends StatelessWidget {
             child: icon,
           ),
           const SizedBox(width: 16),
-
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.lato(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF474747)
-                  )
+                  style: h2.copyWith(
+                    fontSize: 18,
+                    color: AppColors.txtclr4,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   dateTime,
-                  style:  GoogleFonts.lato(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF474747)
-                  )
+                  style: h2.copyWith(
+                    fontSize: 10,
+                    color: AppColors.txtclr13,
+                  ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   'Duration: $duration',
-                  style: TextStyle(
+                  style: h4.copyWith(
                     fontSize: 10,
-                    color: Colors.grey.shade700,
+                    color: AppColors.txtclr13,
                   ),
                 ),
               ],
             ),
           ),
-
-
           if (onPlayRecording != null)
             SizedBox(
               height: 32,
@@ -87,12 +82,11 @@ class CustomCallCard extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onPlayRecording,
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.yellow.shade600,
+                  foregroundColor: AppColors.blackactive,
+                  backgroundColor: AppColors.yellow1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-
                   padding: EdgeInsets.zero,
                 ),
                 child: Row(
@@ -100,18 +94,19 @@ class CustomCallCard extends StatelessWidget {
                   children: [
                     const Icon(Icons.play_arrow, size: 23),
                     const SizedBox(width: 3),
-                    const Text(
+                    Text(
                       'Play Recording',
-                      style: TextStyle(fontSize: 12),
+                      style: h3.copyWith(
+                        fontSize: 12,
+                        color: AppColors.txtclr5,
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-
         ],
       ),
     );
-
   }
 }

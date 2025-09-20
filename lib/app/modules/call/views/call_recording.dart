@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';
+import '../../../../common/widgets/home/gradientprogressindicator.dart';
 import '../../../../common/widgets/speedButton.dart';
 
 class CallRecording extends StatefulWidget {
@@ -26,20 +27,17 @@ class _CallRecordingState extends State<CallRecording> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background gradient
           Container(
             width: double.infinity,
             height: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFFBD9DED), Color(0xFF90CAE2)],
+                colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
             ),
           ),
-
-          // Foreground UI
           SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -63,9 +61,8 @@ class _CallRecordingState extends State<CallRecording> {
                         SizedBox(height: 40.h),
                         Text(
                           "Call Recording",
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 30.sp,
-                            fontWeight: FontWeight.w600,
                             color: AppColors.txtclr5,
                           ),
                         ),
@@ -73,20 +70,17 @@ class _CallRecordingState extends State<CallRecording> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 47.h),
-
-                // Call details card
                 Container(
                   width: 377.w,
                   padding: EdgeInsets.all(16.r),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0x802FCEF1), Color(0x807222EA)],
+                      colors: [AppColors.custom1, AppColors.custom2],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                    border: Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Column(
@@ -107,10 +101,9 @@ class _CallRecordingState extends State<CallRecording> {
                               children: [
                                 Text(
                                   "Michael",
-                                  style: GoogleFonts.lato(
+                                  style: h2.copyWith(
                                     fontSize: 24.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF1D3856),
+                                    color: AppColors.txtclr5,
                                   ),
                                 ),
                                 SizedBox(height: 5.83.h),
@@ -120,15 +113,14 @@ class _CallRecordingState extends State<CallRecording> {
                                       "assets/svg/callu.svg",
                                       height: 15.h,
                                       width: 15.w,
-                                      color: const Color(0xFF1D3856),
+                                      color: AppColors.txtclr5,
                                     ),
                                     SizedBox(width: 10.w),
                                     Text(
                                       "Outgoing",
-                                      style: GoogleFonts.lato(
+                                      style: h2.copyWith(
                                         fontSize: 10.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xFF1D3856),
+                                        color: AppColors.txtclr5,
                                       ),
                                     ),
                                   ],
@@ -144,8 +136,7 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           SizedBox(width: 5.w),
                           BuildDetailItem(
-                            icon:
-                            SvgPicture.asset("assets/svg/calender.svg"),
+                            icon: SvgPicture.asset("assets/svg/calender.svg"),
                             value: "2024-01-12",
                             label: "Call date",
                           ),
@@ -166,20 +157,17 @@ class _CallRecordingState extends State<CallRecording> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: 24.h),
-
-                // Waveform container
                 Container(
                   padding: EdgeInsets.all(16.r),
                   width: 377.w,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0x807222EA), Color(0x802FCEF1)],
+                      colors: [AppColors.custom1, AppColors.custom2],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                    border: Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Column(
@@ -189,44 +177,52 @@ class _CallRecordingState extends State<CallRecording> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Audio Waveform",
-                          style: GoogleFonts.lato(
+                          style: h2.copyWith(
                             fontSize: 24.sp,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1D3856),
+                            color: AppColors.txtclr5,
                           ),
                         ),
                       ),
                       SizedBox(height: 10.h),
                       Container(
                         padding: EdgeInsets.all(16.r),
-                        child: SvgPicture.asset("assets/svg/wave.svg",
-                            width: 100.w),
+                        child: SvgPicture.asset("assets/svg/wave.svg", width: 100.w),
                         height: 92.h,
                         width: 344.w,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: [Color(0x807222EA), Color(0x802FCEF1)],
+                            colors: [AppColors.custom2, AppColors.custom1],
                             begin: Alignment.bottomLeft,
                             end: Alignment.bottomRight,
                           ),
-                          border:
-                          Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                          border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
                           borderRadius: BorderRadius.circular(20.r),
                         ),
                       ),
                       SizedBox(height: 25.h),
-                      LinearProgressIndicator(value: 0.6, minHeight: 8.h),
+
+                      // i made this by using gpt _______________
+                      CustomGradientProgressIndicator(
+                        progress: 0.6,
+                        height: 8.h,
+                        radius: 20.r,
+                        backgroundColor: AppColors.white.withOpacity(0.8),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF88D5F7),
+                            Color(0xFF8A77F0),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('0:16'),
-                          Text('8:24'),
+                        children: [
+                          Text('0:16', style: h4.copyWith()),
+                          Text('8:24', style: h4.copyWith()),
                         ],
                       ),
                       SizedBox(height: 10.h),
-
-                      // Player controls
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -245,8 +241,7 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/play_prev.svg",
-                                  width: 15.w),
+                              icon: SvgPicture.asset("assets/svg/play_prev.svg", width: 15.w),
                               onPressed: () {},
                             ),
                           ),
@@ -256,15 +251,13 @@ class _CallRecordingState extends State<CallRecording> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               gradient: LinearGradient(
-                                colors: [Color(0xFF2FCEF1), Color(0xFF7222EA)],
+                                colors: [AppColors.custom2, AppColors.custom1],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset(
-                                  "assets/svg/play_button.svg",
-                                  width: 30.w),
+                              icon: SvgPicture.asset("assets/svg/play_button.svg", width: 30.w),
                               onPressed: () {},
                             ),
                           ),
@@ -284,29 +277,23 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/play_next.svg",
-                                  width: 15.w),
+                              icon: SvgPicture.asset("assets/svg/play_next.svg", width: 15.w),
                               onPressed: () {},
                             ),
                           ),
                         ],
                       ),
-
                       SizedBox(height: 10.h),
-
-                      // Speed + Recording Row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset("assets/svg/recordV.svg",
-                                  width: 20.w, height: 15.h),
+                              SvgPicture.asset("assets/svg/recordV.svg", width: 20.w, height: 15.h),
                               SizedBox(width: 10.w),
-                              SvgPicture.asset("assets/svg/pbar.svg",
-                                  width: 40.w, height: 10.h),
+                              SvgPicture.asset("assets/svg/pbar.svg", width: 40.w, height: 10.h),
                               SizedBox(width: 10.w),
-                              Text("70%", style: TextStyle(fontSize: 12.sp)),
+                              Text("70%", style: h4.copyWith(fontSize: 12.sp)),
                             ],
                           ),
                           Row(
@@ -314,32 +301,28 @@ class _CallRecordingState extends State<CallRecording> {
                             children: [
                               Text(
                                 "Speed:",
-                                style: TextStyle(
+                                style: h2.copyWith(
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF1D3856),
+                                  color: AppColors.txtclr5,
                                 ),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 0.5,
                                 isSelected: selectedSpeed == 0.5,
-                                onTap: () =>
-                                    setState(() => selectedSpeed = 0.5),
+                                onTap: () => setState(() => selectedSpeed = 0.5),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 1.0,
                                 isSelected: selectedSpeed == 1.0,
-                                onTap: () =>
-                                    setState(() => selectedSpeed = 1.0),
+                                onTap: () => setState(() => selectedSpeed = 1.0),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 2.0,
                                 isSelected: selectedSpeed == 2.0,
-                                onTap: () =>
-                                    setState(() => selectedSpeed = 2.0),
+                                onTap: () => setState(() => selectedSpeed = 2.0),
                               ),
                             ],
                           ),
@@ -348,51 +331,44 @@ class _CallRecordingState extends State<CallRecording> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: 24.h),
-
-                // Call details bottom card
                 Container(
                   width: 377.w,
                   padding: EdgeInsets.all(20.r),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [Color(0x802FCEF1), Color(0x807222EA)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                      colors: [AppColors.custom2, AppColors.custom1],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomLeft,
                     ),
-                    border: Border.all(color: Color(0x4DFFFFFF), width: 1.0.w),
+                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Call Details",
-                        style: TextStyle(
+                        style: h2.copyWith(
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1D3856),
+                          color: AppColors.txtclr5,
                         ),
                       ),
-                      SizedBox(height: 15),
-                      DetailRowWidget(
+                      const SizedBox(height: 15),
+                      const DetailRowWidget(
                         title: "Initiated By:",
                         value: "you",
                       ),
-                      SizedBox(height: 10),
-                      DetailRowWidget(
+                      const SizedBox(height: 10),
+                      const DetailRowWidget(
                         title: "Ended By:",
                         value: "Michael",
                       ),
                     ],
                   ),
                 ),
-
                 SizedBox(height: 30.h),
-
-                // Bottom buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -402,23 +378,57 @@ class _CallRecordingState extends State<CallRecording> {
                       onPressed: () {},
                       height: 54.h,
                       width: 183.w,
-                      bgClr: const Color(0xFF6A30F4),
                       radius: 30.r,
+                      txtClr: AppColors.white,
+                      gradient: const LinearGradient(
+                        colors: [AppColors.lightPurplePink2, AppColors.custom3],
+                        begin: Alignment.bottomRight,
+                        end: Alignment.bottomLeft,
+                      ),
                     ),
                     SizedBox(width: 16.w),
-                    CustomButton(
-                      borderColor: const Color(0xFF7222EA),
-                      label: "Share",
-                      svgPath: "assets/svg/B_downlod_icon.svg",
-                      onPressed: () {},
-                      height: 54.h,
+                    Container(
                       width: 183.w,
-                      bgClr: Colors.deepPurpleAccent,
-                      radius: 30.r,
+                      height: 54.h,
+                      padding: EdgeInsets.all(1.5.w),
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [AppColors.custom4, AppColors.custom5],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.circular(27.r),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.customSkyBlue3,
+                          borderRadius: BorderRadius.circular(26.r),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/svg/B_downlod_icon.svg",
+                              width: 20.w,
+                              colorFilter: const ColorFilter.mode(
+                                AppColors.custom4,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            Text(
+                              "Share",
+                              style: h1.copyWith(
+                                color: AppColors.custom4,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
-
                 SizedBox(height: 24.h),
               ],
             ),

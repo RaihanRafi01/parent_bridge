@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
+import '../../../../common/appColors.dart';
 import '../controllers/call_controller.dart';
-
 
 class IncomingOngoingCallView extends StatelessWidget {
   const IncomingOngoingCallView({super.key});
@@ -18,9 +18,9 @@ class IncomingOngoingCallView extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFBD9DED), Color(0xFF90CAE2)],
+            colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -47,9 +47,9 @@ class IncomingOngoingCallView extends StatelessWidget {
         SizedBox(height: 60.h),
         Center(child: CircleAvatar(radius: 70.r, backgroundImage: const AssetImage("assets/images/auth/img.png"))),
         SizedBox(height: 30.h),
-        Text("Michael", style: GoogleFonts.lato(fontSize: 41.sp, fontWeight: FontWeight.w600, color: const Color(0xFF1D3856))),
+        Text("Michael", style: h2.copyWith(fontSize: 41.sp, color:AppColors.txtclr5)),
         SizedBox(height: 8.h),
-        Text("8:30", style: GoogleFonts.lato(fontSize: 24.sp, fontWeight: FontWeight.w600, color: const Color(0xFF1D3856))),
+        Text("8:30", style: h2.copyWith(fontSize: 24.sp, color:AppColors.txtclr5)),
         const Spacer(),
         Padding(
           padding: EdgeInsets.only(bottom: 90.0.h),
@@ -99,7 +99,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.only(top: 40.h, left: 16.w),
-            child: IconButton(icon: const Icon(Icons.arrow_back, color: Colors.black), onPressed: Get.back),
+            child: IconButton(icon: const Icon(Icons.arrow_back, color:AppColors.blackactive), onPressed: Get.back),
           ),
         ),
         SizedBox(height: 60.h),
@@ -112,14 +112,15 @@ class IncomingOngoingCallView extends StatelessWidget {
               decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0x19000000)),
               child: CircleAvatar(
                 radius: 55.r,
-                backgroundColor: Colors.white,
+                backgroundColor: AppColors.clrWhite,
                 child: CircleAvatar(radius: 55.r, backgroundImage: const AssetImage("assets/images/auth/img.png")),
               ),
             ),
           ),
         ),
         SizedBox(height: 30.h),
-        Text("Incoming Call...", textAlign: TextAlign.center, style: GoogleFonts.lato(fontSize: 41.sp, fontWeight: FontWeight.w600, color: const Color(0xFF1D3856))),
+        Text("Incoming Call...",
+            textAlign: TextAlign.center, style: h2.copyWith(fontSize: 41.sp, color: AppColors.txtclr5)),
         const Spacer(),
         Padding(
           padding: EdgeInsets.only(bottom: 40.0.h),
@@ -154,12 +155,12 @@ class IncomingOngoingCallView extends StatelessWidget {
               backgroundColor: Colors.red,
               onPressed: onPressed,
               shape: const CircleBorder(),
-              child: Icon(Icons.call_end, size: 30.sp, color: Colors.white),
+              child: Icon(Icons.call_end, size: 30.sp, color: AppColors.white),
             ),
           ),
         ),
         SizedBox(height: 8.h),
-        Text("Decline", style: TextStyle(color: Colors.black87, fontSize: 14.sp)),
+        Text("Decline", style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp)),
       ],
     );
   }
@@ -171,7 +172,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           padding: EdgeInsets.all(15.0.r),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF0909091A),
+            color: AppColors.crklclr,
           ),
           child: SizedBox(
             height: 70.r,
@@ -187,7 +188,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Text("Accept", style: TextStyle(color: Colors.black87, fontSize: 14.sp)),
+        Text("Accept", style: h2.copyWith(    color: AppColors.txtclr5, fontSize: 14.sp)),
       ],
     );
   }
@@ -197,13 +198,13 @@ class IncomingOngoingCallView extends StatelessWidget {
       padding: EdgeInsets.all(15.0.r),
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: Color(0xFF0909091A),
+        color: AppColors.crklclr,
       ),
       child: SizedBox(
         height: 80.r,
         width: 80.r,
         child: FloatingActionButton(
-          backgroundColor: Colors.red,
+          backgroundColor: AppColors.declineclr,
           onPressed: onPressed,
           shape: const CircleBorder(),
           child: Icon(Icons.call_end, size: 35.sp),
@@ -212,7 +213,8 @@ class IncomingOngoingCallView extends StatelessWidget {
     );
   }
 
-  Widget _buildSmallActionButton({required String asset, required String label, required VoidCallback onPressed, bool isActive = false}) {
+  Widget _buildSmallActionButton(
+      {required String asset, required String label, required VoidCallback onPressed, bool isActive = false}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -235,7 +237,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Text(label, style: TextStyle(color: Colors.black87, fontSize: 14.sp)),
+        Text(label, style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp)),
       ],
     );
   }
