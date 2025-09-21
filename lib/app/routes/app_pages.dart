@@ -38,7 +38,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CHAT;
+  static const INITIAL = Routes.CALENDAR;
 
   static final routes = [
     GetPage(
