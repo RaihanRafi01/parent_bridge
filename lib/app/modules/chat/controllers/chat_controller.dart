@@ -77,7 +77,7 @@ class ChatController extends GetxController {
         text: 'Sure, what time works best for you?',
         time: '10:30 am',
         isSentByMe: true,
-        avatarAssetPath: "assets/images/auth/img.png",
+        avatarAssetPath: "assets/images/chat/user_2.png",
       ),
       ChatMessage(
         text: 'I need to pick up emma at 3 pm instead of 2 pm due to work.',
@@ -91,13 +91,14 @@ class ChatController extends GetxController {
         text: 'Yes, that will work. \n I\'ll have her ready.',
         time: '10:30 am',
         isSentByMe: true,
-        avatarAssetPath: "assets/images/auth/img.png",
+        avatarAssetPath: "assets/images/chat/user_2.png",
       ),
     ]);
   }
 
   void toggleShowOriginal(bool value) {
     showOriginal.value = value;
+    messages.refresh(); // Force ListView to rebuild
   }
 
   void toggleSuggestionBox() {

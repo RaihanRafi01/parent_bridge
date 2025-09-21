@@ -42,33 +42,36 @@ class _CallRecordingState extends State<CallRecording> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 40.h, left: 16.w),
-                        child: GestureDetector(
-                          onTap: Get.back,
-                          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 60.w),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 40.h),
-                        Text(
-                          "Call Recording",
-                          style: h2.copyWith(
-                            fontSize: 30.sp,
-                            color: AppColors.txtclr5,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 40.h, left: 16.w),
+                          child: GestureDetector(
+                            onTap: Get.back,
+                            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      SizedBox(width: 60.w),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 40.h),
+                          Text(
+                            "Call Recording",
+                            style: h2.copyWith(
+                              fontSize: 30.sp,
+                              color: AppColors.txtclr5,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 47.h),
                 Container(
@@ -377,7 +380,7 @@ class _CallRecordingState extends State<CallRecording> {
                       svgPath: "assets/svg/B_downlod_icon.svg",
                       onPressed: () {},
                       height: 54.h,
-                      width: 183.w,
+                      width: 283.w,
                       radius: 30.r,
                       txtClr: AppColors.white,
                       gradient: const LinearGradient(
@@ -387,46 +390,7 @@ class _CallRecordingState extends State<CallRecording> {
                       ),
                     ),
                     SizedBox(width: 16.w),
-                    Container(
-                      width: 183.w,
-                      height: 54.h,
-                      padding: EdgeInsets.all(1.5.w),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [AppColors.custom4, AppColors.custom5],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(27.r),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.customSkyBlue3,
-                          borderRadius: BorderRadius.circular(26.r),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/svg/B_downlod_icon.svg",
-                              width: 20.w,
-                              colorFilter: const ColorFilter.mode(
-                                AppColors.custom4,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                            SizedBox(width: 10.w),
-                            Text(
-                              "Share",
-                              style: h1.copyWith(
-                                color: AppColors.custom4,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
                 SizedBox(height: 24.h),

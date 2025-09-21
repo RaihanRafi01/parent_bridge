@@ -7,6 +7,7 @@ import 'package:parent_bridge/app/modules/calendar/views/add_event_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
+import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/calendar_controller.dart';
 
 class CalendarView extends GetView<CalendarController> {
@@ -53,6 +54,8 @@ class CalendarView extends GetView<CalendarController> {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 2,),
     );
   }
 

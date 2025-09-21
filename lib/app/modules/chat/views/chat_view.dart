@@ -12,23 +12,27 @@ class ChatView extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ChatController());
+    // Remove Get.put from build to prevent multiple controller instances
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
           _buildAppBar(),
           Expanded(
-            child: Obx(
-              () => ListView.builder(
+            child: Obx(() {
+              // Depend on both messages and showOriginal to trigger rebuild
+              controller.messages.length;
+              controller.showOriginal.value;
+              return ListView.builder(
+                controller: controller.scrollController, // Add scrollController
                 padding: EdgeInsets.all(16.r),
                 itemCount: controller.messages.length,
                 itemBuilder: (context, index) {
                   final message = controller.messages[index];
                   return _buildChatBubble(message);
                 },
-              ),
-            ),
+              );
+            }),
           ),
           Obx(() {
             if (controller.isSuggestionBoxVisible.value) {
@@ -158,7 +162,7 @@ Widget _buildChatBubble(ChatMessage message) {
           Container(
             width: double.maxFinite,
             margin: EdgeInsets.only(top: 8.h, bottom: 4.h),
-            padding: EdgeInsets.all(8.r),
+            padding: EdgeInsets.all(20.r),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.r),
