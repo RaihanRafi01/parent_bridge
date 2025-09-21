@@ -55,7 +55,7 @@ class CalendarView extends GetView<CalendarController> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CircularMenuWidget(homeScreenIndex: 2,),
+      floatingActionButton: CircularMenuWidget(homeScreenIndex: 2),
     );
   }
 
@@ -123,12 +123,12 @@ class CalendarView extends GetView<CalendarController> {
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Obx(
-            () => Row(
+        () => Row(
           children: ['Month', 'Week', 'Day', 'Holidays']
               .map(
                 (text) =>
-                _buildTabItem(text, controller.selectedView.value == text),
-          )
+                    _buildTabItem(text, controller.selectedView.value == text),
+              )
               .toList(),
         ),
       ),
@@ -178,11 +178,7 @@ class CalendarView extends GetView<CalendarController> {
       child: Obx(() {
         if (controller.selectedView.value == 'Day') {
           // Day view: Show only the header and rely on _buildEventsSection for events
-          return Column(
-            children: [
-              _buildCalendarHeader(),
-            ],
-          );
+          return Column(children: [_buildCalendarHeader()]);
         } else {
           // Month or Week view: Show header, weekdays, and grid
           return Column(
@@ -202,7 +198,7 @@ class CalendarView extends GetView<CalendarController> {
 
   Widget _buildCalendarHeader() {
     return Obx(
-          () => Row(
+      () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
@@ -267,17 +263,17 @@ class CalendarView extends GetView<CalendarController> {
       children: weekDays
           .map(
             (day) => Expanded(
-          child: Center(
-            child: Text(
-              day,
-              style: h2.copyWith(
-                fontSize: 13.71.sp,
-                color: AppColors.darkSlateBlue,
+              child: Center(
+                child: Text(
+                  day,
+                  style: h2.copyWith(
+                    fontSize: 13.71.sp,
+                    color: AppColors.darkSlateBlue,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      )
+          )
           .toList(),
     );
   }
@@ -299,7 +295,7 @@ class CalendarView extends GetView<CalendarController> {
         shrinkWrap: true,
         // Ensures the grid is properly sized
         physics:
-        NeverScrollableScrollPhysics(), // Disable scrolling of the grid
+            NeverScrollableScrollPhysics(), // Disable scrolling of the grid
       );
     });
   }
@@ -608,9 +604,14 @@ class CalendarView extends GetView<CalendarController> {
                       .asMap()
                       .entries
                       .map(
-                        (entry) => _buildEventItem(
-                      entry.value,
-                      entry.key == events.length - 1,
+                        (entry) => GestureDetector(
+                      onTap: () {
+                        _showEventDetailsDialog(entry.value); // Pass the specific event
+                      },
+                      child: _buildEventItem(
+                        entry.value,
+                        entry.key == events.length - 1,
+                      ),
                     ),
                   )
                       .toList(),
@@ -624,9 +625,9 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   void _showEventDialog(
-      DateTime selectedDate,
-      List<Map<String, dynamic>> events,
-      ) {
+    DateTime selectedDate,
+    List<Map<String, dynamic>> events,
+  ) {
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
@@ -916,7 +917,7 @@ class CalendarView extends GetView<CalendarController> {
                               controller.eventLocation.text =
                                   event['location'] ?? '';
                               controller.selectedRepeatType.value =
-                              event['frequency'];
+                                  event['frequency'];
                               Get.to(() => AddEventView())?.then((_) {
                                 controller.updateEvent(event['title'], {
                                   'title': controller.eventName.text,
@@ -926,10 +927,10 @@ class CalendarView extends GetView<CalendarController> {
                                   ),
                                   'time': controller.eventSTime.text,
                                   'description':
-                                  controller.eventDescription.text,
+                                      controller.eventDescription.text,
                                   'location': controller.eventLocation.text,
                                   'frequency':
-                                  controller.selectedRepeatType.value ??
+                                      controller.selectedRepeatType.value ??
                                       'Once',
                                 });
                               });
