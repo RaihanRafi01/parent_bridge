@@ -136,7 +136,16 @@ class AddEventView extends GetView<CalendarController> {
                       padding: const EdgeInsets.symmetric(vertical: 26).r,
                       child: Row(
                         children: [
-                          Expanded(child: CustomPBButton(text: 'Cancel', onPressed: (){},isWhite: true,txtClr: AppColors.lightPurplePink2,)),
+                          Expanded(
+                            child: CustomPBButton(
+                              text: 'Cancel',
+                              color1: AppColors.clrTransparent,
+                              color2: AppColors.clrTransparent,
+                              txtClr: AppColors.lightPurplePink2,
+                              borderColor: AppColors.btnBorder,
+                              onPressed: () {  },
+                            ),
+                          ),
                           SizedBox(width: 26.w),
                           Expanded(child: CustomPBButton(text: 'Add event', onPressed: (){}))
                         ],
