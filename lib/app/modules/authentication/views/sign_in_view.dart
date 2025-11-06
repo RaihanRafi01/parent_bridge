@@ -115,10 +115,10 @@ class SignInView extends GetView<AuthenticationController> {
                     ),
                   ],
                 ),
-        
+        // Get.to(HomeView())   Get.to(SubscriptionView())
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.to(SubscriptionView()),),
+                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.offAll(HomeView()),),
                 ),
 
         
