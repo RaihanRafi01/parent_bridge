@@ -463,43 +463,52 @@ class PaidExpenseView extends GetView {
 
                     SizedBox(height: 31.h,),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      alignment: WrapAlignment.start, // or center if you prefer
                       children: [
-                        CustomPBButton(
-                          text: 'Edit',
-                          icon: 'assets/images/expense_tracker/edit.svg',
-                          horizontalPadding: 6.87,
-                          verticalPadding: 6.87,
-                          color1: AppColors.clrTransparent,
-                          color2: AppColors.clrTransparent,
-                          borderColor: AppColors.textColor7,
-                          txtClr: AppColors.textColor7,
-                          onPressed: () {  },
+                        SizedBox(
+                          width: 120, // give each button a reasonable min width
+                          child: CustomPBButton(
+                            text: 'Edit',
+                            icon: 'assets/images/expense_tracker/edit.svg',
+                            horizontalPadding: 8,
+                            verticalPadding: 8,
+                            color1: AppColors.clrTransparent,
+                            color2: AppColors.clrTransparent,
+                            borderColor: AppColors.textColor7,
+                            txtClr: AppColors.textColor7,
+                            onPressed: () {},
+                          ),
                         ),
-
-                        CustomPBButton(
-                          text: 'Download',
-                          icon: 'assets/images/expense_tracker/download.svg',
-                          horizontalPadding: 6.87,
-                          verticalPadding: 6.87,
-                          color1: AppColors.clrTransparent,
-                          color2: AppColors.clrTransparent,
-                          borderColor: AppColors.textColor7,
-                          txtClr: AppColors.textColor7,
-                          onPressed: () {  },
+                        SizedBox(
+                          width: 140,
+                          child: CustomPBButton(
+                            text: 'Download',
+                            icon: 'assets/images/expense_tracker/download.svg',
+                            horizontalPadding: 8,
+                            verticalPadding: 8,
+                            color1: AppColors.clrTransparent,
+                            color2: AppColors.clrTransparent,
+                            borderColor: AppColors.textColor7,
+                            txtClr: AppColors.textColor7,
+                            onPressed: () {},
+                          ),
                         ),
-
-                        CustomPBButton(
-                          text: 'Delete',
-                          icon: 'assets/images/expense_tracker/delete.svg',
-                          horizontalPadding: 6.87,
-                          verticalPadding: 6.87,
-                          color1: AppColors.clrTransparent,
-                          color2: AppColors.clrTransparent,
-                          borderColor: AppColors.clrRed,
-                          txtClr: AppColors.clrRed,
-                          onPressed: () {  },
+                        SizedBox(
+                          width: 120,
+                          child: CustomPBButton(
+                            text: 'Delete',
+                            icon: 'assets/images/expense_tracker/delete.svg',
+                            horizontalPadding: 8,
+                            verticalPadding: 8,
+                            color1: AppColors.clrTransparent,
+                            color2: AppColors.clrTransparent,
+                            borderColor: AppColors.clrRed,
+                            txtClr: AppColors.clrRed,
+                            onPressed: () {},
+                          ),
                         ),
                       ],
                     )
