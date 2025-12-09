@@ -1,4 +1,4 @@
-package com.parentBridge.parent_bridge
+package com.parentBridgeLLC.parentBridge
 
 import io.flutter.embedding.android.FlutterActivity
 
