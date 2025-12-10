@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/otp_verifications_controller.dart';
+import 'package:parent_bridge/app/modules/authentication/views/basic_information_view.dart';
+import 'package:parent_bridge/app/modules/authentication/views/choose_mode.dart';
 import 'package:parent_bridge/app/modules/authentication/views/new_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
@@ -12,7 +14,8 @@ import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/customTextField.dart';
 
 class OtpVerificationsView extends GetView<OtpVerificationsController> {
-  const OtpVerificationsView({super.key});
+  final bool isAuth;
+  const OtpVerificationsView({super.key, required this.isAuth});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +112,13 @@ class OtpVerificationsView extends GetView<OtpVerificationsController> {
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
                   child: CustomPBButton(
                     text: 'Send',
-                    onPressed: () => Get.to(NewPasswordView()),
+                    onPressed: () {
+                      if(isAuth){
+                        Get.to(ChooseMode());
+                      }else{
+                        Get.to(NewPasswordView());
+                      }
+                    }
                   ),
                 ),
 

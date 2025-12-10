@@ -86,6 +86,7 @@ class AppColors {
   static const Color textColor21 = Color(0xFF989898);
   static const Color textColor22 = Color(0xFF6B5ADA);
   static const Color textColor23 = Color(0xFF443A3A);
+  static const Color textColor24 = Color(0xFF06402B);
   static const Color chatBg = Color(0xFFEDFAFF);
   static const Color chatInputField = Color(0xFFC4DFFF);
   static const Color clrSky2 = Color(0xFFECF4FF);

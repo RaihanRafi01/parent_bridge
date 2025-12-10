@@ -71,7 +71,7 @@ class ForgotPasswordView extends GetView {
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
                   child: CustomPBButton(
                     text: 'Send',
-                    onPressed: () => Get.to(OtpVerificationsView()),
+                    onPressed: () => Get.to(OtpVerificationsView(isAuth: false,)),
                   ),
                 ),
 
