@@ -175,7 +175,7 @@ class ChooseMode extends GetView<AuthenticationController> {
                         colorText: Colors.red,
                       );
                     } else if (selectedOption.value == 1) {
-                      // Navigate to connect screen
+                      Get.to(() => BasicInformationView());
                     } else {
                       Get.to(() => BasicInformationView());
                     }
