@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../controllers/document_vault_controller.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import '../../../../common/customFont.dart';
-import '../controllers/document_vault_controller.dart';
 import 'Custom_button_add_document.dart';
 
 class UploadDocument extends GetView<DocumentVaultController> {
@@ -192,12 +190,16 @@ class UploadDocument extends GetView<DocumentVaultController> {
             SizedBox(height: 20.h),
 
             Obx(
-                  () => PopupMenuButton<String>(
-                offset: const Offset(0, 0), // Optional: Fine-tune the offset if needed
+              () => PopupMenuButton<String>(
+                offset: const Offset(
+                  0,
+                  0,
+                ), // Optional: Fine-tune the offset if needed
 
                 constraints: BoxConstraints(
                   minWidth: 382.73.w, // Match the button width
-                  maxWidth: 382.73.w, // Prevent it from exceeding the button width
+                  maxWidth:
+                      382.73.w, // Prevent it from exceeding the button width
                 ),
                 child: CustomButtonAddDocument(
                   padding3: 10.r,
@@ -380,10 +382,10 @@ class UploadDocument extends GetView<DocumentVaultController> {
 
 // ✅ Reused from first page
 PopupMenuItem<String> _buildCategoryMenu(
-    String value,
-    Color bgColor,
-    Color textColor,
-    ) {
+  String value,
+  Color bgColor,
+  Color textColor,
+) {
   return PopupMenuItem(
     height: 30.h,
     value: value,

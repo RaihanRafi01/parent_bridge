@@ -113,7 +113,7 @@ Widget _buildAppBar() {
                 child: Switch(
                   value: controller.showOriginal.value,
                   onChanged: controller.toggleShowOriginal,
-                  activeColor: Colors.white,
+                  activeThumbColor: Colors.white,
                   activeTrackColor: AppColors.txtclr5,
                 ),
               ),

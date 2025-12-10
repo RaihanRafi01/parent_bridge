@@ -26,7 +26,9 @@ class AddEventView extends GetView<CalendarController> {
                 end: Alignment.bottomCenter,
                 colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
               ),
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40.r)),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(40.r),
+              ),
             ),
             child: _buildHeader(),
           ),
@@ -60,18 +62,23 @@ class AddEventView extends GetView<CalendarController> {
                     ),
                     Row(
                       children: [
-                        Obx(() => Transform.scale(
-                          scale: 0.7,
-                          child: Switch(
-                            value: controller.allDayEvent.value,
-                            onChanged: (value) => controller.toggleAllDayEvent(),
-                            activeColor: AppColors.clrWhite,
-                            activeTrackColor: AppColors.appColor,
-                            inactiveTrackColor: AppColors.appColor.withOpacity(.5),
-                            inactiveThumbColor: AppColors.clrWhite,
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        Obx(
+                          () => Transform.scale(
+                            scale: 0.7,
+                            child: Switch(
+                              value: controller.allDayEvent.value,
+                              onChanged: (value) =>
+                                  controller.toggleAllDayEvent(),
+                              activeThumbColor: AppColors.clrWhite,
+                              activeTrackColor: AppColors.appColor,
+                              inactiveTrackColor: AppColors.appColor
+                                  .withOpacity(.5),
+                              inactiveThumbColor: AppColors.clrWhite,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
                           ),
-                        )),
+                        ),
                         Text(
                           'All day event',
                           style: h4.copyWith(
@@ -143,14 +150,19 @@ class AddEventView extends GetView<CalendarController> {
                               color2: AppColors.clrTransparent,
                               txtClr: AppColors.lightPurplePink2,
                               borderColor: AppColors.btnBorder,
-                              onPressed: () {  },
+                              onPressed: () {},
                             ),
                           ),
                           SizedBox(width: 26.w),
-                          Expanded(child: CustomPBButton(text: 'Add event', onPressed: (){}))
+                          Expanded(
+                            child: CustomPBButton(
+                              text: 'Add event',
+                              onPressed: () {},
+                            ),
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -173,7 +185,10 @@ class AddEventView extends GetView<CalendarController> {
           SizedBox(width: 15.w),
           Text(
             'Add New Event',
-            style: h2.copyWith(fontSize: 24.74.sp, color: AppColors.darkSlateBlue),
+            style: h2.copyWith(
+              fontSize: 24.74.sp,
+              color: AppColors.darkSlateBlue,
+            ),
           ),
         ],
       ),

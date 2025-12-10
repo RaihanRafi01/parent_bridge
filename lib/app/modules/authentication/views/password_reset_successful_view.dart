@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
@@ -57,7 +56,10 @@ class PasswordResetSuccessfulView extends GetView {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Back to Login', onPressed: () => Get.to(SignInView()),),
+                  child: CustomPBButton(
+                    text: 'Back to Login',
+                    onPressed: () => Get.to(SignInView()),
+                  ),
                 ),
               ],
             ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 import 'package:parent_bridge/app/modules/onboarding/views/onboarding_page_view.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
@@ -29,7 +28,9 @@ class OnboardingView extends GetView<OnboardingController> {
           Positioned(
             right: 0.w,
             bottom: 0.h,
-            child: SvgPicture.asset('assets/images/onboarding/bottom_right.svg'),
+            child: SvgPicture.asset(
+              'assets/images/onboarding/bottom_right.svg',
+            ),
           ),
           // PageView for onboarding content
           PageView(
@@ -39,22 +40,26 @@ class OnboardingView extends GetView<OnboardingController> {
               OnboardingPageView(
                 image: 'assets/images/onboarding/onboarding_1.svg',
                 title: 'Smart Communication',
-                subtitle: 'AI-powered message filtering removes hostility while preserving your message\'s meaning',
+                subtitle:
+                    'AI-powered message filtering removes hostility while preserving your message\'s meaning',
               ),
               OnboardingPageView(
                 image: 'assets/images/onboarding/onboarding_2.svg',
                 title: 'Legal Protection',
-                subtitle: 'All conversations are recorded and can be exported for court proceedings when needed',
+                subtitle:
+                    'All conversations are recorded and can be exported for court proceedings when needed',
               ),
               OnboardingPageView(
                 image: 'assets/images/onboarding/onboarding_3.svg',
                 title: 'Shared Planning',
-                subtitle: 'Coordinate schedules, track expenses, and manage documents in one secure place',
+                subtitle:
+                    'Coordinate schedules, track expenses, and manage documents in one secure place',
               ),
               OnboardingPageView(
                 image: 'assets/images/onboarding/onboarding_4.svg',
                 title: 'Community Support',
-                subtitle: 'Connect with other co-parents in our anonymous support forum for advice and encouragement',
+                subtitle:
+                    'Connect with other co-parents in our anonymous support forum for advice and encouragement',
               ),
             ],
           ),
@@ -69,7 +74,10 @@ class OnboardingView extends GetView<OnboardingController> {
                 controller.skip();
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h), // Larger tap area
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                  vertical: 20.h,
+                ), // Larger tap area
                 child: Text(
                   'Skip',
                   style: h1.copyWith(
@@ -90,24 +98,24 @@ class OnboardingView extends GetView<OnboardingController> {
                 debugPrint("Next button tapped");
                 controller.next();
               },
-              child: SvgPicture.asset(
-                'assets/images/onboarding/side_bg.svg',
-              ),
+              child: SvgPicture.asset('assets/images/onboarding/side_bg.svg'),
             ),
           ),
           // Page indicators
           Positioned(
             left: 31.w,
-            top: 810.h, // Kept as per your code, but adjusted for responsiveness
-            child: Obx(() => Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: List.generate(
-                4,
-                    (index) => IndicatorDot(
-                  isActive: controller.current.value == index,
+            top:
+                810.h, // Kept as per your code, but adjusted for responsiveness
+            child: Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: List.generate(
+                  4,
+                  (index) =>
+                      IndicatorDot(isActive: controller.current.value == index),
                 ),
               ),
-            )),
+            ),
           ),
         ],
       ),

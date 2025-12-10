@@ -18,7 +18,7 @@ class IncomingOngoingCallView extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
             begin: Alignment.topCenter,
@@ -41,15 +41,29 @@ class IncomingOngoingCallView extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.only(top: 40.h, left: 16.w),
-            child: IconButton(onPressed: controller.endCall, icon: const Icon(Icons.arrow_back)),
+            child: IconButton(
+              onPressed: controller.endCall,
+              icon: const Icon(Icons.arrow_back),
+            ),
           ),
         ),
         SizedBox(height: 60.h),
-        Center(child: CircleAvatar(radius: 70.r, backgroundImage: const AssetImage("assets/images/auth/img.png"))),
+        Center(
+          child: CircleAvatar(
+            radius: 70.r,
+            backgroundImage: const AssetImage("assets/images/auth/img.png"),
+          ),
+        ),
         SizedBox(height: 30.h),
-        Text("Michael", style: h2.copyWith(fontSize: 41.sp, color:AppColors.txtclr5)),
+        Text(
+          "Michael",
+          style: h2.copyWith(fontSize: 41.sp, color: AppColors.txtclr5),
+        ),
         SizedBox(height: 8.h),
-        Text("8:30", style: h2.copyWith(fontSize: 24.sp, color:AppColors.txtclr5)),
+        Text(
+          "8:30",
+          style: h2.copyWith(fontSize: 24.sp, color: AppColors.txtclr5),
+        ),
         const Spacer(),
         Padding(
           padding: EdgeInsets.only(bottom: 90.0.h),
@@ -65,18 +79,22 @@ class IncomingOngoingCallView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(() => _buildSmallActionButton(
-                        asset: "assets/svg/speaker.svg",
-                        label: "Speaker",
-                        onPressed: controller.toggleSpeaker,
-                        isActive: controller.isSpeakerOn.value,
-                      )),
-                      Obx(() => _buildSmallActionButton(
-                        asset: "assets/svg/speaker2.svg",
-                        label: "Speaker",
-                        onPressed: controller.toggleMute,
-                        isActive: controller.isMuted.value,
-                      )),
+                      Obx(
+                        () => _buildSmallActionButton(
+                          asset: "assets/svg/speaker.svg",
+                          label: "Speaker",
+                          onPressed: controller.toggleSpeaker,
+                          isActive: controller.isSpeakerOn.value,
+                        ),
+                      ),
+                      Obx(
+                        () => _buildSmallActionButton(
+                          asset: "assets/svg/speaker2.svg",
+                          label: "Speaker",
+                          onPressed: controller.toggleMute,
+                          isActive: controller.isMuted.value,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -99,28 +117,45 @@ class IncomingOngoingCallView extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.only(top: 40.h, left: 16.w),
-            child: IconButton(icon: const Icon(Icons.arrow_back, color:AppColors.blackactive), onPressed: Get.back),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.blackactive),
+              onPressed: Get.back,
+            ),
           ),
         ),
         SizedBox(height: 60.h),
         Center(
           child: Container(
             padding: EdgeInsets.all(15.r),
-            decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0x14000000)),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0x14000000),
+            ),
             child: Container(
               padding: EdgeInsets.all(15.r),
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0x19000000)),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0x19000000),
+              ),
               child: CircleAvatar(
                 radius: 55.r,
                 backgroundColor: AppColors.clrWhite,
-                child: CircleAvatar(radius: 55.r, backgroundImage: const AssetImage("assets/images/auth/img.png")),
+                child: CircleAvatar(
+                  radius: 55.r,
+                  backgroundImage: const AssetImage(
+                    "assets/images/auth/img.png",
+                  ),
+                ),
               ),
             ),
           ),
         ),
         SizedBox(height: 30.h),
-        Text("Incoming Call...",
-            textAlign: TextAlign.center, style: h2.copyWith(fontSize: 41.sp, color: AppColors.txtclr5)),
+        Text(
+          "Incoming Call...",
+          textAlign: TextAlign.center,
+          style: h2.copyWith(fontSize: 41.sp, color: AppColors.txtclr5),
+        ),
         const Spacer(),
         Padding(
           padding: EdgeInsets.only(bottom: 40.0.h),
@@ -128,13 +163,17 @@ class IncomingOngoingCallView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildDeclineButton(onPressed: controller.endCall),
-              Obx(() => _buildAcceptButton(
-                onPressed: controller.isAcceptingCall.value ? null : controller.acceptCall,
-                isLoading: controller.isAcceptingCall.value,
-              )),
+              Obx(
+                () => _buildAcceptButton(
+                  onPressed: controller.isAcceptingCall.value
+                      ? null
+                      : controller.acceptCall,
+                  isLoading: controller.isAcceptingCall.value,
+                ),
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -146,7 +185,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           padding: EdgeInsets.all(15.0.r),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF0909091A),
+            color: Color(0xff0909091a),
           ),
           child: SizedBox(
             height: 70.r,
@@ -160,7 +199,10 @@ class IncomingOngoingCallView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Text("Decline", style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp)),
+        Text(
+          "Decline",
+          style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp),
+        ),
       ],
     );
   }
@@ -188,7 +230,10 @@ class IncomingOngoingCallView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Text("Accept", style: h2.copyWith(    color: AppColors.txtclr5, fontSize: 14.sp)),
+        Text(
+          "Accept",
+          style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp),
+        ),
       ],
     );
   }
@@ -213,8 +258,12 @@ class IncomingOngoingCallView extends StatelessWidget {
     );
   }
 
-  Widget _buildSmallActionButton(
-      {required String asset, required String label, required VoidCallback onPressed, bool isActive = false}) {
+  Widget _buildSmallActionButton({
+    required String asset,
+    required String label,
+    required VoidCallback onPressed,
+    bool isActive = false,
+  }) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -222,13 +271,15 @@ class IncomingOngoingCallView extends StatelessWidget {
           padding: EdgeInsets.all(15.0.r),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xFF0909091A),
+            color: Color(0xff0909091a),
           ),
           child: SizedBox(
             height: 50.r,
             width: 50.r,
             child: FloatingActionButton(
-              backgroundColor: isActive ? Colors.white.withOpacity(0.3) : const Color(0x29FFFFFF),
+              backgroundColor: isActive
+                  ? Colors.white.withOpacity(0.3)
+                  : const Color(0x29FFFFFF),
               onPressed: onPressed,
               shape: const CircleBorder(),
               elevation: 0,
@@ -237,7 +288,10 @@ class IncomingOngoingCallView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Text(label, style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp)),
+        Text(
+          label,
+          style: h2.copyWith(color: AppColors.txtclr5, fontSize: 14.sp),
+        ),
       ],
     );
   }

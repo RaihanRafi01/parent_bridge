@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_card_legal.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_legaldialog.dart';
-
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
@@ -42,7 +40,10 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
                     children: [
                       GestureDetector(
                         onTap: Get.back,
-                        child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
+                        child: SvgPicture.asset(
+                          'assets/images/common/back_icon.svg',
+                          width: 40.w,
+                        ),
                       ),
 
                       Text(

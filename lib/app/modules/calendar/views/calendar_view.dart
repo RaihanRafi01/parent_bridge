@@ -309,8 +309,9 @@ class CalendarView extends GetView<CalendarController> {
     final date = dayData['date'] as DateTime;
 
     if (day == null ||
-        (!isCurrentMonth && controller.selectedView.value != 'Week'))
+        (!isCurrentMonth && controller.selectedView.value != 'Week')) {
       return Container();
+    }
 
     return GestureDetector(
       onTap: () {
@@ -600,21 +601,19 @@ class CalendarView extends GetView<CalendarController> {
                       ),
                     ),
                   ),
-                  ...events
-                      .asMap()
-                      .entries
-                      .map(
-                        (entry) => GestureDetector(
+                  ...events.asMap().entries.map(
+                    (entry) => GestureDetector(
                       onTap: () {
-                        _showEventDetailsDialog(entry.value); // Pass the specific event
+                        _showEventDetailsDialog(
+                          entry.value,
+                        ); // Pass the specific event
                       },
                       child: _buildEventItem(
                         entry.value,
                         entry.key == events.length - 1,
                       ),
                     ),
-                  )
-                      .toList(),
+                  ),
                 ],
               ),
             ),

@@ -7,13 +7,10 @@ import 'package:parent_bridge/app/modules/expense_tracker/views/empty_expense_tr
 import 'package:parent_bridge/app/modules/expense_tracker/views/non_empty_expense_tracker_view.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
 
-import '../../../../common/widgets/home/circularfabmenu.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/expense_tracker_controller.dart';
-import 'add_expense_view.dart';
 
 class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
   const ExpenseTrackerView({super.key});
@@ -48,7 +45,9 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     children: [
                       GestureDetector(
                         onTap: Get.back,
-                        child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                        child: SvgPicture.asset(
+                          'assets/images/common/back_icon.svg',
+                        ),
                       ),
                       Text(
                         'Expense Tracker',
@@ -121,37 +120,49 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                               ),
 
                               child: SvgPicture.asset(
-                                'assets/images/expense_tracker/calender_icon.svg'
+                                'assets/images/expense_tracker/calender_icon.svg',
                               ),
-                            )
+                            ),
                           ],
                         ),
 
                         MonthlySummaryContainer(
-                          bgColors: [AppColors.dividerPurple, AppColors.dividerCyan],
+                          bgColors: [
+                            AppColors.dividerPurple,
+                            AppColors.dividerCyan,
+                          ],
                           info1: 0,
                           info2: 0,
                           infoTexts: ['Total Expenses', 'Pending '],
-                          infoColors: [AppColors.textColor58, AppColors.textColor59],
+                          infoColors: [
+                            AppColors.textColor58,
+                            AppColors.textColor59,
+                          ],
                         ),
 
                         MonthlySummaryContainer(
-                          bgColors: [AppColors.gradientColor51, AppColors.gradientColor52],
+                          bgColors: [
+                            AppColors.gradientColor51,
+                            AppColors.gradientColor52,
+                          ],
                           info1: 20.50,
                           info2: 45,
                           infoTexts: ['Your Share', 'Co-parent'],
-                          infoColors: [AppColors.textColor58, AppColors.textColor58],
+                          infoColors: [
+                            AppColors.textColor58,
+                            AppColors.textColor58,
+                          ],
                         ),
                       ],
                     ),
                   ),
 
-                  SizedBox(height: 17.h,),
+                  SizedBox(height: 17.h),
                 ],
               ),
             ),
 
-            SizedBox(height: 32.h,),
+            SizedBox(height: 32.h),
 
             CustomTextField(
               hintText: 'Search',
@@ -160,7 +171,7 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
               controller: controller.searchController,
             ),
 
-            SizedBox(height: 20.h,),
+            SizedBox(height: 20.h),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.25.w),
@@ -185,26 +196,26 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     ],
                   ),
 
-                  controller.isExpenseEmpty.value ?
-                  EmptyExpenseTrackerView(
-                    isExpenseEmpty: controller.isExpenseEmpty,
-                  )
-                      :
-                  NonEmptyExpenseTrackerView(
-                    amountController: controller.amountController,
-                    paymentMethodController: controller.paymentMethodController,
-                    selectedPaymentMethod: controller.selectedPaymentMethod2,
-                    paymentMethodItems: controller.paymentMethodItems
-                  ),
+                  controller.isExpenseEmpty.value
+                      ? EmptyExpenseTrackerView(
+                          isExpenseEmpty: controller.isExpenseEmpty,
+                        )
+                      : NonEmptyExpenseTrackerView(
+                          amountController: controller.amountController,
+                          paymentMethodController:
+                              controller.paymentMethodController,
+                          selectedPaymentMethod:
+                              controller.selectedPaymentMethod2,
+                          paymentMethodItems: controller.paymentMethodItems,
+                        ),
                 ],
               ),
             ),
 
-            SizedBox(height: 179.h,),
+            SizedBox(height: 179.h),
           ],
         ),
       ),
-
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
@@ -231,21 +242,15 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
           ),
           gradient: ishome
               ? const LinearGradient(
-            colors: [
-              Color(0xFFA14CDD),
-              Color(0xFF52B6E4),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          )
+                  colors: [Color(0xFFA14CDD), Color(0xFF52B6E4)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
               : LinearGradient(
-            colors: [
-              AppColors.white,
-              AppColors.white,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+                  colors: [AppColors.white, AppColors.white],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
         ),
         child: Center(
           child: SvgPicture.asset(svg, height: 25.h, width: 25.w),
@@ -268,7 +273,7 @@ class MonthlySummaryContainer extends StatelessWidget {
     required this.info2,
     required this.infoTexts,
     required this.infoColors,
-    super.key
+    super.key,
   });
 
   @override
@@ -276,13 +281,8 @@ class MonthlySummaryContainer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 38.w, vertical: 8.h),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.r),
-          gradient: LinearGradient(
-            colors: [
-              bgColors[0],
-              bgColors[1],
-            ],
-          )
+        borderRadius: BorderRadius.circular(20.r),
+        gradient: LinearGradient(colors: [bgColors[0], bgColors[1]]),
       ),
 
       child: Row(
@@ -293,18 +293,12 @@ class MonthlySummaryContainer extends StatelessWidget {
             children: [
               Text(
                 '\$$info1',
-                style: h2.copyWith(
-                  color: infoColors[0],
-                  fontSize: 27.06.sp,
-                ),
+                style: h2.copyWith(color: infoColors[0], fontSize: 27.06.sp),
               ),
 
               Text(
                 infoTexts[0],
-                style: h2.copyWith(
-                  color: infoColors[0],
-                  fontSize: 11.14.sp,
-                ),
+                style: h2.copyWith(color: infoColors[0], fontSize: 11.14.sp),
               ),
             ],
           ),
@@ -313,7 +307,7 @@ class MonthlySummaryContainer extends StatelessWidget {
             height: 70.h,
             decoration: BoxDecoration(
               color: AppColors.clrWhite,
-              border: Border.all(color: AppColors.borderColor53,),
+              border: Border.all(color: AppColors.borderColor53),
             ),
           ),
 
@@ -322,18 +316,12 @@ class MonthlySummaryContainer extends StatelessWidget {
             children: [
               Text(
                 '\$$info2',
-                style: h2.copyWith(
-                  color: infoColors[1],
-                  fontSize: 27.06.sp,
-                ),
+                style: h2.copyWith(color: infoColors[1], fontSize: 27.06.sp),
               ),
 
               Text(
                 infoTexts[1],
-                style: h2.copyWith(
-                  color: infoColors[1],
-                  fontSize: 11.14.sp,
-                ),
+                style: h2.copyWith(color: infoColors[1], fontSize: 11.14.sp),
               ),
             ],
           ),
@@ -354,7 +342,7 @@ class StatusCategoryDropdown extends StatelessWidget {
     required this.selected,
     required this.items,
     this.width,
-    super.key
+    super.key,
   });
 
   @override
@@ -368,10 +356,7 @@ class StatusCategoryDropdown extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.96.r),
           color: AppColors.clrWhite,
-          border: Border.all(
-            color: AppColors.borderColor54,
-            width: 0.7.r,
-          ),
+          border: Border.all(color: AppColors.borderColor54, width: 0.7.r),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -395,21 +380,20 @@ class StatusCategoryDropdown extends StatelessWidget {
               color: AppColors.borderColor54,
             ),
             dropdownColor: AppColors.clrWhite,
-            style: h3.copyWith(
-              color: AppColors.borderColor54,
-              fontSize: 14.sp,
-            ),
+            style: h3.copyWith(color: AppColors.borderColor54, fontSize: 14.sp),
             items: items
-                .map((item) => DropdownMenuItem<String>(
-              value: item,
-              child: Text(
-                item,
-                style: h3.copyWith(
-                  color: AppColors.borderColor54,
-                  fontSize: 14.sp,
-                ),
-              ),
-            ))
+                .map(
+                  (item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      style: h3.copyWith(
+                        color: AppColors.borderColor54,
+                        fontSize: 14.sp,
+                      ),
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: (val) => selected.value = val,
           ),

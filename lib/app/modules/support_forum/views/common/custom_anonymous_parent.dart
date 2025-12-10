@@ -4,10 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/showDiolog_Cmt_Section.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_page.dart';
-
 import '../../../../../common/appColors.dart';
 import '../../../../../common/customFont.dart';
 import '../reply_section/reply_page.dart';
@@ -36,7 +32,7 @@ class custom_anonymous_parent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(8.0.r),
+      padding: EdgeInsets.all(8.0.r),
       child: Container(
         width: 394.w,
         height: 310.h,
@@ -45,7 +41,7 @@ class custom_anonymous_parent extends StatelessWidget {
           color: bg_color,
         ),
         child: Padding(
-          padding:   EdgeInsets.all(15.0.r),
+          padding: EdgeInsets.all(15.0.r),
           child: Column(
             children: [
               /// header ..
@@ -64,8 +60,10 @@ class custom_anonymous_parent extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'AP',
-                          style:h2.copyWith(fontSize: 18.16.sp,
-                            color: AppColors.darkSlateBlue,)
+                          style: h2.copyWith(
+                            fontSize: 18.16.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
                         ),
                       ),
                     ),
@@ -79,16 +77,15 @@ class custom_anonymous_parent extends StatelessWidget {
                           children: [
                             Text(
                               'Anonymous Parent',
-                              style:h3.copyWith(
-                                color:AppColors.darkSlateBlue,
-                                fontSize: 17.9.sp
-                              )
+                              style: h3.copyWith(
+                                color: AppColors.darkSlateBlue,
+                                fontSize: 17.9.sp,
+                              ),
                             ),
                             SizedBox(width: 20.w),
 
                             // scheduling part...
                             Container(
-
                               height: 22.h,
 
                               decoration: BoxDecoration(
@@ -96,14 +93,14 @@ class custom_anonymous_parent extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(850.75.sp),
                               ),
                               child: Padding(
-                                padding:   EdgeInsets.only(left: 5.r,right: 5.r),
+                                padding: EdgeInsets.only(left: 5.r, right: 5.r),
                                 child: Center(
                                   child: Text(
                                     '$sche_title',
                                     style: h3.copyWith(
                                       fontSize: 11.91.sp,
                                       color: AppColors.white,
-                                    )
+                                    ),
                                   ),
                                 ),
                               ),
@@ -128,8 +125,8 @@ class custom_anonymous_parent extends StatelessWidget {
                           '3d',
                           style: h4.copyWith(
                             color: AppColors.custom_anonymous_parent_01,
-                            fontSize: 14.32.sp
-                          )
+                            fontSize: 14.32.sp,
+                          ),
                         ),
                       ],
                     ),
@@ -147,19 +144,14 @@ class custom_anonymous_parent extends StatelessWidget {
                   // body title text ..
                   Text(
                     "$body_title",
-                    style: h2.copyWith(
-                      color: color,
-                      fontSize: 20.sp,
-
-                    )
-
+                    style: h2.copyWith(color: color, fontSize: 20.sp),
                   ),
                   SizedBox(height: 10.h),
                   // body part ...
                   SizedBox(
                     width: 330.w,
                     child: GestureDetector(
-                      onTap:dialog_ontap,
+                      onTap: dialog_ontap,
                       child: RichText(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
@@ -169,19 +161,16 @@ class custom_anonymous_parent extends StatelessWidget {
                           style: h4.copyWith(
                             overflow: TextOverflow.ellipsis,
                             fontSize: 14.32.sp,
-                            color: AppColors.custom_anonymous_parent_02
-
+                            color: AppColors.custom_anonymous_parent_02,
                           ),
                           children: [
                             TextSpan(
                               text: ' See more',
                               style: h2.copyWith(
                                 fontSize: 14.32.sp,
-                                color: color
-                              )
+                                color: color,
+                              ),
                             ),
-
-
                           ],
                         ),
                       ),
@@ -190,19 +179,33 @@ class custom_anonymous_parent extends StatelessWidget {
                 ],
               ),
               // body end ....
-              SizedBox(height:25.h),
+              SizedBox(height: 25.h),
+
               /// end part ....
               // react and comments ....
               Row(
                 children: [
-                  custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/heart_shape.svg'),
+                  custom_react_comment(
+                    count: '100',
+                    svg_image:
+                        'assets/svg/support_forum_/icons/heart_shape.svg',
+                  ),
                   SizedBox(width: 30.w),
-                  GestureDetector( onTap: () {
-                    Get.dialog(
-                        reply_page(color: color),barrierColor: AppColors.post_page_01.withOpacity(0.6));
-                  },child: custom_react_comment(count: '100',svg_image:'assets/svg/support_forum_/icons/message_icon.svg'))
+                  GestureDetector(
+                    onTap: () {
+                      Get.dialog(
+                        reply_page(color: color),
+                        barrierColor: AppColors.post_page_01.withOpacity(0.6),
+                      );
+                    },
+                    child: custom_react_comment(
+                      count: '100',
+                      svg_image:
+                          'assets/svg/support_forum_/icons/message_icon.svg',
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),

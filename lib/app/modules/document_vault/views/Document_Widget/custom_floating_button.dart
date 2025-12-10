@@ -32,9 +32,9 @@ class Custom_floating_button extends StatelessWidget {
           highlightElevation: 0,
           shape: CircleBorder(),
           onPressed: () {},
-          child: const Icon(Icons.add, size: 36.83),
           backgroundColor: Colors.transparent,
           elevation: 0,
+          child: const Icon(Icons.add, size: 36.83),
         ),
       ),
     );

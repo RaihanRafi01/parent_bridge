@@ -18,7 +18,7 @@ class CustomPopup extends StatelessWidget {
   final bool hideDecorations; // New parameter to hide decorations
 
   const CustomPopup({
-    Key? key,
+    super.key,
     required this.children,
     this.backgroundColor = Colors.redAccent,
     this.overlayColor = Colors.redAccent, // Blue color from design
@@ -27,8 +27,9 @@ class CustomPopup extends StatelessWidget {
     this.margin = const EdgeInsets.symmetric(horizontal: 20.0),
     this.width,
     this.height,
-    this.hideDecorations = false, // Default value is false (decorations visible)
-  }) : super(key: key);
+    this.hideDecorations =
+        false, // Default value is false (decorations visible)
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +106,6 @@ class CustomPopup extends StatelessWidget {
       barrierDismissible: barrierDismissible,
       barrierColor: AppColors.textColor12.withOpacity(.91),
       builder: (context) => CustomPopup(
-        children: children,
         backgroundColor: backgroundColor,
         overlayColor: overlayColor,
         borderRadius: borderRadius,
@@ -113,7 +113,8 @@ class CustomPopup extends StatelessWidget {
         margin: margin,
         width: width,
         height: height,
-        hideDecorations: hideDecorations, // Pass the new parameter to the widget
+        hideDecorations: hideDecorations,
+        children: children, // Pass the new parameter to the widget
       ),
     );
   }

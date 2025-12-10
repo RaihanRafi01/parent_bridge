@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
-import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
 
 class OnboardingController extends GetxController {
   final pageController = PageController();
@@ -13,7 +12,10 @@ class OnboardingController extends GetxController {
 
   void next() {
     if (current.value < 3) {
-      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     } else {
       Get.offAll(SignInView());
     }

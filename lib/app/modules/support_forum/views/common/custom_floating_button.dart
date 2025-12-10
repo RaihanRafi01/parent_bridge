@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../common/appColors.dart';
 
 class Custom_floating_button extends StatelessWidget {
-  const Custom_floating_button({
-    super.key,
-  });
+  const Custom_floating_button({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class Custom_floating_button extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
-            colors: [AppColors.customSkyBlue,AppColors.customPurple],
+            colors: [AppColors.customSkyBlue, AppColors.customPurple],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
