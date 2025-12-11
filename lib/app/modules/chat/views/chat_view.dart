@@ -12,7 +12,6 @@ class ChatView extends GetView<ChatController> {
 
   @override
   Widget build(BuildContext context) {
-    // Remove Get.put from build to prevent multiple controller instances
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -20,27 +19,27 @@ class ChatView extends GetView<ChatController> {
           _buildAppBar(),
           Expanded(
             child: Obx(() {
-              // Depend on both messages and showOriginal to trigger rebuild
+              // Rebuild when messages, showOriginal, or typing changes
               controller.messages.length;
               controller.showOriginal.value;
+              controller.isOtherTyping.value;
               return ListView.builder(
-                controller: controller.scrollController, // Add scrollController
+                controller: controller.scrollController,
                 padding: EdgeInsets.all(16.r),
-                itemCount: controller.messages.length,
+                itemCount: controller.messages.length + (controller.isOtherTyping.value ? 1 : 0),
                 itemBuilder: (context, index) {
-                  final message = controller.messages[index];
-                  return _buildChatBubble(message);
+                  if (index < controller.messages.length) {
+                    return _buildChatBubble(controller.messages[index]);
+                  } else {
+                    return _buildTypingIndicator();
+                  }
                 },
               );
             }),
           ),
-          Obx(() {
-            if (controller.isSuggestionBoxVisible.value) {
-              return _buildSuggestionBox();
-            } else {
-              return const SizedBox.shrink();
-            }
-          }),
+
+          // Live suggestions appear automatically while typing
+          _buildLiveSuggestions(),
         ],
       ),
       bottomNavigationBar: _buildBottomNavigationBar(context),
@@ -48,6 +47,9 @@ class ChatView extends GetView<ChatController> {
   }
 }
 
+// ──────────────────────────────────────────────────────────────
+// AppBar
+// ──────────────────────────────────────────────────────────────
 Widget _buildAppBar() {
   final ChatController controller = Get.find();
   return Container(
@@ -66,39 +68,20 @@ Widget _buildAppBar() {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: Get.back,
-          child: SvgPicture.asset('assets/images/common/back_icon.svg'),
-        ),
-        CircleAvatar(
-          backgroundImage: const AssetImage("assets/images/auth/img.png"),
-          radius: 28.r,
-        ),
+        GestureDetector(onTap: Get.back, child: SvgPicture.asset('assets/images/common/back_icon.svg')),
+        CircleAvatar(backgroundImage: const AssetImage("assets/images/auth/img.png"), radius: 28.r),
         SizedBox(width: 10.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Michael",
-                style: h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5),
-              ),
+              Text("Michael", style: h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5)),
               Row(
                 children: [
-                  Icon(
-                    Icons.circle,
-                    color: const Color(0xFF14F269),
-                    size: 10.r,
-                  ),
+                  Icon(Icons.circle, color: const Color(0xFF14F269), size: 10.r),
                   SizedBox(width: 5.w),
-                  Text(
-                    "Online Now",
-                    style: h4.copyWith(
-                      fontSize: 12.sp,
-                      color: AppColors.txtclr4,
-                    ),
-                  ),
+                  Text("Online Now", style: h4.copyWith(fontSize: 12.sp, color: AppColors.txtclr4)),
                 ],
               ),
             ],
@@ -107,21 +90,17 @@ Widget _buildAppBar() {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Obx(
-              () => Transform.scale(
-                scale: 0.6,
-                child: Switch(
-                  value: controller.showOriginal.value,
-                  onChanged: controller.toggleShowOriginal,
-                  activeColor: Colors.white,
-                  activeTrackColor: AppColors.txtclr5,
-                ),
+            Obx(() => Transform.scale(
+              scale: 0.6,
+              child: Switch(
+                value: controller.showOriginal.value,
+                onChanged: controller.toggleShowOriginal,
+                activeColor: Colors.white,
+                inactiveThumbColor: AppColors.txtclr5,
+                activeTrackColor: AppColors.txtclr5,
               ),
-            ),
-            Text(
-              'Show original',
-              style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp),
-            ),
+            )),
+            Text('Show original', style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp)),
           ],
         ),
       ],
@@ -129,6 +108,9 @@ Widget _buildAppBar() {
   );
 }
 
+// ──────────────────────────────────────────────────────────────
+// Chat Bubble
+// ──────────────────────────────────────────────────────────────
 Widget _buildChatBubble(ChatMessage message) {
   final ChatController controller = Get.find();
   final bool isSentByMe = message.isSentByMe;
@@ -141,12 +123,8 @@ Widget _buildChatBubble(ChatMessage message) {
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.r),
         topRight: Radius.circular(20.r),
-        bottomLeft: isSentByMe
-            ? Radius.circular(20.r)
-            : const Radius.circular(0),
-        bottomRight: isSentByMe
-            ? const Radius.circular(0)
-            : Radius.circular(20.r),
+        bottomLeft: isSentByMe ? Radius.circular(20.r) : const Radius.circular(0),
+        bottomRight: isSentByMe ? const Radius.circular(0) : Radius.circular(20.r),
       ),
     ),
     child: Column(
@@ -154,10 +132,7 @@ Widget _buildChatBubble(ChatMessage message) {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (message.originalText != null && controller.showOriginal.value)
-          Text(
-            message.originalText!,
-            style: h1.copyWith(color: AppColors.txtclr9, fontSize: 12.sp),
-          ),
+          Text(message.originalText!, style: h1.copyWith(color: AppColors.txtclr9, fontSize: 12.sp)),
         if (message.originalText != null && controller.showOriginal.value)
           Container(
             width: double.maxFinite,
@@ -175,206 +150,211 @@ Widget _buildChatBubble(ChatMessage message) {
                   children: [
                     SvgPicture.asset('assets/images/chat/flag.svg'),
                     SizedBox(width: 8.w),
-                    Text(
-                      'Message Filtered',
-                      style: h1.copyWith(
-                        color: AppColors.txtclr9,
-                        fontSize: 10.sp,
-                      ),
-                    ),
+                    Text('Message Filtered', style: h1.copyWith(color: AppColors.txtclr9, fontSize: 10.sp)),
                   ],
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  message.text,
-                  style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5),
-                ),
+                Text(message.text, style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5)),
               ],
             ),
           )
         else
-          Text(
-            message.text,
-            style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5),
-          ),
+          Text(message.text, style: h1.copyWith(fontSize: 14.sp, color: AppColors.txtclr5)),
       ],
     ),
-  );
-
-  final messageWithTime = Column(
-    crossAxisAlignment: isSentByMe
-        ? CrossAxisAlignment.end
-        : CrossAxisAlignment.start,
-    children: [
-      bubble,
-      SizedBox(height: 4.h),
-      Text(
-        message.time,
-        style: h4.copyWith(fontSize: 10.sp, color: Colors.grey),
-      ),
-    ],
   );
 
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 5.0.h),
+    padding: EdgeInsets.symmetric(vertical: 5.h),
     child: Row(
-      mainAxisAlignment: isSentByMe
-          ? MainAxisAlignment.end
-          : MainAxisAlignment.start,
+      mainAxisAlignment: isSentByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (!isSentByMe)
-          CircleAvatar(
-            backgroundImage: AssetImage(message.avatarAssetPath),
-            radius: 20.r,
-          ),
+          CircleAvatar(backgroundImage: AssetImage(message.avatarAssetPath), radius: 20.r),
         if (!isSentByMe) SizedBox(width: 8.w),
-        Flexible(child: messageWithTime),
+        Flexible(child: Column(crossAxisAlignment: isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [bubble, SizedBox(height: 4.h), Text(message.time, style: h4.copyWith(fontSize: 10.sp, color: Colors.grey))])),
         if (isSentByMe) SizedBox(width: 8.w),
-        if (isSentByMe)
-          CircleAvatar(
-            backgroundImage: AssetImage(message.avatarAssetPath),
-            radius: 20.r,
-          ),
+        if (isSentByMe) CircleAvatar(backgroundImage: AssetImage(message.avatarAssetPath), radius: 20.r),
       ],
     ),
   );
 }
 
-Widget _buildSuggestionBox() {
-  final ChatController controller = Get.find();
-  return Container(
-    padding: EdgeInsets.all(16.r),
-    color: Colors.white,
-    child: Column(
-      children: controller.suggestions.map((suggestion) {
-        return _buildSuggestionItem(suggestion);
-      }).toList(),
-    ),
-  );
-}
-
-Widget _buildSuggestionItem(Suggestion suggestion) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 10.h),
-    padding: EdgeInsets.all(12.r),
-    decoration: BoxDecoration(
-      color: AppColors.clrWhite,
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(25.r),
-        topLeft: Radius.circular(25.r),
-        topRight: Radius.circular(25.r),
-      ),
-      border: Border.all(color: AppColors.customSkyBlue3),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+// ──────────────────────────────────────────────────────────────
+// Typing Indicator
+// ──────────────────────────────────────────────────────────────
+Widget _buildTypingIndicator() {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 5.h),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
+        CircleAvatar(backgroundImage: const AssetImage("assets/images/auth/img.png"), radius: 20.r),
+        SizedBox(width: 8.w),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.5.w, vertical: 2.2.h),
+          constraints: BoxConstraints(maxWidth: 0.7.sw),
+          padding: EdgeInsets.all(12.r),
           decoration: BoxDecoration(
-            color: suggestion.color,
-            borderRadius: BorderRadius.circular(10.r),
+            color: AppColors.customsky,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r), bottomRight: Radius.circular(20.r)),
           ),
-          child: Text(
-            suggestion.title,
-            style: h3.copyWith(color: AppColors.txtclr5, fontSize: 12.sp),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Text(
-          suggestion.text,
-          style: h4.copyWith(fontSize: 14.sp, color: AppColors.customSkyBlue3),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [Dot(), Dot(delay: 0.2), Dot(delay: 0.4)]),
         ),
       ],
     ),
   );
 }
 
+class Dot extends StatefulWidget {
+  final double delay;
+  const Dot({super.key, this.delay = 0});
+
+  @override
+  State<Dot> createState() => _DotState();
+}
+
+class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500))..repeat(reverse: true);
+    Future.delayed(Duration(milliseconds: (widget.delay * 1000).toInt()), () {
+      if (mounted) _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: Tween(begin: 0.8, end: 1.2).animate(_controller),
+      child: Container(width: 8.r, height: 8.r, margin: EdgeInsets.symmetric(horizontal: 2.r), decoration: const BoxDecoration(color: Colors.grey, shape: BoxShape.circle)),
+    );
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// LIVE SUGGESTIONS (this replaces the old suggestion box)
+// ──────────────────────────────────────────────────────────────
+Widget _buildLiveSuggestions() {
+  final ChatController controller = Get.find();
+
+  return Obx(() {
+    if (controller.liveSuggestions.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      color: Colors.white,
+      child: Column(
+        children: controller.liveSuggestions.map((suggestion) {
+          return GestureDetector(
+            onTap: () => controller.applySuggestion(suggestion.text),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 10.h),
+              padding: EdgeInsets.all(12.r),
+              decoration: BoxDecoration(
+                color: AppColors.clrWhite,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(25.r),
+                  topLeft: Radius.circular(25.r),
+                  topRight: Radius.circular(25.r),
+                ),
+                border: Border.all(color: AppColors.customSkyBlue3),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5.5.w, vertical: 2.2.h),
+                    decoration: BoxDecoration(color: suggestion.color, borderRadius: BorderRadius.circular(10.r)),
+                    child: Text(suggestion.title, style: h3.copyWith(color: AppColors.txtclr5, fontSize: 12.sp)),
+                  ),
+                  SizedBox(height: 5.h),
+                  Text(suggestion.text, style: h4.copyWith(fontSize: 14.sp, color: AppColors.customSkyBlue3)),
+                ],
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  });
+}
+
+// ──────────────────────────────────────────────────────────────
+// Bottom Navigation Bar (with dynamic color square)
+// ──────────────────────────────────────────────────────────────
 Widget _buildBottomNavigationBar(BuildContext context) {
   final ChatController controller = Get.find();
+
+  final Map<String, Color> colorMap = {
+    'green': AppColors.clrGreen4,
+    'yellow': AppColors.customyellow,
+    'red': Colors.red.shade400,
+    'orange': Colors.orange.shade600,
+    'blue': AppColors.customSkyBlue3,
+    'purple': AppColors.lightPurplePink2,
+  };
+
   return SafeArea(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, -1),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5, offset: const Offset(0, -1))],
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/chat/camera.svg',
-            colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-            width: 24.w,
-            height: 24.h,
-          ),
+          SvgPicture.asset('assets/images/chat/camera.svg', colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn), width: 24.w, height: 24.h),
           SizedBox(width: 10.w),
-          SvgPicture.asset(
-            'assets/images/chat/doc_icon.svg',
-            colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-            width: 24.w,
-            height: 24.h,
-          ),
+          SvgPicture.asset('assets/images/chat/doc_icon.svg', colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn), width: 24.w, height: 24.h),
           SizedBox(width: 10.w),
-          InkWell(
-            onTap: () => _showVoiceRecorderDialog(context),
-            child: SvgPicture.asset(
-              'assets/images/chat/mice.svg',
-              colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
-              width: 24.w,
-              height: 24.h,
-            ),
-          ),
+          InkWell(onTap: () => _showVoiceRecorderDialog(context), child: SvgPicture.asset('assets/images/chat/mice.svg', colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn), width: 24.w, height: 24.h)),
           SizedBox(width: 8.w),
-          InkWell(
-            onTap: () => controller.toggleSuggestionBox(),
+
+          // Color square button (shows current tone)
+          Obx(() => InkWell(
+            onTap: controller.toggleSuggestionBox, // optional manual toggle
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.r),
-                color: AppColors.clrGreen4,
+                color: colorMap[controller.statusColor.value] ?? AppColors.clrGreen4,
               ),
               width: 24.w,
               height: 24.h,
             ),
-          ),
+          )),
+
           SizedBox(width: 8.w),
           Expanded(
             child: TextField(
+              controller: controller.messageController,
               style: h4.copyWith(fontSize: 14.sp),
               decoration: InputDecoration(
                 fillColor: AppColors.customskyblue4,
                 filled: true,
                 hintText: "I Understand. Let Me...",
-                hintStyle: h4.copyWith(
-                  fontSize: 14.sp,
-                  color: AppColors.txtclr10,
-                ),
+                hintStyle: h4.copyWith(fontSize: 14.sp, color: AppColors.txtclr10),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.r),
-                  borderSide: BorderSide(
-                    color: AppColors.customSkyBlue3,
-                    width: 1.5,
-                  ),
+                  borderSide: BorderSide(color: AppColors.customSkyBlue3, width: 1.5),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
-                  vertical: 10.h,
-                ),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.r)),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
               ),
             ),
           ),
           SizedBox(width: 8.w),
-          const Icon(Icons.send, color: AppColors.customSkyBlue3),
+          InkWell(onTap: controller.sendMessage, child: const Icon(Icons.send, color: AppColors.customSkyBlue3)),
         ],
       ),
     ),
