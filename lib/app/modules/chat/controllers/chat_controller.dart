@@ -1,4 +1,3 @@
-// chat_controller.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:async';
@@ -35,8 +34,10 @@ class Suggestion {
 class ChatController extends GetxController {
   var showOriginal = true.obs;
   var isOtherTyping = false.obs;
-  var liveSuggestions = <Suggestion>[].obs;
-  var statusColor = 'green'.obs;
+  var liveSuggestions = <Suggestion>[].obs;        // RxList — THIS IS CRITICAL
+  var statusColor = 'grey'.obs;
+  var isSending = false.obs;
+
   var messages = <ChatMessage>[].obs;
 
   final List<Suggestion> fallbackSuggestions = [
@@ -52,7 +53,7 @@ class ChatController extends GetxController {
 
   bool isTyping = false;
   Timer? _typingTimer;
-  Timer? _suggestionTimer;
+  Timer? _suggestionDebounceTimer;
 
   final int myUserId = 13;
 
@@ -62,8 +63,6 @@ class ChatController extends GetxController {
     scrollController = ScrollController();
     messageController = TextEditingController();
     messageController.addListener(_onTextChanged);
-
-    print('ChatController initialized');
     connectWebSocket();
   }
 
@@ -71,11 +70,10 @@ class ChatController extends GetxController {
   void onClose() {
     messageController.removeListener(_onTextChanged);
     messageController.dispose();
-    channel.sink.close();
     scrollController.dispose();
+    channel.sink.close();
     _typingTimer?.cancel();
-    _suggestionTimer?.cancel();
-    print('ChatController closed & resources cleaned');
+    _suggestionDebounceTimer?.cancel();
     super.onClose();
   }
 
@@ -90,70 +88,37 @@ class ChatController extends GetxController {
     channel = WebSocketChannel.connect(Uri.parse(url));
     channel2 = WebSocketChannel.connect(Uri.parse(url2));
 
-    channel.ready.then((_) {
-      print('🏀🏀🏀WebSocket Connected Successfully!');
-    }).catchError((e) {
-      print('🏀🏀🏀WebSocket Connection Failed: $e');
-    });
-    channel2.ready.then((_) {
-      print('🥎🥎🥎WebSocket 2 Connected Successfully!');
-    }).catchError((e) {
-      print('🥎🥎🥎WebSocket 2 Connection Failed: $e');
-    });
+    channel.ready.then((_) => print('WebSocket Connected'));
 
     channel.stream.listen(
           (rawMessage) {
         final data = jsonDecode(rawMessage as String);
         final type = data['type'];
 
-        print('🧩🧩🧩🧩🧩\nReceived ← $type');
-        print('🧩🧩🧩🧩🧩Payload: ${jsonEncode(data)}');
-
         switch (type) {
           case 'chat_message':
             _handleIncomingMessage(data);
             break;
-
           case 'typing':
             final userId = data['user_id'];
-            final typing = data['is_typing'] == true;
             if (userId != myUserId) {
-              isOtherTyping.value = typing;
-              print(typing ? '$userId is typing...' : '$userId stopped typing');
+              isOtherTyping.value = data['is_typing'] == true;
             }
             break;
-
           case 'suggestion_response':
+            if (isSending.value) return;
             _handleSuggestionResponse(data);
             break;
-
-          default:
-            print('🧩🧩🧩🧩🧩Unknown message type: $type');
         }
       },
-      onError: (error) {
-        print('🧩🧩🧩🧩🧩WebSocket Error: $error');
-      },
-      onDone: () {
-        print('🧩🧩🧩🧩🧩WebSocket Connection Closed');
-      },
+      onError: (e) => print('WS Error: $e'),
     );
   }
 
   void _handleIncomingMessage(Map<String, dynamic> data) {
-    final senderId = data['sender_id'];
-    final isMe = senderId == myUserId;
-
-    print(isMe ? '🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩You sent a message' : 'Message from $senderId');
-
+    final isMe = data['sender_id'] == myUserId;
     final originalText = data['is_filtered'] == true ? data['message'] : null;
     final displayText = data['is_filtered'] == true ? data['filtered_message'] : data['message'];
-
-    if (originalText != null) {
-      print('🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩Message was filtered!');
-      print('Original: $originalText');
-      print('Filtered: $displayText');
-    }
 
     messages.add(ChatMessage(
       text: displayText,
@@ -163,106 +128,91 @@ class ChatController extends GetxController {
       avatarAssetPath: isMe ? "assets/images/chat/user_2.png" : "assets/images/auth/img.png",
     ));
 
-    print('Total messages: ${messages.length}');
     scrollToBottom();
   }
 
   void _handleSuggestionResponse(Map<String, dynamic> data) {
-    final color = (data['status_color'] ?? 'green').toString().toLowerCase();
+    if (isSending.value) return;
+
+    final color = (data['status_color'] ?? 'grey').toString().toLowerCase();
     statusColor.value = color;
 
-    print('🧩🧩🧩🧩🧩AI Tone Detected → $color'.toUpperCase());
+    final List<dynamic> rawList = data['suggestion'] ?? [];
 
-    final List<dynamic> suggestionList = data['suggestion'] ?? [];
-    print('🧩🧩🧩🧩🧩AI Suggestions Received (${suggestionList.length})');
+    if (rawList.isEmpty) {
+      liveSuggestions.clear();
+      return;
+    }
 
-    final List<Suggestion> parsed = suggestionList.map((item) {
+    final parsed = rawList.map((item) {
       final tone = (item['tone'] ?? 'neutral').toString().toLowerCase();
-      final text = item['suggestion'] ?? '';
+      final text = (item['suggestion'] ?? '').toString().trim();
 
-      late Color bgColor;
+      late Color bg;
       late String title;
 
       if (tone.contains('supportive')) {
-        bgColor = AppColors.customyellow;
+        bg = AppColors.customyellow;
         title = 'Supportive';
       } else if (tone.contains('cooperative')) {
-        bgColor = AppColors.lightPurplePink2;
+        bg = AppColors.lightPurplePink2;
         title = 'Cooperative';
       } else {
-        bgColor = AppColors.customSkyBlue3;
+        bg = AppColors.customSkyBlue3;
         title = 'Neutral';
       }
 
-      print('→ $title: "$text"');
-
-      return Suggestion(title: title, text: text, color: bgColor);
+      return Suggestion(title: title, text: text, color: bg);
     }).toList();
 
-    liveSuggestions.assignAll(parsed);
-    print('🧩🧩🧩🧩🧩Live suggestions updated!🧩🧩🧩🧩🧩');
+    liveSuggestions.assignAll(parsed); // THIS TRIGGERS UI UPDATE PROPERLY
   }
 
   void _onTextChanged() {
     final text = messageController.text.trim();
-    final words = text.split(RegExp(r'\s+'));
+    final words = text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
 
-    // Typing indicator
-    if (text.isNotEmpty) {
-      if (!isTyping) {
-        print('You started typing...');
-        _sendTyping(true);
-        isTyping = true;
-      }
-      _typingTimer?.cancel();
-      _typingTimer = Timer(const Duration(seconds: 2), () {
-        print('Typing stopped');
-        _sendTyping(false);
-        isTyping = false;
-      });
-    } else {
-      if (isTyping) {
-        print('Input cleared → stopped typing');
-        _sendTyping(false);
-        isTyping = false;
-      }
+    if (isSending.value) return;
+
+    if (text.isEmpty) {
+      statusColor.value = 'grey';
       liveSuggestions.clear();
-      statusColor.value = 'green';
+      _suggestionDebounceTimer?.cancel();
+      if (isTyping) _sendTyping(false);
+      return;
     }
 
-    // Auto suggestion request
-    if (words.length >= 2 && text.isNotEmpty) {
-      _suggestionTimer?.cancel();
-      _suggestionTimer = Timer(const Duration(milliseconds: 600), () {
-        print('🧩🧩🧩🧩🧩Requesting AI suggestions for: "$text"');
-        channel.sink.add(jsonEncode({
-          "type": "suggestion_request",
-          "message": text,
-        }));
+    if (!isTyping) {
+      _sendTyping(true);
+      isTyping = true;
+    }
+    _typingTimer?.cancel();
+    _typingTimer = Timer(const Duration(seconds: 2), () => _sendTyping(false));
+
+    if (words >= 2) {
+      _suggestionDebounceTimer?.cancel();
+      _suggestionDebounceTimer = Timer(const Duration(milliseconds: 700), () {
+        if (isSending.value) return;
+        channel.sink.add(jsonEncode({"type": "suggestion_request", "message": text}));
       });
-    } else if (words.length < 2) {
+    } else {
       liveSuggestions.clear();
-      print('Less than 2 words → suggestions hidden');
     }
   }
 
   void _sendTyping(bool typing) {
-    final payload = {"type": "typing", "is_typing": typing};
-    channel.sink.add(jsonEncode(payload));
-    print(typing ? 'Sent typing start' : 'Sent typing stop');
+    isTyping = typing;
+    channel.sink.add(jsonEncode({"type": "typing", "is_typing": typing}));
   }
 
   void sendMessage() {
     final text = messageController.text.trim();
-    if (text.isEmpty) {
-      print('Empty message → blocked');
-      return;
-    }
+    if (text.isEmpty) return;
 
-    final isGreen = statusColor.value == 'green';
-    final type = isGreen ? "message" : "filter_request";
+    isSending.value = true;
 
-    print('\n🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩🧩Sending $type → "$text"');
+    final bool isGreen = statusColor.value == 'green';
+    final String type = isGreen ? "message" : "filter_request";
 
     channel.sink.add(jsonEncode({
       "type": type,
@@ -272,51 +222,42 @@ class ChatController extends GetxController {
       "attachment": null,
     }));
 
-    print(isGreen
-        ? 'Sent as normal message (safe tone)'
-        : 'Sent to filter first (needs review)');
-
-    // Reset UI
     messageController.clear();
     liveSuggestions.clear();
-    statusColor.value = 'green';
+    statusColor.value = 'grey';
+    _suggestionDebounceTimer?.cancel();
+    if (isTyping) _sendTyping(false);
 
-    if (isTyping) {
-      _sendTyping(false);
-      isTyping = false;
-    }
-
-    print('Message sent & input cleared\n');
+    isSending.value = false;
   }
 
   void applySuggestion(String suggestionText) {
+    if (isSending.value) return;
+
     messageController.text = suggestionText;
-    messageController.selection = TextSelection.fromPosition(
-      TextPosition(offset: suggestionText.length),
-    );
+    messageController.selection = TextSelection.fromPosition(TextPosition(offset: suggestionText.length));
+    statusColor.value = 'green';
     liveSuggestions.clear();
-    print('Suggestion applied: "$suggestionText"');
   }
 
   void toggleSuggestionBox() {
-    if (liveSuggestions.isEmpty && messageController.text.isNotEmpty) {
+    if (isSending.value || messageController.text.trim().isEmpty) {
+      liveSuggestions.clear();
+      return;
+    }
+    if (liveSuggestions.isEmpty) {
       liveSuggestions.assignAll(fallbackSuggestions);
-      print('Showing fallback suggestions');
     } else {
       liveSuggestions.clear();
-      print('Suggestions hidden');
     }
   }
 
-  void toggleShowOriginal(bool value) {
-    showOriginal.value = value;
-    print(value ? 'Showing original messages' : 'Hiding original messages');
-  }
+  void toggleShowOriginal(bool v) => showOriginal.value = v;
 
-  String _formatTime(String timestamp) {
+  String _formatTime(String ts) {
     try {
-      return DateFormat('hh:mm a').format(DateTime.parse(timestamp).toLocal());
-    } catch (e) {
+      return DateFormat('hh:mm a').format(DateTime.parse(ts).toLocal());
+    } catch (_) {
       return 'Now';
     }
   }
