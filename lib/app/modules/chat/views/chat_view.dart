@@ -188,22 +188,27 @@ class ChatView extends GetView<ChatController> {
   // ==================== LIVE SUGGESTIONS (FULLY REACTIVE) ====================
   Widget _buildLiveSuggestions() {
     return Obx(() {
-      if (controller.isSending.value || controller.messageController.text.trim().isEmpty) {
+      // These lines create proper dependencies
+      controller.isSending.value;
+      controller.messageController.text; // even this helps a bit
+      final suggestions = controller.liveSuggestions; // CRITICAL: creates dependency
+      final hasSuggestions = suggestions.isNotEmpty;
+      final inputText = controller.messageController.text.trim();
+
+      if (controller.isSending.value || inputText.isEmpty) {
         return const SizedBox.shrink();
       }
 
-      final text = controller.messageController.text.trim();
-      final words = text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
-      final waitingForAI = words >= 2 && controller.liveSuggestions.isEmpty;
+      final wordCount = inputText.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+      final showLoading = wordCount >= 2 && !hasSuggestions;
 
-      if (waitingForAI) {
+      if (showLoading) {
         return Container(
           color: Colors.white,
           padding: EdgeInsets.all(16.r),
           child: Shimmer.fromColors(
             baseColor: Colors.grey.shade200,
             highlightColor: Colors.grey.shade100,
-            period: const Duration(milliseconds: 1200),
             child: Column(
               children: List.generate(2, (_) => Container(
                 margin: EdgeInsets.only(bottom: 12.h),
@@ -219,12 +224,12 @@ class ChatView extends GetView<ChatController> {
         );
       }
 
-      if (controller.liveSuggestions.isNotEmpty) {
+      if (hasSuggestions) {
         return Container(
           color: Colors.white,
           padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 8.r),
           child: Column(
-            children: controller.liveSuggestions.map((suggestion) {
+            children: suggestions.map((suggestion) {
               return GestureDetector(
                 onTap: () => controller.applySuggestion(suggestion.text),
                 child: Container(
