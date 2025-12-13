@@ -92,6 +92,7 @@ class ChatController extends GetxController {
 
     channel.stream.listen(
           (rawMessage) {
+        print('🧩🧩🧩🧩🧩 Received: $rawMessage');
         final data = jsonDecode(rawMessage as String);
         final type = data['type'];
 
@@ -132,7 +133,10 @@ class ChatController extends GetxController {
   }
 
   void _handleSuggestionResponse(Map<String, dynamic> data) {
-    if (isSending.value) return;
+    if (messageController.text.trim().isEmpty) {
+      print('Ignoring late suggestion response as input is empty');
+      return;
+    }
 
     final color = (data['status_color'] ?? 'grey').toString().toLowerCase();
     statusColor.value = color;
@@ -193,7 +197,9 @@ class ChatController extends GetxController {
       _suggestionDebounceTimer?.cancel();
       _suggestionDebounceTimer = Timer(const Duration(milliseconds: 700), () {
         if (isSending.value) return;
-        channel.sink.add(jsonEncode({"type": "suggestion_request", "message": text}));
+        final jsonStr = jsonEncode({"type": "suggestion_request", "message": text});
+        print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+        channel.sink.add(jsonStr);
       });
     } else {
       liveSuggestions.clear();
@@ -202,7 +208,9 @@ class ChatController extends GetxController {
 
   void _sendTyping(bool typing) {
     isTyping = typing;
-    channel.sink.add(jsonEncode({"type": "typing", "is_typing": typing}));
+    final jsonStr = jsonEncode({"type": "typing", "is_typing": typing});
+    print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+    channel.sink.add(jsonStr);
   }
 
   void sendMessage() {
@@ -214,13 +222,15 @@ class ChatController extends GetxController {
     final bool isGreen = statusColor.value == 'green';
     final String type = isGreen ? "message" : "filter_request";
 
-    channel.sink.add(jsonEncode({
+    final jsonStr = jsonEncode({
       "type": type,
       "message": text,
       "message_type": "text",
       "reply_to": null,
       "attachment": null,
-    }));
+    });
+    print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+    channel.sink.add(jsonStr);
 
     messageController.clear();
     liveSuggestions.clear();
