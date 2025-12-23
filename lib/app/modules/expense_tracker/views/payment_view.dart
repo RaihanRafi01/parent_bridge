@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/common/widgets/customDropdown.dart';
@@ -47,7 +46,7 @@ class PaymentView extends GetView {
     required this.paymentMethodController,
     required this.selectedPaymentMethod,
     required this.paymentMethodItems,
-    super.key
+    super.key,
   });
 
   @override
@@ -69,7 +68,10 @@ class PaymentView extends GetView {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 21.34.w, vertical: 24.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: 21.34.w,
+                vertical: 24.h,
+              ),
               decoration: BoxDecoration(
                 color: category == 'Activity'
                     ? AppColors.expenseCardColor
@@ -82,7 +84,10 @@ class PaymentView extends GetView {
                     : category == 'Clothing'
                     ? AppColors.expenseCardColor6
                     : AppColors.expenseCardColor5,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(29.1.r), topRight: Radius.circular(29.1.r),),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(29.1.r),
+                  topRight: Radius.circular(29.1.r),
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: AppColors.clrBlack.withAlpha(64),
@@ -108,8 +113,8 @@ class PaymentView extends GetView {
                     child: Container(
                       padding: EdgeInsets.all(8.74.r),
                       decoration: BoxDecoration(
-                          color: AppColors.clrWhite,
-                          shape: BoxShape.circle
+                        color: AppColors.clrWhite,
+                        shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.close,
@@ -117,7 +122,7 @@ class PaymentView extends GetView {
                         size: 19.4.r,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -134,27 +139,30 @@ class PaymentView extends GetView {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 18.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32.w,
+                        vertical: 18.h,
+                      ),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          gradient: LinearGradient(
-                            colors: [
-                              category == 'Activity'
-                                  ? AppColors.expenseCardColor
-                                  : category == 'School'
-                                  ? AppColors.expenseCardColor2
-                                  : category == 'Medical'
-                                  ? AppColors.expenseCardColor3
-                                  : category == 'Food'
-                                  ? AppColors.expenseCardColor4
-                                  : category == 'Clothing'
-                                  ? AppColors.expenseCardColor6
-                                  : AppColors.expenseCardColor5,
-                              AppColors.gradientColor53
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          )
+                        borderRadius: BorderRadius.circular(10.r),
+                        gradient: LinearGradient(
+                          colors: [
+                            category == 'Activity'
+                                ? AppColors.expenseCardColor
+                                : category == 'School'
+                                ? AppColors.expenseCardColor2
+                                : category == 'Medical'
+                                ? AppColors.expenseCardColor3
+                                : category == 'Food'
+                                ? AppColors.expenseCardColor4
+                                : category == 'Clothing'
+                                ? AppColors.expenseCardColor6
+                                : AppColors.expenseCardColor5,
+                            AppColors.gradientColor53,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
                       ),
 
                       child: Column(
@@ -167,7 +175,7 @@ class PaymentView extends GetView {
                             ),
                           ),
 
-                          SizedBox(height: 16.h,),
+                          SizedBox(height: 16.h),
 
                           Stack(
                             clipBehavior: Clip.none,
@@ -182,7 +190,9 @@ class PaymentView extends GetView {
                               ),
 
                               Container(
-                                width: (((yourShare+othersShare)/amount)*346).w,
+                                width:
+                                    (((yourShare + othersShare) / amount) * 346)
+                                        .w,
                                 height: 12.h,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100.r),
@@ -201,7 +211,11 @@ class PaymentView extends GetView {
                               ),
 
                               Positioned(
-                                left: ((((yourShare+othersShare)/amount)*346)-12).w,
+                                left:
+                                    ((((yourShare + othersShare) / amount) *
+                                                346) -
+                                            12)
+                                        .w,
                                 top: -3.h,
                                 child: Container(
                                   padding: EdgeInsets.all(3.r),
@@ -220,18 +234,18 @@ class PaymentView extends GetView {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Text(
-                                    '${(((yourShare+othersShare)/amount)*100).toStringAsFixed(0)}%',
+                                    '${(((yourShare + othersShare) / amount) * 100).toStringAsFixed(0)}%',
                                     style: h0.copyWith(
                                       color: AppColors.clrWhite,
                                       fontSize: 6.72.sp,
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
 
-                          SizedBox(height: 3.h,),
+                          SizedBox(height: 3.h),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -276,12 +290,12 @@ class PaymentView extends GetView {
                                 ],
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
 
-                    SizedBox(height: 25.h,),
+                    SizedBox(height: 25.h),
 
                     CustomTextField(
                       hintText: '\$Amount',
@@ -289,7 +303,7 @@ class PaymentView extends GetView {
                       controller: amountController,
                     ),
 
-                    SizedBox(height: 16.13.h,),
+                    SizedBox(height: 16.13.h),
 
                     CustomDropdown(
                       labelText: 'Payment Method',
@@ -301,7 +315,7 @@ class PaymentView extends GetView {
                       fillColor: AppColors.textInputFillColor,
                     ),
 
-                    SizedBox(height: 36.74.h,),
+                    SizedBox(height: 36.74.h),
 
                     CustomPBButton(
                       text: 'Paid',
@@ -310,12 +324,12 @@ class PaymentView extends GetView {
                       borderColor: AppColors.buttonColor54,
                       horizontalPadding: 10.w,
                       verticalPadding: 10.h,
-                      onPressed: () {  },
+                      onPressed: () {},
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,9 +26,9 @@ class CustomTextFieldController extends GetxController {
 
   void setSelectedTime(TimeOfDay? time) {
     if (time != null) {
-      selectedTime.value = DateFormat('HH:mm').format(
-        DateTime(2023, 1, 1, time.hour, time.minute),
-      );
+      selectedTime.value = DateFormat(
+        'HH:mm',
+      ).format(DateTime(2023, 1, 1, time.hour, time.minute));
     }
   }
 
@@ -85,7 +84,10 @@ class CustomTextField extends StatelessWidget {
   });
 
   // Method to show date picker
-  Future<void> _showDatePicker(BuildContext context, CustomTextFieldController ctrl) async {
+  Future<void> _showDatePicker(
+    BuildContext context,
+    CustomTextFieldController ctrl,
+  ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -99,7 +101,10 @@ class CustomTextField extends StatelessWidget {
   }
 
   // Method to show time picker
-  Future<void> _showTimePicker(BuildContext context, CustomTextFieldController ctrl) async {
+  Future<void> _showTimePicker(
+    BuildContext context,
+    CustomTextFieldController ctrl,
+  ) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -112,7 +117,8 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CustomTextFieldController ctrl = textFieldController ?? Get.put(CustomTextFieldController());
+    final CustomTextFieldController ctrl =
+        textFieldController ?? Get.put(CustomTextFieldController());
 
     if (isPassword) {
       ctrl.obscureText.value = obscureText;
@@ -137,12 +143,16 @@ class CustomTextField extends StatelessWidget {
         obscureText: isPassword ? ctrl.obscureText.value : false,
         readOnly: isDatePicker || isTimePicker,
         keyboardType: isNumberField ? TextInputType.number : TextInputType.text,
-        maxLines: (isDatePicker || isTimePicker || isNumberField) ? 1 : maxLines, // Enforce single line for pickers and number field
+        maxLines: (isDatePicker || isTimePicker || isNumberField)
+            ? 1
+            : maxLines, // Enforce single line for pickers and number field
         inputFormatters: isNumberField
             ? [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(10), // Reasonable limit for number field
-        ]
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(
+                  10,
+                ), // Reasonable limit for number field
+              ]
             : [],
         onTap: () {
           if (isDatePicker) {
@@ -174,66 +184,79 @@ class CustomTextField extends StatelessWidget {
           ),
           prefixIcon: prefixIcon.isNotEmpty
               ? Padding(
-            padding: EdgeInsets.all(15.w),
-            child: SvgPicture.asset(prefixIcon, fit: BoxFit.contain),
-          )
+                  padding: EdgeInsets.all(15.w),
+                  child: SvgPicture.asset(prefixIcon, fit: BoxFit.contain),
+                )
               : null,
           suffixIcon: isPassword
               ? Padding(
-            padding: EdgeInsets.all(15.w),
-            child: GestureDetector(
-              onTap: () {
-                ctrl.toggleObscureText();
-                onSuffixTap?.call();
-              },
-              child: SvgPicture.asset(
-                ctrl.obscureText.value ? suffixIcon : 'assets/images/auth/eye_open_icon.svg',
-                fit: BoxFit.contain,
-                color: AppColors.textColorHint,
-              ),
-            ),
-          )
+                  padding: EdgeInsets.all(15.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      ctrl.toggleObscureText();
+                      onSuffixTap?.call();
+                    },
+                    child: SvgPicture.asset(
+                      ctrl.obscureText.value
+                          ? suffixIcon
+                          : 'assets/images/auth/eye_open_icon.svg',
+                      fit: BoxFit.contain,
+                      color: AppColors.textColorHint,
+                    ),
+                  ),
+                )
               : isNumberField
               ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  ctrl.incrementNumber(controller);
-                  onIncrement?.call();
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(right: 10.w, top: 5.h),
-                  child: Icon(Icons.keyboard_arrow_up, size: 20, color: AppColors.textColorHint),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  ctrl.decrementNumber(controller);
-                  onDecrement?.call();
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(right: 10.w, bottom: 5.h),
-                  child: Icon(Icons.keyboard_arrow_down, size: 20, color: AppColors.textColorHint),
-                ),
-              ),
-            ],
-          )
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        ctrl.incrementNumber(controller);
+                        onIncrement?.call();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 10.w, top: 5.h),
+                        child: Icon(
+                          Icons.keyboard_arrow_up,
+                          size: 20,
+                          color: AppColors.textColorHint,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        ctrl.decrementNumber(controller);
+                        onDecrement?.call();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 10.w, bottom: 5.h),
+                        child: Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 20,
+                          color: AppColors.textColorHint,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               : suffixIcon.isNotEmpty
               ? Padding(
-            padding: EdgeInsets.all(15.w),
-            child: GestureDetector(
-              onTap: onSuffixTap,
-              child: SvgPicture.asset(
-                suffixIcon,
-                fit: BoxFit.contain,
-                color: AppColors.textColorHint,
-              ),
-            ),
-          )
+                  padding: EdgeInsets.all(15.w),
+                  child: GestureDetector(
+                    onTap: onSuffixTap,
+                    child: SvgPicture.asset(
+                      suffixIcon,
+                      fit: BoxFit.contain,
+                      color: AppColors.textColorHint,
+                    ),
+                  ),
+                )
               : null,
           hintText: hintText,
-          hintStyle: h4.copyWith(color: AppColors.textColorHint, fontSize: 14.sp),
+          hintStyle: h4.copyWith(
+            color: AppColors.textColorHint,
+            fontSize: 14.sp,
+          ),
         ),
       ),
     );

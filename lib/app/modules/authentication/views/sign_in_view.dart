@@ -5,8 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/forgot_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
-import 'package:parent_bridge/app/modules/home/views/home_view.dart';
-import 'package:parent_bridge/app/modules/subscription/views/subscription_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
 
@@ -29,9 +27,9 @@ class SignInView extends GetView<AuthenticationController> {
                   'assets/images/auth/parent_bridge_logo.png',
                   scale: 4,
                 ),
-        
+
                 SizedBox(height: 10.h),
-        
+
                 Text(
                   'Welcome Back',
                   style: h2.copyWith(
@@ -39,9 +37,9 @@ class SignInView extends GetView<AuthenticationController> {
                     fontSize: 30.sp,
                   ),
                 ),
-        
+
                 SizedBox(height: 11.h),
-        
+
                 Text(
                   'Sign in to continue your co-parenting journey',
                   style: h4.copyWith(
@@ -49,46 +47,52 @@ class SignInView extends GetView<AuthenticationController> {
                     fontSize: 16.sp,
                   ),
                 ),
-        
+
                 SizedBox(height: 30.h),
-        
+
                 CustomTextField(
                   controller: controller.emailController,
-                  prefixIcon: 'assets/images/auth/mail_icon.svg', hintText: 'abc@email.com',
+                  prefixIcon: 'assets/images/auth/mail_icon.svg',
+                  hintText: 'abc@email.com',
                 ),
 
-            Obx(() => CustomTextField(
-                  controller: controller.passwordController,
-                  prefixIcon: 'assets/images/auth/lock_icon.svg',
-                  suffixIcon: 'assets/images/auth/eye_close_icon.svg',
-                  isPassword: true, hintText: 'Enter your password',
-                  onSuffixTap: () =>
-                      controller.togglePasswordVisibility(),
-                  obscureText: !controller.isPasswordVisible.value,
-                )),
-        
+                Obx(
+                  () => CustomTextField(
+                    controller: controller.passwordController,
+                    prefixIcon: 'assets/images/auth/lock_icon.svg',
+                    suffixIcon: 'assets/images/auth/eye_close_icon.svg',
+                    isPassword: true,
+                    hintText: 'Enter your password',
+                    onSuffixTap: () => controller.togglePasswordVisibility(),
+                    obscureText: !controller.isPasswordVisible.value,
+                  ),
+                ),
+
                 SizedBox(height: 10.h),
-        
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Obx(() => Transform.scale(
-                          scale: 0.7, // Scale down the switch to make it smaller
-                          child: Switch(
-                            value: controller.rememberMe.value,
-                            onChanged: (value) =>
-                                controller.toggleRememberMe(),
-                            activeColor: AppColors.clrWhite,
-                            activeTrackColor: AppColors.appColor,
-                            inactiveTrackColor:
-                            AppColors.appColor.withOpacity(.5),
-                            inactiveThumbColor: AppColors.clrWhite,
-                            materialTapTargetSize:
-                            MaterialTapTargetSize.shrinkWrap,
+                        Obx(
+                          () => Transform.scale(
+                            scale:
+                                0.7, // Scale down the switch to make it smaller
+                            child: Switch(
+                              value: controller.rememberMe.value,
+                              onChanged: (value) =>
+                                  controller.toggleRememberMe(),
+                              activeThumbColor: AppColors.clrWhite,
+                              activeTrackColor: AppColors.appColor,
+                              inactiveTrackColor: AppColors.appColor
+                                  .withOpacity(.5),
+                              inactiveThumbColor: AppColors.clrWhite,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
                           ),
-                        )),
+                        ),
                         Text(
                           'Remember Me',
                           style: h4.copyWith(
@@ -98,12 +102,12 @@ class SignInView extends GetView<AuthenticationController> {
                         ),
                       ],
                     ),
-        
+
                     GestureDetector(
                       onTap: () => Get.to(
-                          ForgotPasswordView(
-                            emailController: controller.emailController,
-                          )
+                        ForgotPasswordView(
+                          emailController: controller.emailController,
+                        ),
                       ),
                       child: Text(
                         'Forgot Password?',
@@ -115,15 +119,23 @@ class SignInView extends GetView<AuthenticationController> {
                     ),
                   ],
                 ),
-        // Get.to(HomeView())   Get.to(SubscriptionView())
+                // Get.to(HomeView())   Get.to(SubscriptionView())
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Log In', onPressed: () => Get.offAll(HomeView()),),
+                  child: Obx(
+                    () => CustomPBButton(
+                      text: controller.isLoading.value
+                          ? 'Logging In...'
+                          : 'Log In',
+                      onPressed: controller.isLoading.value
+                          ? () {}
+                          : () => controller.login(),
+                    ),
+                  ),
                 ),
 
-        
                 SvgPicture.asset('assets/images/auth/or_continue_with.svg'),
-        
+
                 SizedBox(height: 32.h),
 
                 CustomGoogleAppleButton(
@@ -137,9 +149,9 @@ class SignInView extends GetView<AuthenticationController> {
                   text: 'Sign in with Apple',
                   icon: 'assets/images/auth/apple_icon.svg',
                 ),
-        
+
                 SizedBox(height: 50.h),
-        
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -150,7 +162,7 @@ class SignInView extends GetView<AuthenticationController> {
                         fontSize: 16.sp,
                       ),
                     ),
-        
+
                     GestureDetector(
                       onTap: () => Get.to(SignUpView()),
                       child: Text(
@@ -163,7 +175,7 @@ class SignInView extends GetView<AuthenticationController> {
                     ),
                   ],
                 ),
-        
+
                 SizedBox(height: 64.h),
               ],
             ),

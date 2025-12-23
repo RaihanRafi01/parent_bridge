@@ -1,21 +1,14 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/post_page/custom_textfeild.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
 
 import '../post_page/post_page.dart';
 
 class app_bar_section extends StatelessWidget {
-  const app_bar_section({
-    super.key,
-  });
-
-
+  const app_bar_section({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +27,7 @@ class app_bar_section extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding:   EdgeInsets.all(8.0.r),
+        padding: EdgeInsets.all(8.0.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -45,16 +38,12 @@ class app_bar_section extends StatelessWidget {
             ),
 
             /// page name and post button  ..
-            Text(
-              'Support Forum',
-              style:h2.copyWith(fontSize: 24.47.sp)
-            ),
+            Text('Support Forum', style: h2.copyWith(fontSize: 24.47.sp)),
             // space between two item
             // post button
             GestureDetector(
-
               onTap: () {
-                Get.to(()=>post_page());
+                Get.to(() => post_page());
                 print('This is Post button ');
               },
               child: Container(
@@ -65,17 +54,12 @@ class app_bar_section extends StatelessWidget {
                   color: AppColors.appbar_color_01,
                 ),
                 child: Center(
-                  child: Text(
-                    'Post',
-                    style:h2.copyWith(
-                      fontSize: 18.16.sp
-                    )
-                  )
-                )
-              )
-            )
-          ]
-        )
+                  child: Text('Post', style: h2.copyWith(fontSize: 18.16.sp)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

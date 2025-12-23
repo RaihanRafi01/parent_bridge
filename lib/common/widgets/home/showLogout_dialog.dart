@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:parent_bridge/app/core/services/base_client.dart';
+import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
 /// Log Out Dialog Widget
 Widget showLogoutDialog() {
   return Dialog(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(9.r),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9.r)),
     backgroundColor: Colors.white,
     child: Container(
       padding: EdgeInsets.all(24.w),
@@ -65,9 +65,13 @@ Widget showLogoutDialog() {
               // Log Out Button
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    print('Logging out...');
+                  onPressed: () async {
+                    debugPrint('Logging out...');
+                    // Clear tokens from secure storage
+                    await BaseClient.clearTokens();
+                    // Close dialog and navigate to sign in
                     Get.back();
+                    Get.offAll(() => const SignInView());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD22853),

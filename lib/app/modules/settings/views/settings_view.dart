@@ -15,7 +15,7 @@ import '../../../../common/widgets/home/showLogout_dialog.dart';
 import '../../../../common/appColors.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: true,
                     onChanged: (value) {},
-                    activeColor: AppColors.clrWhite,
+                    activeThumbColor: AppColors.clrWhite,
                     activeTrackColor: AppColors.blackactive,
                     inactiveThumbColor: AppColors.clrWhite,
                     inactiveTrackColor: AppColors.gray3,
@@ -231,7 +231,7 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: true,
                     onChanged: (value) {},
-                    activeColor: AppColors.clrWhite,
+                    activeThumbColor: AppColors.clrWhite,
                     activeTrackColor: AppColors.blackactive,
                     inactiveThumbColor: AppColors.clrWhite,
                     inactiveTrackColor: AppColors.gray3,
@@ -246,7 +246,7 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: false,
                     onChanged: (value) {},
-                    activeColor: AppColors.clrWhite,
+                    activeThumbColor: AppColors.clrWhite,
                     activeTrackColor: AppColors.blackactive,
                     inactiveThumbColor: AppColors.clrWhite,
                     inactiveTrackColor: AppColors.gray3,
@@ -261,7 +261,7 @@ class SettingsView extends StatelessWidget {
                   child: Switch(
                     value: false,
                     onChanged: (value) {},
-                    activeColor: AppColors.clrWhite,
+                    activeThumbColor: AppColors.clrWhite,
                     activeTrackColor: AppColors.blackactive,
                     inactiveThumbColor: AppColors.clrWhite,
                     inactiveTrackColor: AppColors.gray3,

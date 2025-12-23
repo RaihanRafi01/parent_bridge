@@ -17,7 +17,7 @@ class SupportForumView extends GetView<SupportForumController> {
 
   @override
   Widget build(BuildContext context) {
-    final dropdown_Controler = Get.put(SupportForumController());
+    final dropdownControler = Get.put(SupportForumController());
     return Scaffold(
       body: Column(
         children: [
@@ -25,6 +25,7 @@ class SupportForumView extends GetView<SupportForumController> {
           app_bar_section(),
           //space
           SizedBox(height: 10.h),
+
           ///body ...
           Padding(
             padding: EdgeInsets.all(15.r),
@@ -37,7 +38,7 @@ class SupportForumView extends GetView<SupportForumController> {
                 SizedBox(height: 15.h),
                 // dropdown section ..
                 Obx(
-                      () => Column(
+                  () => Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -57,12 +58,14 @@ class SupportForumView extends GetView<SupportForumController> {
                             hint: Row(
                               children: [
                                 Padding(
-                                  padding:   EdgeInsets.only(left: 5.r),
+                                  padding: EdgeInsets.only(left: 5.r),
                                   child: Text(
                                     'Select catagory',
                                     style: h4.copyWith(
-                                        fontSize: 14.sp,
-                                        color: AppColors.support_forum_view_blue01),
+                                      fontSize: 14.sp,
+                                      color:
+                                          AppColors.support_forum_view_blue01,
+                                    ),
                                   ),
                                 ),
                                 Icon(
@@ -71,17 +74,20 @@ class SupportForumView extends GetView<SupportForumController> {
                                 ),
                               ],
                             ),
-                            value: dropdown_Controler.selectedValue.value,
-                            items: dropdown_Controler.items.map((element) {
+                            value: dropdownControler.selectedValue.value,
+                            items: dropdownControler.items.map((element) {
                               return DropdownMenuItem<dynamic>(
                                 value: element['name'],
-                                child: Container(padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8.w,
+                                  ),
                                   height: 22.h,
                                   decoration: BoxDecoration(
-                                      color: element['color'],
-                                      borderRadius: BorderRadius.circular(10.r)),
+                                    color: element['color'],
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
                                   child: Text(
-
                                     element['name'],
                                     style: h4.copyWith(
                                       color: element['fcolor'],
@@ -93,7 +99,7 @@ class SupportForumView extends GetView<SupportForumController> {
                             }).toList(),
                             onChanged: (value) {
                               if (value != null) {
-                                dropdown_Controler.setSelected(value);
+                                dropdownControler.setSelected(value);
                               }
                             },
                             isExpanded: true,
@@ -113,48 +119,49 @@ class SupportForumView extends GetView<SupportForumController> {
           ),
           //anonymous parent section ...
           Expanded(
-            child: Obx(
-                  () {
-                // filter posts based on selected category
-                final filteredPosts =
-                dropdown_Controler.selectedCategory.value == null
-                    ? dropdown_Controler.posts
-                    : dropdown_Controler.posts
-                    .where((post) =>
-                post['sche_title'] ==
-                    dropdown_Controler.selectedCategory.value)
-                    .toList();
+            child: Obx(() {
+              // filter posts based on selected category
+              final filteredPosts =
+                  dropdownControler.selectedCategory.value == null
+                  ? dropdownControler.posts
+                  : dropdownControler.posts
+                        .where(
+                          (post) =>
+                              post['sche_title'] ==
+                              dropdownControler.selectedCategory.value,
+                        )
+                        .toList();
 
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      for (dynamic post in filteredPosts)
-                        custom_anonymous_parent(
-                          sche_title: post['sche_title'],
-                          color: post['color'],
-                          bg_color: post['bg_color'],
-                          body_title: post['body_title'],
-                          body_subtitle: post['body_subtitle'],
-                          // three dot button ..
-                          threeDot_ontap: () {},
-                          // this is see more button ...
-                          dialog_ontap: () {
-                            Get.dialog(
-                              show_dialog(
-                                color: post['color'],
-                                body_title: post['body_title'],
-                                dialog_subtitle: post['dialog_subtitle'],
-                              ),
-                              barrierColor: AppColors.anonymous_parent_03.withOpacity(.6),
-                            );
-                          },
-                        ),
-                      SizedBox(height: 130.h),
-                    ],
-                  ),
-                );
-              },
-            ),
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (dynamic post in filteredPosts)
+                      custom_anonymous_parent(
+                        sche_title: post['sche_title'],
+                        color: post['color'],
+                        bg_color: post['bg_color'],
+                        body_title: post['body_title'],
+                        body_subtitle: post['body_subtitle'],
+                        // three dot button ..
+                        threeDot_ontap: () {},
+                        // this is see more button ...
+                        dialog_ontap: () {
+                          Get.dialog(
+                            show_dialog(
+                              color: post['color'],
+                              body_title: post['body_title'],
+                              dialog_subtitle: post['dialog_subtitle'],
+                            ),
+                            barrierColor: AppColors.anonymous_parent_03
+                                .withOpacity(.6),
+                          );
+                        },
+                      ),
+                    SizedBox(height: 130.h),
+                  ],
+                ),
+              );
+            }),
           ),
           // space
         ],

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/settings/views/Choose_the_app.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
 
 enum AppMode { bridge, independent }
 
@@ -27,7 +25,10 @@ class ChooseTheAppMain extends GetView<SignUpProcessController> {
                 children: [
                   GestureDetector(
                     onTap: Get.back,
-                    child: SvgPicture.asset('assets/images/common/back_icon.svg',width: 40.w,),
+                    child: SvgPicture.asset(
+                      'assets/images/common/back_icon.svg',
+                      width: 40.w,
+                    ),
                   ),
                   Text(
                     'Choose the App',
@@ -264,7 +265,7 @@ class ChooseTheAppMain extends GetView<SignUpProcessController> {
             SizedBox(height: 450.h),
             InkWell(
               onTap: () {
-               // Get.to(ChooseTheApp());
+                // Get.to(ChooseTheApp());
               },
               child: Container(
                 width: 387.w,

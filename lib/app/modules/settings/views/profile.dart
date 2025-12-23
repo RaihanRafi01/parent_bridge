@@ -15,22 +15,23 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController =
-    TextEditingController(text: 'Michael Smith');
-    final TextEditingController emailController =
-    TextEditingController(text: 'michaelsmith@gmail.com');
-    final TextEditingController contactController =
-    TextEditingController(text: '+881 01405366393');
-    final TextEditingController passwordController =
-    TextEditingController(text: 'password');
+    final TextEditingController nameController = TextEditingController(
+      text: 'Michael Smith',
+    );
+    final TextEditingController emailController = TextEditingController(
+      text: 'michaelsmith@gmail.com',
+    );
+    final TextEditingController contactController = TextEditingController(
+      text: '+881 01405366393',
+    );
+    final TextEditingController passwordController = TextEditingController(
+      text: 'password',
+    );
 
     final BoxDecoration styledContainerDecoration = BoxDecoration(
       color: AppColors.clrWhite,
       borderRadius: BorderRadius.circular(24.0),
-      border: Border.all(
-        color: AppColors.boxShadowColor,
-        width: 0.5,
-      ),
+      border: Border.all(color: AppColors.boxShadowColor, width: 0.5),
       boxShadow: [
         BoxShadow(
           color: AppColors.boxShadowColor.withOpacity(0.14),
@@ -44,8 +45,8 @@ class Profile extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.clrWhite,
       appBar: AppBar(
-        backgroundColor:AppColors.clrWhite,
-        elevation:  0,
+        backgroundColor: AppColors.clrWhite,
+        elevation: 0,
         scrolledUnderElevation: 0,
 
         leading: IconButton(
@@ -58,10 +59,7 @@ class Profile extends StatelessWidget {
         ),
         title: Text(
           'Profile',
-          style: h2.copyWith(
-            fontSize: 28.sp,
-            color: AppColors.darkSlateBlue,
-          ),
+          style: h2.copyWith(fontSize: 28.sp, color: AppColors.darkSlateBlue),
         ),
         centerTitle: true,
       ),
@@ -92,13 +90,16 @@ class Profile extends StatelessWidget {
                       SizedBox(height: 12.h),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 8.h),
+                          horizontal: 16.w,
+                          vertical: 8.h,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.pchangeButtonclr,
-                           border: Border.all( color: AppColors.customblueclr, width: 1.0.w),
+                          border: Border.all(
+                            color: AppColors.customblueclr,
+                            width: 1.0.w,
+                          ),
                           borderRadius: BorderRadius.circular(10.r),
-
-
                         ),
                         child: Text(
                           'Change Picture',
@@ -144,10 +145,7 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   'child’s (2)',
-                  style: h2.copyWith(
-                    fontSize: 18.sp,
-                    color: AppColors.txtclr4,
-                  ),
+                  style: h2.copyWith(fontSize: 18.sp, color: AppColors.txtclr4),
                 ),
               ),
               SizedBox(height: 8.h),
@@ -158,56 +156,56 @@ class Profile extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.boxShadowColor.withOpacity(0.14),
+                            spreadRadius: 0,
+                            blurRadius: 12.6,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
                       child: const ChildInfoTile(
                         index: '1',
                         name: 'Max Smith',
                         age: '8 Years',
                       ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Container(
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.boxShadowColor.withOpacity(0.14),
                             spreadRadius: 0,
-                            blurRadius:  12.6,
+                            blurRadius: 12.6,
                             offset: const Offset(0, 8),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Container(
                       child: const ChildInfoTile(
                         index: '2',
                         name: 'Emma Smith',
                         age: '9 Years',
                       ),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.14),
-                            spreadRadius: 0,
-                            blurRadius:  12.6,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
                     ),
                     const SizedBox(height: 24.0),
                     Container(
-                      child: AddChildButton(
-                        onTap: () {
-                          print('Add new child button tapped!');
-                        },
-                      ),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.boxShadowColor.withOpacity(0.16),
                             spreadRadius: 0,
-                            blurRadius:  12.6,
+                            blurRadius: 12.6,
                             offset: const Offset(0, 8),
                           ),
                         ],
+                      ),
+                      child: AddChildButton(
+                        onTap: () {
+                          print('Add new child button tapped!');
+                        },
                       ),
                     ),
                   ],
@@ -238,7 +236,7 @@ class Profile extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [ AppColors.buttonColor2,AppColors.buttonColor,],
+                      colors: [AppColors.buttonColor2, AppColors.buttonColor],
                       begin: Alignment.bottomRight,
                       end: Alignment.topLeft,
                     ),

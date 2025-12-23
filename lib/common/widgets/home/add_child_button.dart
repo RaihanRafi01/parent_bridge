@@ -5,10 +5,7 @@ import 'package:flutter_svg/svg.dart';
 class AddChildButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const AddChildButton({
-    Key? key,
-    required this.onTap,
-  }) : super(key: key);
+  const AddChildButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +16,7 @@ class AddChildButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(50.0),
-          border: Border.all(
-            color: const Color(0xFFCC94EF),
-            width: 1.5,
-          ),
+          border: Border.all(color: const Color(0xFFCC94EF), width: 1.5),
         ),
         child: Row(
           children: [

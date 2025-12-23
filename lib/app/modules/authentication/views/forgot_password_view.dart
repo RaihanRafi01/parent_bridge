@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/otp_verifications_view.dart';
@@ -10,15 +9,11 @@ import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/customTextField.dart';
-import '../../home/views/home_view.dart';
 
 class ForgotPasswordView extends GetView {
   final TextEditingController emailController;
 
-  const ForgotPasswordView({
-    required this.emailController,
-    super.key
-  });
+  const ForgotPasswordView({required this.emailController, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +57,8 @@ class ForgotPasswordView extends GetView {
 
                 CustomTextField(
                   controller: emailController,
-                  prefixIcon: 'assets/images/auth/mail_icon.svg', hintText: 'abc@email.com',
+                  prefixIcon: 'assets/images/auth/mail_icon.svg',
+                  hintText: 'abc@email.com',
                 ),
 
                 SizedBox(height: 10.h),
@@ -71,7 +67,8 @@ class ForgotPasswordView extends GetView {
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
                   child: CustomPBButton(
                     text: 'Send',
-                    onPressed: () => Get.to(OtpVerificationsView(isAuth: false,)),
+                    onPressed: () =>
+                        Get.to(OtpVerificationsView(isAuth: false)),
                   ),
                 ),
 

@@ -36,7 +36,7 @@ class CustomButton extends StatelessWidget {
   final Gradient? borderGradient;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.onPressed,
     this.leading,
@@ -51,12 +51,12 @@ class CustomButton extends StatelessWidget {
     this.radius = 13,
     this.fontSize = 16,
     this.isLoading = false,
-    this.gradient,this.borderGradient,
-  }) : super(key: key);
+    this.gradient,
+    this.borderGradient,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: isLoading ? null : onPressed,
       child: Container(
@@ -75,34 +75,27 @@ class CustomButton extends StatelessWidget {
         alignment: Alignment.center,
         child: isLoading
             ? CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(txtClr),
-          strokeWidth: 2.w,
-        )
+                valueColor: AlwaysStoppedAnimation<Color>(txtClr),
+                strokeWidth: 2.w,
+              )
             : Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (leading != null) ...[
-              leading!,
-              SizedBox(width: 8.w),
-            ],
-            if (svgPath != null) ...[
-              SvgPicture.asset(
-                svgPath!,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (leading != null) ...[leading!, SizedBox(width: 8.w)],
+                  if (svgPath != null) ...[
+                    SvgPicture.asset(svgPath!),
+                    SizedBox(width: 8.w),
+                  ],
+                  Text(
+                    label.toUpperCase(),
+                    style: h2.copyWith(fontSize: fontSize.sp, color: txtClr),
+                  ),
+                  if (svgPath2 != null) ...[
+                    SizedBox(width: 8.w),
+                    SvgPicture.asset(svgPath2!),
+                  ],
+                ],
               ),
-              SizedBox(width: 8.w),
-            ],
-            Text(
-              label.toUpperCase(),
-              style: h2.copyWith(fontSize: fontSize.sp, color: txtClr),
-            ),
-            if (svgPath2 != null) ...[
-              SizedBox(width: 8.w),
-              SvgPicture.asset(
-                svgPath2!,
-              ),
-            ],
-          ],
-        ),
       ),
     );
   }
@@ -139,18 +132,14 @@ class CustomPBButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: horizontalPadding.w, vertical: verticalPadding.h,),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding.w,
+          vertical: verticalPadding.h,
+        ),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.r),
-            gradient: LinearGradient(
-              colors: [
-                color1,
-                color2,
-              ],
-            ),
-          border: Border.all(
-            color: borderColor
-          )
+          borderRadius: BorderRadius.circular(30.r),
+          gradient: LinearGradient(colors: [color1, color2]),
+          border: Border.all(color: borderColor),
         ),
         child: Center(
           child: Row(
@@ -186,7 +175,7 @@ class CustomGoogleAppleButton extends StatelessWidget {
   const CustomGoogleAppleButton({
     required this.text,
     required this.icon,
-    super.key
+    super.key,
   });
 
   @override
@@ -194,10 +183,10 @@ class CustomGoogleAppleButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(HomeView()),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h,),
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.r),
-            color: AppColors.buttonColor3,
+          borderRadius: BorderRadius.circular(30.r),
+          color: AppColors.buttonColor3,
         ),
         child: Center(
           child: Row(

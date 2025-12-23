@@ -9,15 +9,13 @@ class CustomGradientProgressIndicator extends StatelessWidget {
   final double radius;
 
   const CustomGradientProgressIndicator({
-    Key? key,
+    super.key,
     required this.progress,
     this.height = 8.0,
-    this.gradient = const LinearGradient(
-      colors: [Colors.blue, Colors.purple],
-    ),
+    this.gradient = const LinearGradient(colors: [Colors.blue, Colors.purple]),
     this.backgroundColor = Colors.white,
     this.radius = 10.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

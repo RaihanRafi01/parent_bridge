@@ -22,12 +22,7 @@ class ExpenseTrackerController extends GetxController {
   ];
 
   final Rx<String?> selectedStatus = Rx<String?>(null);
-  final List<String> statusItems = [
-    'Pending',
-    'Approved',
-    'Paid',
-    'Rejected',
-  ];
+  final List<String> statusItems = ['Pending', 'Approved', 'Paid', 'Rejected'];
 
   final Rx<String?> selectedCategory = Rx<String?>(null);
   final List<String> categoryItems = [
@@ -40,20 +35,6 @@ class ExpenseTrackerController extends GetxController {
   ];
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

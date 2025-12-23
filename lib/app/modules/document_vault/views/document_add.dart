@@ -3,12 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/upload_document.dart';
 import 'package:parent_bridge/common/appColors.dart';
 
 import '../../../../common/customFont.dart';
-import '../bindings/document_vault_binding.dart';
 import '../controllers/document_vault_controller.dart';
 
 class DocumentAdd extends GetView<DocumentVaultController> {

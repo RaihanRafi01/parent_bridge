@@ -61,7 +61,7 @@ class DocumentCardLegal extends StatelessWidget {
               SizedBox(height: 15.h),
               Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 40.w,
                     height: 40.h,
                     child: Image.asset(image),
@@ -77,7 +77,7 @@ class DocumentCardLegal extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20.h),
-              Container(
+              SizedBox(
                 width: 342.w,
                 height: 72.h,
                 child: Text(
@@ -107,7 +107,7 @@ class DocumentCardLegal extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(width: 5.w),
-                      Container(
+                      SizedBox(
                         width: 16.w,
                         height: 16.h,
                         child: Image.asset(

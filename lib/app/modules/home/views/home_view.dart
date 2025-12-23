@@ -1,8 +1,5 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/calendar/views/calendar_view.dart';
 import 'package:parent_bridge/app/modules/call/views/call_view.dart';
@@ -10,11 +7,9 @@ import 'package:parent_bridge/app/modules/chat/views/chat_view.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_vault_view.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/legal_records_view.dart';
-import 'package:parent_bridge/app/modules/settings/views/settings_view.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum_view.dart';
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
-import '../../../../common/widgets/home/circularfabmenu.dart';
 import '../../../../common/widgets/home/dashboard_container.dart';
 import '../../../../common/widgets/home/home_container.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
@@ -25,7 +20,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Keep transparent to allow Container gradient to show
+      backgroundColor: Colors
+          .transparent, // Keep transparent to allow Container gradient to show
       body: Container(
         width: double.infinity, // Ensure Container takes full width
         height: double.infinity, // Ensure Container takes full height

@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/otp_verifications_controller.dart';
-import 'package:parent_bridge/app/modules/authentication/views/basic_information_view.dart';
-import 'package:parent_bridge/app/modules/authentication/views/choose_mode.dart';
 import 'package:parent_bridge/app/modules/authentication/views/new_password_view.dart';
-import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/customButton.dart';
-import '../../../../common/widgets/customTextField.dart';
 
 class OtpVerificationsView extends GetView<OtpVerificationsController> {
   final bool isAuth;
@@ -20,6 +17,7 @@ class OtpVerificationsView extends GetView<OtpVerificationsController> {
   @override
   Widget build(BuildContext context) {
     Get.put(OtpVerificationsController());
+    final authController = Get.find<AuthenticationController>();
 
     return Scaffold(
       body: SafeArea(
@@ -110,15 +108,27 @@ class OtpVerificationsView extends GetView<OtpVerificationsController> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(
-                    text: 'Send',
-                    onPressed: () {
-                      if(isAuth){
-                        Get.to(ChooseMode());
-                      }else{
-                        Get.to(NewPasswordView());
-                      }
-                    }
+                  child: Obx(
+                    () => CustomPBButton(
+                      text: authController.isOtpVerifying.value
+                          ? 'Verifying...'
+                          : 'Send',
+                      onPressed: authController.isOtpVerifying.value
+                          ? () {}
+                          : () {
+                              if (isAuth) {
+                                // Get OTP from controllers
+                                String otp = controller
+                                    .verificationCodeControllers
+                                    .map((c) => c.text)
+                                    .join();
+                                // Call verify OTP
+                                authController.verifyOTP(otp);
+                              } else {
+                                Get.to(NewPasswordView());
+                              }
+                            },
+                    ),
                   ),
                 ),
 

@@ -8,11 +8,11 @@ class ChildInfoTile extends StatelessWidget {
   final String age;
 
   const ChildInfoTile({
-    Key? key,
+    super.key,
     required this.index,
     required this.name,
     required this.age,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
