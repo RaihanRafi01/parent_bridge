@@ -44,6 +44,9 @@ dependencies:
   dotted_border: ^3.1.0
   flutter_secure_storage: ^9.2.4
   http: ^1.2.2
+  web_socket_channel: ^3.0.3
+  shimmer: ^3.0.0
+
 
 dev_dependencies:
   flutter_test:
