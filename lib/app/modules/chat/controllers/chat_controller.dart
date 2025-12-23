@@ -34,9 +34,15 @@ class Suggestion {
 class ChatController extends GetxController {
   var showOriginal = true.obs;
   var isOtherTyping = false.obs;
-  var liveSuggestions = <Suggestion>[].obs;        // RxList — THIS IS CRITICAL
+  var liveSuggestions = <Suggestion>[].obs;
   var statusColor = 'grey'.obs;
   var isSending = false.obs;
+
+  // Tracks if current text came from tapping a suggestion (and hasn't been edited yet)
+  var isFromUntouchedSuggestion = false.obs;
+
+  // NEW: Track if we are currently waiting for a suggestion response
+  var isWaitingForSuggestion = false.obs;
 
   var messages = <ChatMessage>[].obs;
 
@@ -79,11 +85,9 @@ class ChatController extends GetxController {
 
   void connectWebSocket() {
     const String url = 'ws://10.10.13.73:7000/ws/chat/ddb394f9-b32f-47ce-b8b5-e4db4e196335/?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkxMjY0NzEwLCJpYXQiOjE3NjUzNDQ3MTAsImp0aSI6IjU3ZDg4MmQ1MTkxZjQwMDFiODg4YzExNjkwOTI1YTY4IiwidXNlcl9pZCI6IjEzIn0.Vy4euW9yvt2CDDhuzxmdRmCpYQW0F4gkeBvQp38ZaHI';
-
     const String url2 = 'ws://10.10.13.73:7000/ws/chat/ddb394f9-b32f-47ce-b8b5-e4db4e196335/?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkxMjc3NzUzLCJpYXQiOjE3NjUzNTc3NTMsImp0aSI6IjhlMDc4OTAxNjI3MzQ4M2RhNTEzMGRiNjc3NTY1MTcxIiwidXNlcl9pZCI6IjI1In0.4SGie1YrEHUYBhT7qfGu7uJQlFKfGUlIhW2miz7GV9s';
 
-
-    print('🧩🧩🧩🧩🧩Connecting to WebSocket...');
+    print('Connecting to WebSocket...');
 
     channel = WebSocketChannel.connect(Uri.parse(url));
     channel2 = WebSocketChannel.connect(Uri.parse(url2));
@@ -92,7 +96,7 @@ class ChatController extends GetxController {
 
     channel.stream.listen(
           (rawMessage) {
-        print('🧩🧩🧩🧩🧩 Received: $rawMessage');
+        print('Received: $rawMessage');
         final data = jsonDecode(rawMessage as String);
         final type = data['type'];
 
@@ -133,43 +137,52 @@ class ChatController extends GetxController {
   }
 
   void _handleSuggestionResponse(Map<String, dynamic> data) {
-    if (messageController.text.trim().isEmpty) {
-      print('Ignoring late suggestion response as input is empty');
+    final currentText = messageController.text.trim();
+    final originalMessage = (data['original_message'] ?? '').toString().trim();
+
+    // Ignore if this response is for old text
+    if (currentText.isEmpty || originalMessage != currentText) {
+      print('Ignoring outdated suggestion response: "$originalMessage" (current: "$currentText")');
       return;
     }
 
+    // We got a valid response → stop waiting
+    isWaitingForSuggestion.value = false;
+
     final color = (data['status_color'] ?? 'grey').toString().toLowerCase();
-    statusColor.value = color;
+
+    if (!isFromUntouchedSuggestion.value) {
+      statusColor.value = color;
+    }
 
     final List<dynamic> rawList = data['suggestion'] ?? [];
 
-    if (rawList.isEmpty) {
-      liveSuggestions.clear();
-      return;
+    if (rawList.isNotEmpty) {
+      final parsed = rawList.map((item) {
+        final tone = (item['tone'] ?? 'neutral').toString().toLowerCase();
+        final text = (item['suggestion'] ?? '').toString().trim();
+
+        late Color bg;
+        late String title;
+
+        if (tone.contains('supportive')) {
+          bg = AppColors.customyellow;
+          title = 'Supportive';
+        } else if (tone.contains('cooperative')) {
+          bg = AppColors.lightPurplePink2;
+          title = 'Cooperative';
+        } else {
+          bg = AppColors.customSkyBlue3;
+          title = 'Neutral';
+        }
+
+        return Suggestion(title: title, text: text, color: bg);
+      }).toList();
+
+      liveSuggestions.assignAll(parsed);
+    } else {
+      liveSuggestions.clear(); // null suggestions → hide
     }
-
-    final parsed = rawList.map((item) {
-      final tone = (item['tone'] ?? 'neutral').toString().toLowerCase();
-      final text = (item['suggestion'] ?? '').toString().trim();
-
-      late Color bg;
-      late String title;
-
-      if (tone.contains('supportive')) {
-        bg = AppColors.customyellow;
-        title = 'Supportive';
-      } else if (tone.contains('cooperative')) {
-        bg = AppColors.lightPurplePink2;
-        title = 'Cooperative';
-      } else {
-        bg = AppColors.customSkyBlue3;
-        title = 'Neutral';
-      }
-
-      return Suggestion(title: title, text: text, color: bg);
-    }).toList();
-
-    liveSuggestions.assignAll(parsed); // THIS TRIGGERS UI UPDATE PROPERLY
   }
 
   void _onTextChanged() {
@@ -180,10 +193,19 @@ class ChatController extends GetxController {
 
     if (text.isEmpty) {
       statusColor.value = 'grey';
+      isFromUntouchedSuggestion.value = false;
+      isWaitingForSuggestion.value = false;
       liveSuggestions.clear();
       _suggestionDebounceTimer?.cancel();
       if (isTyping) _sendTyping(false);
       return;
+    }
+
+    statusColor.value = 'grey';
+
+    // User edited a selected suggestion → reset
+    if (isFromUntouchedSuggestion.value) {
+      isFromUntouchedSuggestion.value = false;
     }
 
     if (!isTyping) {
@@ -191,17 +213,32 @@ class ChatController extends GetxController {
       isTyping = true;
     }
     _typingTimer?.cancel();
-    _typingTimer = Timer(const Duration(seconds: 2), () => _sendTyping(false));
+    _typingTimer = Timer(const Duration(seconds: 3), () => _sendTyping(false));
 
-    if (words >= 2) {
+    // Only trigger suggestion request if ≥2 words and not from untouched suggestion
+    if (words >= 2 && !isFromUntouchedSuggestion.value) {
+      // Cancel previous debounce
       _suggestionDebounceTimer?.cancel();
-      _suggestionDebounceTimer = Timer(const Duration(milliseconds: 700), () {
+
+      // Mark that we are now waiting
+      isWaitingForSuggestion.value = true;
+      liveSuggestions.clear(); // Clear old suggestions immediately
+
+      _suggestionDebounceTimer = Timer(const Duration(seconds: 3), () {
         if (isSending.value) return;
-        final jsonStr = jsonEncode({"type": "suggestion_request", "message": text});
-        print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+
+        final currentText = messageController.text.trim();
+        if (currentText.isEmpty || currentText.split(RegExp(r'\s+')).length < 2) {
+          isWaitingForSuggestion.value = false;
+          return;
+        }
+
+        final jsonStr = jsonEncode({"type": "suggestion_request", "message": currentText});
+        print('Sending ------->: $jsonStr');
         channel.sink.add(jsonStr);
       });
     } else {
+      isWaitingForSuggestion.value = false;
       liveSuggestions.clear();
     }
   }
@@ -209,7 +246,7 @@ class ChatController extends GetxController {
   void _sendTyping(bool typing) {
     isTyping = typing;
     final jsonStr = jsonEncode({"type": "typing", "is_typing": typing});
-    print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+    print('Sending ------->: $jsonStr');
     channel.sink.add(jsonStr);
   }
 
@@ -229,12 +266,14 @@ class ChatController extends GetxController {
       "reply_to": null,
       "attachment": null,
     });
-    print('🧩🧩🧩🧩🧩 Sending: $jsonStr');
+    print('Sending ------->: $jsonStr');
     channel.sink.add(jsonStr);
 
     messageController.clear();
     liveSuggestions.clear();
     statusColor.value = 'grey';
+    isFromUntouchedSuggestion.value = false;
+    isWaitingForSuggestion.value = false;
     _suggestionDebounceTimer?.cancel();
     if (isTyping) _sendTyping(false);
 
@@ -245,9 +284,15 @@ class ChatController extends GetxController {
     if (isSending.value) return;
 
     messageController.text = suggestionText;
-    messageController.selection = TextSelection.fromPosition(TextPosition(offset: suggestionText.length));
+    messageController.selection = TextSelection.fromPosition(
+      TextPosition(offset: suggestionText.length),
+    );
+
+    isFromUntouchedSuggestion.value = true;
     statusColor.value = 'green';
     liveSuggestions.clear();
+    isWaitingForSuggestion.value = false;
+    _suggestionDebounceTimer?.cancel();
   }
 
   void toggleSuggestionBox() {

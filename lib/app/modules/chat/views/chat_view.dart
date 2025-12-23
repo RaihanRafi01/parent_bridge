@@ -194,15 +194,17 @@ class ChatView extends GetView<ChatController> {
       final suggestions = controller.liveSuggestions; // CRITICAL: creates dependency
       final hasSuggestions = suggestions.isNotEmpty;
       final inputText = controller.messageController.text.trim();
+      final isGreen = controller.statusColor.value == 'green';
+      final isWaiting = controller.isWaitingForSuggestion.value;
 
-      if (controller.isSending.value || inputText.isEmpty) {
+      if (controller.isSending.value || inputText.isEmpty || isGreen) {
         return const SizedBox.shrink();
       }
 
       final wordCount = inputText.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
-      final showLoading = wordCount >= 2 && !hasSuggestions;
+      final showShimmer = wordCount >= 2 && isWaiting && !hasSuggestions;
 
-      if (showLoading) {
+      if (showShimmer) {
         return Container(
           color: Colors.white,
           padding: EdgeInsets.all(16.r),
