@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/sign_up_process/views/bridge_mode_view.dart';
-import 'package:parent_bridge/app/modules/sign_up_process/views/independent_mode_view.dart';
+import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
@@ -20,7 +19,7 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.r,),
+          padding: EdgeInsets.symmetric(horizontal: 20.r),
           child: Center(
             child: Obx(() {
               return Column(
@@ -31,23 +30,23 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                     'Choose How You Want to Use the App',
                     style: h1.copyWith(
                       color: AppColors.textColor51,
-                      fontSize: 30.sp
+                      fontSize: 30.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),
 
-                  SizedBox(height: 22.h,),
+                  SizedBox(height: 22.h),
 
                   Text(
                     'Select the option that best fits your co-parenting situation. You can always change it later.',
                     style: h4.copyWith(
-                        color: AppColors.textColor52,
-                        fontSize: 14.sp
+                      color: AppColors.textColor52,
+                      fontSize: 14.sp,
                     ),
                     textAlign: TextAlign.center,
                   ),
 
-                  SizedBox(height: 30.h,),
+                  SizedBox(height: 30.h),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,27 +56,32 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                           controller.isBridgeMode.value = false;
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 16.h,),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 9.w,
+                            vertical: 16.h,
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4.75.r),
                             gradient: LinearGradient(
                               colors: [
-                                controller.isBridgeMode.value ? AppColors.clrWhite : AppColors.buttonColor,
-                                controller.isBridgeMode.value ? AppColors.clrWhite : AppColors.buttonColor2,
+                                controller.isBridgeMode.value
+                                    ? AppColors.clrWhite
+                                    : AppColors.buttonColor,
+                                controller.isBridgeMode.value
+                                    ? AppColors.clrWhite
+                                    : AppColors.buttonColor2,
                               ],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
-                            border: Border.all(
-                              color: AppColors.borderColor51,
-                            ),
+                            border: Border.all(color: AppColors.borderColor51),
                             boxShadow: [
                               BoxShadow(
                                 color: AppColors.boxShadowColor51.withAlpha(64),
                                 blurRadius: 4.r,
                                 offset: Offset(0.w, 4.h),
-                              )
-                            ]
+                              ),
+                            ],
                           ),
                           child: Column(
                             children: [
@@ -85,7 +89,7 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                                 'assets/images/sign_up_process/independent_mode.svg',
                               ),
 
-                              SizedBox(height: 7.4.h,),
+                              SizedBox(height: 7.4.h),
 
                               Text(
                                 'Independent mode',
@@ -95,14 +99,16 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                                 ),
                               ),
 
-                              SizedBox(height: 4.h,),
+                              SizedBox(height: 4.h),
 
                               SizedBox(
                                 width: 173.w,
                                 child: Text(
                                   'Use the app on your own to stay organized, track important information, and prepare for better communication. You\'ll receive a secure number to connect with our support team when needed — no need to involve your co-parent right away.',
                                   style: h4.copyWith(
-                                    color: controller.isBridgeMode.value ? AppColors.textColor53 : AppColors.textColor51,
+                                    color: controller.isBridgeMode.value
+                                        ? AppColors.textColor53
+                                        : AppColors.textColor51,
                                     fontSize: 8.sp,
                                   ),
                                   textAlign: TextAlign.center,
@@ -113,34 +119,37 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                         ),
                       ),
 
-
-
                       GestureDetector(
                         onTap: () {
                           controller.isBridgeMode.value = true;
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 16.h,),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 9.w,
+                            vertical: 16.h,
+                          ),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.75.r),
-                              gradient: LinearGradient(
-                                colors: [
-                                  controller.isBridgeMode.value ? AppColors.buttonColor : AppColors.clrWhite,
-                                  controller.isBridgeMode.value ? AppColors.buttonColor2 : AppColors.clrWhite,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                            borderRadius: BorderRadius.circular(4.75.r),
+                            gradient: LinearGradient(
+                              colors: [
+                                controller.isBridgeMode.value
+                                    ? AppColors.buttonColor
+                                    : AppColors.clrWhite,
+                                controller.isBridgeMode.value
+                                    ? AppColors.buttonColor2
+                                    : AppColors.clrWhite,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            border: Border.all(color: AppColors.borderColor51),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.boxShadowColor51.withAlpha(64),
+                                blurRadius: 4.r,
+                                offset: Offset(0.w, 4.h),
                               ),
-                              border: Border.all(
-                                color: AppColors.borderColor51,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.boxShadowColor51.withAlpha(64),
-                                  blurRadius: 4.r,
-                                  offset: Offset(0.w, 4.h),
-                                )
-                              ]
+                            ],
                           ),
                           child: Column(
                             children: [
@@ -149,7 +158,7 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                                 scale: 4,
                               ),
 
-                              SizedBox(height: 7.4.h,),
+                              SizedBox(height: 7.4.h),
 
                               Text(
                                 'Bridge mode',
@@ -159,14 +168,16 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                                 ),
                               ),
 
-                              SizedBox(height: 4.h,),
+                              SizedBox(height: 4.h),
 
                               SizedBox(
                                 width: 173.w,
                                 child: Text(
                                   'Invite your co-parent to join the app so you can both communicate, coordinate schedules, and manage responsibilities in one place. Just add their name and phone number to get started — we\'ll send them an invitation.',
                                   style: h4.copyWith(
-                                    color: controller.isBridgeMode.value ? AppColors.textColor51 : AppColors.textColor53,
+                                    color: controller.isBridgeMode.value
+                                        ? AppColors.textColor51
+                                        : AppColors.textColor53,
                                     fontSize: 8.sp,
                                   ),
                                   textAlign: TextAlign.center,
@@ -179,27 +190,32 @@ class SignUpProcessView extends GetView<SignUpProcessController> {
                     ],
                   ),
 
-                  SizedBox(height: 33.h,),
+                  SizedBox(height: 33.h),
 
-                  CustomPBButton(
-                    text: 'Set Up Together',
-                    onPressed: () {
-                      if(controller.isBridgeMode.value) {
-                        Get.to(
-                            BridgeModeView(
-                              isSendInvite: controller.isSendInvite,
-                              coParentsNameController: controller.coParentsNameController,
-                              phoneNumberController: controller.phoneNumberController,
-                              emailAddressController: controller.emailAddressController,
-                              stateController: controller.stateController,
-                            )
-                        );
-                      }
-                      else {
-                        Get.to(IndependentModeView());
-                      }
+                  GetBuilder<AuthenticationController>(
+                    init: Get.put(AuthenticationController()),
+                    builder: (authController) {
+                      return Obx(
+                        () => CustomPBButton(
+                          text: authController.isOnboardingLoading.value
+                              ? 'Setting Up...'
+                              : 'Set Up Together',
+                          onPressed: authController.isOnboardingLoading.value
+                              ? () {}
+                              : () {
+                                  // Set the mode based on selection
+                                  if (controller.isBridgeMode.value) {
+                                    authController.selectedMode = 'bridge';
+                                  } else {
+                                    authController.selectedMode = 'independent';
+                                  }
+                                  // Call onboarding API
+                                  authController.submitOnboarding();
+                                },
+                        ),
+                      );
                     },
-                  )
+                  ),
                 ],
               );
             }),

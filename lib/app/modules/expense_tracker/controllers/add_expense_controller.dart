@@ -6,7 +6,11 @@ class AddExpenseController extends GetxController {
   TextEditingController amountController = TextEditingController();
 
   final Rx<String?> selectedChild = Rx<String?>(null);
-  final List<String> childItems = ['Emma smith, 10 years', 'Emma smith, 10 years', 'Emma smith, 10 years'];
+  final List<String> childItems = [
+    'Emma smith, 10 years',
+    'Emma smith, 10 years',
+    'Emma smith, 10 years',
+  ];
 
   final Rx<String?> selectedPaymentMethod = Rx<String?>(null);
   final List<String> paymentMethodItems = [
@@ -35,27 +39,15 @@ class AddExpenseController extends GetxController {
 
   final RxDouble percent = 50.0.obs;
 
-  void minus([double step = 1]) => percent.value = (percent.value - step).clamp(0, 100);
-  void plus([double step = 1]) => percent.value = (percent.value + step).clamp(0, 100);
+  void minus([double step = 1]) =>
+      percent.value = (percent.value - step).clamp(0, 100);
+  void plus([double step = 1]) =>
+      percent.value = (percent.value + step).clamp(0, 100);
 
   double get yourAmount => total * (percent.value / 100);
   double get otherAmount => total - yourAmount;
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

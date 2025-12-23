@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/reply_section/reply_page.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/commet_section.dart';
 
 import '../../../../../common/appColors.dart';
@@ -26,7 +24,6 @@ class show_dialog_cmt_section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
@@ -180,7 +177,8 @@ class show_dialog_cmt_section extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.show_dialog_with_Comment_03.withOpacity(0.5),
+                              color: AppColors.show_dialog_with_Comment_03
+                                  .withOpacity(0.5),
 
                               blurRadius: 4.0,
                               offset: Offset(0, 4),
@@ -201,41 +199,44 @@ class show_dialog_cmt_section extends StatelessWidget {
                               width: 270,
                               height: 43,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: color,
-                                ),
+                                border: Border.all(color: color),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100.r),
                                 ),
                                 color: color.withOpacity(0.1),
                               ),
                               child: Padding(
-                                padding:   EdgeInsets.only(bottom: 12.0,right: 15,left: 20),
+                                padding: EdgeInsets.only(
+                                  bottom: 12.0,
+                                  right: 15,
+                                  left: 20,
+                                ),
                                 child: TextField(
                                   decoration: InputDecoration(
                                     enabledBorder: InputBorder.none,
-                                   focusedBorder : InputBorder.none,
+                                    focusedBorder: InputBorder.none,
                                     hintText: ' Type here ..',
                                     hintStyle: h4.copyWith(
                                       fontSize: 12.sp,
                                       color: AppColors.reply_msg_1,
-                                    )
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
+
                             // sent button ..
-
-
-                             Padding(
-                                padding:   EdgeInsets.only(left: 10.r),
-                                child: SvgPicture.asset('assets/svg/support_forum_/icons/sent.svg',color: color,),
-
-                              )
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.r),
+                              child: SvgPicture.asset(
+                                'assets/svg/support_forum_/icons/sent.svg',
+                                color: color,
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.h)
+                      SizedBox(height: 10.h),
                     ],
                   ),
                 ),

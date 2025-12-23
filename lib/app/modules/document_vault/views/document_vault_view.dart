@@ -4,14 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import '../../../../common/customFont.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/document_vault_controller.dart' as dropdown_Controler;
 import '../controllers/document_vault_controller.dart';
 import 'Document_Widget/custom_document_dialog.dart';
 import 'Document_Widget/custom_document_dialog2.dart';
-import 'Document_Widget/custom_floating_button.dart';
 import 'Document_Widget/custom_document_card.dart';
 
 class DocumentVaultView extends GetView<DocumentVaultController> {

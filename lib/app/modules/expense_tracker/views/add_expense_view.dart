@@ -11,16 +11,12 @@ import 'package:parent_bridge/common/widgets/customTextField.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/widgets/customDropdown.dart';
-import '../../../../common/widgets/home/circularfabmenu.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 
 class AddExpenseView extends GetView<AddExpenseController> {
   final RxBool isExpenseEmpty;
 
-  const AddExpenseView({
-    required this.isExpenseEmpty,
-    super.key
-  });
+  const AddExpenseView({required this.isExpenseEmpty, super.key});
   @override
   Widget build(BuildContext context) {
     Get.put(AddExpenseController());
@@ -32,16 +28,13 @@ class AddExpenseView extends GetView<AddExpenseController> {
           Container(
             padding: EdgeInsets.only(left: 20.w, top: 65.h, bottom: 43.h),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40.r),
-                  bottomRight: Radius.circular(40.r),
-                ),
-                gradient: LinearGradient(
-                  colors: [
-                    AppColors.lightPurplePink2,
-                    AppColors.customSkyBlue3,
-                  ],
-                )
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40.r),
+                bottomRight: Radius.circular(40.r),
+              ),
+              gradient: LinearGradient(
+                colors: [AppColors.lightPurplePink2, AppColors.customSkyBlue3],
+              ),
             ),
             child: Row(
               children: [
@@ -56,7 +49,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     color: AppColors.textColor7,
                     fontSize: 24.47.sp,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -65,7 +58,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 57.h,),
+                  SizedBox(height: 57.h),
 
                   CustomDropdown(
                     labelText: 'Select Child\'s',
@@ -77,7 +70,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     fillColor: AppColors.textInputFillColor,
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   CustomTextField(
                     hintText: 'Enter Expense Title',
@@ -85,7 +78,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     controller: controller.expenseTitleController,
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   CustomDropdown(
                     labelText: 'Payment Method',
@@ -97,27 +90,27 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     fillColor: AppColors.textInputFillColor,
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   CustomTextField(
                     hintText: 'Paid Date',
                     suffixIcon: 'assets/images/expense_tracker/calender.svg',
-                    onSuffixTap: () {  },
+                    onSuffixTap: () {},
                     fillColor: AppColors.textInputFillColor,
                     controller: controller.expenseTitleController,
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   CustomTextField(
                     hintText: 'Due Date',
                     suffixIcon: 'assets/images/expense_tracker/calender.svg',
-                    onSuffixTap: () {  },
+                    onSuffixTap: () {},
                     fillColor: AppColors.textInputFillColor,
                     controller: controller.expenseTitleController,
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.0.w),
@@ -145,23 +138,23 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     ),
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.0.w),
                     child: Container(
                       padding: EdgeInsets.all(27.r),
                       decoration: BoxDecoration(
-                          color: AppColors.textInputFillColor,
-                          borderRadius: BorderRadius.circular(50.r),
-                          border: Border.all(color: AppColors.borderColor),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.boxShadowColor52.withAlpha(36),
-                              blurRadius: 12.6.r,
-                              offset: Offset(0.w, 8.h),
-                            )
-                          ]
+                        color: AppColors.textInputFillColor,
+                        borderRadius: BorderRadius.circular(50.r),
+                        border: Border.all(color: AppColors.borderColor),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.boxShadowColor52.withAlpha(36),
+                            blurRadius: 12.6.r,
+                            offset: Offset(0.w, 8.h),
+                          ),
+                        ],
                       ),
 
                       child: Column(
@@ -180,7 +173,9 @@ class AddExpenseView extends GetView<AddExpenseController> {
 
                               Obx(() {
                                 return Text(
-                                  controller.percent.value!=100 ? '${controller.percent.value.toStringAsFixed(2)}%' : '100%',
+                                  controller.percent.value != 100
+                                      ? '${controller.percent.value.toStringAsFixed(2)}%'
+                                      : '100%',
                                   style: h1.copyWith(
                                     color: AppColors.textColor61,
                                     fontSize: 25.5.sp,
@@ -190,7 +185,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                             ],
                           ),
 
-                          SizedBox(height: 12.h,),
+                          SizedBox(height: 12.h),
 
                           Text(
                             'Your Share:',
@@ -200,7 +195,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                             ),
                           ),
 
-                          SizedBox(height: 15.h,),
+                          SizedBox(height: 15.h),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +203,10 @@ class AddExpenseView extends GetView<AddExpenseController> {
                               GestureDetector(
                                 onTap: () => controller.minus(),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 9.r, vertical: 15.h),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 9.r,
+                                    vertical: 15.h,
+                                  ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(3.r),
                                     color: AppColors.textColor61,
@@ -219,27 +217,36 @@ class AddExpenseView extends GetView<AddExpenseController> {
                                 ),
                               ),
 
-                              Obx(() => SliderTheme(
-                                data: SliderTheme.of(context).copyWith(
-                                  trackHeight: 6,
-                                  thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
-                                  overlayShape: SliderComponentShape.noOverlay,
-                                  activeTrackColor: AppColors.textColor61,
-                                  inactiveTrackColor: AppColors.clrWhite,
-                                  thumbColor: AppColors.textColor61,
+                              Obx(
+                                () => SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackHeight: 6,
+                                    thumbShape: const RoundSliderThumbShape(
+                                      enabledThumbRadius: 10,
+                                    ),
+                                    overlayShape:
+                                        SliderComponentShape.noOverlay,
+                                    activeTrackColor: AppColors.textColor61,
+                                    inactiveTrackColor: AppColors.clrWhite,
+                                    thumbColor: AppColors.textColor61,
+                                  ),
+                                  child: Slider(
+                                    value: controller.percent.value,
+                                    min: 0,
+                                    max: 100,
+                                    onChanged: (v) =>
+                                        controller.percent.value = v,
+                                  ),
                                 ),
-                                child: Slider(
-                                  value: controller.percent.value,
-                                  min: 0,
-                                  max: 100,
-                                  onChanged: (v) => controller.percent.value = v,
-                                ),
-                              )),
+                              ),
 
                               GestureDetector(
                                 onTap: () => controller.plus(),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 9.r, vertical: 10.h),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 9.r,
+                                    vertical: 10.h,
+                                  ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(3.r),
                                     color: AppColors.textColor61,
@@ -252,14 +259,17 @@ class AddExpenseView extends GetView<AddExpenseController> {
                             ],
                           ),
 
-                          SizedBox(height: 25.h,),
+                          SizedBox(height: 25.h),
 
-                          Divider(color: AppColors.textColor61,),
+                          Divider(color: AppColors.textColor61),
 
-                          SizedBox(height: 25.h,),
+                          SizedBox(height: 25.h),
 
                           Obx(() {
-                            double amount = controller.amountController.text != '' ? double.parse(controller.amountController.text) : 85.98;
+                            double amount =
+                                controller.amountController.text != ''
+                                ? double.parse(controller.amountController.text)
+                                : 85.98;
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -292,7 +302,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                                       ),
                                     ),
                                     Text(
-                                      '\$${(amount-((amount * controller.percent.value) / 100)).toStringAsFixed(2)}',
+                                      '\$${(amount - ((amount * controller.percent.value) / 100)).toStringAsFixed(2)}',
                                       style: h1.copyWith(
                                         color: AppColors.textColor61,
                                         fontSize: 19.2.sp,
@@ -302,13 +312,13 @@ class AddExpenseView extends GetView<AddExpenseController> {
                                 ),
                               ],
                             );
-                          })
+                          }),
                         ],
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 18.h,),
+                  SizedBox(height: 18.h),
 
                   CustomTextField(
                     hintText: 'Add expense description...',
@@ -317,7 +327,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     controller: controller.expenseTitleController,
                   ),
 
-                  SizedBox(height: 46.h,),
+                  SizedBox(height: 46.h),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.0.w),
@@ -330,7 +340,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                           color2: AppColors.clrTransparent,
                           txtClr: AppColors.lightPurplePink2,
                           borderColor: AppColors.btnBorder,
-                          onPressed: () {  },
+                          onPressed: () {},
                         ),
 
                         CustomPBButton(
@@ -344,7 +354,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     ),
                   ),
 
-                  SizedBox(height: 180.h,),
+                  SizedBox(height: 180.h),
                 ],
               ),
             ),
@@ -377,21 +387,15 @@ class AddExpenseView extends GetView<AddExpenseController> {
           ),
           gradient: ishome
               ? const LinearGradient(
-            colors: [
-              Color(0xFFA14CDD),
-              Color(0xFF52B6E4),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          )
+                  colors: [Color(0xFFA14CDD), Color(0xFF52B6E4)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
               : LinearGradient(
-            colors: [
-              AppColors.white,
-              AppColors.white,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+                  colors: [AppColors.white, AppColors.white],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
         ),
         child: Center(
           child: SvgPicture.asset(svg, height: 25.h, width: 25.w),

@@ -71,7 +71,7 @@ class CircularMenu extends StatefulWidget {
   final DisplayChange? onDisplayChange;
 
   CircularMenu({
-    Key? key,
+    super.key,
     this.alignment = Alignment.bottomRight,
     this.ringGradient,
     this.ringDiameter,
@@ -92,8 +92,7 @@ class CircularMenu extends StatefulWidget {
     this.animationCurve = Curves.easeInOutCirc,
     this.onDisplayChange,
     required this.children,
-  })  : assert(children.isNotEmpty),
-        super(key: key);
+  }) : assert(children.isNotEmpty);
 
   @override
   FabCircularMenuPlusState createState() => FabCircularMenuPlusState();
@@ -134,35 +133,46 @@ class FabCircularMenuPlusState extends State<CircularMenu>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    _animationController =
-        AnimationController(duration: widget.animationDuration, vsync: this);
+    _animationController = AnimationController(
+      duration: widget.animationDuration,
+      vsync: this,
+    );
 
     _scaleCurve = CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0.0, 0.4, curve: widget.animationCurve));
-    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(_scaleCurve as Animation<double>)
-      ..addListener(() {
-        setState(() {});
-      });
+      parent: _animationController,
+      curve: Interval(0.0, 0.4, curve: widget.animationCurve),
+    );
+    _scaleAnimation =
+        Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(_scaleCurve as Animation<double>)..addListener(() {
+          setState(() {});
+        });
 
     _rotateCurve = CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0.4, 1.0, curve: widget.animationCurve));
-    _rotateAnimation = Tween<double>(begin: 0.5, end: 1.0)
-        .animate(_rotateCurve as Animation<double>)
-      ..addListener(() {
-        setState(() {});
-      });
+      parent: _animationController,
+      curve: Interval(0.4, 1.0, curve: widget.animationCurve),
+    );
+    _rotateAnimation =
+        Tween<double>(
+          begin: 0.5,
+          end: 1.0,
+        ).animate(_rotateCurve as Animation<double>)..addListener(() {
+          setState(() {});
+        });
 
     _colorCurve = CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0.0, 0.4, curve: widget.animationCurve));
-    _colorAnimation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(_colorCurve as Animation<double>)
-      ..addListener(() {
-        setState(() {});
-      });
+      parent: _animationController,
+      curve: Interval(0.0, 0.4, curve: widget.animationCurve),
+    );
+    _colorAnimation =
+        Tween<double>(
+          begin: 0.0,
+          end: 1.0,
+        ).animate(_colorCurve as Animation<double>)..addListener(() {
+          setState(() {});
+        });
   }
 
   @override
@@ -226,20 +236,25 @@ class FabCircularMenuPlusState extends State<CircularMenu>
                     ),
                     child: _scaleAnimation.value == 1.0
                         ? Transform.rotate(
-                      angle: (2 * math.pi) *
-                          _rotateAnimation.value *
-                          _directionX *
-                          _directionY,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: widget.children
-                            .asMap()
-                            .map((index, child) => MapEntry(
-                            index, _applyTransformations(child, index)))
-                            .values
-                            .toList(),
-                      ),
-                    )
+                            angle:
+                                (2 * math.pi) *
+                                _rotateAnimation.value *
+                                _directionX *
+                                _directionY,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: widget.children
+                                  .asMap()
+                                  .map(
+                                    (index, child) => MapEntry(
+                                      index,
+                                      _applyTransformations(child, index),
+                                    ),
+                                  )
+                                  .values
+                                  .toList(),
+                            ),
+                          )
                         : Container(),
                   ),
                 ),
@@ -254,18 +269,15 @@ class FabCircularMenuPlusState extends State<CircularMenu>
                 shape: BoxShape.circle,
                 border: Border.all(
                   width: 2,
-                  color: _isOpen ?Colors.transparent:Colors.white
-                )
+                  color: _isOpen ? Colors.transparent : Colors.white,
+                ),
               ),
               child: Material(
                 elevation: widget.fabElevation,
                 shape: _fabIconBorder,
                 clipBehavior: Clip.antiAlias,
                 child: DecoratedBox(
-                  decoration: BoxDecoration(
-
-                    gradient: effectiveGradient,
-                  ),
+                  decoration: BoxDecoration(gradient: effectiveGradient),
                   child: RawMaterialButton(
                     onPressed: () {
                       if (_isAnimating) return;
@@ -277,7 +289,8 @@ class FabCircularMenuPlusState extends State<CircularMenu>
                       }
                     },
                     child: Center(
-                      child: widget.fabChild ??
+                      child:
+                          widget.fabChild ??
                           (_scaleAnimation.value == 1.0
                               ? widget.fabCloseIcon
                               : widget.fabOpenIcon),
@@ -305,15 +318,13 @@ class FabCircularMenuPlusState extends State<CircularMenu>
         0.0,
       ),
       alignment: FractionalOffset.center,
-      child: Material(
-        color: Colors.transparent,
-        child: child,
-      ),
+      child: Material(color: Colors.transparent, child: child),
     );
   }
 
   void _calculateProps() {
-    _ringGradient = widget.ringGradient ??
+    _ringGradient =
+        widget.ringGradient ??
         SweepGradient(
           colors: [
             Colors.grey.withOpacity(0.5),
@@ -322,16 +333,16 @@ class FabCircularMenuPlusState extends State<CircularMenu>
           ],
           stops: [0.0, 0.5, 1.0],
         );
-    _fabGradient = widget.fabGradient ??
-        LinearGradient(
-          colors: [Colors.white, Colors.white],
-        );
+    _fabGradient =
+        widget.fabGradient ??
+        LinearGradient(colors: [Colors.white, Colors.white]);
     _fabOpenGradient = widget.fabOpenGradient ?? _fabGradient;
     _fabCloseGradient = widget.fabCloseGradient ?? _fabGradient;
     _fabIconBorder = widget.fabIconBorder ?? const CircleBorder();
     _screenWidth = MediaQuery.of(context).size.width;
     _screenHeight = MediaQuery.of(context).size.height;
-    _ringDiameter = widget.ringDiameter ??
+    _ringDiameter =
+        widget.ringDiameter ??
         math.min(_screenWidth, _screenHeight) * widget.ringDiameterLimitFactor;
     _ringWidth =
         widget.ringWidth ?? _ringDiameter! * widget.ringWidthLimitFactor;
@@ -349,14 +360,15 @@ class FabCircularMenuPlusState extends State<CircularMenu>
     // Assume LinearGradient for FAB; extend for other gradient types if needed
     if (start is LinearGradient && end is LinearGradient) {
       final List<Color> interpolatedColors = [];
-      final int maxLength =
-      math.max(start.colors.length, end.colors.length);
+      final int maxLength = math.max(start.colors.length, end.colors.length);
 
       for (int i = 0; i < maxLength; i++) {
-        final Color startColor =
-        i < start.colors.length ? start.colors[i] : start.colors.last;
-        final Color endColor =
-        i < end.colors.length ? end.colors[i] : end.colors.last;
+        final Color startColor = i < start.colors.length
+            ? start.colors[i]
+            : start.colors.last;
+        final Color endColor = i < end.colors.length
+            ? end.colors[i]
+            : end.colors.last;
         interpolatedColors.add(Color.lerp(startColor, endColor, t)!);
       }
 
@@ -364,10 +376,12 @@ class FabCircularMenuPlusState extends State<CircularMenu>
       if (start.stops != null && end.stops != null) {
         interpolatedStops = [];
         for (int i = 0; i < maxLength; i++) {
-          final double startStop =
-          i < start.stops!.length ? start.stops![i] : start.stops!.last;
-          final double endStop =
-          i < end.stops!.length ? end.stops![i] : end.stops!.last;
+          final double startStop = i < start.stops!.length
+              ? start.stops![i]
+              : start.stops!.last;
+          final double endStop = i < end.stops!.length
+              ? end.stops![i]
+              : end.stops!.last;
           interpolatedStops.add(lerpDouble(startStop, endStop, t)!);
         }
       } else {

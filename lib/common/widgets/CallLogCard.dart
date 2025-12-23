@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../appColors.dart';
 import '../customFont.dart';
 
-
 class CustomCallCard extends StatelessWidget {
   final String title;
   final String dateTime;
@@ -15,7 +14,7 @@ class CustomCallCard extends StatelessWidget {
   final VoidCallback? onPlayRecording;
 
   const CustomCallCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.dateTime,
     required this.duration,
@@ -23,7 +22,7 @@ class CustomCallCard extends StatelessWidget {
     required this.iconBackgroundColor,
     required this.cardBackgroundColor,
     this.onPlayRecording,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,26 +50,17 @@ class CustomCallCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: h2.copyWith(
-                    fontSize: 18,
-                    color: AppColors.txtclr4,
-                  ),
+                  style: h2.copyWith(fontSize: 18, color: AppColors.txtclr4),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   dateTime,
-                  style: h2.copyWith(
-                    fontSize: 10,
-                    color: AppColors.txtclr13,
-                  ),
+                  style: h2.copyWith(fontSize: 10, color: AppColors.txtclr13),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   'Duration: $duration',
-                  style: h4.copyWith(
-                    fontSize: 10,
-                    color: AppColors.txtclr13,
-                  ),
+                  style: h4.copyWith(fontSize: 10, color: AppColors.txtclr13),
                 ),
               ],
             ),

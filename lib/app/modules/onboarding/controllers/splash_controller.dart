@@ -2,7 +2,8 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/onboarding/views/onboarding_view.dart';
 
-class SplashController extends GetxController with GetSingleTickerProviderStateMixin {
+class SplashController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   late final AnimationController anim;
   late final Animation<double> fade;
 
@@ -35,11 +36,6 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
 
   Future<bool> _fakeAuthCheck() async {
     return false;
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

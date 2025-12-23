@@ -52,7 +52,9 @@ class _CallRecordingState extends State<CallRecording> {
                           padding: EdgeInsets.only(top: 40.h, left: 16.w),
                           child: GestureDetector(
                             onTap: Get.back,
-                            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+                            child: SvgPicture.asset(
+                              'assets/images/common/back_icon.svg',
+                            ),
                           ),
                         ),
                       ),
@@ -83,7 +85,10 @@ class _CallRecordingState extends State<CallRecording> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
+                    border: Border.all(
+                      color: AppColors.grayborderclr,
+                      width: 1.0.w,
+                    ),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Column(
@@ -93,8 +98,9 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           SizedBox(width: 5.w),
                           CircleAvatar(
-                            backgroundImage:
-                            const AssetImage("assets/images/auth/img.png"),
+                            backgroundImage: const AssetImage(
+                              "assets/images/auth/img.png",
+                            ),
                             radius: 35.r,
                           ),
                           SizedBox(width: 10.w),
@@ -170,7 +176,10 @@ class _CallRecordingState extends State<CallRecording> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
+                    border: Border.all(
+                      color: AppColors.grayborderclr,
+                      width: 1.0.w,
+                    ),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Column(
@@ -189,7 +198,6 @@ class _CallRecordingState extends State<CallRecording> {
                       SizedBox(height: 10.h),
                       Container(
                         padding: EdgeInsets.all(16.r),
-                        child: SvgPicture.asset("assets/svg/wave.svg", width: 100.w),
                         height: 92.h,
                         width: 344.w,
                         decoration: BoxDecoration(
@@ -198,8 +206,15 @@ class _CallRecordingState extends State<CallRecording> {
                             begin: Alignment.bottomLeft,
                             end: Alignment.bottomRight,
                           ),
-                          border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
+                          border: Border.all(
+                            color: AppColors.grayborderclr,
+                            width: 1.0.w,
+                          ),
                           borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        child: SvgPicture.asset(
+                          "assets/svg/wave.svg",
+                          width: 100.w,
                         ),
                       ),
                       SizedBox(height: 25.h),
@@ -211,10 +226,7 @@ class _CallRecordingState extends State<CallRecording> {
                         radius: 20.r,
                         backgroundColor: AppColors.white.withOpacity(0.8),
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF88D5F7),
-                            Color(0xFF8A77F0),
-                          ],
+                          colors: [Color(0xFF88D5F7), Color(0xFF8A77F0)],
                         ),
                       ),
                       SizedBox(height: 20.h),
@@ -244,7 +256,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/play_prev.svg", width: 15.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_prev.svg",
+                                width: 15.w,
+                              ),
                               onPressed: () {},
                             ),
                           ),
@@ -260,7 +275,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ),
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/play_button.svg", width: 30.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_button.svg",
+                                width: 30.w,
+                              ),
                               onPressed: () {},
                             ),
                           ),
@@ -280,7 +298,10 @@ class _CallRecordingState extends State<CallRecording> {
                               ],
                             ),
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/play_next.svg", width: 15.w),
+                              icon: SvgPicture.asset(
+                                "assets/svg/play_next.svg",
+                                width: 15.w,
+                              ),
                               onPressed: () {},
                             ),
                           ),
@@ -292,9 +313,17 @@ class _CallRecordingState extends State<CallRecording> {
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset("assets/svg/recordV.svg", width: 20.w, height: 15.h),
+                              SvgPicture.asset(
+                                "assets/svg/recordV.svg",
+                                width: 20.w,
+                                height: 15.h,
+                              ),
                               SizedBox(width: 10.w),
-                              SvgPicture.asset("assets/svg/pbar.svg", width: 40.w, height: 10.h),
+                              SvgPicture.asset(
+                                "assets/svg/pbar.svg",
+                                width: 40.w,
+                                height: 10.h,
+                              ),
                               SizedBox(width: 10.w),
                               Text("70%", style: h4.copyWith(fontSize: 12.sp)),
                             ],
@@ -313,19 +342,22 @@ class _CallRecordingState extends State<CallRecording> {
                               SpeedButton(
                                 speed: 0.5,
                                 isSelected: selectedSpeed == 0.5,
-                                onTap: () => setState(() => selectedSpeed = 0.5),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 0.5),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 1.0,
                                 isSelected: selectedSpeed == 1.0,
-                                onTap: () => setState(() => selectedSpeed = 1.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 1.0),
                               ),
                               SizedBox(width: 3.w),
                               SpeedButton(
                                 speed: 2.0,
                                 isSelected: selectedSpeed == 2.0,
-                                onTap: () => setState(() => selectedSpeed = 2.0),
+                                onTap: () =>
+                                    setState(() => selectedSpeed = 2.0),
                               ),
                             ],
                           ),
@@ -344,7 +376,10 @@ class _CallRecordingState extends State<CallRecording> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomLeft,
                     ),
-                    border: Border.all(color: AppColors.grayborderclr, width: 1.0.w),
+                    border: Border.all(
+                      color: AppColors.grayborderclr,
+                      width: 1.0.w,
+                    ),
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Column(
@@ -390,7 +425,6 @@ class _CallRecordingState extends State<CallRecording> {
                       ),
                     ),
                     SizedBox(width: 16.w),
-
                   ],
                 ),
                 SizedBox(height: 24.h),

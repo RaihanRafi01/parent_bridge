@@ -11,16 +11,17 @@ import '../../appColors.dart';
 class CustomListTile extends StatelessWidget {
   final String leadingSvgAsset;
   final String title;
-  final Widget? trailingWidget; // এটি এখন যেকোনো উইজেট (Icon, Switch, etc.) হতে পারে
+  final Widget?
+  trailingWidget; // এটি এখন যেকোনো উইজেট (Icon, Switch, etc.) হতে পারে
   final VoidCallback? onTap;
 
   const CustomListTile({
-    Key? key,
+    super.key,
     required this.leadingSvgAsset,
     required this.title,
     this.trailingWidget, // এটি আর required নয়
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +29,19 @@ class CustomListTile extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque, // ফাঁকা জায়গায়ও যেন ট্যাপ কাজ করে
       child: Container(
-        height:56 ,
+        height: 56,
         width: double.infinity,
         margin: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 8.0),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
         decoration: BoxDecoration(
           color: AppColors.clrWhite,
           borderRadius: BorderRadius.circular(50.0),
-          border: Border.all( color: AppColors.borderColor, width: 1.0.w),
+          border: Border.all(color: AppColors.borderColor, width: 1.0.w),
           boxShadow: [
             BoxShadow(
               color: AppColors.boxShadowColor.withOpacity(0.14),
               spreadRadius: 0,
-              blurRadius:  12.6,
+              blurRadius: 12.6,
               offset: const Offset(0, 8),
             ),
           ],
@@ -52,7 +53,7 @@ class CustomListTile extends StatelessWidget {
               leadingSvgAsset,
               width: 22,
               height: 22,
-              color :AppColors.gray2,
+              color: AppColors.gray2,
             ),
             const SizedBox(width: 16),
 
@@ -69,8 +70,7 @@ class CustomListTile extends StatelessWidget {
             ),
 
             // পিছনের উইজেট (যদি থাকে)
-            if (trailingWidget != null)
-              trailingWidget!,
+            if (trailingWidget != null) trailingWidget!,
           ],
         ),
       ),

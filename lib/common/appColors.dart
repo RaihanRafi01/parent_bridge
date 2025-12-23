@@ -273,33 +273,33 @@ class AppColors {
   static const Color customblueclr2 = Color(0xFFDFF5FF);
   static const Color txtclr9 = Color(0xFFED7F42);
   static const Color txtclr10 = Color(0xFF919191);
-  static const Color customskyblue4= Color(0xFFDAECF3);
-  static const Color customyellow= Color(0xFFE0CA26);
-  static const Color customsky= Color(0xFFE4EEF2);
+  static const Color customskyblue4 = Color(0xFFDAECF3);
+  static const Color customyellow = Color(0xFFE0CA26);
+  static const Color customsky = Color(0xFFE4EEF2);
   static const Color txtclr11 = Color(0xFF938686);
   static const Color txtclr12 = Color(0xFF8E44AD);
   static const Color txtclr13 = Color(0xFF84898E);
-  static const Color gray4= Color(0xFF667479);
-  static const Color alertbackground= Color(0xFFF3EFFF);
-  static const Color greenonline= Color(0xFF14F269);
-  static const Color purplecall= Color(0xFFE971DD);
-  static const Color grey5= Color(0xFF878181);
-  static const Color cardbakground1= Color(0xFFE1F1F8);
-  static const Color iconbackground1= Color(0xFFCB93F3);
-  static const Color iconbackground2= Color(0xFFF46668);
-  static const Color cardbakground2= Color(0xFFEEE1F8);
-  static const Color cardbakground3= Color(0xFFFCEFEF);
-  static const Color yellow1= Color(0xFFE9D227);
-  static const Color crklclr= Color(0xFF0909091A);
-  static const Color declineclr= Color(0xFFEB5545);
-  static const Color acceptclr= Color(0xFF67CE67);
-  static const Color custom1= Color(0x802FCEF1);
-  static const Color custom2= Color(0x807222EA);
-  static const Color grayborderclr= Color(0x4DFFFFFF);
-  static const Color custom3= Color(0xFF0B07E5);
-  static const Color custom4= Color(0xFF5A30E5);
-  static const Color custom5= Color(0xFFDAB3F2);
-  static const Color custom6= Color(0xFFC4D0F8);
+  static const Color gray4 = Color(0xFF667479);
+  static const Color alertbackground = Color(0xFFF3EFFF);
+  static const Color greenonline = Color(0xFF14F269);
+  static const Color purplecall = Color(0xFFE971DD);
+  static const Color grey5 = Color(0xFF878181);
+  static const Color cardbakground1 = Color(0xFFE1F1F8);
+  static const Color iconbackground1 = Color(0xFFCB93F3);
+  static const Color iconbackground2 = Color(0xFFF46668);
+  static const Color cardbakground2 = Color(0xFFEEE1F8);
+  static const Color cardbakground3 = Color(0xFFFCEFEF);
+  static const Color yellow1 = Color(0xFFE9D227);
+  static const Color crklclr = Color(0xff0909091a);
+  static const Color declineclr = Color(0xFFEB5545);
+  static const Color acceptclr = Color(0xFF67CE67);
+  static const Color custom1 = Color(0x802FCEF1);
+  static const Color custom2 = Color(0x807222EA);
+  static const Color grayborderclr = Color(0x4DFFFFFF);
+  static const Color custom3 = Color(0xFF0B07E5);
+  static const Color custom4 = Color(0xFF5A30E5);
+  static const Color custom5 = Color(0xFFDAB3F2);
+  static const Color custom6 = Color(0xFFC4D0F8);
   static const Color buttonColor53 = Color(0xFFFE4F52);
   static const Color buttonColor54 = Color(0xFF109F1A);
 
@@ -335,4 +335,8 @@ class AppColors {
   static const Color expenseCardStatusColor2 = Color(0xFFB78818);
   static const Color expenseCardStatusColor3 = Color(0xFF1712A2);
   static const Color expenseCardStatusColor4 = Color(0xFFBC1B1E);
+
+  // waring colors
+
+  static const Color snackBarWarning = Color.fromARGB(128, 253, 42, 42);
 }

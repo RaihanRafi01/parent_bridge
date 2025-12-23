@@ -27,7 +27,8 @@ class HelpAndSupport extends StatelessWidget {
         ),
         title: Text(
           'Help & Support',
-          style: h2.copyWith( // FontWeight.w600
+          style: h2.copyWith(
+            // FontWeight.w600
             fontSize: 24.sp,
             color: AppColors.txtclr5,
           ),
@@ -56,7 +57,7 @@ class HelpAndSupport extends StatelessWidget {
 
   Widget _buildToggleButtons(BuildContext context) {
     return Obx(
-          () => Container(
+      () => Container(
         height: 50.h,
         decoration: BoxDecoration(
           color: AppColors.clrWhite,
@@ -95,7 +96,8 @@ class HelpAndSupport extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'FAQ Questions',
-                        style: h4.copyWith( // FontWeight.w400
+                        style: h4.copyWith(
+                          // FontWeight.w400
                           fontSize: 16.sp,
                           color: AppColors.txtclr5,
                         ),
@@ -109,7 +111,8 @@ class HelpAndSupport extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Contact Us',
-                        style: h4.copyWith( // FontWeight.w400
+                        style: h4.copyWith(
+                          // FontWeight.w400
                           fontSize: 16.sp,
                           color: AppColors.txtclr5,
                         ),
@@ -134,7 +137,7 @@ class FaqSection extends StatelessWidget {
       {
         'question': 'Is this app free?',
         'answer':
-        'CoParent AI is free during our beta period. After launch, we\'ll offer both free and premium tiers to ensure accessibility for all families.',
+            'CoParent AI is free during our beta period. After launch, we\'ll offer both free and premium tiers to ensure accessibility for all families.',
       },
       {'question': 'Is it legally safe?', 'answer': 'Yes, it is legally safe.'},
       {
@@ -144,7 +147,7 @@ class FaqSection extends StatelessWidget {
       {
         'question': 'How does the AI tone detection work?',
         'answer':
-        'Our AI analyzes text patterns to detect the emotional tone of messages.',
+            'Our AI analyzes text patterns to detect the emotional tone of messages.',
       },
       {
         'question': 'When will the app be available?',
@@ -153,7 +156,7 @@ class FaqSection extends StatelessWidget {
       {
         'question': 'What if my co-parent refuses to use the app?',
         'answer':
-        'The app can still be used independently, including messaging features. In independent mode, a new number will be assigned to the co-parent using the app.',
+            'The app can still be used independently, including messaging features. In independent mode, a new number will be assigned to the co-parent using the app.',
       },
       {
         'question': 'This is a test question 3',
@@ -180,10 +183,10 @@ class CustomExpansionTile extends StatefulWidget {
   final String answer;
 
   const CustomExpansionTile({
-    Key? key,
+    super.key,
     required this.question,
     required this.answer,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomExpansionTile> createState() => _CustomExpansionTileState();
@@ -202,7 +205,10 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
         borderRadius: BorderRadius.circular(50.r),
         boxShadow: [
           BoxShadow(
-              color: AppColors.borderColor, spreadRadius: 2, blurRadius: 15),
+            color: AppColors.borderColor,
+            spreadRadius: 2,
+            blurRadius: 15,
+          ),
         ],
       ),
       child: Theme(
@@ -231,7 +237,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           ),
           title: Text(
             widget.question,
-            style: h3.copyWith( // FontWeight.w500
+            style: h3.copyWith(
+              // FontWeight.w500
               color: AppColors.txtclr5,
               fontSize: 18.sp,
             ),
@@ -243,7 +250,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.answer,
-                  style: h4.copyWith( // FontWeight.w400
+                  style: h4.copyWith(
+                    // FontWeight.w400
                     color: AppColors.txtclr8,
                     height: 1.5,
                     fontSize: 14.sp,
@@ -280,11 +288,16 @@ class ContactUsSection extends StatelessWidget {
             ),
             child: TextField(
               decoration: InputDecoration(
-                prefixIcon:
-                Icon(Icons.email_outlined, color: AppColors.iconclr),
+                prefixIcon: Icon(
+                  Icons.email_outlined,
+                  color: AppColors.iconclr,
+                ),
                 hintText: 'abc@email.com',
-                hintStyle: h4.copyWith( // FontWeight.w400
-                    color: AppColors.textColorHint, fontSize: 14.sp),
+                hintStyle: h4.copyWith(
+                  // FontWeight.w400
+                  color: AppColors.textColorHint,
+                  fontSize: 14.sp,
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -312,8 +325,11 @@ class ContactUsSection extends StatelessWidget {
               maxLines: 5,
               decoration: InputDecoration(
                 hintText: 'Explain the problem',
-                hintStyle: h4.copyWith( // FontWeight.w400
-                    color: AppColors.textColorHint, fontSize: 14.sp),
+                hintStyle: h4.copyWith(
+                  // FontWeight.w400
+                  color: AppColors.textColorHint,
+                  fontSize: 14.sp,
+                ),
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -338,7 +354,8 @@ class ContactUsSection extends StatelessWidget {
             child: Center(
               child: Text(
                 'Send',
-                style: h1.copyWith( // FontWeight.bold is w700, so h1
+                style: h1.copyWith(
+                  // FontWeight.bold is w700, so h1
                   color: AppColors.clrWhite,
                   fontSize: 18.sp,
                 ),

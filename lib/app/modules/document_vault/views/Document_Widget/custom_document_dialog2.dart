@@ -8,7 +8,7 @@ import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
 
 class Document_dialog2_preview extends StatelessWidget {
-  Document_dialog2_preview({super.key});
+  const Document_dialog2_preview({super.key});
 
   @override
   Widget build(BuildContext context) {

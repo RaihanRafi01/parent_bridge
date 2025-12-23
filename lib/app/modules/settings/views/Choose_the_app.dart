@@ -198,20 +198,9 @@ class ChooseTheApp extends GetView<SignUpProcessController> {
                     text: 'Set Up Together',
                     onPressed: () {
                       if (controller.isBridgeMode.value) {
-                        Get.to(
-                          BridgeModeView(
-                            isSendInvite: controller.isSendInvite,
-                            coParentsNameController:
-                                controller.coParentsNameController,
-                            phoneNumberController:
-                                controller.phoneNumberController,
-                            emailAddressController:
-                                controller.emailAddressController,
-                            stateController: controller.stateController,
-                          ),
-                        );
+                        Get.to(() => const BridgeModeView());
                       } else {
-                        Get.to(IndependentModeView());
+                        Get.to(() => const IndependentModeView());
                       }
                     },
                   ),

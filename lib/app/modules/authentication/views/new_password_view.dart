@@ -9,13 +9,9 @@ import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/customTextField.dart';
-import 'otp_verifications_view.dart';
 
 class NewPasswordView extends GetView<NewPasswordController> {
-
-  const NewPasswordView({
-    super.key
-  });
+  const NewPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,34 +55,39 @@ class NewPasswordView extends GetView<NewPasswordController> {
 
                 SizedBox(height: 30.h),
 
-                Obx(() => CustomTextField(
-                  controller: controller.newPasswordController,
-                  hintText: 'Enter your password',
-                  prefixIcon: 'assets/images/auth/lock_icon.svg',
-                  suffixIcon: 'assets/images/auth/eye_close_icon.svg',
-                  isPassword: true,
-                  onSuffixTap: () =>
-                      controller.togglePasswordVisibility(),
-                  obscureText: !controller.isPasswordVisible.value,
-                )),
+                Obx(
+                  () => CustomTextField(
+                    controller: controller.newPasswordController,
+                    hintText: 'Enter your password',
+                    prefixIcon: 'assets/images/auth/lock_icon.svg',
+                    suffixIcon: 'assets/images/auth/eye_close_icon.svg',
+                    isPassword: true,
+                    onSuffixTap: () => controller.togglePasswordVisibility(),
+                    obscureText: !controller.isPasswordVisible.value,
+                  ),
+                ),
 
-
-                Obx(() =>CustomTextField(
-                  controller: controller.confirmNewPasswordController,
-                  hintText: 'Confirm password',
-                  prefixIcon: 'assets/images/auth/lock_icon.svg',
-                  suffixIcon: 'assets/images/auth/eye_close_icon.svg',
-                  isPassword: true,
-                  onSuffixTap: () =>
-                      controller.toggleConfirmPasswordVisibility(),
-                  obscureText: !controller.isConfirmPasswordVisible.value,
-                )),
+                Obx(
+                  () => CustomTextField(
+                    controller: controller.confirmNewPasswordController,
+                    hintText: 'Confirm password',
+                    prefixIcon: 'assets/images/auth/lock_icon.svg',
+                    suffixIcon: 'assets/images/auth/eye_close_icon.svg',
+                    isPassword: true,
+                    onSuffixTap: () =>
+                        controller.toggleConfirmPasswordVisibility(),
+                    obscureText: !controller.isConfirmPasswordVisible.value,
+                  ),
+                ),
 
                 SizedBox(height: 10.h),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(text: 'Send', onPressed: () => Get.to(PasswordResetSuccessfulView()),),
+                  child: CustomPBButton(
+                    text: 'Send',
+                    onPressed: () => Get.to(PasswordResetSuccessfulView()),
+                  ),
                 ),
               ],
             ),
