@@ -9,8 +9,8 @@ import '../../../../common/app_colors.dart';
 import '../../../../common/custom_font.dart';
 import '../controllers/calendar_controller.dart';
 
-class AddEventView extends GetView<CalendarController> {
-  const AddEventView({super.key});
+class AddHolidayView extends GetView<CalendarController> {
+  const AddHolidayView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,102 +45,57 @@ class AddEventView extends GetView<CalendarController> {
                       items: controller.childNames,
                       value: controller.selectedChildName,
                       onChanged: (value) {
-                        debugPrint('Selected: $value');
+                       debugPrint('Selected: $value');
                       },
-                      fillColor: AppColors.textInputFillColor,
-                    ),
-                    CustomTextField(
-                      hintText: 'Enter event title',
-                      controller: controller.eventName,
                       fillColor: AppColors.textInputFillColor,
                     ),
                     CustomDropdown(
-                      labelText: 'Event Type',
-                      items: controller.eventItems,
-                      value: controller.selectedEventType,
+                      labelText: 'Select or type holiday name',
+                      items: controller.holidayItems,
+                      value: controller.holidayValue,
                       onChanged: (value) {
-                        debugPrint('Selected: $value');
+                       debugPrint('Selected: $value');
                       },
                       fillColor: AppColors.textInputFillColor,
                     ),
-                    CustomTextField(
-                      hintText: 'mm/dd/yyyy',
-                      controller: controller.eventDate,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CustomTextField(
+                            hintText: 'Start Date',
+                            controller: controller.eventDate,
+                            fillColor: AppColors.textInputFillColor,
+                            suffixIcon:
+                                'assets/images/calendar/calender_icon.svg',
+                            isDatePicker: true,
+                          ),
+                        ),
+                        Expanded(
+                          child: CustomTextField(
+                            hintText: 'End date',
+                            controller: controller.eventEDate,
+                            fillColor: AppColors.textInputFillColor,
+                            suffixIcon:
+                                'assets/images/calendar/calender_icon.svg',
+                            isDatePicker: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomDropdown(
+                      labelText: 'Assigned to',
+                      items: controller.assignItems,
+                      value: controller.assignValue,
+                      onChanged: (value) {
+                       debugPrint('Selected: $value');
+                      },
                       fillColor: AppColors.textInputFillColor,
-                      suffixIcon: 'assets/images/calendar/calender_icon.svg',
-                      isDatePicker: true,
-                    ),
-                    Row(
-                      children: [
-                        Obx(
-                          () => Transform.scale(
-                            scale: 0.7,
-                            child: Switch(
-                              value: controller.allDayEvent.value,
-                              onChanged: (value) =>
-                                  controller.toggleAllDayEvent(),
-                              activeThumbColor: AppColors.clrWhite,
-                              activeTrackColor: AppColors.appColor,
-                              inactiveTrackColor: AppColors.appColor
-                                  .withAlpha(128),
-                              inactiveThumbColor: AppColors.clrWhite,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'All day event',
-                          style: h4.copyWith(
-                            color: AppColors.clrPurple,
-                            fontSize: 15.57.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            hintText: 'Start time',
-                            controller: controller.eventSTime,
-                            fillColor: AppColors.textInputFillColor,
-                            suffixIcon: 'assets/images/calendar/time_icon.svg',
-                            isTimePicker: true,
-                          ),
-                        ),
-                        SizedBox(width: 16.w),
-                        Expanded(
-                          child: CustomTextField(
-                            hintText: 'End time',
-                            controller: controller.eventETime,
-                            fillColor: AppColors.textInputFillColor,
-                            suffixIcon: 'assets/images/calendar/time_icon.svg',
-                            isTimePicker: true,
-                          ),
-                        ),
-                      ],
                     ),
                     CustomTextField(
                       hintText: 'Enter location',
                       controller: controller.eventLocation,
                       fillColor: AppColors.textInputFillColor,
                       suffixIcon: 'assets/images/calendar/location_icon.svg',
-                    ),
-                    CustomDropdown(
-                      labelText: 'Enter Repeat',
-                      items: controller.repeatItems,
-                      value: controller.selectedRepeatType,
-                      onChanged: (value) {
-                        debugPrint('Selected: $value');
-                      },
-                      fillColor: AppColors.textInputFillColor,
-                    ),
-                    CustomTextField(
-                      hintText: 'Enter reminder time',
-                      controller: controller.eventReminderTime,
-                      fillColor: AppColors.textInputFillColor,
-                      isNumberField: true,
                     ),
                     CustomTextField(
                       hintText: 'Add event description...',
@@ -164,16 +119,16 @@ class AddEventView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 26.w),
                           Expanded(
-                            child:  Obx(
-                                () => CustomPBButton(
-                              text: controller.isLoading.value
-                                  ? 'Adding event...'
-                                  : 'Add event',
-                              onPressed: controller.isLoading.value
-                                  ? () {}
-                                  : () => controller.createActivity(),
+                            child: Obx(
+                              () => CustomPBButton(
+                                text: controller.isLoading.value
+                                    ? 'Adding Ho...'
+                                    : 'Add Holiday',
+                                onPressed: controller.isLoading.value
+                                    ? () {}
+                                    : () => controller.createHolidayActivity(),
+                              ),
                             ),
-                          ),
                           ),
                         ],
                       ),
@@ -194,16 +149,17 @@ class AddEventView extends GetView<CalendarController> {
       child: Row(
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               controller.childNames.clear();
               // controller.eventItems.clear();
               // controller.repeatItems.clear();
-              Get.back();},
+              Get.back();
+            },
             child: SvgPicture.asset('assets/images/common/back_icon.svg'),
           ),
           SizedBox(width: 15.w),
           Text(
-            'Add New Event',
+            'Add Holiday',
             style: h2.copyWith(
               fontSize: 24.74.sp,
               color: AppColors.darkSlateBlue,

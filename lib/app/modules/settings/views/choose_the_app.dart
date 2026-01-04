@@ -5,9 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/sign_up_process/views/bridge_mode_view.dart';
 import 'package:parent_bridge/app/modules/sign_up_process/views/independent_mode_view.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
 
 import '../../sign_up_process/controllers/sign_up_process_controller.dart';
 

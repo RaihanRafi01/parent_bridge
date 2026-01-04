@@ -3,22 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/showDiolog_Cmt_Section.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_comment_section.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
 import '../common/custom_react_comment.dart';
 
-class show_dialog extends StatelessWidget {
-  const show_dialog({
+class ShowDialogPage extends StatelessWidget {
+  const ShowDialogPage({
     super.key,
-    this.body_title,
+    this.bodyTitle,
     required this.color,
-    this.dialog_subtitle,
+    this.dialogSubtitle,
   });
 
-  final String? body_title;
-  final String? dialog_subtitle;
+  final String? bodyTitle;
+  final String? dialogSubtitle;
   final Color color;
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class show_dialog extends StatelessWidget {
               // title ...
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.anonymous_parent_02,
+                  color: AppColors.anonymousParent_02,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Padding(
@@ -137,15 +137,15 @@ class show_dialog extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
                       Text(
-                        "$body_title",
+                        "$bodyTitle",
                         style: h2.copyWith(color: color, fontSize: 20.sp),
                       ),
                       SizedBox(height: 20.h),
 
                       Text(
-                        "$dialog_subtitle",
+                        "$dialogSubtitle",
                         style: h4.copyWith(
-                          color: AppColors.custom_anonymous_parent_02,
+                          color: AppColors.customAnonymousParent_02,
                           fontSize: 14.sp,
                         ),
                       ),
@@ -156,25 +156,25 @@ class show_dialog extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 30.r),
                         child: Row(
                           children: [
-                            custom_react_comment(
+                            CustomReactComment(
                               count: '100',
-                              svg_image:
+                              svgImage:
                                   'assets/svg/support_forum_/icons/heart_shape.svg',
                             ),
                             SizedBox(width: 30.w),
-                            custom_react_comment(
+                            CustomReactComment(
                               count: '100',
-                              svg_image:
+                              svgImage:
                                   'assets/svg/support_forum_/icons/message_icon.svg',
-                              comment_ontap: () {
+                              commentOnTap: () {
                                 // second show dialog with comments ..
                                 Get.dialog(
-                                  show_dialog_cmt_section(
+                                  ShowDialogCommentSection(
                                     color: color,
-                                    body_title: '$body_title',
-                                    cmt_dialog_subtitle: '$dialog_subtitle',
+                                    bodyTitle: '$bodyTitle',
+                                    cmtDialogSubtitle: '$dialogSubtitle',
                                   ),
-                                  barrierColor: AppColors.Transperent,
+                                  barrierColor: AppColors.transparent,
                                 );
                               },
                             ),

@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
+import 'package:parent_bridge/common/custom_font.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/_buildDetailItem.dart';
-import '../../../../common/widgets/customButton.dart';
-import '../../../../common/widgets/detailsrowWidget.dart';
-import '../../../../common/widgets/home/gradientprogressindicator.dart';
-import '../../../../common/widgets/speedButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/widgets/_build_detail_item.dart';
+import '../../../../common/widgets/custom_button.dart';
+import '../../../../common/widgets/details_row_widget.dart';
+import '../../../../common/widgets/home/gradient_progress_indicator.dart';
+import '../../../../common/widgets/speed_button.dart';
 
 class CallRecording extends StatefulWidget {
   const CallRecording({super.key});
@@ -122,7 +121,10 @@ class _CallRecordingState extends State<CallRecording> {
                                       "assets/svg/callu.svg",
                                       height: 15.h,
                                       width: 15.w,
-                                      color: AppColors.txtclr5,
+                                      colorFilter: ColorFilter.mode(
+                                        AppColors.txtclr5,
+                                        BlendMode.srcIn,
+                                      ),
                                     ),
                                     SizedBox(width: 10.w),
                                     Text(
@@ -224,7 +226,7 @@ class _CallRecordingState extends State<CallRecording> {
                         progress: 0.6,
                         height: 8.h,
                         radius: 20.r,
-                        backgroundColor: AppColors.white.withOpacity(0.8),
+                        backgroundColor: AppColors.white.withAlpha(204),
                         gradient: const LinearGradient(
                           colors: [Color(0xFF88D5F7), Color(0xFF8A77F0)],
                         ),
@@ -249,7 +251,7 @@ class _CallRecordingState extends State<CallRecording> {
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withAlpha(28),
                                   blurRadius: 3.r,
                                   offset: Offset(0, 2.h),
                                 ),
@@ -291,7 +293,7 @@ class _CallRecordingState extends State<CallRecording> {
                               color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withAlpha(28),
                                   blurRadius: 3.r,
                                   offset: Offset(0, 2.h),
                                 ),

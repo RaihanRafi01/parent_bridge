@@ -8,11 +8,11 @@ import 'package:parent_bridge/app/modules/document_vault/views/document_vault_vi
 import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/legal_records_view.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum_view.dart';
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import '../../../../common/widgets/home/dashboard_container.dart';
 import '../../../../common/widgets/home/home_container.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withAlpha(128),
                               blurRadius: 6.r,
                               offset: Offset(0.w, 2.h),
                             ),

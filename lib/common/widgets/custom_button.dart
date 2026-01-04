@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../app/modules/home/views/home_view.dart';
-import '../appColors.dart';
-import '../customFont.dart';
+import '../app_colors.dart';
+import '../custom_font.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 // Assuming AppColors and h2 are defined elsewhere
-import '../appColors.dart';
-import '../customFont.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;

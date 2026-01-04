@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../appColors.dart';
-import '../../customFont.dart';
+import '../../app_colors.dart';
+import '../../custom_font.dart';
 
 
 class IconWithBadge extends StatelessWidget {
@@ -60,7 +60,7 @@ class IconWithBadge extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(
                         width: 2,
-                        color: AppColors.white.withOpacity(0.2),
+                        color: AppColors.white.withAlpha(52),
                       ),
                     ),
                     child: Center(

@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/forgot_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_up_view.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
-import 'package:parent_bridge/common/widgets/customTextField.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
+import 'package:parent_bridge/common/widgets/custom_text_field.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import '../controllers/authentication_controller.dart';
 
 class SignInView extends GetView<AuthenticationController> {
@@ -86,7 +86,7 @@ class SignInView extends GetView<AuthenticationController> {
                               activeThumbColor: AppColors.clrWhite,
                               activeTrackColor: AppColors.appColor,
                               inactiveTrackColor: AppColors.appColor
-                                  .withOpacity(.5),
+                                  .withAlpha(128),
                               inactiveThumbColor: AppColors.clrWhite,
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,

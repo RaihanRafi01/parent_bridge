@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
+import 'package:parent_bridge/common/custom_font.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
-import '../../../../common/appColors.dart';
+import '../../../../common/app_colors.dart';
 import '../controllers/call_controller.dart';
 
 class IncomingOngoingCallView extends StatelessWidget {
@@ -185,7 +185,7 @@ class IncomingOngoingCallView extends StatelessWidget {
           padding: EdgeInsets.all(15.0.r),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xff0909091a),
+            color: Color(0x0909091a),
           ),
           child: SizedBox(
             height: 70.r,
@@ -271,14 +271,14 @@ class IncomingOngoingCallView extends StatelessWidget {
           padding: EdgeInsets.all(15.0.r),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xff0909091a),
+            color: Color(0x0909091a),
           ),
           child: SizedBox(
             height: 50.r,
             width: 50.r,
             child: FloatingActionButton(
               backgroundColor: isActive
-                  ? Colors.white.withOpacity(0.3)
+                  ? Colors.white.withAlpha(77)
                   : const Color(0x29FFFFFF),
               onPressed: onPressed,
               shape: const CircleBorder(),

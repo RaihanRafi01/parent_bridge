@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/onboarding/views/onboarding_view.dart';
 
@@ -10,7 +10,7 @@ class SplashController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    print('Hi');
+   debugPrint('Hi');
 
     anim = AnimationController(
       vsync: this,

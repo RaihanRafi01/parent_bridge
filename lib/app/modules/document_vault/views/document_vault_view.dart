@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import '../../../../common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_add.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
-import '../controllers/document_vault_controller.dart' as dropdown_Controler;
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
+import '../controllers/document_vault_controller.dart' as dropdown_controller;
 import '../controllers/document_vault_controller.dart';
 import 'Document_Widget/custom_document_dialog.dart';
 import 'Document_Widget/custom_document_dialog2.dart';
@@ -19,7 +19,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
   Widget build(BuildContext context) {
     final docs = [
       {
-        'dialog': const Document_dialog(),
+        'dialog': const CustomDocumentDialog(),
         'exp_date': '',
         'title': 'Parenting Plan Agreement',
         'label': 'Legal',
@@ -31,7 +31,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
         'sidebar': AppColors.category1,
       },
       {
-        'dialog': Document_dialog2_preview(),
+        'dialog': CustomDocumentDialog2(),
         'exp_date': '',
         'title': 'Emma Medical Insurance Card',
         'label': 'Medical Records',
@@ -43,7 +43,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
         'sidebar': AppColors.category3,
       },
       {
-        'dialog': const Document_dialog(),
+        'dialog': const CustomDocumentDialog(),
         'exp_date': 'Expires.2024-12-10',
         'title': 'School Emergency Contact Form',
         'label': 'School Documents',
@@ -55,7 +55,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
         'sidebar': AppColors.category4,
       },
       {
-        'dialog': const Document_dialog(),
+        'dialog': const CustomDocumentDialog(),
         'exp_date': '',
         'title': 'Soccer Team Schedule',
         'label': 'Activities',
@@ -171,7 +171,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                   width: 63.w,
                   child: ElevatedButton(
                     onPressed: () {
-                      dropdown_Controler.selectedCategory.value = null;
+                      dropdown_controller.selectedCategory.value = null;
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.category,
@@ -195,7 +195,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                 Obx(
                   () => PopupMenuButton<String>(
                     onSelected: (value) {
-                      dropdown_Controler.selectedCategory.value = value;
+                      dropdown_controller.selectedCategory.value = value;
                     },
                     offset: Offset(0, 40.h),
                     constraints: BoxConstraints(
@@ -237,7 +237,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          dropdown_Controler.selectedCategory.value == null
+                          dropdown_controller.selectedCategory.value == null
                               ? Text(
                                   "Select category",
                                   style: h4.copyWith(
@@ -252,17 +252,17 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: _getCategoryColor(
-                                      dropdown_Controler
+                                      dropdown_controller
                                           .selectedCategory
                                           .value!,
                                     ),
                                     borderRadius: BorderRadius.circular(10.r),
                                   ),
                                   child: Text(
-                                    dropdown_Controler.selectedCategory.value!,
+                                    dropdown_controller.selectedCategory.value!,
                                     style: h4.copyWith(
                                       color: _getCategoryTextColor(
-                                        dropdown_Controler
+                                        dropdown_controller
                                             .selectedCategory
                                             .value!,
                                       ),
@@ -286,7 +286,7 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
           // Document list
           Expanded(
             child: Obx(() {
-              final selected = dropdown_Controler.selectedCategory.value;
+              final selected = dropdown_controller.selectedCategory.value;
               final filteredDocs = selected == null
                   ? docs
                   : docs.where((d) => d['label'] == selected).toList();
@@ -303,17 +303,17 @@ class DocumentVaultView extends GetView<DocumentVaultController> {
                           Get.dialog(
                             doc['dialog'] as Widget,
                             barrierColor: AppColors.lightPurplePink2
-                                .withOpacity(0.80),
+                                .withAlpha(204),
                           );
                         },
-                        exp_date: doc['exp_date'] as String?,
+                        expDate: doc['exp_date'] as String?,
                         title: doc['title'] as String,
                         label: doc['label'] as String,
                         type: doc['type'] as String,
                         person: doc['person'] as String,
                         date: doc['date'] as String,
-                        labelcontainer: doc['labelcontainer'] as Color,
-                        bgcolor: doc['bgcolor'] as Color,
+                        labelContainer: doc['labelcontainer'] as Color,
+                        bgColor: doc['bgcolor'] as Color,
                         sidebar: doc['sidebar'] as Color,
                       ),
                     );

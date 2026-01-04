@@ -7,10 +7,10 @@ import 'package:parent_bridge/app/modules/authentication/controllers/authenticat
 import 'package:parent_bridge/app/modules/authentication/controllers/sign_up_controller.dart';
 import 'package:parent_bridge/app/modules/sign_up_process/views/sign_up_process_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
-import '../../../../common/widgets/customTextField.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
+import '../../../../common/widgets/custom_text_field.dart';
 
 class BasicInformationView extends GetView<AuthenticationController> {
   const BasicInformationView({super.key});
@@ -672,9 +672,7 @@ class BasicInformationView extends GetView<AuthenticationController> {
                             onChanged: (value) => controller.toggleRememberMe(),
                             activeThumbColor: AppColors.clrWhite,
                             activeTrackColor: AppColors.appColor,
-                            inactiveTrackColor: AppColors.appColor.withOpacity(
-                              .5,
-                            ),
+                            inactiveTrackColor: AppColors.appColor.withAlpha(128),
                             inactiveThumbColor: AppColors.clrWhite,
                             materialTapTargetSize:
                                 MaterialTapTargetSize.shrinkWrap,

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart'; // Added for SystemChrome
 import 'app/core/dependency_injection.dart';
 import 'app/routes/app_pages.dart';
-import 'common/appColors.dart';
+import 'common/app_colors.dart';
 
 void main() {
   // Lock orientation to portrait mode
@@ -22,7 +22,7 @@ void main() {
         builder: (context, child) {
           return GetMaterialApp(
             title: "Application",
-            initialRoute: AppPages.INITIAL,
+            initialRoute: AppPages.initial,
             getPages: AppPages.routes,
             defaultTransition: Transition.rightToLeft, // Set default transition
             transitionDuration: Duration(milliseconds: 300),

@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 
-class post_page extends StatelessWidget {
-  const post_page({super.key});
+class PostPage extends StatelessWidget {
+  const PostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class post_page extends StatelessWidget {
               height: 147.h,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.post_page_01, AppColors.post_page_02],
+                  colors: [AppColors.postPage_01, AppColors.postPage_02],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -70,7 +70,7 @@ class post_page extends StatelessWidget {
                       border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.post_page_03.withOpacity(0.1.r),
+                          color: AppColors.postPage_03.withAlpha(25),
                           spreadRadius: 1.r,
                           blurRadius: 6.r,
                           offset: const Offset(0, 2),
@@ -105,7 +105,7 @@ class post_page extends StatelessWidget {
                     border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.post_page_03.withOpacity(.2),
+                        color: AppColors.postPage_03.withAlpha(52),
                         spreadRadius: 1.r,
                         blurRadius: 6.r,
                         offset: Offset(0, 3),
@@ -142,7 +142,7 @@ class post_page extends StatelessWidget {
                     border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.post_page_03.withOpacity(0.2.r),
+                        color: AppColors.postPage_03.withAlpha(52),
                         spreadRadius: 1.r,
                         blurRadius: 6.r,
                         offset: const Offset(0, 5),
@@ -219,7 +219,7 @@ class post_page extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.r),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.post_page_03.withOpacity(0.2),
+                        color: AppColors.postPage_03.withAlpha(52),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),
@@ -231,7 +231,7 @@ class post_page extends StatelessWidget {
                         TextSpan(
                           text: "Remember: ",
                           style: h3.copyWith( // your custom font
-                            color: AppColors.post_page_04,
+                            color: AppColors.postPage_04,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.sp,
                           ),
@@ -240,7 +240,7 @@ class post_page extends StatelessWidget {
                           text:
                           "All Posts Are Anonymous And Your Co-Parent Cannot See Your Contributions To Maintain \nPrivacy.",
                           style: h4.copyWith(
-                            color: AppColors.post_page_04,
+                            color: AppColors.postPage_04,
                             fontSize: 13.sp,
                             fontWeight: FontWeight.w400,
                           ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../common/customFont.dart';
+import '../../../../common/custom_font.dart';
 
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
 
 class Subscription extends StatelessWidget {

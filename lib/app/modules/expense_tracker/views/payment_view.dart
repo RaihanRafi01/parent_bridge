@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/widgets/customDropdown.dart';
-import 'package:parent_bridge/common/widgets/customTextField.dart';
+import 'package:parent_bridge/common/widgets/custom_dropdown.dart';
+import 'package:parent_bridge/common/widgets/custom_text_field.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
 
 class PaymentView extends GetView {
   final String title;
@@ -310,7 +310,7 @@ class PaymentView extends GetView {
                       items: paymentMethodItems,
                       value: selectedPaymentMethod,
                       onChanged: (value) {
-                        print('Selected: $value');
+                       debugPrint('Selected: $value');
                       },
                       fillColor: AppColors.textInputFillColor,
                     ),

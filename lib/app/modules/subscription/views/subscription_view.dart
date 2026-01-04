@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
 
 import '../controllers/subscription_controller.dart';
 

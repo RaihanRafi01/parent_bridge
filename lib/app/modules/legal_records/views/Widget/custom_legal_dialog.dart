@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../../common/customFont.dart';
+import '../../../../../common/custom_font.dart';
 
-class Document_dialoglegal extends StatelessWidget {
-  const Document_dialoglegal({
+class CustomLegalDialog extends StatelessWidget {
+  const CustomLegalDialog({
     super.key,
     required this.title,
     required this.subtitle,
@@ -75,11 +75,11 @@ class Document_dialoglegal extends StatelessWidget {
 
                   border: Border.all(
                     width: .7.w,
-                    color: AppColors.appColor2.withOpacity(0.3),
+                    color: AppColors.appColor2.withAlpha(77),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.appColor2.withOpacity(0.1),
+                      color: AppColors.appColor2.withAlpha(28),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: const Offset(0, 3),
@@ -94,7 +94,10 @@ class Document_dialoglegal extends StatelessWidget {
                         padding: EdgeInsets.all(11.0.r),
                         child: SvgPicture.asset(
                           "assets/images/document_svg/date.svg",
-                          color: AppColors.clrBlk,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.clrBlk,
+                            BlendMode.srcIn,
+                          ),
                           height: 2.h,
                           width: 2.w,
                         ),
@@ -123,11 +126,11 @@ class Document_dialoglegal extends StatelessWidget {
 
                   border: Border.all(
                     width: .7.w,
-                    color: AppColors.appColor2.withOpacity(0.3),
+                    color: AppColors.appColor2.withAlpha(77),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.appColor2.withOpacity(0.1),
+                      color: AppColors.appColor2.withAlpha(28),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: const Offset(0, 3),
@@ -142,7 +145,8 @@ class Document_dialoglegal extends StatelessWidget {
                         padding: EdgeInsets.all(11.0.r),
                         child: SvgPicture.asset(
                           "assets/images/document_svg/date.svg",
-                          color: AppColors.clrBlk,
+                          colorFilter: ColorFilter.mode(
+                              AppColors.clrBlk,BlendMode.srcIn),
                           height: 2.h,
                           width: 2.w,
                         ),
@@ -170,7 +174,7 @@ class Document_dialoglegal extends StatelessWidget {
 
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.customGrey.withOpacity(0.1),
+                      color: AppColors.customGrey.withAlpha(28),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: const Offset(0, 3),

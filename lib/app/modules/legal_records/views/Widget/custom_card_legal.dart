@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 
 class DocumentCardLegal extends StatelessWidget {
   const DocumentCardLegal({
@@ -34,7 +30,7 @@ class DocumentCardLegal extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.customGrey.withOpacity(0.1),
+            color: AppColors.customGrey.withAlpha(28),
             spreadRadius: 2.r,
             blurRadius: 5.r,
             offset: const Offset(0, 3),

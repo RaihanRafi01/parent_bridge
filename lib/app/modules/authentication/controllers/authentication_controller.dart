@@ -16,7 +16,7 @@ import 'package:parent_bridge/app/modules/sign_up_process/views/independent_mode
 import 'package:parent_bridge/app/modules/sign_up_process/views/bridge_mode_view.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
 import 'package:parent_bridge/common/widgets/custom_snackbar.dart';
-import '../../../../common/appColors.dart';
+import '../../../../common/app_colors.dart';
 import '../views/choose_mode.dart';
 
 class AuthenticationController extends GetxController {
@@ -207,16 +207,16 @@ class AuthenticationController extends GetxController {
         final loginResponse = LoginResponseModel.fromJson(responseData);
 
         // Store tokens and user role only if remember me is enabled
-        if (rememberMe.value) {
-          await BaseClient.storeTokens(
-            accessToken: loginResponse.accessToken,
-            refreshToken: loginResponse.refreshToken,
-          );
-          await BaseClient.storeRole(role: loginResponse.role);
-        } else {
-          // Clear any existing tokens if remember me is disabled
-          await BaseClient.clearTokens();
-        }
+        // if (rememberMe.value) {
+        await BaseClient.storeTokens(
+          accessToken: loginResponse.accessToken,
+          refreshToken: loginResponse.refreshToken,
+        );
+        await BaseClient.storeRole(role: loginResponse.role);
+        // } else {
+        //   // Clear any existing tokens if remember me is disabled
+        //   await BaseClient.clearTokens();
+        // }
 
         // Show success message
         kSnackBar(

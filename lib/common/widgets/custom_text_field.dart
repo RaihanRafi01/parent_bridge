@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
-import '../appColors.dart';
-import '../customFont.dart';
+import '../app_colors.dart';
+import '../custom_font.dart';
 
 // GetX Controller for managing password visibility, date, time, and number field
 class CustomTextFieldController extends GetxController {
@@ -201,7 +201,10 @@ class CustomTextField extends StatelessWidget {
                           ? suffixIcon
                           : 'assets/images/auth/eye_open_icon.svg',
                       fit: BoxFit.contain,
-                      color: AppColors.textColorHint,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.textColorHint,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 )
@@ -247,7 +250,10 @@ class CustomTextField extends StatelessWidget {
                     child: SvgPicture.asset(
                       suffixIcon,
                       fit: BoxFit.contain,
-                      color: AppColors.textColorHint,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.textColorHint,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 )

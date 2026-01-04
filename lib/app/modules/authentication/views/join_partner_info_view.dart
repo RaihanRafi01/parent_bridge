@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/sign_up_controller.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
-import 'package:parent_bridge/common/widgets/customTextField.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
+import 'package:parent_bridge/common/widgets/custom_text_field.dart';
 
 class JoinPartnerInfoView extends GetView<AuthenticationController> {
   const JoinPartnerInfoView({super.key});

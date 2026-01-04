@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/views/join_partner_info_view.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
 
 class JoinAccountView extends GetView<AuthenticationController> {
   const JoinAccountView({super.key});
@@ -141,7 +141,7 @@ class JoinAccountView extends GetView<AuthenticationController> {
                       'Required',
                       'Please enter the account code',
                       snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.red.withOpacity(0.1),
+                      backgroundColor: Colors.red.withAlpha(28),
                       colorText: Colors.red,
                     );
                   } else {

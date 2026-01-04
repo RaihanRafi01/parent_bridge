@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/upload_document.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../common/customFont.dart';
+import '../../../../common/custom_font.dart';
 import '../controllers/document_vault_controller.dart';
 
 class DocumentAdd extends GetView<DocumentVaultController> {
@@ -112,7 +112,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.white.withOpacity(0.2),
+                              color: AppColors.white.withAlpha(52),
                               // shadow color
                               spreadRadius: 1.r,
                               // how much it spreads
@@ -196,7 +196,7 @@ class DocumentAdd extends GetView<DocumentVaultController> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.btnBorder.withOpacity(0.2),
+                            color: AppColors.btnBorder.withAlpha(52),
                             // shadow color
                             spreadRadius: 1.r,
                             // how much it spreads

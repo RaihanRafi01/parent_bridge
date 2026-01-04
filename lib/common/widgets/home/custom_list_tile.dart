@@ -1,4 +1,4 @@
-// common/widgets/home/custom_listTile.dart
+// common/widgets/home/custom_list_tile.dart
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../appColors.dart';
+import '../../app_colors.dart';
 
 class CustomListTile extends StatelessWidget {
   final String leadingSvgAsset;
@@ -39,7 +39,7 @@ class CustomListTile extends StatelessWidget {
           border: Border.all(color: AppColors.borderColor, width: 1.0.w),
           boxShadow: [
             BoxShadow(
-              color: AppColors.boxShadowColor.withOpacity(0.14),
+              color: AppColors.boxShadowColor.withAlpha(35),
               spreadRadius: 0,
               blurRadius: 12.6,
               offset: const Offset(0, 8),
@@ -53,7 +53,7 @@ class CustomListTile extends StatelessWidget {
               leadingSvgAsset,
               width: 22,
               height: 22,
-              color: AppColors.gray2,
+              colorFilter: ColorFilter.mode(AppColors.gray2, BlendMode.srcIn),
             ),
             const SizedBox(width: 16),
 

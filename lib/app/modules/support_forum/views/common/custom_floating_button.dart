@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../common/appColors.dart';
+import '../../../../../common/app_colors.dart';
 
-class Custom_floating_button extends StatelessWidget {
-  const Custom_floating_button({super.key});
+class CustomFloatingButton extends StatelessWidget {
+  const CustomFloatingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class Custom_floating_button extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               blurRadius: 8.r,
-              color: AppColors.clrBlack.withOpacity(0.5),
+              color: AppColors.clrBlack.withAlpha(128),
               offset: Offset(0, 3),
             ),
           ],

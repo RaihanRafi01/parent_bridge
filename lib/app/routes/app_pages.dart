@@ -31,11 +31,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ONBOARDING;
+  static const initial = Routes.home;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
+      name: _Paths.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
@@ -45,62 +45,62 @@ class AppPages {
     //   binding: DocumentVaultBinding(),
     // ),
     GetPage(
-      name: _Paths.AUTHENTICATION,
+      name: _Paths.authentication,
       page: () => const AuthenticationView(),
       binding: AuthenticationBinding(),
     ),
     GetPage(
-      name: _Paths.ONBOARDING,
+      name: _Paths.onboarding,
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
     ),
     GetPage(
-      name: _Paths.CHAT,
+      name: _Paths.chat,
       page: () => const ChatView(),
       binding: ChatBinding(),
     ),
     GetPage(
-      name: _Paths.CALL,
+      name: _Paths.call,
       page: () => const CallView(),
       binding: CallBinding(),
     ),
     GetPage(
-      name: _Paths.CALENDAR,
+      name: _Paths.calendar,
       page: () => const CalendarView(),
       binding: CalendarBinding(),
     ),
     GetPage(
-      name: _Paths.EXPENSE_TRACKER,
+      name: _Paths.expenseTracker,
       page: () => const ExpenseTrackerView(),
       binding: ExpenseTrackerBinding(),
     ),
     GetPage(
-      name: _Paths.DOCUMENT_VAULT,
+      name: _Paths.documentVault,
       page: () => const DocumentVaultView(),
       binding: DocumentVaultBinding(),
     ),
     GetPage(
-      name: _Paths.SUPPORT_FORUM,
+      name: _Paths.supportForum,
       page: () => const SupportForumView(),
       binding: SupportForumBinding(),
     ),
     GetPage(
-      name: _Paths.LEGAL_RECORDS,
+      name: _Paths.legalRecords,
       page: () => const LegalRecordsView(),
       binding: LegalRecordsBinding(),
     ),
     GetPage(
-      name: _Paths.SETTINGS,
+      name: _Paths.settings,
       page: () => const SettingsView(),
       binding: SettingsBinding(),
     ),
     GetPage(
-      name: _Paths.SIGN_UP_PROCESS,
+      name: _Paths.signUpProcess,
       page: () => const SignUpProcessView(),
       binding: SignUpProcessBinding(),
     ),
     GetPage(
-      name: _Paths.SUBSCRIPTION,
+      name: _Paths.subscription,
       page: () => const SubscriptionView(),
       binding: SubscriptionBinding(),
     ),

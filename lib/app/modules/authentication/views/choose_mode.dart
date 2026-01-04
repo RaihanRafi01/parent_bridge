@@ -8,9 +8,9 @@ import 'package:parent_bridge/app/modules/authentication/controllers/sign_up_con
 import 'package:parent_bridge/app/modules/authentication/views/basic_information_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/join_account_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
 
 class ChooseMode extends GetView<AuthenticationController> {
   const ChooseMode({super.key});
@@ -58,7 +58,7 @@ class ChooseMode extends GetView<AuthenticationController> {
           borderRadius: BorderRadius.circular(16).r,
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFBCBCBC).withOpacity(0.25), // #BCBCBC40
+              color: const Color(0xFFBCBCBC).withAlpha(64), // #BCBCBC40
               offset: const Offset(0, 4),
               blurRadius: 4,
               spreadRadius: 0,
@@ -175,7 +175,7 @@ class ChooseMode extends GetView<AuthenticationController> {
                         'Selection Required',
                         'Please select an option to continue',
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: Colors.red.withOpacity(0.1),
+                        backgroundColor: Colors.red.withAlpha(28),
                         colorText: Colors.red,
                       );
                     } else if (selectedOption.value == 1) {
