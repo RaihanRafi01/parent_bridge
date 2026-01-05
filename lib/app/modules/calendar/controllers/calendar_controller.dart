@@ -9,14 +9,17 @@ import '../../../../common/app_colors.dart';
 import '../../../../common/widgets/custom_snackbar.dart';
 import '../../../core/constants/api.dart';
 import '../../../core/services/base_client.dart';
-import '../models/acivity_request_model.dart';
-import '../models/activity_response_model.dart';
+import '../models/create_event_request_model.dart';
+import '../models/create_event_response_model.dart';
+import '../models/delete_event_request.dart';
 import '../models/event_response_model.dart';
 import '../models/holiday_response_model.dart';
+import '../models/holiday_view_response_model.dart';
 import '../models/parent_bridge_response_model.dart';
 
 class CalendarController extends GetxController {
   final eventName = TextEditingController();
+  final eventOwnerName = TextEditingController();
   final eventType = TextEditingController();
   final eventDate = TextEditingController();
   final eventEDate = TextEditingController();
@@ -221,40 +224,164 @@ class CalendarController extends GetxController {
     }
   }
 
-  void deleteEvent(String eventTitle, {DateTime? eventDate}) {
-    final date = eventDate ?? selectedDate.value;
-    if (date != null) {
-      final dateKey =
-          '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      events[dateKey]?.removeWhere((event) => event['title'] == eventTitle);
-      if (events[dateKey]?.isEmpty ?? false) events.remove(dateKey);
-      events.refresh();
+  void deleteEventById(String eventId) {
+    print(eventId);
+    // Remove the event matching the eventId
+    events.forEach((dataKey, eventList) {
+      // Remove the event matching the eventId
+      eventList.removeWhere((event) => event['id'] == eventId);
+    });
+
+    // Refresh the events list
+    events.refresh();
+  }
+  void deleteHolidayById(String holidayId) {
+    print(holidayId);
+    // Remove the event matching the eventId
+    events.forEach((dataKey, eventList) {
+      // Remove the event matching the eventId
+      eventList.removeWhere((event) => event['id'] == holidayId);
+    });
+
+    // Refresh the events list
+    events.refresh();
+  }
+
+  Future<void> deleteEvent(String eventId) async {
+    try {
+      isLoading.value = true;
+      final deleteEventRequest = DeleteEventRequest(
+      eventId: eventId
+      );
+      // Make API call to fetch event and holiday data
+      final response = await BaseClient.deleteRequest(
+        api: '${Api.deleteEvents}$eventId/delete/',
+        body: jsonEncode(deleteEventRequest.toJson()),
+        headers: BaseClient.authHeaders(),
+      );
+      print('response $response');
+
+      if (response.statusCode == 204) {
+        deleteEventById(eventId);
+
+        // Show success message
+        kSnackBar(
+          title: "Success",
+          message: "Events successfully retrieved and event deleted",
+          bgColor: AppColors.appColor,
+        );
+
+        debugPrint('Delete events: $events');
+      } else {
+        // Handle error response
+        final Map<String, dynamic> errorData = jsonDecode(response.body);
+        String errorMessage =
+            "Failed to delete events . Please try again.";
+
+        if (errorData.containsKey('message')) {
+          errorMessage = errorData['message'];
+        }
+
+        kSnackBar(
+          title: "Event Delete Failed",
+          message: errorMessage,
+          bgColor: AppColors.snackBarWarning,
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      kSnackBar(
+        title: "Error",
+        message:
+        "An error occurred while delete events . Please try again.",
+        bgColor: AppColors.snackBarWarning,
+      );
+      debugPrint("Event delete error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+  Future<void> deleteHoliday(String eventId) async {
+    try {
+      isLoading.value = true;
+      final deleteEventRequest = DeleteEventRequest(
+      eventId: eventId
+      );
+      // Make API call to fetch event and holiday data
+      final response = await BaseClient.deleteRequest(
+        api: Api.events,
+        body: jsonEncode(deleteEventRequest.toJson()),
+        headers: BaseClient.authHeaders(),
+      );
+      print('response $response');
+
+      if (response.statusCode == 204) {
+        deleteHolidayById(eventId);
+
+        // Show success message
+        kSnackBar(
+          title: "Success",
+          message: "Events and Holidays successfully retrieved and event deleted",
+          bgColor: AppColors.appColor,
+        );
+
+        debugPrint('Fetched events: $events');
+        debugPrint('Fetched holidays: $holidays');
+      } else {
+        // Handle error response
+        final Map<String, dynamic> errorData = jsonDecode(response.body);
+        String errorMessage =
+            "Failed to fetch events and holidays. Please try again.";
+
+        if (errorData.containsKey('message')) {
+          errorMessage = errorData['message'];
+        }
+
+        kSnackBar(
+          title: "Event and Holiday Fetch Failed",
+          message: errorMessage,
+          bgColor: AppColors.snackBarWarning,
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      kSnackBar(
+        title: "Error",
+        message:
+        "An error occurred while fetching events and holidays. Please try again.",
+        bgColor: AppColors.snackBarWarning,
+      );
+      debugPrint("Holiday fetch error: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
-  void updateEvent(
-    String originalTitle,
-    Map<String, dynamic> updatedEvent, {
-    DateTime? eventDate,
-  }) {
-    final date = eventDate ?? selectedDate.value;
-    if (date != null) {
-      final dateKey =
-          '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      final eventIndex =
-          events[dateKey]?.indexWhere(
-            (event) => event['title'] == originalTitle,
-          ) ??
-          -1;
-      if (eventIndex != -1) {
-        events[dateKey]![eventIndex] = {
-          ...events[dateKey]![eventIndex],
-          ...updatedEvent,
-        };
-        events.refresh();
-      }
-    }
-  }
+
+
+  // void updateEvent(
+  //   String originalTitle,
+  //   Map<String, dynamic> updatedEvent, {
+  //   DateTime? eventDate,
+  // }) {
+  //   final date = eventDate ?? selectedDate.value;
+  //   if (date != null) {
+  //     final dateKey =
+  //         '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+  //     final eventIndex =
+  //         events[dateKey]?.indexWhere(
+  //           (event) => event['title'] == originalTitle,
+  //         ) ??
+  //         -1;
+  //     if (eventIndex != -1) {
+  //       events[dateKey]![eventIndex] = {
+  //         ...events[dateKey]![eventIndex],
+  //         ...updatedEvent,
+  //       };
+  //       events.refresh();
+  //     }
+  //   }
+  // }
 
   // void addEvent({
   //   required String title,
@@ -286,6 +413,31 @@ class CalendarController extends GetxController {
   //     events.refresh();
   //   }
   // }
+
+
+  void updateEvent(
+      String eventId, // Use eventId to identify the event
+      Map<String, dynamic> updatedEvent,
+      ) {
+    // Loop through the events to find the event by its id
+    events.forEach((dataKey, eventList) {
+      final eventIndex = eventList.indexWhere(
+            (event) => event['id'] == eventId,
+      );
+
+      if (eventIndex != -1) {
+        // Update the event
+        eventList[eventIndex] = {
+          ...eventList[eventIndex],
+          ...updatedEvent,
+        };
+      }
+    });
+
+    // Refresh the events list
+    events.refresh();
+  }
+
 
   ///event
   final eventItems = ['Activity', 'School', 'Custody', 'Medical', 'Other'];
@@ -368,7 +520,7 @@ class CalendarController extends GetxController {
     debugPrint('Selected Child ID: ${selectedChildId.value}');
   }
 
-  Future<void> createActivity() async {
+  Future<void> createEvent() async {
     selectChildByName(selectedChildName.value.toString());
     selectRepeatByName(selectedRepeatType.value.toString());
     selectEventByName(selectedEventType.value.toString());
@@ -464,8 +616,8 @@ class CalendarController extends GetxController {
     try {
       isLoading.value = true;
 
-      // Create ActivityRequestModel using the controllers' values
-      final activityRequest = ActivityRequestModel(
+      // Create EventRequestModel using the controllers' values
+      final eventRequest = CreateEventRequestModel(
         child:
             selectedChildId.value, // Assuming 'child' is not passed dynamically
         title: eventName.text.trim(),
@@ -487,32 +639,32 @@ class CalendarController extends GetxController {
         description: eventDescription.text.trim(),
       );
 
-      // Make API call to create the activity
+      // Make API call to create the event
       final response = await BaseClient.postRequest(
-        api: Api.createActivity, // Replace with your actual API endpoint
-        body: jsonEncode(activityRequest.toJson()),
+        api: Api.createEvent, // Replace with your actual API endpoint
+        body: jsonEncode(eventRequest.toJson()),
         headers: BaseClient.authHeaders(),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         // Parse response
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final activityResponse = ActivityResponseModel.fromJson(responseData);
+        final eventResponse = CreateEventResponseModel.fromJson(responseData);
         clearFormData();
 
-        // Navigate to activity details page or another page
+        // Navigate to event details page or another page
         Get.back();
         kSnackBar(
           title: "Success",
-          message: activityResponse.message.isNotEmpty
-              ? activityResponse.message
-              : "Activity created successfully",
+          message: eventResponse.message.isNotEmpty
+              ? eventResponse.message
+              : "Event created successfully",
           bgColor: AppColors.appColor,
         );
       } else {
         // Handle error response
         final Map<String, dynamic> errorData = jsonDecode(response.body);
-        String errorMessage = "Failed to create activity. Please try again.";
+        String errorMessage = "Failed to create event. Please try again.";
 
         // Check for error messages
         if (errorData.containsKey('non_field_errors')) {
@@ -529,7 +681,7 @@ class CalendarController extends GetxController {
         }
 
         kSnackBar(
-          title: "Activity Creation Failed",
+          title: "Event Creation Failed",
           message: errorMessage,
           bgColor: AppColors.snackBarWarning,
         );
@@ -539,14 +691,193 @@ class CalendarController extends GetxController {
       kSnackBar(
         title: "Error",
         message:
-            "An error occurred during activity creation. Please try again.",
+            "An error occurred during event creation. Please try again.",
         bgColor: AppColors.snackBarWarning,
       );
-      debugPrint("Activity creation error: $e");
+      debugPrint("Event creation error: $e");
     } finally {
       isLoading.value = false;
     }
   }
+  // Future<void> updateEvent() async {
+  //   selectChildByName(selectedChildName.value.toString());
+  //   selectRepeatByName(selectedRepeatType.value.toString());
+  //   selectEventByName(selectedEventType.value.toString());
+  //   // Validate input fields
+  //   if (selectedRepeatType.value.toString().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please select a repeat",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //   if (selectedEventType.value.toString().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please select a event type",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //   if (selectedChildId.value.toString().isEmpty ||
+  //       selectedChildId.value == 0) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please select a chile",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //   if (eventName.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the event name",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventDate.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please select the event date",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventSTime.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the event start time",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventETime.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the event end time",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventLocation.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the event location",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventDescription.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the event description",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (eventReminderTime.text.trim().isEmpty) {
+  //     kSnackBar(
+  //       title: "Validation Error",
+  //       message: "Please enter the reminder time",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     return;
+  //   }
+  //
+  //   try {
+  //     isLoading.value = true;
+  //
+  //     // Create EventRequestModel using the controllers' values
+  //     final eventRequest = CreateEventRequestModel(
+  //       child:
+  //           selectedChildId.value, // Assuming 'child' is not passed dynamically
+  //       title: eventName.text.trim(),
+  //       type:
+  //           selectedEventType.value ??
+  //           'activity', // Assuming 'eventType' is text-based
+  //       date: eventDate.text.trim(),
+  //       startTime: eventSTime.text.trim(),
+  //       endTime: eventETime.text.trim(),
+  //       location: eventLocation.text.trim(),
+  //       repeat:
+  //           selectedRepeatType.value ??
+  //           'Does not repeat', // Assuming default repeat value, update as needed
+  //       // customStartDate: eventDate.text.trim(),
+  //       // customEndDate: eventDate.text.trim(),
+  //       reminderMinutes:
+  //           int.tryParse(eventReminderTime.text.trim()) ??
+  //           0, // Parse reminder time
+  //       description: eventDescription.text.trim(),
+  //     );
+  //
+  //     // Make API call to create the event
+  //     final response = await BaseClient.postRequest(
+  //       api: Api.createEvent, // Replace with your actual API endpoint
+  //       body: jsonEncode(eventRequest.toJson()),
+  //       headers: BaseClient.authHeaders(),
+  //     );
+  //
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       // Parse response
+  //       final Map<String, dynamic> responseData = jsonDecode(response.body);
+  //       final eventResponse = CreateEventResponseModel.fromJson(responseData);
+  //       clearFormData();
+  //
+  //       // Navigate to event details page or another page
+  //       Get.back();
+  //       kSnackBar(
+  //         title: "Success",
+  //         message: eventResponse.message.isNotEmpty
+  //             ? eventResponse.message
+  //             : "Event created successfully",
+  //         bgColor: AppColors.appColor,
+  //       );
+  //     } else {
+  //       // Handle error response
+  //       final Map<String, dynamic> errorData = jsonDecode(response.body);
+  //       String errorMessage = "Failed to create event. Please try again.";
+  //
+  //       // Check for error messages
+  //       if (errorData.containsKey('non_field_errors')) {
+  //         final errors = errorData['non_field_errors'];
+  //         if (errors is List && errors.isNotEmpty) {
+  //           errorMessage = errors[0].toString();
+  //         }
+  //       } else if (errorData.containsKey('message')) {
+  //         errorMessage = errorData['message'];
+  //       } else if (errorData.containsKey('detail')) {
+  //         errorMessage = errorData['detail'];
+  //       } else if (errorData.containsKey('error')) {
+  //         errorMessage = errorData['error'];
+  //       }
+  //
+  //       kSnackBar(
+  //         title: "Event Creation Failed",
+  //         message: errorMessage,
+  //         bgColor: AppColors.snackBarWarning,
+  //       );
+  //     }
+  //   } catch (e) {
+  //     // Handle exceptions
+  //     kSnackBar(
+  //       title: "Error",
+  //       message:
+  //           "An error occurred during event creation. Please try again.",
+  //       bgColor: AppColors.snackBarWarning,
+  //     );
+  //     debugPrint("Event creation error: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   final holidayItems = [
     "New Year's Day",
@@ -792,27 +1123,31 @@ class CalendarController extends GetxController {
     }
   }
 
-  // Calculate the first date of the current month
-  late DateTime firstDateOfMonth = DateTime(
-    currentDate.value.year,
-    currentDate.value.month,
-    1,
-  );
-
-  // Calculate the last date of the current month
-  late DateTime lastDateOfMonth = DateTime(
-    currentDate.value.year,
-    currentDate.value.month + 1,
-    0,
-  );
-
-  // Convert these DateTime objects to string format (or to whatever format your API expects)
-  late String startDateString = firstDateOfMonth.toIso8601String();
-  late String endDateString = lastDateOfMonth.toIso8601String();
-
   Future<void> fetchEvents() async {
     try {
       isLoading.value = true;
+      DateTime currentDates =
+          currentDate.value; // Or set this to a specific month if needed
+
+      // Calculate the start and end dates of the current month
+      DateTime firstDateOfMonth = DateTime(
+        currentDates.year,
+        currentDates.month,
+        1,
+      );
+      DateTime lastDateOfMonth = DateTime(
+        currentDates.year,
+        currentDates.month + 1,
+        0,
+      );
+
+      // Convert these DateTime objects to string format
+      String startDateString = firstDateOfMonth.toIso8601String();
+      String endDateString = lastDateOfMonth.toIso8601String();
+
+      print(
+        'checking dates $currentDate $currentDates $startDateString $endDateString',
+      );
 
       // Make API call to fetch event and holiday data
       final response = await BaseClient.getRequest(
@@ -829,8 +1164,9 @@ class CalendarController extends GetxController {
         // Parse response
         final Map<String, dynamic> responseData = jsonDecode(response.body);
 
-        final eventList = (responseData['events'] as List);
-        final holidayList = (responseData['holidays'] as List);
+        final eventList = (responseData['data']['events'] as List);
+        final holidayList = (responseData['data']['holidays'] as List);
+        final message =responseData['message'];
 
         // Clear existing events and holidays before adding new ones
         events.clear();
@@ -846,7 +1182,7 @@ class CalendarController extends GetxController {
 
         // Loop through the holidays and store them grouped by date
         for (var holidayJson in holidayList) {
-          final holiday = HolidayResponseModel.fromJson(holidayJson);
+          final holiday = HolidayViewResponseModel.fromJson(holidayJson);
 
           // Add holiday to the holidays map grouped by start date
           addHolidayToDate(holidays, holiday);
@@ -855,7 +1191,7 @@ class CalendarController extends GetxController {
         // Show success message
         kSnackBar(
           title: "Success",
-          message: "Events and Holidays successfully retrieved",
+          message: message,
           bgColor: AppColors.appColor,
         );
 
@@ -893,7 +1229,7 @@ class CalendarController extends GetxController {
 
   void addHolidayToDate(
     Map<String, List<Map<String, dynamic>>> holidays,
-    HolidayResponseModel holiday,
+    HolidayViewResponseModel holiday,
   ) {
     // Format the date to YYYY-MM-DD
     String holidayDate = DateFormat(
@@ -908,12 +1244,14 @@ class CalendarController extends GetxController {
     // Format the holiday fields correctly
     final holidayData = {
       'id': holiday.id.toString(),
-      'name': holiday.name ?? '',
-      'assigned_to': holiday.assignedTo ?? '',
-      'location': holiday.location ?? '',
-      'description': holiday.description ?? '',
-      'start_date': formatEventDate(holiday.startDate ?? ''),
-      'end_date': formatEventDate(holiday.endDate ?? ''),
+      'child': holiday.child,
+      'organizer': holiday.postBy,
+      'name': holiday.name,
+      'assigned_to': holiday.assignedTo,
+      'location': holiday.location,
+      'description': holiday.description,
+      'start_date': formatEventDate(holiday.startDate),
+      'end_date': formatEventDate(holiday.endDate),
       'created_at': holiday.createdAt,
       'updated_at': holiday.updatedAt,
     };
@@ -939,21 +1277,22 @@ class CalendarController extends GetxController {
     // Format the event fields correctly
     final eventData = {
       'id': event.id.toString(),
-      'title': event.title ?? '',
-      'description': event.description ?? '',
-      'type': event.type ?? '',
-      'time': formatEventTime(event.startTime ?? ''),
-      'location': event.location ?? '',
-      'organizer': event.title ?? '', // Fix: Use 'assignedTo' as the organizer
-      'date': formatEventDate(event.date ?? ''),
-      'createdAt': formatEventDate(event.createdAt ?? ''),
-      'start_time': event.startTime ?? '',
-      'end_time': event.endTime ?? '',
-      'repeat': event.repeat ?? 'Does not repeat',
-      'custom_start_date': event.customStartDate ?? '',
-      'custom_end_date': event.customEndDate ?? '',
-      'reminder_minutes': event.reminderMinutes ?? 0,
-      'description': event.description ?? '',
+      'child': event.child,
+      'child_id': event.childId,
+      'title': event.title,
+      'description': event.description,
+      'type': event.type,
+      'time': formatEventTime(event.startTime),
+      'location': event.location,
+      'organizer': event.postBy, // Fix: Use 'assignedTo' as the organizer
+      'date': formatEventDate(event.date),
+      'createdAt': formatEventDate(event.createdAt),
+      'start_time': formatEventTime(event.startTime),
+      'end_time': formatEventTime(event.endTime),
+      'repeat': event.repeat,
+      'custom_start_date': event.customStartDate,
+      'custom_end_date': event.customEndDate,
+      'reminder_minutes': event.reminderMinutes,
     };
 
     // Add the event to the list for the corresponding date

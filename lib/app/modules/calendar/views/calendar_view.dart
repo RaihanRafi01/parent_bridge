@@ -264,8 +264,6 @@ class CalendarView extends GetView<CalendarController> {
         children: [
           GestureDetector(
             onTap: () {
-              print('CHECKING ${controller.selectedView.value}');
-              print('CHECKING CALENDER DATE ${controller.currentDate.value}');
               if (controller.selectedView.value == 'Week') {
                 controller.previousWeek();
               } else if (controller.selectedView.value == 'Day') {
@@ -273,6 +271,7 @@ class CalendarView extends GetView<CalendarController> {
               } else {
                 controller.previousMonth();
               }
+              controller.fetchEvents();
             },
             child: Icon(
               Icons.chevron_left,
@@ -308,6 +307,7 @@ class CalendarView extends GetView<CalendarController> {
               } else {
                 controller.nextMonth();
               }
+              controller.fetchEvents();
             },
             child: Icon(
               Icons.chevron_right,
@@ -479,8 +479,7 @@ class CalendarView extends GetView<CalendarController> {
               case 'Holidays':
                 title = 'Holidays';
                 viewName = 'period';
-                eventsList = controller
-                    .getHolidays();
+                eventsList = controller.getHolidays();
                 break;
               default:
                 return SizedBox();
@@ -837,6 +836,19 @@ class CalendarView extends GetView<CalendarController> {
   Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
     // Updated to use dynamic event data
     Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
+
+    String formatTime(String time) {
+      try {
+        // Parse the time string into a DateTime object
+        final DateTime parsedTime = DateFormat("HH:mm:ss").parse(time);
+
+        // Format the DateTime object to a 12-hour format with AM/PM
+        return DateFormat("h:mm a").format(parsedTime);
+      } catch (e) {
+        return time; // If parsing fails, return the original time
+      }
+    }
+
     return Container(
       margin: EdgeInsets.only(top: 12.h),
       decoration: BoxDecoration(
@@ -879,7 +891,7 @@ class CalendarView extends GetView<CalendarController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        event['time'],
+                        formatTime(event['start_time']),
                         style: h0.copyWith(fontSize: 8.sp, color: eventColor),
                       ),
                       SizedBox(height: 2.h),
@@ -889,7 +901,7 @@ class CalendarView extends GetView<CalendarController> {
                       ),
                       SizedBox(height: 2.h),
                       Text(
-                        event['time'],
+                        formatTime(event['end_time']),
                         style: h0.copyWith(fontSize: 8.sp, color: eventColor),
                       ),
                     ],
@@ -915,7 +927,8 @@ class CalendarView extends GetView<CalendarController> {
                             ),
                           ),
                         ),
-                        Container(margin: EdgeInsets.only(right: 10.w),
+                        Container(
+                          margin: EdgeInsets.only(right: 10.w),
                           padding: EdgeInsets.symmetric(
                             horizontal: 12.w,
                             vertical: 6.h,
@@ -955,15 +968,14 @@ class CalendarView extends GetView<CalendarController> {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          'assets/images/calendar/child_icon.svg',
+                          'assets/images/calendar/person_icon.svg',
                         ),
                         SizedBox(width: 6.w),
                         Text(
                           event['organizer'] ?? 'Not specified',
                           style: h4.copyWith(
                             fontSize: 11.08.sp,
-                            color: Colors.green,
-                            fontWeight: FontWeight.w500,
+                            color: AppColors.darkSlateBlue,
                           ),
                         ),
                       ],
@@ -972,21 +984,25 @@ class CalendarView extends GetView<CalendarController> {
                     Row(
                       children: [
                         SvgPicture.asset(
-                          'assets/images/calendar/person_icon.svg',
+                          'assets/images/calendar/child_icon.svg',
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          'You',
+                          event['child'] ?? 'Not specified',
                           style: h4.copyWith(
                             fontSize: 11.08.sp,
-                            color: AppColors.darkSlateBlue,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      event['frequency'] ?? 'Once',
+                      (event['repeat']?.isNotEmpty ?? false)
+                          ? event['repeat']![0].toUpperCase() +
+                                event['repeat']!.substring(1)
+                          : 'Once',
                       style: h4.copyWith(
                         fontSize: 11.08.sp,
                         color: AppColors.darkSlateBlue,
@@ -1164,7 +1180,23 @@ class CalendarView extends GetView<CalendarController> {
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          holiday['assigned_to'] ?? 'Not specified',
+                          holiday['organizer'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/child_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          holiday['child'] ?? 'Not specified',
                           style: h4.copyWith(
                             fontSize: 11.08.sp,
                             color: Colors.green,
@@ -1208,6 +1240,7 @@ class CalendarView extends GetView<CalendarController> {
     DateTime selectedDate,
     List<Map<String, dynamic>> events,
   ) {
+    bool eventsToShow = events.length > 4 ? true : false;
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
@@ -1272,24 +1305,47 @@ class CalendarView extends GetView<CalendarController> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.w),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: events.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Get.back();
-                      _showEventDetailsDialog(events[index]);
-                    },
-                    child: _buildEventItem(
-                      events[index],
-                      index == events.length - 1,
+              eventsToShow
+                  ? Expanded(
+                      child: ListView.builder(
+                        shrinkWrap:
+                            true, // Ensures the list view only takes the space it needs
+                        physics:
+                            AlwaysScrollableScrollPhysics(), // Makes the list scrollable
+                        itemCount: events.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            _showEventDetailsDialog(events[index]);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: _buildEventItem(
+                              events[index],
+                              index == events.length - 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: events.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            _showEventDetailsDialog(events[index]);
+                          },
+                          child: _buildEventItem(
+                            events[index],
+                            index == events.length - 1,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               SizedBox(height: 16.h),
             ],
           ),
@@ -1300,6 +1356,21 @@ class CalendarView extends GetView<CalendarController> {
   }
 
   void _showEventDetailsDialog(Map<String, dynamic> event) {
+    Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
+    // Helper function to format time
+    String formatTime(String time) {
+      try {
+        // Parse the time string into a DateTime object
+        final parsedTime = DateFormat('HH:mm:ss').parse(time);
+
+        // Format it into the 12-hour format with AM/PM
+        return DateFormat('h:mm a').format(parsedTime);
+      } catch (e) {
+        // Return the original time if parsing fails
+        return time;
+      }
+    }
+
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
@@ -1317,7 +1388,7 @@ class CalendarView extends GetView<CalendarController> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.lightPurplePink2,
+                  color: eventColor,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(29.r),
                   ),
@@ -1363,7 +1434,9 @@ class CalendarView extends GetView<CalendarController> {
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          DateFormat('yyyy-MM-dd').format(event['date']),
+                          DateFormat(
+                            'yyyy-MM-dd',
+                          ).format(DateTime.parse(event['date'])),
                           style: h4.copyWith(
                             fontSize: 16.62.sp,
                             color: AppColors.darkSlateBlue,
@@ -1401,7 +1474,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            event['time'],
+                            '${formatTime(event['start_time'])} - ${formatTime(event['end_time'])}',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.darkSlateBlue,
@@ -1437,7 +1510,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            'You',
+                            event['organizer'] ?? 'Not specified',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.darkSlateBlue,
@@ -1455,7 +1528,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            event['organizer'] ?? 'Not specified',
+                            event['child'] ?? 'Not specified',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.clrGreen,
@@ -1467,7 +1540,7 @@ class CalendarView extends GetView<CalendarController> {
                     SizedBox(height: 10.h),
                     Container(
                       decoration: BoxDecoration(
-                        color: AppColors.clrGreen2,
+                        color: eventColor.withAlpha(27),
                         borderRadius: BorderRadius.circular(16.r),
                       ),
                       padding: EdgeInsets.all(16.r),
@@ -1486,32 +1559,41 @@ class CalendarView extends GetView<CalendarController> {
                         children: [
                           OutlinedButton(
                             onPressed: () {
+                              Get.back();
+                              print('child id is ${event['child_id']}');
+                              controller.selectedChildName.value = event['child'] ;
                               controller.eventName.text = event['title'];
-                              controller.eventType.text = event['type'];
-                              controller.eventDate.text = DateFormat(
-                                'yyyy-MM-dd',
-                              ).format(event['date']);
-                              controller.eventSTime.text = event['time'];
-                              controller.eventDescription.text =
-                                  event['description'] ?? '';
-                              controller.eventLocation.text =
-                                  event['location'] ?? '';
-                              controller.selectedRepeatType.value =
-                                  event['frequency'];
+                              controller.selectedEventType = event['type'];
+                              controller.eventDate.text = event['date'];
+                              controller.eventSTime.text = event['start_time'];
+                              controller.eventETime.text = event['end_time'];
+                              // controller.eventLocation.text =
+                              //     event['location'] ?? '';
+                              // controller.selectedRepeatType.value =
+                              //     event['repeat'];
+                              // controller.eventDescription.text =
+                              //     event['description'] ?? '';
+
                               Get.to(() => AddEventView())?.then((_) {
-                                controller.updateEvent(event['title'], {
+                                // Update the event by using event['id'] and passing the updated fields
+                                controller.updateEvent(event['id'], {
+                                  'child':
+                                      controller.selectedChildName.value ??
+                                      'Not specified',
+                                  'organizer': controller.eventOwnerName.text,
                                   'title': controller.eventName.text,
-                                  'type': controller.eventType.text,
-                                  'date': DateTime.parse(
-                                    controller.eventDate.text,
-                                  ),
-                                  'time': controller.eventSTime.text,
+                                  'type':
+                                      controller.selectedEventType.value ??
+                                      'unknown',
+                                  'date': 'DateTime.parse(',
+                                  'start_time': controller.eventSTime.text,
+                                  'end_time': controller.eventETime.text,
                                   'description':
                                       controller.eventDescription.text,
                                   'location': controller.eventLocation.text,
-                                  'frequency':
+                                  'repeat':
                                       controller.selectedRepeatType.value ??
-                                      'Once',
+                                      'once',
                                 });
                               });
                             },
@@ -1540,11 +1622,8 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           OutlinedButton(
                             onPressed: () {
-                              controller.deleteEvent(
-                                event['title'],
-                                eventDate: event['date'],
-                              );
                               Get.back();
+                              controller.deleteEvent(event['id']);
                             },
                             style: OutlinedButton.styleFrom(
                               side: BorderSide(color: AppColors.clrRed),
@@ -1630,7 +1709,7 @@ class CalendarView extends GetView<CalendarController> {
         return Color(0xFF4CAF50);
       case 'personal':
       case 'activity':
-        return Color(0xFF2196F3);
+        return Color(0xFF7F8DF6);
       case 'family':
         return Color(0xFFFF9800);
       case 'holiday':

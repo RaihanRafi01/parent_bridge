@@ -23,9 +23,10 @@ class Api {
   //   static const String passwordResetConfirm = '$baseUrlApi/auth/password-reset/confirm/';
 
   ///event
-  static const createActivity = "$baseUrlApi/v1/event/add/";
+  static const createEvent = "$baseUrlApi/v1/event/add/";
   static const createHoliday = "$baseUrlApi/v1/event/holiday/add/";
   static const events = "$baseUrlApi/v1/event/list/";
+  static const deleteEvents = "$baseUrlApi/v1/event/";
 
 
 

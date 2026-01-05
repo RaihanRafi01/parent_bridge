@@ -1,6 +1,6 @@
 class HolidayResponseModel {
   final int id;
-  final int child;
+  final String child;
   final String name;
   final String startDate;
   final String endDate;
@@ -28,7 +28,7 @@ class HolidayResponseModel {
   factory HolidayResponseModel.fromJson(Map<String, dynamic> json) {
     return HolidayResponseModel(
       id: json['id'] ?? 0,
-      child: json['child'] ?? 0,
+      child: json['child'] ?? '',
       name: json['name'] ?? '',
       startDate: json['start_date'] ?? '',
       endDate: json['end_date'] ?? '',

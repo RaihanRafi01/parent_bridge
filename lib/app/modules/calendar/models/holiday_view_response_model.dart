@@ -1,7 +1,8 @@
 class HolidayViewResponseModel {
   final int id;
-  final int? child; // Child can be null
+  final String child;
   final String name;
+  final String postBy;
   final String startDate;
   final String endDate;
   final String assignedTo;
@@ -9,11 +10,13 @@ class HolidayViewResponseModel {
   final String description;
   final String createdAt;
   final String updatedAt;
+  final String message;
 
   HolidayViewResponseModel({
     required this.id,
-    this.child,
+    required this.child,
     required this.name,
+    required this.postBy,
     required this.startDate,
     required this.endDate,
     required this.assignedTo,
@@ -21,30 +24,15 @@ class HolidayViewResponseModel {
     required this.description,
     required this.createdAt,
     required this.updatedAt,
+    required this.message,
   });
 
-  // Convert HolidayResponseModel to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'child': child,
-      'name': name,
-      'start_date': startDate,
-      'end_date': endDate,
-      'assigned_to': assignedTo,
-      'location': location,
-      'description': description,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
-    };
-  }
-
-  // Create HolidayResponseModel from JSON
   factory HolidayViewResponseModel.fromJson(Map<String, dynamic> json) {
     return HolidayViewResponseModel(
       id: json['id'] ?? 0,
-      child: json['child'] ?? null, // child can be null
+      child: json['child_name'] ?? '',
       name: json['name'] ?? '',
+      postBy: json['post_by'] ?? '',
       startDate: json['start_date'] ?? '',
       endDate: json['end_date'] ?? '',
       assignedTo: json['assigned_to'] ?? '',
@@ -52,6 +40,24 @@ class HolidayViewResponseModel {
       description: json['description'] ?? '',
       createdAt: json['created_at'] ?? '',
       updatedAt: json['updated_at'] ?? '',
+      message: json['message'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'child': child,
+      'name': name,
+      'post_by': postBy,
+      'start_date': startDate,
+      'end_date': endDate,
+      'assigned_to': assignedTo,
+      'location': location,
+      'description': description,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+      'message': message,
+    };
   }
 }

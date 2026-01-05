@@ -171,7 +171,7 @@ class AddEventView extends GetView<CalendarController> {
                                   : 'Add event',
                               onPressed: controller.isLoading.value
                                   ? () {}
-                                  : () => controller.createActivity(),
+                                  : () => controller.createEvent(),
                             ),
                           ),
                           ),

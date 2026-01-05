@@ -1,4 +1,4 @@
-class ActivityRequestModel {
+class CreateEventRequestModel {
   final int child;
   final String title;
   final String type;
@@ -13,7 +13,7 @@ class ActivityRequestModel {
   final String description;
 
   // Constructor
-  ActivityRequestModel({
+  CreateEventRequestModel({
     required this.child,
     required this.title,
     required this.type,

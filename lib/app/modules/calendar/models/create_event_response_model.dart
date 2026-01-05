@@ -1,4 +1,4 @@
-class ActivityResponseModel {
+class CreateEventResponseModel {
   final int id;
   final int child;
   final String title;
@@ -16,7 +16,7 @@ class ActivityResponseModel {
   final String updatedAt;
   final String message;
 
-  ActivityResponseModel({
+  CreateEventResponseModel({
     required this.id,
     required this.child,
     required this.title,
@@ -35,8 +35,8 @@ class ActivityResponseModel {
     required this.message,
   });
 
-  factory ActivityResponseModel.fromJson(Map<String, dynamic> json) {
-    return ActivityResponseModel(
+  factory CreateEventResponseModel.fromJson(Map<String, dynamic> json) {
+    return CreateEventResponseModel(
       id: json['id'] ?? 0,
       child: json['child'] ?? 0,
       title: json['title'] ?? '',

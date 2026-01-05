@@ -1,7 +1,9 @@
 class EventResponseModel {
   final int id;
-  final int child;
+  final String child;
+  final int childId;
   final String title;
+  final String postBy;
   final String type;
   final String date;
   final String startTime;
@@ -18,7 +20,9 @@ class EventResponseModel {
   EventResponseModel({
     required this.id,
     required this.child,
+    required this.childId,
     required this.title,
+    required this.postBy,
     required this.type,
     required this.date,
     required this.startTime,
@@ -39,6 +43,7 @@ class EventResponseModel {
       'id': id,
       'child': child, // child should now be an int, representing the child ID
       'title': title,
+      'post_by': postBy,
       'type': type,
       'date': date,
       'start_time': startTime,
@@ -57,13 +62,16 @@ class EventResponseModel {
   // Create EventResponseModel from JSON
   factory EventResponseModel.fromJson(Map<String, dynamic> json) {
     // Extract child id, assuming the child is an object and we need to get the 'id' field
+    final childName = json['child'] != null ? json['child']['name'] ?? '' : '';
     final childId = json['child'] != null ? json['child']['id'] ?? 0 : 0;
 
     return EventResponseModel(
       id: json['id'] ?? 0,
-      child: childId, // Set child as the ID of the child
+      child: childName,
+      childId: childId, // Set child as the ID of the child
       title: json['title'] ?? '',
       type: json['type'] ?? '',
+      postBy: json['post_by'] ?? '',
       date: json['date'] ?? '',
       startTime: json['start_time'] ?? '',
       endTime: json['end_time'] ?? '',
