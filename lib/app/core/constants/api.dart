@@ -34,6 +34,7 @@ class Api {
 
   /// profile
   static const String profile = '$baseUrlApi/v1/auth/profile/';
+  static const String changePassword = '$baseUrlApi/v1/auth/profile/password/change/';
 
   // // // static getMessages(room_id) => '$baseUrlApi/chat/rooms/$room_id/messages/';
 

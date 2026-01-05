@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/new_password_controller.dart';
-import 'package:parent_bridge/app/modules/authentication/views/password_reset_successful_view.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';

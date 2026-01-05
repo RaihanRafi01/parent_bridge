@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/otp_verifications_controller.dart';
-import 'package:parent_bridge/app/modules/authentication/views/new_password_view.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';

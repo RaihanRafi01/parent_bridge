@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/common/customFont.dart'; // আপনার কাস্টম ফন্ট ফাইল
 
 import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
 import '../../../../common/widgets/_buildDetailItem.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/detailsrowWidget.dart';

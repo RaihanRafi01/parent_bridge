@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
-import 'package:parent_bridge/common/widgets/custom_snackbar.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';

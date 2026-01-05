@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/core/constants/api.dart';
 
@@ -184,12 +182,19 @@ class Profile extends GetView<SettingsController> {
                 keyboardType: TextInputType.phone,
                 decoration: styledContainerDecoration,
               ),
-              StyledTextField(
-                label: 'Password',
-                svgAsset: 'assets/images/profile/pass.svg',
-                controller: passwordController,
-                isPassword: true,
-                decoration: styledContainerDecoration,
+              GestureDetector(
+                onTap: () {
+                  _showChangePasswordDialog(context);
+                },
+                child: AbsorbPointer(
+                  child: StyledTextField(
+                    label: 'Password',
+                    svgAsset: 'assets/images/profile/pass.svg',
+                    controller: passwordController,
+                    isPassword: true,
+                    decoration: styledContainerDecoration,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
@@ -312,6 +317,71 @@ class Profile extends GetView<SettingsController> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showChangePasswordDialog(BuildContext context) {
+    final oldPasswordController = TextEditingController();
+    final newPasswordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text("Change Password"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: oldPasswordController,
+              decoration: const InputDecoration(labelText: "Old Password"),
+              obscureText: true,
+            ),
+            TextField(
+              controller: newPasswordController,
+              decoration: const InputDecoration(labelText: "New Password"),
+              obscureText: true,
+            ),
+            TextField(
+              controller: confirmPasswordController,
+              decoration: const InputDecoration(
+                labelText: "Confirm New Password",
+              ),
+              obscureText: true,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: const Text("Cancel")),
+          TextButton(
+            onPressed: () {
+              if (newPasswordController.text !=
+                  confirmPasswordController.text) {
+                Get.snackbar(
+                  "Error",
+                  "Passwords do not match",
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+              if (newPasswordController.text.isEmpty) {
+                Get.snackbar(
+                  "Error",
+                  "Password cannot be empty",
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+              controller.changePassword(
+                oldPasswordController.text,
+                newPasswordController.text,
+              );
+            },
+            child: const Text("Change"),
+          ),
+        ],
       ),
     );
   }

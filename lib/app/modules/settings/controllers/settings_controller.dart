@@ -182,6 +182,62 @@ class SettingsController extends GetxController {
     }
   }
 
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    try {
+      isLoading.value = true;
+      final body = {
+        "old_password": oldPassword,
+        "new_password": newPassword,
+      };
+
+      final response = await BaseClient.putRequest(
+        api: Api.changePassword,
+        body: jsonEncode(body),
+        headers: BaseClient.authHeaders(),
+      );
+
+      if (response.statusCode == 200) {
+        Get.back(); // Close the dialog
+        Get.snackbar(
+          "Success",
+          "Password changed successfully",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        final errorData = jsonDecode(response.body);
+        String errorMessage = "Failed to change password";
+
+        if (errorData['detail'] != null) {
+          errorMessage = errorData['detail'];
+        } else if (errorData['non_field_errors'] != null) {
+          if (errorData['non_field_errors'] is List) {
+            errorMessage = (errorData['non_field_errors'] as List).join(' ');
+          } else {
+            errorMessage = errorData['non_field_errors'].toString();
+          }
+        }
+
+        Get.snackbar(
+          "Error",
+          errorMessage,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      print("Error changing password: $e");
+      Get.snackbar(
+        "Error",
+        "An error occurred",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   void toggleMessageNotifications(bool value) {
     messageNotifications.value = value;
   }

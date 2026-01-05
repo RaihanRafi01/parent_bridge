@@ -92,7 +92,7 @@ class ChatView extends GetView<ChatController> {
               child: Switch(
                 value: controller.showOriginal.value,
                 onChanged: controller.toggleShowOriginal,
-                activeColor: Colors.white,
+                activeThumbColor: Colors.white,
                 inactiveThumbColor: AppColors.txtclr5,
                 activeTrackColor: AppColors.txtclr5,
               ),

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
-import 'package:parent_bridge/app/modules/authentication/views/otp_verifications_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
 import '../../../../common/appColors.dart';

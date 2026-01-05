@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/core/constants/api.dart';
-import 'package:parent_bridge/app/modules/settings/views/Choose_the_app.dart';
 import 'package:parent_bridge/app/modules/settings/views/Choose_the_app_main.dart';
 import 'package:parent_bridge/app/modules/settings/views/co_parentInformation.dart';
 import 'package:parent_bridge/app/modules/settings/views/help_and_support.dart';

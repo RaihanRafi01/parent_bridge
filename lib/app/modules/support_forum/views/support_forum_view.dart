@@ -8,8 +8,6 @@ import 'package:parent_bridge/common/customFont.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/support_forum_controller.dart';
 import 'common/custom_anonymous_parent.dart';
-import 'common/custom_floating_button.dart';
-import 'support_forum/anonymous_parent_part.dart';
 import 'support_forum/app_bar_section.dart';
 
 class SupportForumView extends GetView<SupportForumController> {
