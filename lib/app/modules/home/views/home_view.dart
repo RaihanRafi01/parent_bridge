@@ -62,8 +62,9 @@ class HomeView extends StatelessWidget {
                               image: imageUrl.isNotEmpty
                                   ? NetworkImage(imageUrl)
                                   : const AssetImage(
-                                          'assets/images/home/person.png')
-                                      as ImageProvider,
+                                          'assets/images/home/person.png',
+                                        )
+                                        as ImageProvider,
                               fit: BoxFit.cover,
                             ),
                             boxShadow: [

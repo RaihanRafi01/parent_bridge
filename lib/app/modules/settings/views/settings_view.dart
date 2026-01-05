@@ -108,11 +108,11 @@ class SettingsView extends GetView<SettingsController> {
                                       errorBuilder:
                                           (context, error, stackTrace) =>
                                               Image.asset(
-                                        'assets/images/auth/img.png',
-                                        fit: BoxFit.cover,
-                                        width: 56.r,
-                                        height: 56.r,
-                                      ),
+                                                'assets/images/auth/img.png',
+                                                fit: BoxFit.cover,
+                                                width: 56.r,
+                                                height: 56.r,
+                                              ),
                                     )
                                   : Image.asset(
                                       'assets/images/auth/img.png',
