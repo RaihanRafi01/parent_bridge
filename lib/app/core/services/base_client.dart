@@ -28,6 +28,14 @@ class BaseClient {
     return await _storage.read(key: 'user_role');
   }
 
+  static Future<void> storeEmail({required String email}) async {
+    await _storage.write(key: 'user_email', value: email);
+  }
+
+  static Future<String?> getEmail() async {
+    return await _storage.read(key: 'user_email');
+  }
+
   // Store tokens in secure storage
   static Future<void> storeTokens({
     required String accessToken,
@@ -55,6 +63,7 @@ class BaseClient {
     await _storage.delete(key: 'access_token');
     await _storage.delete(key: 'refresh_token');
     await _storage.delete(key: 'user_role');
+    await _storage.delete(key: 'user_email');
     print('DELETE=======================>>>>>>>>>>>>>');
   }
 

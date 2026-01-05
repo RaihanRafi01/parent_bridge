@@ -1,31 +1,24 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/core/constants/api.dart';
 
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/add_child_button.dart';
 import '../../../../common/widgets/home/child_info_tile.dart';
 import '../../../../common/widgets/home/styledTextField.dart';
-//import '../../../../common/widgets/styled_text_field.dart';
+import '../controllers/settings_controller.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends GetView<SettingsController> {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController(
-      text: 'Michael Smith',
-    );
-    final TextEditingController emailController = TextEditingController(
-      text: 'michaelsmith@gmail.com',
-    );
-    final TextEditingController contactController = TextEditingController(
-      text: '+881 01405366393',
-    );
     final TextEditingController passwordController = TextEditingController(
-      text: 'password',
+      text: '********',
     );
 
     final BoxDecoration styledContainerDecoration = BoxDecoration(
@@ -34,7 +27,7 @@ class Profile extends StatelessWidget {
       border: Border.all(color: AppColors.boxShadowColor, width: 0.5),
       boxShadow: [
         BoxShadow(
-          color: AppColors.boxShadowColor.withOpacity(0.14),
+          color: AppColors.boxShadowColor.withValues(alpha: 0.14),
           spreadRadius: 0,
           blurRadius: 12.6,
           offset: const Offset(0, 8),
@@ -75,16 +68,73 @@ class Profile extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      CircleAvatar(
-                        radius: 40.r,
-                        backgroundColor: Colors.grey,
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/auth/img.png',
-                            fit: BoxFit.cover,
-                            width: 80.r,
-                            height: 80.r,
-                          ),
+                      GestureDetector(
+                        onTap: () => controller.pickImage(),
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: 40.r,
+                              backgroundColor: Colors.grey,
+                              child: ClipOval(
+                                child: Obx(() {
+                                  if (controller.selectedImage.value != null) {
+                                    return Image.file(
+                                      controller.selectedImage.value!,
+                                      fit: BoxFit.cover,
+                                      width: 80.r,
+                                      height: 80.r,
+                                    );
+                                  } else if (controller
+                                      .profileImage
+                                      .value
+                                      .isNotEmpty) {
+                                    String imageUrl =
+                                        controller.profileImage.value;
+                                    if (!imageUrl.startsWith('http')) {
+                                      imageUrl = '${Api.baseUrl}$imageUrl';
+                                    }
+                                    return Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.cover,
+                                      width: 80.r,
+                                      height: 80.r,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                                'assets/images/auth/img.png',
+                                                fit: BoxFit.cover,
+                                                width: 80.r,
+                                                height: 80.r,
+                                              ),
+                                    );
+                                  } else {
+                                    return Image.asset(
+                                      'assets/images/auth/img.png',
+                                      fit: BoxFit.cover,
+                                      width: 80.r,
+                                      height: 80.r,
+                                    );
+                                  }
+                                }),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                padding: EdgeInsets.all(4.r),
+                                decoration: BoxDecoration(
+                                  color: AppColors.appColor,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: Colors.white,
+                                  size: 16.r,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 12.h),
@@ -117,20 +167,20 @@ class Profile extends StatelessWidget {
               StyledTextField(
                 label: 'Full name',
                 svgAsset: 'assets/images/settings/profile.svg',
-                controller: nameController,
+                controller: controller.nameController,
                 decoration: styledContainerDecoration,
               ),
               StyledTextField(
                 label: 'Email',
                 svgAsset: 'assets/images/profile/mail.svg',
-                controller: emailController,
+                controller: controller.emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: styledContainerDecoration,
               ),
               StyledTextField(
                 label: 'Contact number',
                 svgAsset: 'assets/images/profile/contact.svg',
-                controller: contactController,
+                controller: controller.phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: styledContainerDecoration,
               ),
@@ -143,9 +193,14 @@ class Profile extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  'child’s (2)',
-                  style: h2.copyWith(fontSize: 18.sp, color: AppColors.txtclr4),
+                child: Obx(
+                  () => Text(
+                    'child’s (${controller.profileChildren.length})',
+                    style: h2.copyWith(
+                      fontSize: 18.sp,
+                      color: AppColors.txtclr4,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 8.h),
@@ -155,39 +210,37 @@ class Profile extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.14),
-                            spreadRadius: 0,
-                            blurRadius: 12.6,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: const ChildInfoTile(
-                        index: '1',
-                        name: 'Max Smith',
-                        age: '8 Years',
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.14),
-                            spreadRadius: 0,
-                            blurRadius: 12.6,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: const ChildInfoTile(
-                        index: '2',
-                        name: 'Emma Smith',
-                        age: '9 Years',
+                    Obx(
+                      () => Column(
+                        children: controller.profileChildren
+                            .asMap()
+                            .entries
+                            .map((entry) {
+                              int idx = entry.key;
+                              var child = entry.value;
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 16.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.boxShadowColor
+                                          .withValues(alpha: 0.14),
+                                      spreadRadius: 0,
+                                      blurRadius: 12.6,
+                                      offset: const Offset(0, 8),
+                                    ),
+                                  ],
+                                ),
+                                child: ChildInfoTile(
+                                  index: '${idx + 1}',
+                                  name: child['name'] ?? 'Child ${idx + 1}',
+                                  age: child['age'] != null
+                                      ? '${child['age']} Years'
+                                      : '',
+                                ),
+                              );
+                            })
+                            .toList(),
                       ),
                     ),
                     const SizedBox(height: 24.0),
@@ -195,7 +248,9 @@ class Profile extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.16),
+                            color: AppColors.boxShadowColor.withValues(
+                              alpha: 0.16,
+                            ),
                             spreadRadius: 0,
                             blurRadius: 12.6,
                             offset: const Offset(0, 8),
@@ -215,21 +270,21 @@ class Profile extends StatelessWidget {
               StyledTextField(
                 label: 'State',
                 svgAsset: 'assets/images/profile/state.svg',
-                initialValue: 'Tennessee',
+                controller: controller.stateController,
                 readOnly: true,
                 decoration: styledContainerDecoration,
               ),
               StyledTextField(
                 label: 'Is use of this app court mandated?',
                 svgAsset: 'assets/images/profile/court.svg',
-                initialValue: 'Yes, court mandated',
+                controller: controller.courtMandatedController,
                 readOnly: true,
                 decoration: styledContainerDecoration,
               ),
               SizedBox(height: 24.h),
               InkWell(
                 onTap: () {
-                  print('Edit button tapped');
+                  controller.updateProfile();
                 },
                 child: Container(
                   height: 45.h,

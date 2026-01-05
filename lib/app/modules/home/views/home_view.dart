@@ -8,6 +8,8 @@ import 'package:parent_bridge/app/modules/document_vault/views/document_vault_vi
 import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
 import 'package:parent_bridge/app/modules/legal_records/views/legal_records_view.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum_view.dart';
+import 'package:parent_bridge/app/modules/settings/controllers/settings_controller.dart';
+import 'package:parent_bridge/app/core/constants/api.dart';
 import '../../../../common/appColors.dart';
 import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/dashboard_container.dart';
@@ -19,6 +21,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsController controller = Get.put(SettingsController());
     return Scaffold(
       backgroundColor: Colors
           .transparent, // Keep transparent to allow Container gradient to show
@@ -44,24 +47,35 @@ class HomeView extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Container(
-                        width: 50.w,
-                        height: 50.w,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/home/person.png'),
-                            fit: BoxFit.cover,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              blurRadius: 6.r,
-                              offset: Offset(0.w, 2.h),
+                      Obx(() {
+                        String imageUrl = controller.profileImage.value;
+                        if (imageUrl.isNotEmpty &&
+                            !imageUrl.startsWith('http')) {
+                          imageUrl = '${Api.baseUrl}$imageUrl';
+                        }
+                        return Container(
+                          width: 50.w,
+                          height: 50.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageUrl.isNotEmpty
+                                  ? NetworkImage(imageUrl)
+                                  : const AssetImage(
+                                          'assets/images/home/person.png')
+                                      as ImageProvider,
+                              fit: BoxFit.cover,
                             ),
-                          ],
-                        ),
-                      ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                blurRadius: 6.r,
+                                offset: Offset(0.w, 2.h),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                       SizedBox(width: 20.w),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -32,8 +32,8 @@ class Api {
   //   static const String checkoutSession = '$baseUrlApi/payment/create-checkout-session/';
   //   static const String subscriptionPlans = '$baseUrlApi/payment/get_all/subscribtions-plan/';
 
-  //   /// profile
-  //   static const String profile = '$baseUrlApi/auth/profile/';
+  /// profile
+  static const String profile = '$baseUrlApi/v1/auth/profile/';
 
   // // // static getMessages(room_id) => '$baseUrlApi/chat/rooms/$room_id/messages/';
 

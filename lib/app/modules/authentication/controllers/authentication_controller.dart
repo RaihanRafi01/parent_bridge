@@ -207,17 +207,13 @@ class AuthenticationController extends GetxController {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         final loginResponse = LoginResponseModel.fromJson(responseData);
 
-        // Store tokens and user role only if remember me is enabled
-        if (rememberMe.value) {
-          await BaseClient.storeTokens(
-            accessToken: loginResponse.accessToken,
-            refreshToken: loginResponse.refreshToken,
-          );
-          await BaseClient.storeRole(role: loginResponse.role);
-        } else {
-          // Clear any existing tokens if remember me is disabled
-          await BaseClient.clearTokens();
-        }
+        // Always store tokens and user role
+        await BaseClient.storeTokens(
+          accessToken: loginResponse.accessToken,
+          refreshToken: loginResponse.refreshToken,
+        );
+        await BaseClient.storeRole(role: loginResponse.role);
+        await BaseClient.storeEmail(email: loginResponse.email);
 
         // Show success message
         kSnackBar(
@@ -230,6 +226,10 @@ class AuthenticationController extends GetxController {
 
         // Navigate to home
         Get.offAll(() => const HomeView());
+
+        // Clear controllers after successful login
+        emailController.clear();
+        passwordController.clear();
       } else {
         // Handle error response
         final Map<String, dynamic> errorData = jsonDecode(response.body);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/core/constants/api.dart';
 import 'package:parent_bridge/app/modules/settings/views/Choose_the_app.dart';
 import 'package:parent_bridge/app/modules/settings/views/Choose_the_app_main.dart';
 import 'package:parent_bridge/app/modules/settings/views/co_parentInformation.dart';
@@ -14,11 +15,14 @@ import '../../../../common/customFont.dart';
 import '../../../../common/widgets/home/showLogout_dialog.dart';
 import '../../../../common/appColors.dart';
 
-class SettingsView extends StatelessWidget {
+import '../controllers/settings_controller.dart';
+
+class SettingsView extends GetView<SettingsController> {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(SettingsController());
     return Scaffold(
       backgroundColor: AppColors.clrWhite,
       appBar: AppBar(
@@ -85,39 +89,73 @@ class SettingsView extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 28.r,
-                          backgroundColor: Colors.black,
-                          child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/auth/img.png',
-                              fit: BoxFit.cover,
-                              width: 56.r,
-                              height: 56.r,
+                        Obx(() {
+                          String imageUrl = controller.profileImage.value;
+                          if (imageUrl.isNotEmpty &&
+                              !imageUrl.startsWith('http')) {
+                            imageUrl = '${Api.baseUrl}$imageUrl';
+                          }
+                          return CircleAvatar(
+                            radius: 28.r,
+                            backgroundColor: Colors.grey[200],
+                            child: ClipOval(
+                              child: imageUrl.isNotEmpty
+                                  ? Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.cover,
+                                      width: 56.r,
+                                      height: 56.r,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'assets/images/auth/img.png',
+                                        fit: BoxFit.cover,
+                                        width: 56.r,
+                                        height: 56.r,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      'assets/images/auth/img.png',
+                                      fit: BoxFit.cover,
+                                      width: 56.r,
+                                      height: 56.r,
+                                    ),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
                         SizedBox(width: 16.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Michael Smith",
-                              style: h2.copyWith(
-                                // Using h2
-                                fontSize: 24.sp,
-                                color: AppColors.darkSlateBlue,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Obx(
+                                () => Text(
+                                  controller.profileName.value.isNotEmpty
+                                      ? controller.profileName.value
+                                      : "User Name",
+                                  style: h2.copyWith(
+                                    // Using h2
+                                    fontSize: 24.sp,
+                                    color: AppColors.darkSlateBlue,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'michaelsmith@gmail.com',
-                              style: h4.copyWith(
-                                // Using h4
-                                fontSize: 14.sp,
-                                color: AppColors.txtclr1,
+                              Obx(
+                                () => Text(
+                                  controller.profileEmail.value.isNotEmpty
+                                      ? controller.profileEmail.value
+                                      : 'user@email.com',
+                                  style: h4.copyWith(
+                                    // Using h4
+                                    fontSize: 14.sp,
+                                    color: AppColors.txtclr1,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -213,13 +251,16 @@ class SettingsView extends StatelessWidget {
                 title: 'Message Notifications',
                 trailingWidget: Transform.scale(
                   scale: 0.6,
-                  child: Switch(
-                    value: true,
-                    onChanged: (value) {},
-                    activeThumbColor: AppColors.clrWhite,
-                    activeTrackColor: AppColors.blackactive,
-                    inactiveThumbColor: AppColors.clrWhite,
-                    inactiveTrackColor: AppColors.gray3,
+                  child: Obx(
+                    () => Switch(
+                      value: controller.messageNotifications.value,
+                      onChanged: (value) =>
+                          controller.toggleMessageNotifications(value),
+                      activeThumbColor: AppColors.clrWhite,
+                      activeTrackColor: AppColors.blackactive,
+                      inactiveThumbColor: AppColors.clrWhite,
+                      inactiveTrackColor: AppColors.gray3,
+                    ),
                   ),
                 ),
               ),
@@ -228,13 +269,16 @@ class SettingsView extends StatelessWidget {
                 title: 'Call Notifications',
                 trailingWidget: Transform.scale(
                   scale: 0.6,
-                  child: Switch(
-                    value: true,
-                    onChanged: (value) {},
-                    activeThumbColor: AppColors.clrWhite,
-                    activeTrackColor: AppColors.blackactive,
-                    inactiveThumbColor: AppColors.clrWhite,
-                    inactiveTrackColor: AppColors.gray3,
+                  child: Obx(
+                    () => Switch(
+                      value: controller.callNotifications.value,
+                      onChanged: (value) =>
+                          controller.toggleCallNotifications(value),
+                      activeThumbColor: AppColors.clrWhite,
+                      activeTrackColor: AppColors.blackactive,
+                      inactiveThumbColor: AppColors.clrWhite,
+                      inactiveTrackColor: AppColors.gray3,
+                    ),
                   ),
                 ),
               ),
@@ -243,13 +287,16 @@ class SettingsView extends StatelessWidget {
                 title: 'Calendar Notifications',
                 trailingWidget: Transform.scale(
                   scale: 0.6,
-                  child: Switch(
-                    value: false,
-                    onChanged: (value) {},
-                    activeThumbColor: AppColors.clrWhite,
-                    activeTrackColor: AppColors.blackactive,
-                    inactiveThumbColor: AppColors.clrWhite,
-                    inactiveTrackColor: AppColors.gray3,
+                  child: Obx(
+                    () => Switch(
+                      value: controller.calendarNotifications.value,
+                      onChanged: (value) =>
+                          controller.toggleCalendarNotifications(value),
+                      activeThumbColor: AppColors.clrWhite,
+                      activeTrackColor: AppColors.blackactive,
+                      inactiveThumbColor: AppColors.clrWhite,
+                      inactiveTrackColor: AppColors.gray3,
+                    ),
                   ),
                 ),
               ),
@@ -258,13 +305,16 @@ class SettingsView extends StatelessWidget {
                 title: 'Expense Requests',
                 trailingWidget: Transform.scale(
                   scale: 0.6,
-                  child: Switch(
-                    value: false,
-                    onChanged: (value) {},
-                    activeThumbColor: AppColors.clrWhite,
-                    activeTrackColor: AppColors.blackactive,
-                    inactiveThumbColor: AppColors.clrWhite,
-                    inactiveTrackColor: AppColors.gray3,
+                  child: Obx(
+                    () => Switch(
+                      value: controller.expenseRequests.value,
+                      onChanged: (value) =>
+                          controller.toggleExpenseRequests(value),
+                      activeThumbColor: AppColors.clrWhite,
+                      activeTrackColor: AppColors.blackactive,
+                      inactiveThumbColor: AppColors.clrWhite,
+                      inactiveTrackColor: AppColors.gray3,
+                    ),
                   ),
                 ),
               ),
