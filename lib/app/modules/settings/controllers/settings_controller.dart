@@ -185,10 +185,7 @@ class SettingsController extends GetxController {
   Future<void> changePassword(String oldPassword, String newPassword) async {
     try {
       isLoading.value = true;
-      final body = {
-        "old_password": oldPassword,
-        "new_password": newPassword,
-      };
+      final body = {"old_password": oldPassword, "new_password": newPassword};
 
       final response = await BaseClient.putRequest(
         api: Api.changePassword,
