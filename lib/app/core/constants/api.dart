@@ -17,6 +17,11 @@ class Api {
   static const activate = "$baseUrlApi/v1/auth/activate/";
   static const onboarding = "$baseUrlApi/v1/auth/onboarding/";
   static const createToken = "$baseUrlApi/v1/auth/token/refresh/";
+  static const passwordResetRequest =
+      "$baseUrlApi/v1/auth/password/reset/request/";
+  static const passwordResetActivate =
+      "$baseUrlApi/v1/auth/password/reset/activate/";
+  static const passwordReset = "$baseUrlApi/v1/auth/password/reset/";
   //   static const createOtp = '$baseUrlApi/auth/otp/create/';
   //   static const verifyOtp = '$baseUrlApi/auth/otp/verify/';
   //   static const String passwordResetRequest = '$baseUrlApi/auth/password-reset/request/';

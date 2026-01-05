@@ -7,15 +7,6 @@ import '../../app/modules/home/views/home_view.dart';
 import '../appColors.dart';
 import '../customFont.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-
-// Assuming AppColors and h2 are defined elsewhere
-import '../appColors.dart';
-import '../customFont.dart';
-
 class CustomButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
@@ -112,6 +103,7 @@ class CustomPBButton extends StatelessWidget {
   final double horizontalPadding;
   final double verticalPadding;
   final Color borderColor;
+  final bool isLoading;
 
   const CustomPBButton({
     required this.text,
@@ -124,13 +116,14 @@ class CustomPBButton extends StatelessWidget {
     this.horizontalPadding = 30,
     this.verticalPadding = 15,
     this.borderColor = AppColors.clrTransparent,
+    this.isLoading = false,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: isLoading ? null : onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding.w,
@@ -142,26 +135,35 @@ class CustomPBButton extends StatelessWidget {
           border: Border.all(color: borderColor),
         ),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon.isNotEmpty) ...[
-                SvgPicture.asset(
-                  icon, // Use the provided icon path
+          child: isLoading
+              ? SizedBox(
+                  height: 20.h,
+                  width: 20.h,
+                  child: CircularProgressIndicator(
+                    color: txtClr,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (icon.isNotEmpty) ...[
+                      SvgPicture.asset(
+                        icon, // Use the provided icon path
+                      ),
+                      SizedBox(width: 10.w),
+                    ],
+                    Text(
+                      text,
+                      style: TextStyle(
+                        color: txtClr, // Use customizable text color
+                        fontFamily: 'lato',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(width: 10.w),
-              ],
-              Text(
-                text,
-                style: TextStyle(
-                  color: txtClr, // Use customizable text color
-                  fontFamily: 'lato',
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

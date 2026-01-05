@@ -84,9 +84,12 @@ class NewPasswordView extends GetView<NewPasswordController> {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(
-                    text: 'Send',
-                    onPressed: () => Get.to(PasswordResetSuccessfulView()),
+                  child: Obx(
+                    () => CustomPBButton(
+                      text: 'Send',
+                      isLoading: controller.isLoading.value,
+                      onPressed: () => controller.resetPassword(),
+                    ),
                   ),
                 ),
               ],

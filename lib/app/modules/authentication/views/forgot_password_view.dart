@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/views/otp_verifications_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
@@ -10,7 +11,7 @@ import '../../../../common/customFont.dart';
 import '../../../../common/widgets/customButton.dart';
 import '../../../../common/widgets/customTextField.dart';
 
-class ForgotPasswordView extends GetView {
+class ForgotPasswordView extends GetView<AuthenticationController> {
   final TextEditingController emailController;
 
   const ForgotPasswordView({required this.emailController, super.key});
@@ -65,10 +66,12 @@ class ForgotPasswordView extends GetView {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30).r,
-                  child: CustomPBButton(
-                    text: 'Send',
-                    onPressed: () =>
-                        Get.to(OtpVerificationsView(isAuth: false)),
+                  child: Obx(
+                    () => CustomPBButton(
+                      text: 'Send',
+                      isLoading: controller.isLoading.value,
+                      onPressed: () => controller.forgotPassword(),
+                    ),
                   ),
                 ),
 

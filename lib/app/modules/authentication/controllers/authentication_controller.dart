@@ -11,6 +11,7 @@ import 'package:parent_bridge/app/modules/authentication/models/otp_verification
 import 'package:parent_bridge/app/modules/authentication/models/otp_verification_response_model.dart';
 import 'package:parent_bridge/app/modules/authentication/models/onboarding_request_model.dart';
 import 'package:parent_bridge/app/modules/authentication/models/onboarding_response_model.dart';
+import 'package:parent_bridge/app/modules/authentication/views/new_password_view.dart';
 import 'package:parent_bridge/app/modules/authentication/views/otp_verifications_view.dart';
 import 'package:parent_bridge/app/modules/sign_up_process/views/independent_mode_view.dart';
 import 'package:parent_bridge/app/modules/sign_up_process/views/bridge_mode_view.dart';
@@ -264,6 +265,183 @@ class AuthenticationController extends GetxController {
       debugPrint("Login error: $e");
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  // Forgot Password method
+  Future<void> forgotPassword() async {
+    // Validate input
+    if (emailController.text.trim().isEmpty) {
+      kSnackBar(
+        title: "Validation Error",
+        message: "Please enter your email address",
+        bgColor: AppColors.snackBarWarning,
+      );
+      return;
+    }
+
+    // Basic email validation
+    if (!GetUtils.isEmail(emailController.text.trim())) {
+      kSnackBar(
+        title: "Validation Error",
+        message: "Please enter a valid email address",
+        bgColor: AppColors.snackBarWarning,
+      );
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+
+      // Make API call
+      final response = await BaseClient.postRequest(
+        api: Api.passwordResetRequest,
+        body: jsonEncode({"email": emailController.text.trim()}),
+        headers: BaseClient.basicHeaders,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        String message =
+            responseData['message'] ??
+            "A confirmation email has been sent to your inbox.";
+
+        kSnackBar(
+          title: "Success",
+          message: message,
+          bgColor: AppColors.appColor,
+        );
+
+        // Navigate to OTP verification view
+        Get.to(() => const OtpVerificationsView(isAuth: false));
+      } else {
+        // Handle error response
+        final Map<String, dynamic> errorData = jsonDecode(response.body);
+        String errorMessage = "Failed to send reset email. Please try again.";
+
+        if (errorData.containsKey('non_field_errors')) {
+          final errors = errorData['non_field_errors'];
+          if (errors is List && errors.isNotEmpty) {
+            errorMessage = errors[0].toString();
+          } else {
+            errorMessage = errors.toString();
+          }
+        } else if (errorData.containsKey('message')) {
+          errorMessage = errorData['message'];
+        } else if (errorData.containsKey('detail')) {
+          errorMessage = errorData['detail'];
+        } else if (errorData.containsKey('error')) {
+          errorMessage = errorData['error'];
+        }
+
+        kSnackBar(
+          title: "Error",
+          message: errorMessage,
+          bgColor: AppColors.snackBarWarning,
+        );
+      }
+    } catch (e) {
+      kSnackBar(
+        title: "Error",
+        message: "An error occurred. Please try again.",
+        bgColor: AppColors.snackBarWarning,
+      );
+      debugPrint("Forgot password error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Verify Password Reset OTP method
+  Future<void> verifyPasswordResetOTP(String otp) async {
+    // Validate OTP
+    if (otp.trim().isEmpty || otp.trim().length != 4) {
+      kSnackBar(
+        title: "Validation Error",
+        message: "Please enter a valid 4-digit OTP",
+        bgColor: AppColors.snackBarWarning,
+      );
+      return;
+    }
+
+    // Validate email
+    if (emailController.text.trim().isEmpty) {
+      kSnackBar(
+        title: "Error",
+        message: "Email not found. Please try again.",
+        bgColor: AppColors.snackBarWarning,
+      );
+      return;
+    }
+
+    try {
+      isOtpVerifying.value = true;
+
+      // Make API call
+      final response = await BaseClient.postRequest(
+        api: Api.passwordResetActivate,
+        body: jsonEncode({
+          "email": emailController.text.trim(),
+          "otp": otp.trim(),
+        }),
+        headers: BaseClient.basicHeaders,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+
+        // Store tokens if provided
+        if (responseData.containsKey('access_token') &&
+            responseData.containsKey('refresh')) {
+          await BaseClient.storeTokens(
+            accessToken: responseData['access_token'],
+            refreshToken: responseData['refresh'],
+          );
+        }
+
+        kSnackBar(
+          title: "Success",
+          message: responseData['detail'] ?? "OTP verified successfully",
+          bgColor: AppColors.appColor,
+        );
+
+        // Navigate to New Password view
+        Get.to(() => const NewPasswordView());
+      } else {
+        // Handle error response
+        final Map<String, dynamic> errorData = jsonDecode(response.body);
+        String errorMessage = "OTP verification failed. Please try again.";
+
+        if (errorData.containsKey('non_field_errors')) {
+          final errors = errorData['non_field_errors'];
+          if (errors is List && errors.isNotEmpty) {
+            errorMessage = errors[0].toString();
+          } else {
+            errorMessage = errors.toString();
+          }
+        } else if (errorData.containsKey('message')) {
+          errorMessage = errorData['message'];
+        } else if (errorData.containsKey('detail')) {
+          errorMessage = errorData['detail'];
+        } else if (errorData.containsKey('error')) {
+          errorMessage = errorData['error'];
+        }
+
+        kSnackBar(
+          title: "Error",
+          message: errorMessage,
+          bgColor: AppColors.snackBarWarning,
+        );
+      }
+    } catch (e) {
+      kSnackBar(
+        title: "Error",
+        message: "An error occurred. Please try again.",
+        bgColor: AppColors.snackBarWarning,
+      );
+      debugPrint("Password reset OTP error: $e");
+    } finally {
+      isOtpVerifying.value = false;
     }
   }
 

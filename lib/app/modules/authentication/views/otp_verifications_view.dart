@@ -113,21 +113,21 @@ class OtpVerificationsView extends GetView<OtpVerificationsController> {
                       text: authController.isOtpVerifying.value
                           ? 'Verifying...'
                           : 'Send',
-                      onPressed: authController.isOtpVerifying.value
-                          ? () {}
-                          : () {
-                              if (isAuth) {
-                                // Get OTP from controllers
-                                String otp = controller
-                                    .verificationCodeControllers
-                                    .map((c) => c.text)
-                                    .join();
-                                // Call verify OTP
-                                authController.verifyOTP(otp);
-                              } else {
-                                Get.to(NewPasswordView());
-                              }
-                            },
+                      isLoading: authController.isOtpVerifying.value,
+                      onPressed: () {
+                        // Get OTP from controllers
+                        String otp = controller.verificationCodeControllers
+                            .map((c) => c.text)
+                            .join();
+
+                        if (isAuth) {
+                          // Call verify OTP for signup
+                          authController.verifyOTP(otp);
+                        } else {
+                          // Call verify OTP for password reset
+                          authController.verifyPasswordResetOTP(otp);
+                        }
+                      },
                     ),
                   ),
                 ),
