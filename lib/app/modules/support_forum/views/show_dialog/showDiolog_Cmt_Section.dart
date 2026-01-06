@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/modules/support_forum/controllers/support_forum_controller.dart';
 
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/commet_section.dart';
 
@@ -15,14 +16,30 @@ class show_dialog_cmt_section extends StatelessWidget {
     this.body_title,
     required this.color,
     this.cmt_dialog_subtitle,
+    required this.timeSinceCreated,
+    required this.reactCount,
+    required this.commentCount,
+    required this.postId,
+    this.isReacted = false,
   });
 
   final String? body_title;
   final String? cmt_dialog_subtitle;
   final Color color;
+  final String? timeSinceCreated;
+  final int reactCount;
+  final int commentCount;
+  final int postId;
+  final bool isReacted;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SupportForumController>();
+    // Fetch comments when dialog is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchComments(postId);
+    });
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -87,7 +104,7 @@ class show_dialog_cmt_section extends StatelessWidget {
 
                               // time ..
                               Text(
-                                '3d',
+                                '$timeSinceCreated',
                                 style: h4.copyWith(
                                   fontSize: 14.32.sp,
                                   color: AppColors.white,
@@ -158,13 +175,19 @@ class show_dialog_cmt_section extends StatelessWidget {
                         child: Row(
                           children: [
                             custom_react_comment(
-                              count: '100',
+                              count: reactCount.toString(),
                               svg_image:
                                   'assets/svg/support_forum_/icons/heart_shape.svg',
+                              isReacted: isReacted,
+                              comment_ontap: () {
+                                controller.toggleReaction(postId);
+                                Get.back(); // Close comment dialog
+                                // Close post dialog to refresh
+                              },
                             ),
                             SizedBox(width: 30.w),
                             custom_react_comment(
-                              count: '100',
+                              count: commentCount.toString(),
                               svg_image:
                                   'assets/svg/support_forum_/icons/message_icon.svg',
                             ),
@@ -185,40 +208,41 @@ class show_dialog_cmt_section extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: comment_section(),
+                        child: comment_section(postId: postId, color: color),
                       ),
 
                       SizedBox(height: 50),
 
                       SizedBox(
                         height: 43.h,
-                        width: 349.w,
                         child: Row(
                           children: [
-                            Container(
-                              width: 270,
-                              height: 43,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: color),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100.r),
+                            Expanded(
+                              child: Container(
+                                height: 43.h,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: color),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100.r),
+                                  ),
+                                  color: color.withOpacity(0.1),
                                 ),
-                                color: color.withOpacity(0.1),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: 12.0,
-                                  right: 15,
-                                  left: 20,
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: ' Type here ..',
-                                    hintStyle: h4.copyWith(
-                                      fontSize: 12.sp,
-                                      color: AppColors.reply_msg_1,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: 12.0,
+                                    right: 15,
+                                    left: 20,
+                                  ),
+                                  child: TextField(
+                                    controller: controller.commentController,
+                                    decoration: InputDecoration(
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      hintText: ' Type here ..',
+                                      hintStyle: h4.copyWith(
+                                        fontSize: 12.sp,
+                                        color: AppColors.reply_msg_1,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -228,9 +252,23 @@ class show_dialog_cmt_section extends StatelessWidget {
                             // sent button ..
                             Padding(
                               padding: EdgeInsets.only(left: 10.r),
-                              child: SvgPicture.asset(
-                                'assets/svg/support_forum_/icons/sent.svg',
-                                color: color,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (controller
+                                      .commentController
+                                      .text
+                                      .isNotEmpty) {
+                                    controller.postComment(
+                                      postId,
+                                      controller.commentController.text,
+                                    );
+                                    controller.commentController.clear();
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/svg/support_forum_/icons/sent.svg',
+                                  color: color,
+                                ),
                               ),
                             ),
                           ],

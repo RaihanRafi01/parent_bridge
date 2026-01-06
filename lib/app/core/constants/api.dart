@@ -37,6 +37,20 @@ class Api {
   static const String changePassword =
       '$baseUrlApi/v1/auth/profile/password/change/';
 
+  /// support
+  static const String createPost = '$baseUrlApi/v1/support/post/create/';
+  static const String getPosts = '$baseUrlApi/v1/support/posts/';
+  static toggleReaction(int postId) =>
+      '$baseUrlApi/v1/support/posts/$postId/reaction/toggle/';
+  static getComments(int postId) =>
+      '$baseUrlApi/v1/support/post/$postId/comments/';
+  static createComment(int postId) =>
+      '$baseUrlApi/v1/support/post/$postId/comment/create/';
+  static getReplies(int commentId) =>
+      '$baseUrlApi/v1/support/comment/$commentId/replies/';
+  static createReply(int commentId) =>
+      '$baseUrlApi/v1/support/comment/$commentId/reply/create/';
+
   // // // static getMessages(room_id) => '$baseUrlApi/chat/rooms/$room_id/messages/';
 
   //  /// form

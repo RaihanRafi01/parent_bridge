@@ -8,6 +8,7 @@ import 'package:parent_bridge/common/customFont.dart';
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/support_forum_controller.dart';
 import 'common/custom_anonymous_parent.dart';
+import 'show_dialog/showDiolog_Cmt_Section.dart';
 import 'support_forum/app_bar_section.dart';
 
 class SupportForumView extends GetView<SupportForumController> {
@@ -31,7 +32,7 @@ class SupportForumView extends GetView<SupportForumController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // search part
-                search_partl(),
+                search_partl(controller: dropdownControler),
                 // space
                 SizedBox(height: 15.h),
                 // dropdown section ..
@@ -118,37 +119,115 @@ class SupportForumView extends GetView<SupportForumController> {
           //anonymous parent section ...
           Expanded(
             child: Obx(() {
+              if (dropdownControler.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              }
+
               // filter posts based on selected category
-              final filteredPosts =
+              var filteredPosts =
                   dropdownControler.selectedCategory.value == null
                   ? dropdownControler.posts
                   : dropdownControler.posts
                         .where(
                           (post) =>
-                              post['sche_title'] ==
-                              dropdownControler.selectedCategory.value,
+                              post['category']?.toString().toLowerCase() ==
+                              dropdownControler.selectedCategory.value
+                                  ?.toLowerCase(),
                         )
                         .toList();
+
+              // apply search filter if provided
+              final q = dropdownControler.searchQuery.value
+                  .trim()
+                  .toLowerCase();
+              if (q.isNotEmpty) {
+                filteredPosts = filteredPosts.where((post) {
+                  final subject = (post['subject'] ?? '')
+                      .toString()
+                      .toLowerCase();
+                  final message = (post['message'] ?? '')
+                      .toString()
+                      .toLowerCase();
+                  final category = (post['category'] ?? '')
+                      .toString()
+                      .toLowerCase();
+                  return subject.contains(q) ||
+                      message.contains(q) ||
+                      category.contains(q);
+                }).toList();
+              }
+
+              if (filteredPosts.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No posts found',
+                    style: h3.copyWith(
+                      fontSize: 16.sp,
+                      color: AppColors.textColorHint,
+                    ),
+                  ),
+                );
+              }
 
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     for (dynamic post in filteredPosts)
                       custom_anonymous_parent(
-                        sche_title: post['sche_title'],
-                        color: post['color'],
-                        bg_color: post['bg_color'],
-                        body_title: post['body_title'],
-                        body_subtitle: post['body_subtitle'],
+                        sche_title:
+                            (post['category'] as String?)?.capitalizeFirst,
+                        color: dropdownControler.getCategoryColor(
+                          post['category'],
+                        ),
+                        bg_color: dropdownControler.getCategoryBgColor(
+                          post['category'],
+                        ),
+                        body_title: post['subject'],
+                        body_subtitle: post['message'],
+                        timeSinceCreated: post['time_since_created'],
+                        reactCount: post['react_count'] ?? 0,
+                        commentCount: post['comment_count'] ?? 0,
+                        postId: post['id'],
+                        isReacted: post['is_reacted'] ?? false,
+                        onReactionTap: () {
+                          dropdownControler.toggleReaction(post['id']);
+                        },
                         // three dot button ..
                         threeDot_ontap: () {},
+
+                        comment_ontap: () {
+                          // second show dialog with comments ..
+                          Get.dialog(
+                            show_dialog_cmt_section(
+                              postId: post['id'],
+                              reactCount: post['react_count'] ?? 0,
+                              commentCount: post['comment_count'] ?? 0,
+                              timeSinceCreated: post['time_since_created'],
+                              color: dropdownControler.getCategoryColor(
+                                post['category'],
+                              ),
+                              body_title: post['subject'],
+                              cmt_dialog_subtitle: post['message'],
+                              isReacted: post['is_reacted'] ?? false,
+                            ),
+                            barrierColor: AppColors.anonymous_parent_03
+                                .withOpacity(.6),
+                          );
+                        },
                         // this is see more button ...
                         dialog_ontap: () {
                           Get.dialog(
                             show_dialog(
-                              color: post['color'],
-                              body_title: post['body_title'],
-                              dialog_subtitle: post['dialog_subtitle'],
+                              color: dropdownControler.getCategoryColor(
+                                post['category'],
+                              ),
+                              timeSinceCreated: post['time_since_created'],
+                              body_title: post['subject'],
+                              dialog_subtitle: post['message'],
+                              reactCount: post['react_count'] ?? 0,
+                              commentCount: post['comment_count'] ?? 0,
+                              postId: post['id'],
+                              isReacted: post['is_reacted'] ?? false,
                             ),
                             barrierColor: AppColors.anonymous_parent_03
                                 .withOpacity(.6),

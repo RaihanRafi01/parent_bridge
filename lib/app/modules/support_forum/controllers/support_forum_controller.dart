@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:parent_bridge/app/core/constants/api.dart';
+import 'package:parent_bridge/app/core/services/base_client.dart';
 import 'package:parent_bridge/common/appColors.dart';
 
 class SupportForumController extends GetxController {
@@ -34,8 +38,268 @@ class SupportForumController extends GetxController {
 
   // This is for the select category part.
   var selectedCategory = Rxn<String>();
+  var isLoading = false.obs;
+  var isCommentsLoading = false.obs;
+  var isReplying = false.obs;
+  var posts = <dynamic>[].obs;
+  var comments = <dynamic>[].obs;
 
-  var posts = [
+  // Search
+  var searchQuery = ''.obs;
+  final TextEditingController searchController = TextEditingController();
+
+  final TextEditingController commentController = TextEditingController();
+
+  void setSearchQuery(String q) {
+    searchQuery.value = q;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchPosts();
+
+    // Debounce search input to avoid too many rebuilds when typing
+    debounce(searchQuery, (String? val) {}, time: Duration(milliseconds: 300));
+  }
+
+  @override
+  void onClose() {
+    searchController.dispose();
+    commentController.dispose();
+    super.onClose();
+  }
+
+  Future<void> fetchComments(int postId) async {
+    try {
+      isCommentsLoading.value = true;
+      comments.clear();
+      debugPrint(
+        "DEBUG: fetchComments() -> postId: $postId, api: ${Api.getComments(postId)}",
+      );
+      final response = await BaseClient.getRequest(
+        api: Api.getComments(postId),
+        headers: BaseClient.authHeaders(),
+      );
+
+      debugPrint(
+        "DEBUG: fetchComments() response -> status=${response.statusCode}, body=${response.body}",
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        comments.value = data['data'] ?? [];
+      } else {
+        debugPrint(
+          "DEBUG: fetchComments() non-200 status: ${response.statusCode}",
+        );
+      }
+    } catch (e, st) {
+      debugPrint("Error fetching comments: $e");
+      debugPrintStack(stackTrace: st);
+    } finally {
+      isCommentsLoading.value = false;
+    }
+  }
+
+  Future<void> postComment(int postId, String content) async {
+    if (content.trim().isEmpty) return;
+
+    try {
+      final requestBody = jsonEncode({"message": content});
+      debugPrint(
+        "DEBUG: postComment() -> postId: $postId, api: ${Api.createComment(postId)}, body: $requestBody",
+      );
+
+      final response = await BaseClient.postRequest(
+        api: Api.createComment(postId),
+        body: requestBody,
+        headers: BaseClient.authHeaders(),
+      );
+
+      debugPrint(
+        "DEBUG: postComment() response -> status=${response.statusCode}, body=${response.body}",
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        // Refresh comments after posting
+        await fetchComments(postId);
+        // Also refresh posts to update comment count
+        await fetchPosts();
+      } else {
+        Get.snackbar(
+          "Error",
+          "Failed to post comment",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e, st) {
+      debugPrint("Error posting comment: $e");
+      debugPrintStack(stackTrace: st);
+      Get.snackbar(
+        "Error",
+        "An error occurred",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<bool> postReply(int postId, int commentId, String content) async {
+    if (content.trim().isEmpty) return false;
+
+    try {
+      isReplying.value = true;
+      // Use the same create comment endpoint but include reply_to to link the reply
+      final requestBody = jsonEncode({"message": content, "reply_to": commentId});
+      debugPrint(
+        "DEBUG: postReply() -> postId: $postId, commentId: $commentId, api: ${Api.createComment(postId)}, body: $requestBody",
+      );
+
+      final response = await BaseClient.postRequest(
+        api: Api.createComment(postId),
+        body: requestBody,
+        headers: BaseClient.authHeaders(),
+      );
+
+      debugPrint(
+        "DEBUG: postReply() response -> status=${response.statusCode}, body=${response.body}",
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        // Refresh comments to show the new reply
+        await fetchComments(postId);
+        // Optionally refresh posts if you rely on counts
+        await fetchPosts();
+        Get.snackbar(
+          "Success",
+          "Reply posted successfully",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+        return true;
+      } else {
+        debugPrint('DEBUG: postReply() failed -> status=${response.statusCode}');
+        Get.snackbar(
+          "Error",
+          "Failed to post reply",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return false;
+      }
+    } catch (e, st) {
+      debugPrint("Error posting reply: $e");
+      debugPrintStack(stackTrace: st);
+      Get.snackbar(
+        "Error",
+        "An error occurred",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return false;
+    } finally {
+      isReplying.value = false;
+    }
+  }
+
+  Future<void> fetchPosts() async {
+    try {
+      isLoading.value = true;
+      debugPrint("DEBUG: fetchPosts() -> api: ${Api.getPosts}");
+      final response = await BaseClient.getRequest(
+        api: Api.getPosts,
+        headers: BaseClient.authHeaders(),
+      );
+
+      debugPrint(
+        "DEBUG: fetchPosts() response -> status=${response.statusCode}, body=${response.body}",
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        posts.value = data['data'] ?? [];
+      } else {
+        Get.snackbar(
+          "Error",
+          "Failed to fetch posts",
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e, st) {
+      debugPrint("Error fetching posts: $e");
+      debugPrintStack(stackTrace: st);
+      Get.snackbar(
+        "Error",
+        "An error occurred",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Color getCategoryColor(String? category) {
+    switch (category?.toLowerCase()) {
+      case 'scheduling':
+        return AppColors.anonymous_parent_01;
+      case 'parenting':
+        return AppColors.controler_list_color_11;
+      case 'communication':
+        return AppColors.anonymous_parent_07;
+      case 'success':
+        return AppColors.anonymous_parent_05;
+      default:
+        return AppColors.anonymous_parent_01;
+    }
+  }
+
+  Color getCategoryBgColor(String? category) {
+    switch (category?.toLowerCase()) {
+      case 'scheduling':
+        return AppColors.anonymous_parent_02;
+      case 'parenting':
+        return AppColors.anonymous_parent_04;
+      case 'communication':
+        return AppColors.anonymous_parent_08;
+      case 'success':
+        return AppColors.anonymous_parent_06;
+      default:
+        return AppColors.anonymous_parent_02;
+    }
+  }
+
+  Future<void> toggleReaction(int postId) async {
+    try {
+      final body = {"reaction_type": "like"};
+
+      final response = await BaseClient.postRequest(
+        api: Api.toggleReaction(postId),
+        body: jsonEncode(body),
+        headers: BaseClient.authHeaders(),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        // Refresh posts to get updated counts
+        await fetchPosts();
+        Get.snackbar(
+          "Success",
+          data['message'] ?? "Reaction updated",
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: Duration(seconds: 1),
+        );
+      }
+    } catch (e) {
+      print("Error toggling reaction: $e");
+    }
+  }
+
+  var oldPosts = [
     {
       'sche_title': 'Scheduling',
       'color': AppColors.anonymous_parent_01,

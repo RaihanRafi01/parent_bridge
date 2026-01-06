@@ -12,11 +12,13 @@ class custom_react_comment extends StatelessWidget {
     this.svg_image,
     this.count,
     this.comment_ontap,
+    this.isReacted = false,
   });
 
   final String? svg_image;
   final String? count;
   final VoidCallback? comment_ontap;
+  final bool isReacted;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,12 @@ class custom_react_comment extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset('$svg_image'),
+                SvgPicture.asset(
+                  '$svg_image',
+                  colorFilter: isReacted
+                      ? ColorFilter.mode(Colors.red, BlendMode.srcIn)
+                      : null,
+                ),
                 SizedBox(width: 5.sp),
                 Text(
                   '$count',

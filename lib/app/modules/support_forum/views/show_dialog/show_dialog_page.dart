@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import 'package:parent_bridge/app/modules/support_forum/controllers/support_forum_controller.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/showDiolog_Cmt_Section.dart';
 import 'package:parent_bridge/common/appColors.dart';
 import 'package:parent_bridge/common/customFont.dart';
@@ -15,11 +16,21 @@ class show_dialog extends StatelessWidget {
     this.body_title,
     required this.color,
     this.dialog_subtitle,
+    this.reactCount = 0,
+    this.commentCount = 0,
+    this.postId,
+    this.isReacted = false,
+    this.timeSinceCreated,
   });
 
   final String? body_title;
   final String? dialog_subtitle;
   final Color color;
+  final int reactCount;
+  final int commentCount;
+  final int? postId;
+  final bool isReacted;
+  final String? timeSinceCreated;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -86,7 +97,7 @@ class show_dialog extends StatelessWidget {
 
                               // time ..
                               Text(
-                                '3d',
+                                '$timeSinceCreated',
                                 style: h4.copyWith(
                                   fontSize: 14.32.sp,
                                   color: AppColors.white,
@@ -157,25 +168,40 @@ class show_dialog extends StatelessWidget {
                         child: Row(
                           children: [
                             custom_react_comment(
-                              count: '100',
+                              count: reactCount.toString(),
                               svg_image:
                                   'assets/svg/support_forum_/icons/heart_shape.svg',
+                              isReacted: isReacted,
+                              comment_ontap: () {
+                                if (postId != null) {
+                                  Get.find<SupportForumController>()
+                                      .toggleReaction(postId!);
+                                  Get.back();
+                                }
+                              },
                             ),
                             SizedBox(width: 30.w),
                             custom_react_comment(
-                              count: '100',
+                              count: commentCount.toString(),
                               svg_image:
                                   'assets/svg/support_forum_/icons/message_icon.svg',
                               comment_ontap: () {
-                                // second show dialog with comments ..
-                                Get.dialog(
-                                  show_dialog_cmt_section(
-                                    color: color,
-                                    body_title: '$body_title',
-                                    cmt_dialog_subtitle: '$dialog_subtitle',
-                                  ),
-                                  barrierColor: AppColors.Transperent,
-                                );
+                                if (postId != null) {
+                                  // second show dialog with comments ..
+                                  Get.dialog(
+                                    show_dialog_cmt_section(
+                                      postId: postId!,
+                                      reactCount: reactCount,
+                                      commentCount: commentCount,
+                                      timeSinceCreated: timeSinceCreated,
+                                      color: color,
+                                      body_title: '$body_title',
+                                      cmt_dialog_subtitle: '$dialog_subtitle',
+                                      isReacted: isReacted,
+                                    ),
+                                    barrierColor: AppColors.Transperent,
+                                  );
+                                }
                               },
                             ),
                           ],

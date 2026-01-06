@@ -19,6 +19,13 @@ class custom_anonymous_parent extends StatelessWidget {
     this.body_subtitle,
     this.bg_color,
     this.dialog_ontap,
+    this.timeSinceCreated,
+    this.reactCount = 0,
+    this.commentCount = 0,
+    this.postId,
+    this.isReacted = false,
+    this.onReactionTap,
+    this.comment_ontap,
   });
 
   final Color color;
@@ -28,6 +35,13 @@ class custom_anonymous_parent extends StatelessWidget {
   final String? body_subtitle;
   final VoidCallback? threeDot_ontap;
   final VoidCallback? dialog_ontap;
+  final String? timeSinceCreated;
+  final int reactCount;
+  final int commentCount;
+  final int? postId;
+  final bool isReacted;
+  final VoidCallback? onReactionTap;
+  final VoidCallback? comment_ontap;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,6 @@ class custom_anonymous_parent extends StatelessWidget {
       padding: EdgeInsets.all(8.0.r),
       child: Container(
         width: 394.w,
-        height: 310.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0.r),
           color: bg_color,
@@ -122,7 +135,7 @@ class custom_anonymous_parent extends StatelessWidget {
 
                         // time ..
                         Text(
-                          '3d',
+                          timeSinceCreated ?? '3d',
                           style: h4.copyWith(
                             color: AppColors.custom_anonymous_parent_01,
                             fontSize: 14.32.sp,
@@ -186,23 +199,18 @@ class custom_anonymous_parent extends StatelessWidget {
               Row(
                 children: [
                   custom_react_comment(
-                    count: '100',
+                    count: reactCount.toString(),
                     svg_image:
                         'assets/svg/support_forum_/icons/heart_shape.svg',
+                    isReacted: isReacted,
+                    comment_ontap: onReactionTap,
                   ),
                   SizedBox(width: 30.w),
-                  GestureDetector(
-                    onTap: () {
-                      Get.dialog(
-                        reply_page(color: color),
-                        barrierColor: AppColors.post_page_01.withOpacity(0.6),
-                      );
-                    },
-                    child: custom_react_comment(
-                      count: '100',
-                      svg_image:
-                          'assets/svg/support_forum_/icons/message_icon.svg',
-                    ),
+                  custom_react_comment(
+                    count: commentCount.toString(),
+                    svg_image:
+                        'assets/svg/support_forum_/icons/message_icon.svg',
+                    comment_ontap: comment_ontap,
                   ),
                 ],
               ),
