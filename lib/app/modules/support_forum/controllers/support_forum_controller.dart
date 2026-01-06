@@ -152,7 +152,10 @@ class SupportForumController extends GetxController {
     try {
       isReplying.value = true;
       // Use the same create comment endpoint but include reply_to to link the reply
-      final requestBody = jsonEncode({"message": content, "reply_to": commentId});
+      final requestBody = jsonEncode({
+        "message": content,
+        "reply_to": commentId,
+      });
       debugPrint(
         "DEBUG: postReply() -> postId: $postId, commentId: $commentId, api: ${Api.createComment(postId)}, body: $requestBody",
       );
@@ -180,7 +183,9 @@ class SupportForumController extends GetxController {
         );
         return true;
       } else {
-        debugPrint('DEBUG: postReply() failed -> status=${response.statusCode}');
+        debugPrint(
+          'DEBUG: postReply() failed -> status=${response.statusCode}',
+        );
         Get.snackbar(
           "Error",
           "Failed to post reply",

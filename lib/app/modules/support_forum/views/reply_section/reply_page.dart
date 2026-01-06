@@ -106,151 +106,150 @@ class reply_page extends StatelessWidget {
                         );
 
                         final List<dynamic> replies = comment['replies'] ?? [];
-                          if (replies.isEmpty) {
-                            return SizedBox.shrink();
-                          }
+                        if (replies.isEmpty) {
+                          return SizedBox.shrink();
+                        }
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Replies',
-                                  style: h4.copyWith(
-                                    fontSize: 14.sp,
-                                    color: AppColors.custom_anonymous_parent_02,
-                                  ),
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Replies',
+                                style: h4.copyWith(
+                                  fontSize: 14.sp,
+                                  color: AppColors.custom_anonymous_parent_02,
                                 ),
                               ),
-                              SizedBox(height: 8.h),
-                              Column(
-                                children: replies.map<Widget>((r) {
-                                  final rUser = r['comment_user'] ?? {};
-                                  final rName =
-                                      rUser['name'] ??
-                                      rUser['username'] ??
-                                      'Anonymous';
-                                  final rMsg = r['message'] ?? '';
-                                  final rTime =
-                                      r['time_since_commented'] ??
-                                      r['created_at'] ??
-                                      '';
+                            ),
+                            SizedBox(height: 8.h),
+                            Column(
+                              children: replies.map<Widget>((r) {
+                                final rUser = r['comment_user'] ?? {};
+                                final rName =
+                                    rUser['name'] ??
+                                    rUser['username'] ??
+                                    'Anonymous';
+                                final rMsg = r['message'] ?? '';
+                                final rTime =
+                                    r['time_since_commented'] ??
+                                    r['created_at'] ??
+                                    '';
 
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: 10.h,
-                                      left: 20.w,
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 30.h,
-                                          width: 30.w,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: AppColors.clrBlack
-                                                    .withOpacity(0.5),
-                                                blurRadius: 3,
-                                                offset: Offset(0, 3),
-                                              ),
-                                            ],
-                                            borderRadius: BorderRadius.circular(
-                                              20,
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    bottom: 10.h,
+                                    left: 20.w,
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 30.h,
+                                        width: 30.w,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.clrBlack
+                                                  .withOpacity(0.5),
+                                              blurRadius: 3,
+                                              offset: Offset(0, 3),
                                             ),
+                                          ],
+                                          borderRadius: BorderRadius.circular(
+                                            20,
                                           ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                            child:
-                                                rUser['image'] != null &&
-                                                    (rUser['image'] as String)
-                                                        .isNotEmpty
-                                                ? Image.network(
-                                                    rUser['image'],
-                                                    fit: BoxFit.cover,
-                                                    errorBuilder:
-                                                        (
-                                                          context,
-                                                          error,
-                                                          stackTrace,
-                                                        ) => Center(
-                                                          child: Text(
-                                                            rName.isNotEmpty
-                                                                ? rName[0]
-                                                                      .toUpperCase()
-                                                                : 'A',
-                                                            style: h2.copyWith(
-                                                              color: AppColors
-                                                                  .darkSlateBlue,
-                                                              fontSize: 14.sp,
-                                                            ),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          child:
+                                              rUser['image'] != null &&
+                                                  (rUser['image'] as String)
+                                                      .isNotEmpty
+                                              ? Image.network(
+                                                  rUser['image'],
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder:
+                                                      (
+                                                        context,
+                                                        error,
+                                                        stackTrace,
+                                                      ) => Center(
+                                                        child: Text(
+                                                          rName.isNotEmpty
+                                                              ? rName[0]
+                                                                    .toUpperCase()
+                                                              : 'A',
+                                                          style: h2.copyWith(
+                                                            color: AppColors
+                                                                .darkSlateBlue,
+                                                            fontSize: 14.sp,
                                                           ),
                                                         ),
-                                                  )
-                                                : Center(
-                                                    child: Text(
-                                                      rName.isNotEmpty
-                                                          ? rName[0]
-                                                                .toUpperCase()
-                                                          : 'A',
-                                                      style: h2.copyWith(
-                                                        color: AppColors
-                                                            .darkSlateBlue,
-                                                        fontSize: 14.sp,
                                                       ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    rName.isNotEmpty
+                                                        ? rName[0].toUpperCase()
+                                                        : 'A',
+                                                    style: h2.copyWith(
+                                                      color: AppColors
+                                                          .darkSlateBlue,
+                                                      fontSize: 14.sp,
                                                     ),
                                                   ),
-                                          ),
+                                                ),
                                         ),
-                                        SizedBox(width: 10.w),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                rName,
-                                                style: h2.copyWith(
-                                                  color: AppColors
-                                                      .custom_anonymous_parent_02,
-                                                  fontSize: 14.sp,
-                                                ),
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              rName,
+                                              style: h2.copyWith(
+                                                color: AppColors
+                                                    .custom_anonymous_parent_02,
+                                                fontSize: 14.sp,
                                               ),
-                                              SizedBox(height: 4.h),
-                                              Text(
-                                                rMsg,
-                                                style: h4.copyWith(
-                                                  fontSize: 12.sp,
-                                                  color: AppColors
-                                                      .show_dialog_with_Comment_01,
-                                                ),
+                                            ),
+                                            SizedBox(height: 4.h),
+                                            Text(
+                                              rMsg,
+                                              style: h4.copyWith(
+                                                fontSize: 12.sp,
+                                                color: AppColors
+                                                    .show_dialog_with_Comment_01,
                                               ),
-                                              SizedBox(height: 4.h),
-                                              Text(
-                                                rTime,
-                                                style: h4.copyWith(
-                                                  fontSize: 11.sp,
-                                                  color: AppColors
-                                                      .show_dialog_with_Comment_02,
-                                                ),
+                                            ),
+                                            SizedBox(height: 4.h),
+                                            Text(
+                                              rTime,
+                                              style: h4.copyWith(
+                                                fontSize: 11.sp,
+                                                color: AppColors
+                                                    .show_dialog_with_Comment_02,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                              SizedBox(height: 12.h),
-                            ],
-                          );
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                            SizedBox(height: 12.h),
+                          ],
+                        );
                       }),
 
                       // this is message type and sent section ...
@@ -301,9 +300,11 @@ class reply_page extends StatelessWidget {
                                 onTap: isReplying
                                     ? null
                                     : () async {
-                                        final text = replyController.text.trim();
+                                        final text = replyController.text
+                                            .trim();
                                         if (text.isEmpty) return;
-                                        final success = await controller.postReply(postId, commentId, text);
+                                        final success = await controller
+                                            .postReply(postId, commentId, text);
                                         if (success) {
                                           replyController.clear();
                                           // Optionally scroll to bottom or focus
@@ -317,7 +318,9 @@ class reply_page extends StatelessWidget {
                                           width: 24,
                                           child: CircularProgressIndicator(
                                             strokeWidth: 2,
-                                            valueColor: AlwaysStoppedAnimation(color),
+                                            valueColor: AlwaysStoppedAnimation(
+                                              color,
+                                            ),
                                           ),
                                         )
                                       : SvgPicture.asset(
