@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:parent_bridge/app/modules/subscription/views/wallet_view.dart';
 
 import '../../../../common/custom_font.dart';
 
@@ -67,26 +68,29 @@ class Subscription extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Container(
-                height: 45.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
-                      AppColors.lightPurplePink2,
-                      AppColors.customSkyBlue3,
-                    ],
-                    begin: Alignment.bottomRight,
-                    end: Alignment.topLeft,
+              InkWell(
+                onTap: ()=>Get.to(WalletView()),
+                child: Container(
+                  height: 45.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        AppColors.lightPurplePink2,
+                        AppColors.customSkyBlue3,
+                      ],
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                    ),
+                    borderRadius: BorderRadius.circular(22.r),
                   ),
-                  borderRadius: BorderRadius.circular(22.r),
-                ),
-                child: Center(
-                  child: Text(
-                    "Update",
-                    style: h2.copyWith(
-                      fontSize: 18.sp,
-                      color: AppColors.clrWhite,
+                  child: Center(
+                    child: Text(
+                      "Update",
+                      style: h2.copyWith(
+                        fontSize: 18.sp,
+                        color: AppColors.clrWhite,
+                      ),
                     ),
                   ),
                 ),

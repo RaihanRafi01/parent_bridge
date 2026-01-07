@@ -7,6 +7,9 @@ class AppColors {
   /// use color based on your design
   ///
   static const Color liteGreenBg = Color(0xFFEAFBD9);
+  static const Color white70 = Color(0xB2FFFFFF);
+  static const Color white50 = Color(0x4DFFFFFF);
+  static const Color white80 = Color(0xCCFFFFFF);
   static const Color textInputFillColor = Color(0xFFEAF8FF);
   static const Color barColor = Color(0xFF5DB0D7);
   static const Color barColor2 = Color(0xFF4ACF76);
@@ -16,6 +19,7 @@ class AppColors {
   static const Color clrSky6 = Color(0xFFB8E8FE);
 
   static const Color darkSlateBlue = Color(0xFF1D3856);
+  static const Color history = Color(0xFFF9FAFB);
 
   // #6B5ADA - Medium Purple / Indigo
   static const Color mediumPurple = Color(0xFF6B5ADA);
