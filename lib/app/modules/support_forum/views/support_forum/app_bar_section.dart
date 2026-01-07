@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
 import '../post_page/post_page.dart';
 
-class app_bar_section extends StatelessWidget {
-  const app_bar_section({super.key});
+class AppBarSection extends StatelessWidget {
+  const AppBarSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class app_bar_section extends StatelessWidget {
       width: 440.w,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColors.appbar_color_01, AppColors.appbar_color_02],
+          colors: [AppColors.appbarColor_01, AppColors.appbarColor_02],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -43,15 +43,15 @@ class app_bar_section extends StatelessWidget {
             // post button
             GestureDetector(
               onTap: () {
-                Get.to(() => post_page());
-                print('This is Post button ');
+                Get.to(() => PostPage());
+               debugPrint('This is Post button ');
               },
               child: Container(
                 width: 74.w,
                 height: 35.16.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  color: AppColors.appbar_color_01,
+                  color: AppColors.appbarColor_01,
                 ),
                 child: Center(
                   child: Text('Post', style: h2.copyWith(fontSize: 18.16.sp)),

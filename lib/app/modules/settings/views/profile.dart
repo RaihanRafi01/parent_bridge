@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import '../../../../common/widgets/home/add_child_button.dart';
 import '../../../../common/widgets/home/child_info_tile.dart';
-import '../../../../common/widgets/home/styledTextField.dart';
+import '../../../../common/widgets/home/styled_text_field.dart';
 //import '../../../../common/widgets/styled_text_field.dart';
 
 class Profile extends StatelessWidget {
@@ -34,7 +33,7 @@ class Profile extends StatelessWidget {
       border: Border.all(color: AppColors.boxShadowColor, width: 0.5),
       boxShadow: [
         BoxShadow(
-          color: AppColors.boxShadowColor.withOpacity(0.14),
+          color: AppColors.boxShadowColor.withAlpha(35),
           spreadRadius: 0,
           blurRadius: 12.6,
           offset: const Offset(0, 8),
@@ -159,7 +158,7 @@ class Profile extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.14),
+                            color: AppColors.boxShadowColor.withAlpha(35),
                             spreadRadius: 0,
                             blurRadius: 12.6,
                             offset: const Offset(0, 8),
@@ -177,7 +176,7 @@ class Profile extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.14),
+                            color: AppColors.boxShadowColor.withAlpha(35),
                             spreadRadius: 0,
                             blurRadius: 12.6,
                             offset: const Offset(0, 8),
@@ -195,7 +194,7 @@ class Profile extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.boxShadowColor.withOpacity(0.16),
+                            color: AppColors.boxShadowColor.withAlpha(41),
                             spreadRadius: 0,
                             blurRadius: 12.6,
                             offset: const Offset(0, 8),
@@ -204,7 +203,7 @@ class Profile extends StatelessWidget {
                       ),
                       child: AddChildButton(
                         onTap: () {
-                          print('Add new child button tapped!');
+                         debugPrint('Add new child button tapped!');
                         },
                       ),
                     ),
@@ -229,7 +228,7 @@ class Profile extends StatelessWidget {
               SizedBox(height: 24.h),
               InkWell(
                 onTap: () {
-                  print('Edit button tapped');
+                 debugPrint('Edit button tapped');
                 },
                 child: Container(
                   height: 45.h,

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:parent_bridge/app/modules/calendar/views/add_event_view.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
+
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 import '../controllers/calendar_controller.dart';
+import 'add_holiday_view.dart';
 
 class CalendarView extends GetView<CalendarController> {
   const CalendarView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    controller.fetchEvents();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -49,8 +52,8 @@ class CalendarView extends GetView<CalendarController> {
             // Calendar content
             _buildCalendarContent(),
             // Dynamic events section
-            _buildEventsSection(),
-            SizedBox(height: 20.h),
+            SafeArea(child: _buildEventsSection()),
+            SizedBox(height: 80.h),
           ],
         ),
       ),
@@ -66,11 +69,7 @@ class CalendarView extends GetView<CalendarController> {
         children: [
           GestureDetector(
             onTap: Get.back,
-            child: SvgPicture.asset(
-              'assets/images/common/back_icon.svg',
-              width: 24.w,
-              height: 24.h,
-            ),
+            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
           ),
           SizedBox(width: 15.w),
           Text(
@@ -82,29 +81,46 @@ class CalendarView extends GetView<CalendarController> {
             ),
           ),
           Spacer(),
-          GestureDetector(
-            onTap: () => Get.to(() => AddEventView()),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-              decoration: BoxDecoration(
-                color: AppColors.lightPurplePink2,
-                borderRadius: BorderRadius.circular(10.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x40000000),
-                    offset: Offset(0, 4),
-                    blurRadius: 4,
+          Obx(
+            () => Column(
+              children: [
+                if (controller.selectedView.value != 'Holidays')
+                  GestureDetector(
+                    onTap: () =>
+                        // controller.selectedView.value == 'Holidays'
+                        //     ? Get.to(() => AddHolidayView())
+                        //     :
+                        Get.to(() => AddEventView()),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.w,
+                        vertical: 6.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightPurplePink2,
+                        borderRadius: BorderRadius.circular(10.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x40000000),
+                            offset: Offset(0, 4),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        // controller.selectedView.value == 'Holidays'
+                        //     ? 'Add Holiday'
+                        //     :
+                        'Add Event',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: Text(
-                'Add Event',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              ],
             ),
           ),
         ],
@@ -183,7 +199,52 @@ class CalendarView extends GetView<CalendarController> {
           // Month or Week view: Show header, weekdays, and grid
           return Column(
             children: [
-              _buildCalendarHeader(),
+              if (controller.selectedView.value == 'Holidays') ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Holiday Schedule',
+                      style: h3.copyWith(
+                        fontSize: 22.sp,
+                        color: AppColors.darkSlateBlue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.to(() => AddHolidayView()),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 6.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.lightPurplePink2,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x40000000),
+                              offset: Offset(0, 4),
+                              blurRadius: 4,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          'Add Holiday\'s',
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              if (controller.selectedView.value != 'Holidays') ...[
+                _buildCalendarHeader(),
+              ],
               SizedBox(height: 20.h),
               if (controller.selectedView.value != 'Holidays') ...[
                 _buildWeekDays(),
@@ -210,6 +271,7 @@ class CalendarView extends GetView<CalendarController> {
               } else {
                 controller.previousMonth();
               }
+              controller.fetchEvents();
             },
             child: Icon(
               Icons.chevron_left,
@@ -245,6 +307,7 @@ class CalendarView extends GetView<CalendarController> {
               } else {
                 controller.nextMonth();
               }
+              controller.fetchEvents();
             },
             child: Icon(
               Icons.chevron_right,
@@ -322,9 +385,9 @@ class CalendarView extends GetView<CalendarController> {
         margin: EdgeInsets.all(2.r),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.calenderSelect.withOpacity(0.4)
+              ? AppColors.calenderSelect.withAlpha(104)
               : isToday
-              ? AppColors.calenderSelect.withOpacity(0.2)
+              ? AppColors.calenderSelect.withAlpha(51)
               : Colors.white,
           borderRadius: BorderRadius.circular(8.r),
           boxShadow: [
@@ -416,7 +479,7 @@ class CalendarView extends GetView<CalendarController> {
               case 'Holidays':
                 title = 'Holidays';
                 viewName = 'period';
-                eventsList = []; // TODO: Implement holidays
+                eventsList = controller.getHolidays();
                 break;
               default:
                 return SizedBox();
@@ -465,12 +528,21 @@ class CalendarView extends GetView<CalendarController> {
                     ),
                   )
                 else
-                  _buildEventsList(eventsList),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  child: CustomPBButton(
-                    text: 'Add Event',
-                    onPressed: () => Get.to(() => AddEventView()),
+                  viewName == 'period'
+                      ? _buildHolidaysList(eventsList)
+                      : _buildEventsList(eventsList),
+                Obx(
+                  () => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: CustomPBButton(
+                      text: controller.selectedView.value == 'Holidays'
+                          ? 'Add Holiday'
+                          : 'Add Event',
+                      onPressed: () =>
+                          controller.selectedView.value == 'Holidays'
+                          ? Get.to(() => AddHolidayView())
+                          : Get.to(() => AddEventView()),
+                    ),
                   ),
                 ),
               ],
@@ -623,10 +695,552 @@ class CalendarView extends GetView<CalendarController> {
     );
   }
 
+  Widget _buildHolidaysList(List<Map<String, dynamic>> dayHolidays) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: dayHolidays.length,
+      itemBuilder: (context, index) {
+        final dayHolidaysData = dayHolidays[index];
+
+        // Safely access holidays: If holidays is not a list or is null, provide an empty list
+        final holidays = (dayHolidaysData['holidays'] is List)
+            ? dayHolidaysData['holidays']
+                  as List<Map<String, dynamic>> // Safely cast to List
+            : []; // If not, default to an empty list
+
+        // If holidays is empty, skip this item
+        if (holidays.isEmpty) {
+          return SizedBox.shrink(); // Or use a placeholder, or skip rendering this entry
+        }
+
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 30).r,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(9.31.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x40DFD4D4),
+                  offset: Offset(1, 1),
+                  blurRadius: 4,
+                  spreadRadius: 0,
+                ),
+              ],
+              border: Border.all(color: Color(0xFFF2F2F2), width: 1),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16).r,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.h),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.customblueclr2,
+                        borderRadius: BorderRadius.circular(9.31.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x40B7B1B1),
+                            offset: Offset(0, 3.72),
+                            blurRadius: 3.72,
+                            spreadRadius: 0,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60.w,
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              color: AppColors.lightPurplePink2,
+                              borderRadius: BorderRadius.circular(9.31.r),
+                            ),
+                            child: Center(
+                              child: Text(
+                                // Accessing first holiday's start_date in the list
+                                holidays.isNotEmpty
+                                    ? DateFormat('dd').format(
+                                        DateTime.parse(
+                                          holidays[0]['start_date'],
+                                        ),
+                                      )
+                                    : 'N/A',
+                                style: h3.copyWith(
+                                  color:
+                                      _isToday(
+                                        DateTime.parse(
+                                          holidays[0]['start_date'],
+                                        ),
+                                      )
+                                      ? Colors.white
+                                      : AppColors.darkSlateBlue,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ).r,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: AppColors.customSkyBlue3,
+                                borderRadius: BorderRadius.circular(50.r),
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    '${holidays.length} ${holidays.length == 1 ? 'holiday' : 'holidays'}',
+                                    style: h3.copyWith(
+                                      fontSize: 14.59.sp,
+                                      color: AppColors.darkSlateBlue,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ...holidays.asMap().entries.map(
+                    (entry) => GestureDetector(
+                      onTap: () {
+                        _showHolidayDetailsDialog(entry.value);
+                      },
+                      child: _buildHolidayItem(
+                        entry.value,
+                        entry.key == holidays.length - 1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
+    // Updated to use dynamic event data
+    Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
+
+    String formatTime(String time) {
+      try {
+        // Parse the time string into a DateTime object
+        final DateTime parsedTime = DateFormat("HH:mm:ss").parse(time);
+
+        // Format the DateTime object to a 12-hour format with AM/PM
+        return DateFormat("h:mm a").format(parsedTime);
+      } catch (e) {
+        return time; // If parsing fails, return the original time
+      }
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: 12.h),
+      decoration: BoxDecoration(
+        color: eventColor.withAlpha(27),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 8.w,
+              decoration: BoxDecoration(
+                color: eventColor,
+                borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(10.r),
+                ),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 30).r,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x40B1B1B1),
+                      offset: Offset(0, 3.88),
+                      blurRadius: 3.88,
+                    ),
+                  ],
+                ),
+                //width: 53.65.w,
+                padding: EdgeInsets.all(5).r,
+                child: Padding(
+                  padding: const EdgeInsets.all(4).r,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        formatTime(event['start_time']),
+                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        'To',
+                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        formatTime(event['end_time']),
+                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            event['title'],
+                            style: h2.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10.w),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 6.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: eventColor,
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
+                          child: Text(
+                            _getEventTypeLabel(event['type'] ?? 'personal'),
+                            style: h3.copyWith(
+                              fontSize: 10.54.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/location_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          event['location'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/person_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          event['organizer'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/child_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          event['child'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      (event['repeat']?.isNotEmpty ?? false)
+                          ? event['repeat']![0].toUpperCase() +
+                                event['repeat']!.substring(1)
+                          : 'Once',
+                      style: h4.copyWith(
+                        fontSize: 11.08.sp,
+                        color: AppColors.darkSlateBlue,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHolidayItem(Map<String, dynamic> holiday, bool isLast) {
+    // Get holiday color based on assigned_to or use a default color
+    Color holidayColor = _getHolidayColor(
+      holiday['assigned_to'] ?? 'assigned_to',
+    );
+
+    // Helper function to format holiday dates as "24, 2024 Dec"
+    String formatHolidayDate(String? date) {
+      if (date == null || date.isEmpty) {
+        return 'N/A'; // Return 'N/A' if date is null or empty
+      }
+
+      try {
+        DateTime parsedDate = DateTime.parse(date);
+        return DateFormat(
+          'd, yyyy MMM',
+        ).format(parsedDate); // Format: 24, 2024 Dec
+      } catch (e) {
+        return 'Invalid Date'; // In case of a format error
+      }
+    }
+
+    // Helper function to get the day of the week (e.g., "Sunday", "Monday")
+    String getDayOfWeek(String? date) {
+      if (date == null || date.isEmpty) {
+        return 'N/A'; // Return 'N/A' if date is null or empty
+      }
+
+      try {
+        DateTime parsedDate = DateTime.parse(date);
+        return DateFormat(
+          'EEEE',
+        ).format(parsedDate); // Format: Sunday, Monday, etc.
+      } catch (e) {
+        return 'Invalid Day'; // In case of a format error
+      }
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: 12.h),
+      decoration: BoxDecoration(
+        color: holidayColor.withAlpha(27),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 8.w,
+              decoration: BoxDecoration(
+                color: holidayColor,
+                borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(10.r),
+                ),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 30).r,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x40B1B1B1),
+                      offset: Offset(0, 3.88),
+                      blurRadius: 3.88,
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.all(5).r,
+                child: Padding(
+                  padding: const EdgeInsets.all(4).r,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Show the day of the week for the start date
+                      Text(
+                        formatHolidayDate(holiday['start_date']),
+                        style: h0.copyWith(fontSize: 8.sp, color: holidayColor),
+                      ),
+                      SizedBox(height: 2.h),
+                      Text(
+                        'To',
+                        style: h0.copyWith(fontSize: 8.sp, color: holidayColor),
+                      ),
+                      SizedBox(height: 2.h),
+                      // Show the day of the week for the end date
+                      Text(
+                        formatHolidayDate(holiday['end_date']),
+                        style: h0.copyWith(fontSize: 8.sp, color: holidayColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            holiday['name'],
+                            style: h2.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 10.w),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 6.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: holidayColor,
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
+                          child: Text(
+                            holiday['assigned_to'],
+                            style: h3.copyWith(
+                              fontSize: 10.54.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/location_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          holiday['location'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/person_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          holiday['organizer'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6.h),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/child_icon.svg',
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          holiday['child'] ?? 'Not specified',
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      children: [
+                        Text(
+                          getDayOfWeek(holiday['start_date']),
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                        if (getDayOfWeek(holiday['start_date']) !=
+                            getDayOfWeek(holiday['end_date']))
+                          Text(
+                            ' to ${getDayOfWeek(holiday['end_date'])}',
+                            style: h4.copyWith(
+                              fontSize: 11.08.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _showEventDialog(
     DateTime selectedDate,
     List<Map<String, dynamic>> events,
   ) {
+    bool eventsToShow = events.length > 4 ? true : false;
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
@@ -667,7 +1281,7 @@ class CalendarView extends GetView<CalendarController> {
                             '${events.length} Event${events.length != 1 ? 's' : ''} Scheduled',
                             style: h2.copyWith(
                               fontSize: 11.64.sp,
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withAlpha(204),
                             ),
                           ),
                         ],
@@ -691,24 +1305,47 @@ class CalendarView extends GetView<CalendarController> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.w),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: events.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      Get.back();
-                      _showEventDetailsDialog(events[index]);
-                    },
-                    child: _buildEventItem(
-                      events[index],
-                      index == events.length - 1,
+              eventsToShow
+                  ? Expanded(
+                      child: ListView.builder(
+                        shrinkWrap:
+                            true, // Ensures the list view only takes the space it needs
+                        physics:
+                            AlwaysScrollableScrollPhysics(), // Makes the list scrollable
+                        itemCount: events.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            _showEventDetailsDialog(events[index]);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.w),
+                            child: _buildEventItem(
+                              events[index],
+                              index == events.length - 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: events.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            _showEventDetailsDialog(events[index]);
+                          },
+                          child: _buildEventItem(
+                            events[index],
+                            index == events.length - 1,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
               SizedBox(height: 16.h),
             ],
           ),
@@ -718,7 +1355,23 @@ class CalendarView extends GetView<CalendarController> {
     );
   }
 
+
   void _showEventDetailsDialog(Map<String, dynamic> event) {
+    Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
+    // Helper function to format time
+    String formatTime(String time) {
+      try {
+        // Parse the time string into a DateTime object
+        final parsedTime = DateFormat('HH:mm:ss').parse(time);
+
+        // Format it into the 12-hour format with AM/PM
+        return DateFormat('h:mm a').format(parsedTime);
+      } catch (e) {
+        // Return the original time if parsing fails
+        return time;
+      }
+    }
+
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
@@ -736,7 +1389,7 @@ class CalendarView extends GetView<CalendarController> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.lightPurplePink2,
+                  color: eventColor,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(29.r),
                   ),
@@ -782,7 +1435,9 @@ class CalendarView extends GetView<CalendarController> {
                         ),
                         SizedBox(width: 8.w),
                         Text(
-                          DateFormat('yyyy-MM-dd').format(event['date']),
+                          DateFormat(
+                            'yyyy-MM-dd',
+                          ).format(DateTime.parse(event['date'])),
                           style: h4.copyWith(
                             fontSize: 16.62.sp,
                             color: AppColors.darkSlateBlue,
@@ -820,7 +1475,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            event['time'],
+                            '${formatTime(event['start_time'])} - ${formatTime(event['end_time'])}',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.darkSlateBlue,
@@ -856,7 +1511,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            'You',
+                            event['organizer'] ?? 'Not specified',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.darkSlateBlue,
@@ -874,7 +1529,7 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 8.w),
                           Text(
-                            event['organizer'] ?? 'Not specified',
+                            event['child'] ?? 'Not specified',
                             style: h4.copyWith(
                               fontSize: 16.62.sp,
                               color: AppColors.clrGreen,
@@ -886,7 +1541,7 @@ class CalendarView extends GetView<CalendarController> {
                     SizedBox(height: 10.h),
                     Container(
                       decoration: BoxDecoration(
-                        color: AppColors.clrGreen2,
+                        color: eventColor.withAlpha(27),
                         borderRadius: BorderRadius.circular(16.r),
                       ),
                       padding: EdgeInsets.all(16.r),
@@ -905,33 +1560,49 @@ class CalendarView extends GetView<CalendarController> {
                         children: [
                           OutlinedButton(
                             onPressed: () {
+                              Get.back();
+                              controller.selectedChildName.value =
+                                  event['child'];
                               controller.eventName.text = event['title'];
-                              controller.eventType.text = event['type'];
-                              controller.eventDate.text = DateFormat(
-                                'yyyy-MM-dd',
-                              ).format(event['date']);
-                              controller.eventSTime.text = event['time'];
-                              controller.eventDescription.text =
-                                  event['description'] ?? '';
+                              controller.selectedEventType.value =
+                                  event['type'];
+                              controller.eventDate.text = event['date'];
+                              controller.eventSTime.text = event['start_time'];
+                              controller.eventETime.text = event['end_time'];
                               controller.eventLocation.text =
                                   event['location'] ?? '';
                               controller.selectedRepeatType.value =
-                                  event['frequency'];
+                                  event['repeat'];
+                              controller.eventDescription.text =
+                                  event['description'] ?? '';
+                              controller.eventReminderTime.text =
+                                  event['reminder_minutes'].toString();
+                              controller.updateCheck.value = true;
+                              controller.updateId.value = int.parse(
+                                event['id'],
+                              );
                               Get.to(() => AddEventView())?.then((_) {
-                                controller.updateEvent(event['title'], {
-                                  'title': controller.eventName.text,
-                                  'type': controller.eventType.text,
-                                  'date': DateTime.parse(
-                                    controller.eventDate.text,
-                                  ),
-                                  'time': controller.eventSTime.text,
-                                  'description':
-                                      controller.eventDescription.text,
-                                  'location': controller.eventLocation.text,
-                                  'frequency':
-                                      controller.selectedRepeatType.value ??
-                                      'Once',
-                                });
+                                // Update the event by using event['id'] and passing the updated fields
+                                // controller.updateEvent(event['id'], {
+                                //   'child':
+                                //       controller.selectedChildName.value ??
+                                //       'Not specified',
+                                //   'organizer': controller.eventOwnerName.text,
+                                //   'title': controller.eventName.text,
+                                //   'type':
+                                //       controller.selectedEventType.value ??
+                                //       'unknown',
+                                //   'date': 'DateTime.parse(',
+                                //   'start_time': controller.eventSTime.text,
+                                //   'end_time': controller.eventETime.text,
+                                //   'description':
+                                //       controller.eventDescription.text,
+                                //   'location': controller.eventLocation.text,
+                                //   'repeat':
+                                //       controller.selectedRepeatType.value ??
+                                //       'once',
+                                // }
+                                // );
                               });
                             },
                             style: OutlinedButton.styleFrom(
@@ -959,11 +1630,8 @@ class CalendarView extends GetView<CalendarController> {
                           ),
                           OutlinedButton(
                             onPressed: () {
-                              controller.deleteEvent(
-                                event['title'],
-                                eventDate: event['date'],
-                              );
                               Get.back();
+                              controller.deleteEvent(event['id']);
                             },
                             style: OutlinedButton.styleFrom(
                               side: BorderSide(color: AppColors.clrRed),
@@ -1002,98 +1670,110 @@ class CalendarView extends GetView<CalendarController> {
     );
   }
 
-  Widget _buildEventItem(Map<String, dynamic> event, bool isLast) {
-    // Updated to use dynamic event data
-    Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
-    return Container(
-      margin: EdgeInsets.only(top: 12.h),
-      decoration: BoxDecoration(
-        color: eventColor.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              width: 8.w,
-              decoration: BoxDecoration(
-                color: eventColor,
-                borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(10.r),
-                ),
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 30).r,
-              child: Container(
+  void _showHolidayDetailsDialog(Map<String, dynamic> holiday) {
+    Color holidayColor = _getHolidayColor(
+      holiday['assigned_to'] ?? 'assigned_to',
+    );
+
+    // Helper function to get the day of the week (e.g., "Sunday", "Monday")
+    String getDayOfWeek(String? date) {
+      if (date == null || date.isEmpty) {
+        return 'N/A'; // Return 'N/A' if date is null or empty
+      }
+
+      try {
+        DateTime parsedDate = DateTime.parse(date);
+        return DateFormat(
+          'EEEE',
+        ).format(parsedDate); // Format: Sunday, Monday, etc.
+      } catch (e) {
+        return 'Invalid Day'; // In case of a format error
+      }
+    }
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          width: 387.w,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(30.r),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
                 decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(20.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x40B1B1B1),
-                      offset: Offset(0, 3.88),
-                      blurRadius: 3.88,
+                  color: holidayColor,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(29.r),
+                  ),
+                ),
+                padding: EdgeInsets.all(16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        holiday['name'],
+                        style: h2.copyWith(
+                          fontSize: 18.43.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: Get.back,
+                      child: Container(
+                        padding: EdgeInsets.all(8.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: AppColors.gray,
+                          size: 20.sp,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                //width: 53.65.w,
-                padding: EdgeInsets.all(5).r,
-                child: Padding(
-                  padding: const EdgeInsets.all(4).r,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        event['time'],
-                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        'To',
-                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        event['time'],
-                        style: h0.copyWith(fontSize: 8.sp, color: eventColor),
-                      ),
-                    ],
-                  ),
-                ),
               ),
-            ),
-            SizedBox(width: 16.w),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
+              Container(
+                margin: EdgeInsets.all(16.r),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            event['title'],
-                            style: h2.copyWith(
-                              fontSize: 16.62.sp,
-                              color: AppColors.darkSlateBlue,
-                            ),
+                        SvgPicture.asset(
+                          'assets/images/calendar/calender_icon.svg',
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          '${DateFormat('yyyy-MM-dd').format(DateTime.parse(holiday['start_date']))} / ${DateFormat('yyyy-MM-dd').format(DateTime.parse(holiday['end_date']))}',
+                          style: h4.copyWith(
+                            fontSize: 16.62.sp,
+                            color: AppColors.darkSlateBlue,
                           ),
                         ),
+                        Spacer(),
                         Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 12.w,
                             vertical: 6.h,
                           ),
                           decoration: BoxDecoration(
-                            color: eventColor,
+                            color: _getHolidayColor(
+                              holiday['assigned_to'] ?? 'Not specified',
+                            ),
                             borderRadius: BorderRadius.circular(16.r),
                           ),
                           child: Text(
-                            _getEventTypeLabel(event['type'] ?? 'personal'),
+                            holiday['assigned_to'] ?? 'Not specified',
                             style: h3.copyWith(
                               fontSize: 10.54.sp,
                               fontWeight: FontWeight.w600,
@@ -1103,70 +1783,209 @@ class CalendarView extends GetView<CalendarController> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/location_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['location'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/person_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['organizer'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/child_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['child'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.clrGreen,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/calendar/location_icon.svg',
-                        ),
-                        SizedBox(width: 6.w),
                         Text(
-                          event['location'] ?? 'Not specified',
+                          getDayOfWeek(holiday['start_date']),
                           style: h4.copyWith(
                             fontSize: 11.08.sp,
                             color: AppColors.darkSlateBlue,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 6.h),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/calendar/child_icon.svg',
-                        ),
-                        SizedBox(width: 6.w),
-                        Text(
-                          event['organizer'] ?? 'Not specified',
-                          style: h4.copyWith(
-                            fontSize: 11.08.sp,
-                            color: Colors.green,
-                            fontWeight: FontWeight.w500,
+                        if (getDayOfWeek(holiday['start_date']) !=
+                            getDayOfWeek(holiday['end_date']))
+                          Text(
+                            ' to ${getDayOfWeek(holiday['end_date'])}',
+                            style: h4.copyWith(
+                              fontSize: 11.08.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
                           ),
-                        ),
                       ],
                     ),
-                    SizedBox(height: 6.h),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/calendar/person_icon.svg',
+                    SizedBox(height: 10.h),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: holidayColor.withAlpha(27),
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      padding: EdgeInsets.all(16.r),
+                      child: Text(
+                        holiday['description'] ?? 'No description provided',
+                        style: h4.copyWith(
+                          fontSize: 14.sp,
+                          color: AppColors.darkSlateBlue,
                         ),
-                        SizedBox(width: 6.w),
-                        Text(
-                          'You',
-                          style: h4.copyWith(
-                            fontSize: 11.08.sp,
-                            color: AppColors.darkSlateBlue,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.updateId.value = int.parse(
+                                holiday['id'],
+                              );
+                              controller.selectedChildName.value =
+                                  holiday['child'];
+                              controller.eventOwnerName.text =
+                                  holiday['organizer'];
+                              controller.holidayValue.value = holiday['name'];
+                              controller.assignValue.value =
+                                  holiday['assigned_to'];
+                              controller.eventLocation.text =
+                                  holiday['location'] ?? '';
+                              controller.eventDescription.text =
+                                  holiday['description'] ?? '';
+                              controller.eventDate.text = holiday['start_date'];
+                              controller.eventEDate.text = holiday['end_date'];
+                              controller.updateCheck.value = true;
+                              // controller.selectedRepeatType.value =
+                              //     event['repeat'];
+                              // controller.eventReminderTime.text =
+                              //     event['reminder_minutes'].toString();
+                              Get.to(() => AddHolidayView())?.then((_) {
+                                // Update the event by using event['id'] and passing the updated fields
+                                // controller.updateEvent(holiday['id'], {
+                                //   'child':
+                                //       controller.selectedChildName.value ??
+                                //       'Not specified',
+                                //   'organizer': controller.eventOwnerName.text,
+                                //   'title': controller.eventName.text,
+                                //   'type':
+                                //       controller.selectedEventType.value ??
+                                //       'unknown',
+                                //   'date': 'DateTime.parse(',
+                                //   'start_time': controller.eventSTime.text,
+                                //   'end_time': controller.eventETime.text,
+                                //   'description':
+                                //       controller.eventDescription.text,
+                                //   'location': controller.eventLocation.text,
+                                //   'repeat':
+                                //       controller.selectedRepeatType.value ??
+                                //       'once',
+                                // });
+                              });
+                            },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: AppColors.darkSlateBlue),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/calendar/edit_icon.svg',
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Edit',
+                                  style: h4.copyWith(
+                                    fontSize: 18.43.sp,
+                                    color: AppColors.darkSlateBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      event['frequency'] ?? 'Once',
-                      style: h4.copyWith(
-                        fontSize: 11.08.sp,
-                        color: AppColors.darkSlateBlue,
+                          OutlinedButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.deleteHoliday(holiday['id']);
+                            },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: AppColors.clrRed),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/calendar/delete_icon.svg',
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Delete',
+                                  style: h4.copyWith(
+                                    fontSize: 18.43.sp,
+                                    color: AppColors.clrRed,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+      barrierDismissible: true,
     );
   }
 
@@ -1197,6 +2016,19 @@ class CalendarView extends GetView<CalendarController> {
     return '${weekdays[date.weekday - 1]}, ${months[date.month - 1]} ${date.day}';
   }
 
+  Color _getHolidayColor(String type) {
+    switch (type.toLowerCase()) {
+      case 'mom':
+        return Color(0xFFC0B327);
+      case 'dad':
+        return Color(0xFF932CCA);
+      case 'co-parents':
+        return Color(0xFF77A064);
+      default:
+        return Color(0xFF2196F3);
+    }
+  }
+
   Color _getEventTypeColor(String type) {
     switch (type.toLowerCase()) {
       case 'work':
@@ -1204,7 +2036,7 @@ class CalendarView extends GetView<CalendarController> {
         return Color(0xFF4CAF50);
       case 'personal':
       case 'activity':
-        return Color(0xFF2196F3);
+        return Color(0xFF7F8DF6);
       case 'family':
         return Color(0xFFFF9800);
       case 'holiday':

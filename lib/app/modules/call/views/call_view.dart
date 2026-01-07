@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import 'call_recording.dart';
 import 'incoming_ongoing_call.dart';
 
 
-import '../../../../common/widgets/CallLogCard.dart';
+import '../../../../common/widgets/call_log_card.dart';
 import '../controllers/call_controller.dart';
 
 class CallView extends GetView<CallController> {

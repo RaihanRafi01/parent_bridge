@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../../../../common/appColors.dart';
+import '../../../../common/app_colors.dart';
 
 class ChatMessage {
   final String text;
@@ -87,16 +87,16 @@ class ChatController extends GetxController {
     const String url = 'ws://10.10.13.73:7000/ws/chat/ddb394f9-b32f-47ce-b8b5-e4db4e196335/?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkxMjY0NzEwLCJpYXQiOjE3NjUzNDQ3MTAsImp0aSI6IjU3ZDg4MmQ1MTkxZjQwMDFiODg4YzExNjkwOTI1YTY4IiwidXNlcl9pZCI6IjEzIn0.Vy4euW9yvt2CDDhuzxmdRmCpYQW0F4gkeBvQp38ZaHI';
     const String url2 = 'ws://10.10.13.73:7000/ws/chat/ddb394f9-b32f-47ce-b8b5-e4db4e196335/?Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkxMjc3NzUzLCJpYXQiOjE3NjUzNTc3NTMsImp0aSI6IjhlMDc4OTAxNjI3MzQ4M2RhNTEzMGRiNjc3NTY1MTcxIiwidXNlcl9pZCI6IjI1In0.4SGie1YrEHUYBhT7qfGu7uJQlFKfGUlIhW2miz7GV9s';
 
-    print('Connecting to WebSocket...');
+   debugPrint('Connecting to WebSocket...');
 
     channel = WebSocketChannel.connect(Uri.parse(url));
     channel2 = WebSocketChannel.connect(Uri.parse(url2));
 
-    channel.ready.then((_) => print('WebSocket Connected'));
+    channel.ready.then((_) =>debugPrint('WebSocket Connected'));
 
     channel.stream.listen(
           (rawMessage) {
-        print('Received: $rawMessage');
+       debugPrint('Received: $rawMessage');
         final data = jsonDecode(rawMessage as String);
         final type = data['type'];
 
@@ -116,7 +116,7 @@ class ChatController extends GetxController {
             break;
         }
       },
-      onError: (e) => print('WS Error: $e'),
+      onError: (e) =>debugPrint('WS Error: $e'),
     );
   }
 
@@ -142,7 +142,7 @@ class ChatController extends GetxController {
 
     // Ignore if this response is for old text
     if (currentText.isEmpty || originalMessage != currentText) {
-      print('Ignoring outdated suggestion response: "$originalMessage" (current: "$currentText")');
+     debugPrint('Ignoring outdated suggestion response: "$originalMessage" (current: "$currentText")');
       return;
     }
 
@@ -234,7 +234,7 @@ class ChatController extends GetxController {
         }
 
         final jsonStr = jsonEncode({"type": "suggestion_request", "message": currentText});
-        print('Sending ------->: $jsonStr');
+       debugPrint('Sending ------->: $jsonStr');
         channel.sink.add(jsonStr);
       });
     } else {
@@ -246,7 +246,7 @@ class ChatController extends GetxController {
   void _sendTyping(bool typing) {
     isTyping = typing;
     final jsonStr = jsonEncode({"type": "typing", "is_typing": typing});
-    print('Sending ------->: $jsonStr');
+   debugPrint('Sending ------->: $jsonStr');
     channel.sink.add(jsonStr);
   }
 
@@ -266,7 +266,7 @@ class ChatController extends GetxController {
       "reply_to": null,
       "attachment": null,
     });
-    print('Sending ------->: $jsonStr');
+   debugPrint('Sending ------->: $jsonStr');
     channel.sink.add(jsonStr);
 
     messageController.clear();

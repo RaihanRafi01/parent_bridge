@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import '../controllers/chat_controller.dart';
 
 class ChatView extends GetView<ChatController> {
@@ -31,7 +31,9 @@ class ChatView extends GetView<ChatController> {
                   return ListView.builder(
                     controller: controller.scrollController,
                     padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 120.r),
-                    itemCount: controller.messages.length + (controller.isOtherTyping.value ? 1 : 0),
+                    itemCount:
+                        controller.messages.length +
+                        (controller.isOtherTyping.value ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index < controller.messages.length) {
                         return _buildChatBubble(controller.messages[index]);
@@ -61,44 +63,84 @@ class ChatView extends GetView<ChatController> {
   // ==================== APP BAR ====================
   Widget _buildAppBar() {
     return Container(
-      padding: EdgeInsets.only(top: 50.h, left: 16.w, right: 16.w, bottom: 20.h),
+      padding: EdgeInsets.only(
+        top: 50.h,
+        left: 16.w,
+        right: 16.w,
+        bottom: 20.h,
+      ),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.r), bottomRight: Radius.circular(40.r)),
+        gradient: const LinearGradient(
+          colors: [Color(0xFFCB93F2), Color(0xFF89C5E1)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(40.r),
+          bottomRight: Radius.circular(40.r),
+        ),
       ),
       child: Row(
         children: [
-          GestureDetector(onTap: Get.back, child: SvgPicture.asset('assets/images/common/back_icon.svg')),
+          GestureDetector(
+            onTap: Get.back,
+            child: SvgPicture.asset('assets/images/common/back_icon.svg'),
+          ),
           SizedBox(width: 12.w),
-          CircleAvatar(backgroundImage: const AssetImage("assets/images/auth/img.png"), radius: 28.r),
+          CircleAvatar(
+            backgroundImage: const AssetImage("assets/images/auth/img.png"),
+            radius: 28.r,
+          ),
           SizedBox(width: 10.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Michael", style: h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5)),
-                Row(children: [
-                  Icon(Icons.circle, color: const Color(0xFF14F269), size: 10.r),
-                  SizedBox(width: 5.w),
-                  Text("Online Now", style: h4.copyWith(fontSize: 12.sp, color: AppColors.txtclr4)),
-                ]),
+                Text(
+                  "Michael",
+                  style: h2.copyWith(fontSize: 22.sp, color: AppColors.txtclr5),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      color: const Color(0xFF14F269),
+                      size: 10.r,
+                    ),
+                    SizedBox(width: 5.w),
+                    Text(
+                      "Online Now",
+                      style: h4.copyWith(
+                        fontSize: 12.sp,
+                        color: AppColors.txtclr4,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
-          Column(children: [
-            Obx(() => Transform.scale(
-              scale: 0.6,
-              child: Switch(
-                value: controller.showOriginal.value,
-                onChanged: controller.toggleShowOriginal,
-                activeColor: Colors.white,
-                inactiveThumbColor: AppColors.txtclr5,
-                activeTrackColor: AppColors.txtclr5,
+          Column(
+            children: [
+              Obx(
+                () => Transform.scale(
+                  scale: 0.6,
+                  child: Switch(
+                    value: controller.showOriginal.value,
+                    onChanged: controller.toggleShowOriginal,
+                    activeThumbColor: Colors.white,
+                    inactiveThumbColor: AppColors.txtclr5,
+                    activeTrackColor: AppColors.txtclr5,
+                  ),
+                ),
               ),
-            )),
-            Text('Show original', style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp)),
-          ]),
+              Text(
+                'Show original',
+                style: h2.copyWith(color: AppColors.txtclr5, fontSize: 11.sp),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -112,58 +154,115 @@ class ChatView extends GetView<ChatController> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6.h),
       child: Row(
-        mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isMe
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (!isMe) CircleAvatar(backgroundImage: AssetImage(message.avatarAssetPath), radius: 20.r),
+          if (!isMe)
+            CircleAvatar(
+              backgroundImage: AssetImage(message.avatarAssetPath),
+              radius: 20.r,
+            ),
           if (!isMe) SizedBox(width: 8.w),
           Flexible(
             child: Column(
-              crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              crossAxisAlignment: isMe
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
                 Container(
                   constraints: BoxConstraints(maxWidth: 0.7.sw),
                   padding: EdgeInsets.all(14.r),
                   decoration: BoxDecoration(
-                    color: isMe ? AppColors.customSkyBlue3 : AppColors.customsky,
+                    color: isMe
+                        ? AppColors.customSkyBlue3
+                        : AppColors.customsky,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.r),
                       topRight: Radius.circular(20.r),
-                      bottomLeft: isMe ? Radius.circular(20.r) : Radius.circular(0),
-                      bottomRight: isMe ? Radius.circular(0) : Radius.circular(20.r),
+                      bottomLeft: isMe
+                          ? Radius.circular(20.r)
+                          : Radius.circular(0),
+                      bottomRight: isMe
+                          ? Radius.circular(0)
+                          : Radius.circular(20.r),
                     ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (message.originalText != null && ctrl.showOriginal.value) ...[
-                        Text(message.originalText!, style: TextStyle(color: AppColors.txtclr9, fontSize: 12.sp)),
+                      if (message.originalText != null &&
+                          ctrl.showOriginal.value) ...[
+                        Text(
+                          message.originalText!,
+                          style: TextStyle(
+                            color: AppColors.txtclr9,
+                            fontSize: 12.sp,
+                          ),
+                        ),
                         Container(
                           margin: EdgeInsets.only(top: 8.h),
                           padding: EdgeInsets.all(16.r),
-                          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.r), border: Border.all(color: Colors.grey.shade300)),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Row(children: [
-                              SvgPicture.asset('assets/images/chat/flag.svg'),
-                              SizedBox(width: 8.w),
-                              Text('Message Filtered', style: TextStyle(color: AppColors.txtclr9, fontSize: 11.sp))
-                            ]),
-                            SizedBox(height: 6.h),
-                            Text(message.text, style: TextStyle(color: AppColors.txtclr5, fontSize: 14.sp)),
-                          ]),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                            border: Border.all(color: Colors.grey.shade300),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/chat/flag.svg',
+                                  ),
+                                  SizedBox(width: 8.w),
+                                  Text(
+                                    'Message Filtered',
+                                    style: TextStyle(
+                                      color: AppColors.txtclr9,
+                                      fontSize: 11.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 6.h),
+                              Text(
+                                message.text,
+                                style: TextStyle(
+                                  color: AppColors.txtclr5,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ] else
-                        Text(message.text, style: TextStyle(color: AppColors.txtclr5, fontSize: 15.sp)),
+                        Text(
+                          message.text,
+                          style: TextStyle(
+                            color: AppColors.txtclr5,
+                            fontSize: 15.sp,
+                          ),
+                        ),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(message.time, style: TextStyle(color: Colors.grey, fontSize: 11.sp)),
+                Text(
+                  message.time,
+                  style: TextStyle(color: Colors.grey, fontSize: 11.sp),
+                ),
               ],
             ),
           ),
           if (isMe) SizedBox(width: 8.w),
-          if (isMe) CircleAvatar(backgroundImage: AssetImage(message.avatarAssetPath), radius: 20.r),
+          if (isMe)
+            CircleAvatar(
+              backgroundImage: AssetImage(message.avatarAssetPath),
+              radius: 20.r,
+            ),
         ],
       ),
     );
@@ -173,15 +272,26 @@ class ChatView extends GetView<ChatController> {
   Widget _buildTypingIndicator() {
     return Padding(
       padding: EdgeInsets.only(left: 16.w, top: 8.h, bottom: 8.h),
-      child: Row(children: [
-        CircleAvatar(backgroundImage: const AssetImage("assets/images/auth/img.png"), radius: 20.r),
-        SizedBox(width: 10.w),
-        Container(
-          padding: EdgeInsets.all(14.r),
-          decoration: BoxDecoration(color: AppColors.customsky, borderRadius: BorderRadius.circular(20.r)),
-          child: Row(mainAxisSize: MainAxisSize.min, children: [Dot(), Dot(delay: 0.2), Dot(delay: 0.4)]),
-        ),
-      ]),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: const AssetImage("assets/images/auth/img.png"),
+            radius: 20.r,
+          ),
+          SizedBox(width: 10.w),
+          Container(
+            padding: EdgeInsets.all(14.r),
+            decoration: BoxDecoration(
+              color: AppColors.customsky,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [Dot(), Dot(delay: 0.2), Dot(delay: 0.4)],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -191,7 +301,8 @@ class ChatView extends GetView<ChatController> {
       // These lines create proper dependencies
       controller.isSending.value;
       controller.messageController.text; // even this helps a bit
-      final suggestions = controller.liveSuggestions; // CRITICAL: creates dependency
+      final suggestions =
+          controller.liveSuggestions; // CRITICAL: creates dependency
       final hasSuggestions = suggestions.isNotEmpty;
       final inputText = controller.messageController.text.trim();
       final isGreen = controller.statusColor.value == 'green';
@@ -201,7 +312,10 @@ class ChatView extends GetView<ChatController> {
         return const SizedBox.shrink();
       }
 
-      final wordCount = inputText.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+      final wordCount = inputText
+          .split(RegExp(r'\s+'))
+          .where((w) => w.isNotEmpty)
+          .length;
       final showShimmer = wordCount >= 2 && isWaiting && !hasSuggestions;
 
       if (showShimmer) {
@@ -212,15 +326,18 @@ class ChatView extends GetView<ChatController> {
             baseColor: Colors.grey.shade200,
             highlightColor: Colors.grey.shade100,
             child: Column(
-              children: List.generate(2, (_) => Container(
-                margin: EdgeInsets.only(bottom: 12.h),
-                height: 80.h,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25.r),
-                  border: Border.all(color: Colors.grey.shade300),
+              children: List.generate(
+                2,
+                (_) => Container(
+                  margin: EdgeInsets.only(bottom: 12.h),
+                  height: 80.h,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25.r),
+                    border: Border.all(color: Colors.grey.shade300),
+                  ),
                 ),
-              )),
+              ),
             ),
           ),
         );
@@ -241,19 +358,48 @@ class ChatView extends GetView<ChatController> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25.r),
-                    border: Border.all(color: AppColors.customSkyBlue3, width: 2),
-                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 12, offset: Offset(0, -4))],
+                    border: Border.all(
+                      color: AppColors.customSkyBlue3,
+                      width: 2,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(21),
+                        blurRadius: 12,
+                        offset: Offset(0, -4),
+                      ),
+                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                        decoration: BoxDecoration(color: suggestion.color, borderRadius: BorderRadius.circular(12.r)),
-                        child: Text(suggestion.title, style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 6.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: suggestion.color,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Text(
+                          suggestion.title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       SizedBox(height: 10.h),
-                      Text(suggestion.text, style: TextStyle(fontSize: 15.sp, color: AppColors.customSkyBlue3, height: 1.3)),
+                      Text(
+                        suggestion.text,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          color: AppColors.customSkyBlue3,
+                          height: 1.3,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -282,50 +428,104 @@ class ChatView extends GetView<ChatController> {
     return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 8)]),
-        child: Row(children: [
-          SvgPicture.asset('assets/images/chat/camera.svg', width: 24.w, colorFilter: ColorFilter.mode(Colors.grey.shade600, BlendMode.srcIn)),
-          SizedBox(width: 12.w),
-          SvgPicture.asset('assets/images/chat/doc_icon.svg', width: 24.w, colorFilter: ColorFilter.mode(Colors.grey.shade600, BlendMode.srcIn)),
-          SizedBox(width: 12.w),
-          InkWell(onTap: () => _showVoiceRecorderDialog(context), child: SvgPicture.asset('assets/images/chat/mice.svg', width: 24.w, colorFilter: ColorFilter.mode(Colors.grey.shade600, BlendMode.srcIn))),
-          SizedBox(width: 16.w),
-          Obx(() => InkWell(
-            onTap: controller.toggleSuggestionBox,
-            child: Container(
-              width: 26.w,
-              height: 26.h,
-              decoration: BoxDecoration(
-                color: colorMap[controller.statusColor.value] ?? Colors.grey.shade400,
-                borderRadius: BorderRadius.circular(6.r),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(color: Colors.black.withAlpha(15), blurRadius: 8),
+          ],
+        ),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              'assets/images/chat/camera.svg',
+              width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Colors.grey.shade600,
+                BlendMode.srcIn,
               ),
             ),
-          )),
-          SizedBox(width: 16.w),
-          Expanded(
-            child: TextField(
-              controller: controller.messageController,
-              style: TextStyle(fontSize: 15.sp),
-              decoration: InputDecoration(
-                hintText: "I Understand. Let Me...",
-                hintStyle: TextStyle(color: AppColors.txtclr10, fontSize: 14.sp),
-                filled: true,
-                fillColor: AppColors.customskyblue4,
-                contentPadding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 14.h),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.r),
-                  borderSide: BorderSide(color: AppColors.customSkyBlue3, width: 1.8),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.r),
-                  borderSide: BorderSide(color: AppColors.customSkyBlue3, width: 1.8),
+            SizedBox(width: 12.w),
+            SvgPicture.asset(
+              'assets/images/chat/doc_icon.svg',
+              width: 24.w,
+              colorFilter: ColorFilter.mode(
+                Colors.grey.shade600,
+                BlendMode.srcIn,
+              ),
+            ),
+            SizedBox(width: 12.w),
+            InkWell(
+              onTap: () => _showVoiceRecorderDialog(context),
+              child: SvgPicture.asset(
+                'assets/images/chat/mice.svg',
+                width: 24.w,
+                colorFilter: ColorFilter.mode(
+                  Colors.grey.shade600,
+                  BlendMode.srcIn,
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 12.w),
-          InkWell(onTap: controller.sendMessage, child: Icon(Icons.send_rounded, color: AppColors.customSkyBlue3, size: 28.r)),
-        ]),
+            SizedBox(width: 16.w),
+            Obx(
+              () => InkWell(
+                onTap: controller.toggleSuggestionBox,
+                child: Container(
+                  width: 26.w,
+                  height: 26.h,
+                  decoration: BoxDecoration(
+                    color:
+                        colorMap[controller.statusColor.value] ??
+                        Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(6.r),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: TextField(
+                controller: controller.messageController,
+                style: TextStyle(fontSize: 15.sp),
+                decoration: InputDecoration(
+                  hintText: "I Understand. Let Me...",
+                  hintStyle: TextStyle(
+                    color: AppColors.txtclr10,
+                    fontSize: 14.sp,
+                  ),
+                  filled: true,
+                  fillColor: AppColors.customskyblue4,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 18.w,
+                    vertical: 14.h,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.r),
+                    borderSide: BorderSide(
+                      color: AppColors.customSkyBlue3,
+                      width: 1.8,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.r),
+                    borderSide: BorderSide(
+                      color: AppColors.customSkyBlue3,
+                      width: 1.8,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 12.w),
+            InkWell(
+              onTap: controller.sendMessage,
+              child: Icon(
+                Icons.send_rounded,
+                color: AppColors.customSkyBlue3,
+                size: 28.r,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -334,7 +534,9 @@ class ChatView extends GetView<ChatController> {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.alertbackground,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
         contentPadding: EdgeInsets.zero,
         insetPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         content: SizedBox(
@@ -346,18 +548,34 @@ class ChatView extends GetView<ChatController> {
                 padding: EdgeInsets.fromLTRB(20.w, 15.h, 15.w, 15.h),
                 decoration: BoxDecoration(
                   color: AppColors.lightPurplePink2,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r)),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Voice To Text', style: h2.copyWith(fontSize: 16.sp, color: AppColors.txtclr5)),
+                    Text(
+                      'Voice To Text',
+                      style: h2.copyWith(
+                        fontSize: 16.sp,
+                        color: AppColors.txtclr5,
+                      ),
+                    ),
                     InkWell(
                       onTap: () => Get.back(),
                       child: Container(
                         padding: EdgeInsets.all(6.r),
-                        decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                        child: Icon(Icons.close, size: 18.sp, color: Colors.black54),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          size: 18.sp,
+                          color: Colors.black54,
+                        ),
                       ),
                     ),
                   ],
@@ -371,45 +589,85 @@ class ChatView extends GetView<ChatController> {
                       Stack(
                         alignment: Alignment.center,
                         children: [
-                          CircleAvatar(radius: 45.r, backgroundColor: AppColors.txtclr12.withOpacity(0.1)),
+                          CircleAvatar(
+                            radius: 45.r,
+                            backgroundColor: AppColors.txtclr12.withAlpha(28),
+                          ),
                           CircleAvatar(
                             radius: 35.r,
                             backgroundColor: AppColors.txtclr12,
-                            child: Icon(Icons.mic, color: Colors.white, size: 30.sp),
+                            child: Icon(
+                              Icons.mic,
+                              color: Colors.white,
+                              size: 30.sp,
+                            ),
                           ),
                         ],
                       ),
                       SizedBox(height: 20.h),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                        decoration: BoxDecoration(color: AppColors.customSkyBlue3, borderRadius: BorderRadius.circular(7.26.r)),
-                        child: Text('00:00:00', style: h2.copyWith(fontSize: 20.sp, color: AppColors.blackactive)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 8.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.customSkyBlue3,
+                          borderRadius: BorderRadius.circular(7.26.r),
+                        ),
+                        child: Text(
+                          '00:00:00',
+                          style: h2.copyWith(
+                            fontSize: 20.sp,
+                            color: AppColors.blackactive,
+                          ),
+                        ),
                       ),
                       SizedBox(height: 20.h),
                       Flexible(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Container(
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10.r)),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
                             child: Stack(
                               children: [
                                 Positioned.fill(
                                   child: TextField(
-                                    controller: TextEditingController(text: 'Can You Pick Up Emma From School Today?\n' * 2),
+                                    controller: TextEditingController(
+                                      text:
+                                          'Can You Pick Up Emma From School Today?\n' *
+                                          2,
+                                    ),
                                     maxLines: null,
                                     expands: true,
                                     keyboardType: TextInputType.multiline,
-                                    style: h2.copyWith(fontSize: 14.sp, color: AppColors.txtclr12),
+                                    style: h2.copyWith(
+                                      fontSize: 14.sp,
+                                      color: AppColors.txtclr12,
+                                    ),
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      contentPadding: EdgeInsets.fromLTRB(12.w, 30.h, 20.w, 8.h),
+                                      contentPadding: EdgeInsets.fromLTRB(
+                                        12.w,
+                                        30.h,
+                                        20.w,
+                                        8.h,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Positioned(
                                   top: 10.h,
                                   left: 12.w,
-                                  child: Text('Transcription', style: h2.copyWith(color: AppColors.txtclr11, fontSize: 12.sp)),
+                                  child: Text(
+                                    'Transcription',
+                                    style: h2.copyWith(
+                                      color: AppColors.txtclr11,
+                                      fontSize: 12.sp,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -428,12 +686,20 @@ class ChatView extends GetView<ChatController> {
                     OutlinedButton.icon(
                       onPressed: () {},
                       icon: SvgPicture.asset('assets/images/chat/refresh.svg'),
-                      label: Text('Try Again', style: h2.copyWith(fontSize: 12.sp)),
+                      label: Text(
+                        'Try Again',
+                        style: h2.copyWith(fontSize: 12.sp),
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.black54,
                         side: BorderSide(color: AppColors.gray4),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 18.w,
+                          vertical: 8.h,
+                        ),
                       ),
                     ),
                     SizedBox(width: 10.w),
@@ -444,8 +710,13 @@ class ChatView extends GetView<ChatController> {
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.black54,
                         side: BorderSide(color: AppColors.gray4),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 8.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 18.w,
+                          vertical: 8.h,
+                        ),
                       ),
                     ),
                     SizedBox(width: 10.w),
@@ -453,10 +724,21 @@ class ChatView extends GetView<ChatController> {
                       onPressed: () => Get.back(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.customSkyBlue3,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-                        padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 10.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 40.w,
+                          vertical: 10.h,
+                        ),
                       ),
-                      child: Text('Use Text', style: h2.copyWith(color: AppColors.blackactive, fontSize: 12.sp)),
+                      child: Text(
+                        'Use Text',
+                        style: h2.copyWith(
+                          color: AppColors.blackactive,
+                          fontSize: 12.sp,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -483,7 +765,10 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 600))..repeat(reverse: true);
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    )..repeat(reverse: true);
     Future.delayed(Duration(milliseconds: (widget.delay * 1000).toInt()), () {
       if (mounted) _controller.forward();
     });
@@ -503,7 +788,10 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
         width: 9.r,
         height: 9.r,
         margin: EdgeInsets.symmetric(horizontal: 3.r),
-        decoration: BoxDecoration(color: Colors.grey.shade600, shape: BoxShape.circle),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade600,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }

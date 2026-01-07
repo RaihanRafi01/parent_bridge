@@ -5,11 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/empty_expense_tracker_view.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/non_empty_expense_tracker_view.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customTextField.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_text_field.dart';
 
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 import '../controllers/expense_tracker_controller.dart';
 
 class ExpenseTrackerView extends GetView<ExpenseTrackerController> {

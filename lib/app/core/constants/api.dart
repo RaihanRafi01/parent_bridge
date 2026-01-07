@@ -22,6 +22,19 @@ class Api {
   //   static const String passwordResetRequest = '$baseUrlApi/auth/password-reset/request/';
   //   static const String passwordResetConfirm = '$baseUrlApi/auth/password-reset/confirm/';
 
+  ///event
+  static const createEvent = "$baseUrlApi/v1/event/add/";
+  static const createHoliday = "$baseUrlApi/v1/event/holiday/add/";
+  static const eventList = "$baseUrlApi/v1/event/list/";
+  static const events = "$baseUrlApi/v1/event/";
+  static const holidays = "$baseUrlApi/v1/event/holiday/";
+
+
+
+
+  ///bridge
+  static const bridgeInfo = "$baseUrlApi/v1/bridge/info/";
+
   //   /// Subscription
   //   static const String fetchSubscriptionData = '$baseUrlApi/payment/me/';
   //   static const String checkoutSession = '$baseUrlApi/payment/create-checkout-session/';

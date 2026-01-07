@@ -37,7 +37,7 @@ class SpeedButton extends StatelessWidget {
             style: TextStyle(
               fontSize: 10,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? Colors.white : Colors.black.withOpacity(0.5),
+              color: isSelected ? Colors.white : Colors.black.withAlpha(128),
             ),
           ),
         ),

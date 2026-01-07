@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
 
-import '../../../../common/appColors.dart';
+import '../../../../common/app_colors.dart';
 
 class PendingExpenseView extends GetView {
   final String title;

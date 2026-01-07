@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../controllers/document_vault_controller.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import '../../../../common/customFont.dart';
-import 'Custom_button_add_document.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import 'custom_button_add_document.dart';
 
 class UploadDocument extends GetView<DocumentVaultController> {
   const UploadDocument({super.key});
@@ -70,7 +70,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.clrBlack.withOpacity(0.1),
+                      color: AppColors.clrBlack.withAlpha(28),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(1, 3),
@@ -151,7 +151,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.btnBorder.withOpacity(1),
+                      color: AppColors.btnBorder.withAlpha(255),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(0, 3),
@@ -208,7 +208,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   padding: 10.r,
                   height: 56.h,
                   width: 382.73.sp,
-                  text: controller.selectedCategory.value ?? "Select Category",
+                  text: controller.selectedCategory.value ,
                   icon: const Icon(
                     Icons.keyboard_arrow_down_outlined,
                     color: AppColors.textColorHint,
@@ -271,7 +271,7 @@ class UploadDocument extends GetView<DocumentVaultController> {
                   border: Border.all(color: AppColors.btnBorder, width: 1.0.w),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.borderColor.withOpacity(1.0),
+                      color: AppColors.borderColor.withAlpha(255),
                       spreadRadius: 1.r,
                       blurRadius: 6.r,
                       offset: const Offset(0, 5),

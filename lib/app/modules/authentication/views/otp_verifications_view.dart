@@ -6,9 +6,9 @@ import 'package:parent_bridge/app/modules/authentication/controllers/authenticat
 import 'package:parent_bridge/app/modules/authentication/controllers/otp_verifications_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/views/new_password_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
 
 class OtpVerificationsView extends GetView<OtpVerificationsController> {
   final bool isAuth;

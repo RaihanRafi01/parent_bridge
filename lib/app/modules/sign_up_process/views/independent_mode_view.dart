@@ -6,11 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/authentication_controller.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
-import 'package:parent_bridge/common/widgets/custom_snackbar.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 
 class IndependentModeView extends GetView<AuthenticationController> {
   const IndependentModeView({super.key});
@@ -126,9 +125,7 @@ class IndependentModeView extends GetView<AuthenticationController> {
                                 'Copied',
                                 'Phone number copied to clipboard',
                                 snackPosition: SnackPosition.BOTTOM,
-                                backgroundColor: AppColors.appColor.withOpacity(
-                                  0.9,
-                                ),
+                                backgroundColor: AppColors.appColor.withAlpha(230),
                                 colorText: AppColors.clrWhite,
                                 duration: const Duration(seconds: 2),
                               );

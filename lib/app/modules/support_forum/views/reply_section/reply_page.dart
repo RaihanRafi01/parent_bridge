@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/cmnt_profile_details.dart';
-import '../../../../../common/appColors.dart';
-import '../../../../../common/customFont.dart';
-class reply_page extends StatelessWidget {
-  const reply_page({super.key, required this.color });
+import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/comment_profile_details.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
+
+class ReplyPage extends StatelessWidget {
+  const ReplyPage({super.key, required this.color});
 
   final Color color;
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class reply_page extends StatelessWidget {
                       // back button ..
                       GestureDetector(
                         onTap: () {
-                         Get.back();
+                          Get.back();
                         },
                         child: SvgPicture.asset(
                           'assets/svg/support_forum_/icons/back.svg',
@@ -73,7 +73,7 @@ class reply_page extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 30),
-                      cmt_profile_details(),
+                      CommentProfileDetails(),
 
                       SizedBox(height: 435),
 
@@ -88,12 +88,14 @@ class reply_page extends StatelessWidget {
                               height: 43,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: color.withOpacity(0.5), // the problem is here
+                                  color: color.withAlpha(
+                                    128,
+                                  ), // the problem is here
                                 ),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100.r),
                                 ),
-                                color: color.withOpacity(0.1),
+                                color: color.withAlpha(28),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -108,7 +110,7 @@ class reply_page extends StatelessWidget {
                                     hintText: ' Type here ..',
                                     hintStyle: h4.copyWith(
                                       fontSize: 12.sp,
-                                      color: AppColors.reply_msg_1,
+                                      color: AppColors.replyMsg_1,
                                     ),
                                   ),
                                 ),
@@ -116,14 +118,15 @@ class reply_page extends StatelessWidget {
                             ),
                             // sent button ..
                             GestureDetector(
-                              onTap: () {
-
-                              },
+                              onTap: () {},
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 10),
                                 child: SvgPicture.asset(
                                   'assets/svg/support_forum_/icons/sent.svg',
-                                  color: color,
+                                  colorFilter: ColorFilter.mode(
+                                    color,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                               ),
                             ),

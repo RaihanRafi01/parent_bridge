@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../../common/customFont.dart';
+import '../../../../../common/custom_font.dart';
 
-class Document_dialog_preview extends StatelessWidget {
-  const Document_dialog_preview({super.key});
+class CustomDocumentDialogPreview extends StatelessWidget {
+  const CustomDocumentDialogPreview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +67,11 @@ class Document_dialog_preview extends StatelessWidget {
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: AppColors.clrGreen.withOpacity(0.15.sp),
+                  color: AppColors.clrGreen.withAlpha(38),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.white.withOpacity(0.1),
+                      color: AppColors.white.withAlpha(28),
                       spreadRadius: 2,
                       blurRadius: 5,
                       offset: Offset(0, 3),
@@ -182,11 +181,11 @@ class Document_dialog_preview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
                     width: 1.w,
-                    color: AppColors.greyClr.withOpacity(0.15),
+                    color: AppColors.greyClr.withAlpha(38),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.customGrey.withOpacity(0.1),
+                      color: AppColors.customGrey.withAlpha(28),
                       spreadRadius: 1.r,
                       blurRadius: 1.r,
                       offset: Offset(0, 1),

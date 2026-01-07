@@ -5,13 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/controllers/add_expense_controller.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import 'package:parent_bridge/common/widgets/customButton.dart';
-import 'package:parent_bridge/common/widgets/customTextField.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import 'package:parent_bridge/common/widgets/custom_button.dart';
+import 'package:parent_bridge/common/widgets/custom_text_field.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/widgets/customDropdown.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/widgets/custom_dropdown.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 
 class AddExpenseView extends GetView<AddExpenseController> {
   final RxBool isExpenseEmpty;
@@ -65,7 +65,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     items: controller.childItems,
                     value: controller.selectedChild,
                     onChanged: (value) {
-                      print('Selected: $value');
+                     debugPrint('Selected: $value');
                     },
                     fillColor: AppColors.textInputFillColor,
                   ),
@@ -85,7 +85,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     items: controller.paymentMethodItems,
                     value: controller.selectedPaymentMethod,
                     onChanged: (value) {
-                      print('Selected: $value');
+                     debugPrint('Selected: $value');
                     },
                     fillColor: AppColors.textInputFillColor,
                   ),
@@ -130,7 +130,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                           items: controller.categoryItems,
                           value: controller.selectedCategory,
                           onChanged: (value) {
-                            print('Selected: $value');
+                           debugPrint('Selected: $value');
                           },
                           fillColor: AppColors.textInputFillColor,
                         ),

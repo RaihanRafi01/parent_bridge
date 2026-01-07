@@ -2,21 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../../common/customFont.dart';
+import '../../../../../common/custom_font.dart';
 
-class custom_react_comment extends StatelessWidget {
-  const custom_react_comment({
+class CustomReactComment extends StatelessWidget {
+  const CustomReactComment({
     super.key,
-    this.svg_image,
+    this.svgImage,
     this.count,
-    this.comment_ontap,
+    this.commentOnTap,
   });
 
-  final String? svg_image;
+  final String? svgImage;
   final String? count;
-  final VoidCallback? comment_ontap;
+  final VoidCallback? commentOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +31,24 @@ class custom_react_comment extends StatelessWidget {
             color: AppColors.white,
             boxShadow: [
               BoxShadow(
-                color: AppColors.clrBlack.withOpacity(0.5),
+                color: AppColors.clrBlack.withAlpha(128),
                 blurRadius: 3.r,
                 offset: Offset(0, 3),
               ),
             ],
           ),
           child: GestureDetector(
-            onTap: comment_ontap,
+            onTap: commentOnTap,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset('$svg_image'),
+                SvgPicture.asset('$svgImage'),
                 SizedBox(width: 5.sp),
                 Text(
                   '$count',
                   style: h4.copyWith(
                     fontSize: 16.11.sp,
-                    color: AppColors.custom_anonymous_parent_03,
+                    color: AppColors.customAnonymousParent_03,
                   ),
                 ),
               ],

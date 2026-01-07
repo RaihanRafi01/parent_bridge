@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_card_legal.dart';
-import 'package:parent_bridge/app/modules/legal_records/views/Widget/Custom_legaldialog.dart';
+import 'package:parent_bridge/app/modules/legal_records/views/Widget/custom_card_legal.dart';
+import 'package:parent_bridge/app/modules/legal_records/views/Widget/custom_legal_dialog.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 import '../controllers/legal_records_controller.dart';
 
 class LegalRecordsView extends GetView<LegalRecordsController> {
@@ -60,7 +60,7 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
                   InkWell(
                     onTap: () {
                       Get.dialog(
-                        Document_dialoglegal(
+                        CustomLegalDialog(
                           title: 'Message Records Report',
                           subtitle:
                               'Generate Court-Ready Message Documentation',
@@ -84,7 +84,7 @@ class LegalRecordsView extends GetView<LegalRecordsController> {
                   InkWell(
                     onTap: () {
                       Get.dialog(
-                        Document_dialoglegal(
+                        CustomLegalDialog(
                           title: 'Call Records Report',
                           subtitle: 'Generate Court-Ready Call Documentation',
                         ),

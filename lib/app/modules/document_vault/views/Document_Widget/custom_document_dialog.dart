@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../../common/customFont.dart';
+import '../../../../../common/custom_font.dart';
+// ignore: unused_import
 import 'custom_document_dialog_preview.dart';
 
-class Document_dialog extends StatelessWidget {
-  const Document_dialog({super.key});
+class CustomDocumentDialog extends StatelessWidget {
+  const CustomDocumentDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +66,11 @@ class Document_dialog extends StatelessWidget {
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: AppColors.clrGreen.withOpacity(0.15),
+                  color: AppColors.clrGreen.withAlpha(38),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.white.withOpacity(0.1),
+                      color: AppColors.white.withAlpha(28),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: Offset(0, 3),
@@ -85,9 +86,9 @@ class Document_dialog extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             Get.dialog(
-                              Document_dialog_preview(),
+                              CustomDocumentDialog(),
                               barrierColor: AppColors.lightPurplePink2
-                                  .withOpacity(0.10),
+                                  .withAlpha(28),
                             );
                           },
                           child: Container(
@@ -180,7 +181,7 @@ class Document_dialog extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.person_outline,
-                    color: AppColors.clrBlack.withOpacity(0.5),
+                    color: AppColors.clrBlack.withAlpha(128),
                   ),
                   SizedBox(width: 8.w),
                   Text(

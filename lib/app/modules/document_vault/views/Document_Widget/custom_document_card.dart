@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 
 class DocumentCard extends StatelessWidget {
   const DocumentCard({
@@ -13,10 +13,10 @@ class DocumentCard extends StatelessWidget {
     required this.date,
     required this.type,
     required this.person,
-    required this.labelcontainer,
-    required this.bgcolor,
+    required this.labelContainer,
+    required this.bgColor,
     required this.sidebar,
-    this.exp_date,
+    this.expDate,
     required this.onTap,
   });
 
@@ -24,9 +24,9 @@ class DocumentCard extends StatelessWidget {
   final String label;
   final String date;
   final String type;
-  final String? exp_date;
-  final Color labelcontainer;
-  final Color bgcolor;
+  final String? expDate;
+  final Color labelContainer;
+  final Color bgColor;
   final Color sidebar;
   final VoidCallback onTap;
   final String person;
@@ -37,11 +37,11 @@ class DocumentCard extends StatelessWidget {
       width: 399.w,
       height: 176.h,
       decoration: BoxDecoration(
-        color: bgcolor,
+        color: bgColor,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.customGrey.withOpacity(0.1),
+            color: AppColors.customGrey.withAlpha(28),
             spreadRadius: 2.r,
             blurRadius: 5.r,
             offset: const Offset(0, 3),
@@ -95,7 +95,7 @@ class DocumentCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5.r),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.customGrey.withOpacity(0.1.sp),
+                                color: AppColors.customGrey.withAlpha(255),
                                 spreadRadius: 2.r,
                                 blurRadius: 5.r,
                                 offset: const Offset(0, 3),
@@ -127,7 +127,7 @@ class DocumentCard extends StatelessWidget {
                       vertical: 4.r,
                     ),
                     decoration: BoxDecoration(
-                      color: labelcontainer,
+                      color: labelContainer,
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(
@@ -205,9 +205,9 @@ class DocumentCard extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: .6.h),
-                      if (exp_date != null && exp_date!.isNotEmpty)
+                      if (expDate != null && expDate!.isNotEmpty)
                         Text(
-                          exp_date!,
+                          expDate!,
                           style: h4.copyWith(
                             fontSize: 12.52.sp,
                             color: AppColors.expDate,

@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/paid_expense_view.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/pending_expense_view.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
 import 'approved_expense_view.dart';
 

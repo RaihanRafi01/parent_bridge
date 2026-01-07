@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math.dart' as vector;
 
 typedef DisplayChange = void Function(bool isOpen);
 
@@ -327,9 +326,9 @@ class FabCircularMenuPlusState extends State<CircularMenu>
         widget.ringGradient ??
         SweepGradient(
           colors: [
-            Colors.grey.withOpacity(0.5),
-            Colors.blue.withOpacity(0.5),
-            Colors.grey.withOpacity(0.5),
+            Colors.grey.withAlpha(128),
+            Colors.blue.withAlpha(128),
+            Colors.grey.withAlpha(128),
           ],
           stops: [0.0, 0.5, 1.0],
         );
