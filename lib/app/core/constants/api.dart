@@ -51,6 +51,14 @@ class Api {
   static createReply(int commentId) =>
       '$baseUrlApi/v1/support/comment/$commentId/reply/create/';
 
+  /// expense
+  static const String expenseSummary = '$baseUrlApi/v1/expense/summary/';
+  static const String expenseList = '$baseUrlApi/v1/expense/list/';
+  static const String expenseCreate = '$baseUrlApi/v1/expense/create/';
+
+  /// bridge
+  static const String childrenList = '$baseUrlApi/v1/bridge/childrens/';
+
   // // // static getMessages(room_id) => '$baseUrlApi/chat/rooms/$room_id/messages/';
 
   //  /// form

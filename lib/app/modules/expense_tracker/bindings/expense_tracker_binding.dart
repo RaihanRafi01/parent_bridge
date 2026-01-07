@@ -7,11 +7,10 @@ import '../controllers/expense_tracker_controller.dart';
 class ExpenseTrackerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AddExpenseController>(
-      () => AddExpenseController(),
-    );
+    Get.lazyPut<AddExpenseController>(() => AddExpenseController());
     Get.lazyPut<ExpenseTrackerController>(
       () => ExpenseTrackerController(),
+      fenix: true,
     );
   }
 }

@@ -44,101 +44,110 @@ class CustomDropdown<T> extends StatelessWidget {
       tag: controllerTag,
     );
 
-    return Obx(() => Container(
-      width: width.w,
-      padding: EdgeInsets.symmetric(vertical: 12).r, // Match CustomTextField padding
-      decoration: BoxDecoration(
-        color: Colors.transparent, // Match CustomTextField
-        borderRadius: BorderRadius.circular(radius.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.boxShadowColor.withAlpha(36), // Match CustomTextField shadow
-            blurRadius: 12.6.r,
-            offset: Offset(0.w, 8.h),
-          ),
-        ],
-      ),
-      child: InkWell(
-        onTap: readOnly
-            ? null
-            : () {
-          // Request focus and show the popup menu
-          controller.setFocused(true);
-          if (items.isNotEmpty) {
-            _showPopupMenu(context, controller);
-          }
-        },
-        focusNode: controller.focusNode,
-        child: InputDecorator(
-          decoration: InputDecoration(
-            hintText: labelText,
-            hintStyle: h4.copyWith(
-              color: labelTxtClr,
-              fontSize: 14.sp, // Match CustomTextField hint font size
+    return Obx(
+      () => Container(
+        width: width.w,
+        padding: EdgeInsets.symmetric(
+          vertical: 12,
+        ).r, // Match CustomTextField padding
+        decoration: BoxDecoration(
+          color: Colors.transparent, // Match CustomTextField
+          borderRadius: BorderRadius.circular(radius.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.boxShadowColor.withAlpha(
+                36,
+              ), // Match CustomTextField shadow
+              blurRadius: 12.6.r,
+              offset: Offset(0.w, 8.h),
             ),
-            contentPadding: EdgeInsets.only(
-              left: 16.18.w,
-              right: 16.18.w,
-              top: 17.h,
-              bottom: 17.h,
-            ), // Match CustomTextField padding
-            filled: true,
-            fillColor: fillColor ?? AppColors.clrWhite, // Use provided fillColor or default
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(radius.r),
-              borderSide: BorderSide(
-                color: AppColors.borderColor, // Match CustomTextField border
-                width: 1.w,
+          ],
+        ),
+        child: InkWell(
+          onTap: readOnly
+              ? null
+              : () {
+                  // Request focus and show the popup menu
+                  controller.setFocused(true);
+                  if (items.isNotEmpty) {
+                    _showPopupMenu(context, controller);
+                  }
+                },
+          focusNode: controller.focusNode,
+          child: InputDecorator(
+            decoration: InputDecoration(
+              hintText: labelText,
+              hintStyle: h4.copyWith(
+                color: labelTxtClr,
+                fontSize: 14.sp, // Match CustomTextField hint font size
               ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(radius.r),
-              borderSide: BorderSide(
-                color: AppColors.borderColor,
-                width: 1.w,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(radius.r),
-              borderSide: BorderSide(
-                color: AppColors.borderColor,
-                width: 1.w,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  value.value?.toString() ??
-                      labelText,
-                  style: h4.copyWith(
-                    color: value.value != null
-                        ? labelTxtClr
-                        : labelTxtClr,
-                    fontSize: 14.sp, // Match CustomTextField font size
-                  ),
-                  overflow: TextOverflow.ellipsis,
+              contentPadding: EdgeInsets.only(
+                left: 16.18.w,
+                right: 16.18.w,
+                top: 17.h,
+                bottom: 17.h,
+              ), // Match CustomTextField padding
+              filled: true,
+              fillColor:
+                  fillColor ??
+                  AppColors.clrWhite, // Use provided fillColor or default
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(radius.r),
+                borderSide: BorderSide(
+                  color: AppColors.borderColor, // Match CustomTextField border
+                  width: 1.w,
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/calendar/dropdown_icon.svg', // Use an SVG for consistency
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(radius.r),
+                borderSide: BorderSide(
+                  color: AppColors.borderColor,
+                  width: 1.w,
+                ),
               ),
-            ],
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(radius.r),
+                borderSide: BorderSide(
+                  color: AppColors.borderColor,
+                  width: 1.w,
+                ),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    value.value?.toString() ?? labelText,
+                    style: h4.copyWith(
+                      color: value.value != null ? labelTxtClr : labelTxtClr,
+                      fontSize: 14.sp, // Match CustomTextField font size
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SvgPicture.asset(
+                  'assets/images/calendar/dropdown_icon.svg', // Use an SVG for consistency
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   void _showPopupMenu(BuildContext context, DropdownController<T> controller) {
     final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
       Rect.fromPoints(
         button.localToGlobal(Offset.zero, ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+        button.localToGlobal(
+          button.size.bottomRight(Offset.zero),
+          ancestor: overlay,
+        ),
       ),
       Offset.zero & overlay.size,
     );

@@ -11,11 +11,17 @@ import 'package:parent_bridge/common/widgets/customTextField.dart';
 
 import '../../../../common/widgets/nav/circularMenuWidget.dart';
 import '../controllers/expense_tracker_controller.dart';
+import 'add_expense_view.dart';
 
 class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
   const ExpenseTrackerView({super.key});
   @override
   Widget build(BuildContext context) {
+    // Refresh data every time this screen is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.refreshData();
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -57,25 +63,32 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                         ),
                       ),
 
-                      Container(
-                        padding: EdgeInsets.all(9.08.r),
-                        decoration: BoxDecoration(
-                          color: AppColors.card54,
-                          borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.clrBlack.withAlpha(64),
-                              blurRadius: 4.r,
-                              offset: Offset(0.w, 4.h),
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: () => Get.to(
+                          AddExpenseView(
+                            isExpenseEmpty: controller.isExpenseEmpty,
+                          ),
                         ),
+                        child: Container(
+                          padding: EdgeInsets.all(9.08.r),
+                          decoration: BoxDecoration(
+                            color: AppColors.card54,
+                            borderRadius: BorderRadius.circular(10.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.clrBlack.withAlpha(64),
+                                blurRadius: 4.r,
+                                offset: Offset(0.w, 4.h),
+                              ),
+                            ],
+                          ),
 
-                        child: Text(
-                          'Add Expense',
-                          style: h3.copyWith(
-                            color: AppColors.textColor51,
-                            fontSize: 18.16.sp,
+                          child: Text(
+                            'Add Expense',
+                            style: h3.copyWith(
+                              color: AppColors.textColor51,
+                              fontSize: 18.16.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -100,58 +113,63 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     child: Column(
                       spacing: 16.h,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'July\n2025 Summary',
-                              style: h1.copyWith(
-                                color: AppColors.textColor57,
-                                fontSize: 23.43.sp,
-                              ),
-                            ),
-
-                            Container(
-                              padding: EdgeInsets.all(8.r),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.containerColor51,
+                        Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${_getMonthName(controller.currentMonth.value)}\n${controller.currentYear.value} Summary',
+                                style: h1.copyWith(
+                                  color: AppColors.textColor57,
+                                  fontSize: 23.43.sp,
+                                ),
                               ),
 
-                              child: SvgPicture.asset(
-                                'assets/images/expense_tracker/calender_icon.svg',
+                              Container(
+                                padding: EdgeInsets.all(8.r),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.containerColor51,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/images/expense_tracker/calender_icon.svg',
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
 
-                        MonthlySummaryContainer(
-                          bgColors: [
-                            AppColors.dividerPurple,
-                            AppColors.dividerCyan,
-                          ],
-                          info1: 0,
-                          info2: 0,
-                          infoTexts: ['Total Expenses', 'Pending '],
-                          infoColors: [
-                            AppColors.textColor58,
-                            AppColors.textColor59,
-                          ],
+                        Obx(
+                          () => MonthlySummaryContainer(
+                            bgColors: [
+                              AppColors.dividerPurple,
+                              AppColors.dividerCyan,
+                            ],
+                            info1: controller.totalExpense.value,
+                            info2: controller.pendingExpense.value,
+                            infoTexts: ['Total Expenses', 'Pending '],
+                            infoColors: [
+                              AppColors.textColor58,
+                              AppColors.textColor59,
+                            ],
+                          ),
                         ),
 
-                        MonthlySummaryContainer(
-                          bgColors: [
-                            AppColors.gradientColor51,
-                            AppColors.gradientColor52,
-                          ],
-                          info1: 20.50,
-                          info2: 45,
-                          infoTexts: ['Your Share', 'Co-parent'],
-                          infoColors: [
-                            AppColors.textColor58,
-                            AppColors.textColor58,
-                          ],
+                        Obx(
+                          () => MonthlySummaryContainer(
+                            bgColors: [
+                              AppColors.gradientColor51,
+                              AppColors.gradientColor52,
+                            ],
+                            info1: controller.yourExpense.value,
+                            info2: controller.partnerExpense.value,
+                            infoTexts: ['Your Share', 'Co-parent'],
+                            infoColors: [
+                              AppColors.textColor58,
+                              AppColors.textColor58,
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -196,18 +214,46 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
                     ],
                   ),
 
-                  controller.isExpenseEmpty.value
-                      ? EmptyExpenseTrackerView(
-                          isExpenseEmpty: controller.isExpenseEmpty,
-                        )
-                      : NonEmptyExpenseTrackerView(
-                          amountController: controller.amountController,
-                          paymentMethodController:
-                              controller.paymentMethodController,
-                          selectedPaymentMethod:
-                              controller.selectedPaymentMethod2,
-                          paymentMethodItems: controller.paymentMethodItems,
+                  Obx(() {
+                    if (controller.isLoadingExpenses.value) {
+                      return Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 40.h),
+                          child: CircularProgressIndicator(),
                         ),
+                      );
+                    }
+
+                    if (controller.isExpenseEmpty.value) {
+                      return EmptyExpenseTrackerView(
+                        isExpenseEmpty: controller.isExpenseEmpty,
+                      );
+                    }
+
+                    final filteredExpenses = controller.filteredExpenses;
+
+                    if (filteredExpenses.isEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 40.h),
+                        child: Text(
+                          'No expenses found',
+                          style: h3.copyWith(
+                            fontSize: 16.sp,
+                            color: AppColors.textColor60,
+                          ),
+                        ),
+                      );
+                    }
+
+                    return NonEmptyExpenseTrackerView(
+                      expenses: filteredExpenses,
+                      amountController: controller.amountController,
+                      paymentMethodController:
+                          controller.paymentMethodController,
+                      selectedPaymentMethod: controller.selectedPaymentMethod2,
+                      paymentMethodItems: controller.paymentMethodItems,
+                    );
+                  }),
                 ],
               ),
             ),
@@ -220,6 +266,25 @@ class ExpenseTrackerView extends GetView<ExpenseTrackerController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
     );
+  }
+
+  String _getMonthName(String month) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    final monthNum = int.tryParse(month) ?? 1;
+    return months[monthNum - 1];
   }
 
   Widget _buildMenuIcon({

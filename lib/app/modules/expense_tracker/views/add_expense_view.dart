@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/controllers/add_expense_controller.dart';
-import 'package:parent_bridge/app/modules/expense_tracker/views/expense_tracker_view.dart';
 import 'package:parent_bridge/common/customFont.dart';
 import 'package:parent_bridge/common/widgets/customButton.dart';
 import 'package:parent_bridge/common/widgets/customTextField.dart';
@@ -60,15 +59,17 @@ class AddExpenseView extends GetView<AddExpenseController> {
                 children: [
                   SizedBox(height: 57.h),
 
-                  CustomDropdown(
-                    labelText: 'Select Child\'s',
-                    items: controller.childItems,
-                    value: controller.selectedChild,
-                    onChanged: (value) {
-                      print('Selected: $value');
-                    },
-                    fillColor: AppColors.textInputFillColor,
-                  ),
+                  Obx(() {
+                    return CustomDropdown(
+                      labelText: 'Select Child\'s',
+                      items: controller.childItems.toList(),
+                      value: controller.selectedChild,
+                      onChanged: (value) {
+                        print('Selected: $value');
+                      },
+                      fillColor: AppColors.textInputFillColor,
+                    );
+                  }),
 
                   SizedBox(height: 18.h),
 
@@ -95,9 +96,10 @@ class AddExpenseView extends GetView<AddExpenseController> {
                   CustomTextField(
                     hintText: 'Paid Date',
                     suffixIcon: 'assets/images/expense_tracker/calender.svg',
-                    onSuffixTap: () {},
+                    onSuffixTap: () => controller.selectDate(context, true),
                     fillColor: AppColors.textInputFillColor,
-                    controller: controller.expenseTitleController,
+                    controller: controller.paidDateController,
+                    isDatePicker: true,
                   ),
 
                   SizedBox(height: 18.h),
@@ -105,9 +107,10 @@ class AddExpenseView extends GetView<AddExpenseController> {
                   CustomTextField(
                     hintText: 'Due Date',
                     suffixIcon: 'assets/images/expense_tracker/calender.svg',
-                    onSuffixTap: () {},
+                    onSuffixTap: () => controller.selectDate(context, false),
                     fillColor: AppColors.textInputFillColor,
-                    controller: controller.expenseTitleController,
+                    controller: controller.dueDateController,
+                    isDatePicker: true,
                   ),
 
                   SizedBox(height: 18.h),
@@ -267,9 +270,10 @@ class AddExpenseView extends GetView<AddExpenseController> {
 
                           Obx(() {
                             double amount =
-                                controller.amountController.text != ''
-                                ? double.parse(controller.amountController.text)
-                                : 85.98;
+                                double.tryParse(controller.amountText.value) ??
+                                0.0;
+                            if (amount == 0.0)
+                              amount = 85.98; // Default value if empty
                             return Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -324,33 +328,36 @@ class AddExpenseView extends GetView<AddExpenseController> {
                     hintText: 'Add expense description...',
                     fillColor: AppColors.textInputFillColor,
                     maxLines: 3,
-                    controller: controller.expenseTitleController,
+                    controller: controller.descriptionController,
                   ),
 
                   SizedBox(height: 46.h),
 
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.0.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomPBButton(
-                          text: 'Cancel',
-                          color1: AppColors.clrTransparent,
-                          color2: AppColors.clrTransparent,
-                          txtClr: AppColors.lightPurplePink2,
-                          borderColor: AppColors.btnBorder,
-                          onPressed: () {},
-                        ),
+                    child: Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomPBButton(
+                            text: 'Cancel',
+                            color1: AppColors.clrTransparent,
+                            color2: AppColors.clrTransparent,
+                            txtClr: AppColors.lightPurplePink2,
+                            borderColor: AppColors.btnBorder,
+                            onPressed: () => Get.back(),
+                          ),
 
-                        CustomPBButton(
-                          text: 'Add Expense',
-                          onPressed: () {
-                            isExpenseEmpty.value = !isExpenseEmpty.value;
-                            Get.to(ExpenseTrackerView());
-                          },
-                        ),
-                      ],
+                          CustomPBButton(
+                            text: controller.isLoading.value
+                                ? 'Adding...'
+                                : 'Add Expense',
+                            onPressed: controller.isLoading.value
+                                ? () {}
+                                : () => controller.createExpense(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
@@ -364,43 +371,6 @@ class AddExpenseView extends GetView<AddExpenseController> {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CircularMenuWidget(homeScreenIndex: 9),
-    );
-  }
-
-  Widget _buildMenuIcon({
-    bool ishome = false,
-    required String svg,
-    required VoidCallback onPressed,
-  }) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      shape: const CircleBorder(),
-      fillColor: Colors.transparent,
-      elevation: 4,
-      constraints: BoxConstraints.tightFor(width: 70.w, height: 60.h),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: 2.w,
-            color: ishome ? AppColors.white : Colors.transparent,
-          ),
-          gradient: ishome
-              ? const LinearGradient(
-                  colors: [Color(0xFFA14CDD), Color(0xFF52B6E4)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : LinearGradient(
-                  colors: [AppColors.white, AppColors.white],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-        ),
-        child: Center(
-          child: SvgPicture.asset(svg, height: 25.h, width: 25.w),
-        ),
-      ),
     );
   }
 }

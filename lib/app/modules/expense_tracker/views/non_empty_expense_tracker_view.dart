@@ -11,149 +11,62 @@ import 'package:parent_bridge/common/customFont.dart';
 import 'approved_expense_view.dart';
 
 class NonEmptyExpenseTrackerView extends GetView {
+  final List<dynamic> expenses;
   final TextEditingController amountController;
   final TextEditingController paymentMethodController;
   final Rx<String?> selectedPaymentMethod;
   final List<String> paymentMethodItems;
 
   const NonEmptyExpenseTrackerView({
+    required this.expenses,
     required this.amountController,
     required this.paymentMethodController,
     required this.selectedPaymentMethod,
     required this.paymentMethodItems,
-    super.key
+    super.key,
   });
+
   @override
   Widget build(BuildContext context) {
     return Column(
       spacing: 32.h,
-      children: [
-        ExpenseCard(
-          title: 'Soccer Cleats for Emma',
-          category: 'Activity',
-          status: 'Pending',
-          other: 'Michael',
-          child: 'Max Smith',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
+      children: expenses.map<Widget>((expense) {
+        final statusMap = {
+          'unpaid': 'Pending',
+          'approved': 'Approved',
+          'paid': 'Paid',
+          'rejected': 'Rejected',
+        };
+
+        final share = expense['share'] ?? {};
+        final yourShare = (share['your_share'] ?? 0).toDouble();
+        final coParentShare = (share['co_parent_share'] ?? 0).toDouble();
+        final amount =
+            double.tryParse(expense['amount']?.toString() ?? '0') ?? 0.0;
+
+        return ExpenseCard(
+          title: expense['title'] ?? '',
+          category: expense['category'] ?? 'Other',
+          status: statusMap[expense['status']] ?? 'Pending',
+          other: expense['co_parent']?['name'] ?? 'Co-parent',
+          child: 'Child ${expense['child'] ?? ''}',
+          paidDate: expense['paid_date'] ?? '',
+          dueDate: expense['due_date'] ?? '',
+          paymentMethod: expense['expense_payments']?.isNotEmpty == true
+              ? expense['expense_payments'][0]['payment_method'] ?? 'Cash'
+              : 'Cash',
+          createdDate: expense['created_at']?.toString().split('T')[0] ?? '',
           approvedDate: '',
           completedDate: '',
-          amount: 90.99,
-          yourShare: 42.99,
-          othersShare: 42.99,
+          amount: amount,
+          yourShare: yourShare,
+          othersShare: coParentShare,
           amountController: amountController,
           paymentMethodController: paymentMethodController,
           selectedPaymentMethod: selectedPaymentMethod,
           paymentMethodItems: paymentMethodItems,
-        ),
-
-        ExpenseCard(
-          title: 'School Lunch Money',
-          category: 'School',
-          status: 'Approved',
-          other: 'Michael',
-          child: 'Max Smith',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
-          approvedDate: '2024-12-10',
-          completedDate: '',
-          amount: 90,
-          yourShare: 20,
-          othersShare: 0,
-          amountController: amountController,
-          paymentMethodController: paymentMethodController,
-          selectedPaymentMethod: selectedPaymentMethod,
-          paymentMethodItems: paymentMethodItems,
-        ),
-
-        ExpenseCard(
-          title: 'Doctor Visit Copay',
-          category: 'Medical',
-          status: 'Paid',
-          other: 'Michael',
-          child: 'Emma Smithc',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
-          approvedDate: '2024-12-10',
-          completedDate: '2024-12-10',
-          amount: 100,
-          yourShare: 70,
-          othersShare: 30,
-          amountController: amountController,
-          paymentMethodController: paymentMethodController,
-          selectedPaymentMethod: selectedPaymentMethod,
-          paymentMethodItems: paymentMethodItems,
-        ),
-
-        ExpenseCard(
-          title: 'Doctor Visit Copay',
-          category: 'Food',
-          status: 'Rejected',
-          other: 'Michael',
-          child: 'Max Smith',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
-          approvedDate: '',
-          completedDate: '',
-          amount: 100,
-          yourShare: 0,
-          othersShare: 0,
-          amountController: amountController,
-          paymentMethodController: paymentMethodController,
-          selectedPaymentMethod: selectedPaymentMethod,
-          paymentMethodItems: paymentMethodItems,
-        ),
-
-        ExpenseCard(
-          title: 'Doctor Visit Copay',
-          category: 'Clothing',
-          status: 'Approved',
-          other: 'Michael',
-          child: 'Emma Smithc',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
-          approvedDate: '2024-12-10',
-          completedDate: '',
-          amount: 100,
-          yourShare: 30,
-          othersShare: 40,
-          amountController: amountController,
-          paymentMethodController: paymentMethodController,
-          selectedPaymentMethod: selectedPaymentMethod,
-          paymentMethodItems: paymentMethodItems,
-        ),
-
-        ExpenseCard(
-          title: 'School Lunch Money',
-          category: 'School',
-          status: 'Approved',
-          other: 'Michael',
-          child: 'Max Smith',
-          paidDate: '2024-12-10',
-          dueDate: '2024-12-10',
-          paymentMethod: 'Cash',
-          createdDate: '2024-12-10',
-          approvedDate: '2024-12-10',
-          completedDate: '',
-          amount: 90,
-          yourShare: 20,
-          othersShare: 0,
-          amountController: amountController,
-          paymentMethodController: paymentMethodController,
-          selectedPaymentMethod: selectedPaymentMethod,
-          paymentMethodItems: paymentMethodItems,
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
 }
@@ -205,59 +118,65 @@ class ExpenseCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (status == 'Pending') {
-          Get.dialog(PendingExpenseView(
-            title: title,
-            category: category,
-            status: status,
-            other: other,
-            child: child,
-            paidDate: paidDate,
-            dueDate: dueDate,
-            paymentMethod: paymentMethod,
-            createdDate: createdDate,
-            amount: amount,
-            yourShare: 0,
-            othersShare: 0,
-          ));
+          Get.dialog(
+            PendingExpenseView(
+              title: title,
+              category: category,
+              status: status,
+              other: other,
+              child: child,
+              paidDate: paidDate,
+              dueDate: dueDate,
+              paymentMethod: paymentMethod,
+              createdDate: createdDate,
+              amount: amount,
+              yourShare: 0,
+              othersShare: 0,
+            ),
+          );
         }
         if (status == 'Approved') {
-          Get.dialog(ApprovedExpenseView(
-            title: title,
-            category: category,
-            status: status,
-            other: other,
-            child: child,
-            paidDate: paidDate,
-            dueDate: dueDate,
-            paymentMethod: paymentMethod,
-            createdDate: createdDate,
-            approvedDate: approvedDate,
-            amount: amount,
-            yourShare: yourShare,
-            othersShare: othersShare,
-            amountController: amountController,
-            paymentMethodController: paymentMethodController,
-            selectedPaymentMethod: selectedPaymentMethod,
-            paymentMethodItems: paymentMethodItems,
-          ));
+          Get.dialog(
+            ApprovedExpenseView(
+              title: title,
+              category: category,
+              status: status,
+              other: other,
+              child: child,
+              paidDate: paidDate,
+              dueDate: dueDate,
+              paymentMethod: paymentMethod,
+              createdDate: createdDate,
+              approvedDate: approvedDate,
+              amount: amount,
+              yourShare: yourShare,
+              othersShare: othersShare,
+              amountController: amountController,
+              paymentMethodController: paymentMethodController,
+              selectedPaymentMethod: selectedPaymentMethod,
+              paymentMethodItems: paymentMethodItems,
+            ),
+          );
         }
         if (status == 'Paid') {
-          Get.dialog(PaidExpenseView(
-            title: title,
-            category: category,
-            status: status,
-            other: other,
-            child: child,
-            paidDate: paidDate,
-            dueDate: dueDate,
-            paymentMethod: paymentMethod,
-            createdDate: createdDate,
-            approvedDate: approvedDate,
-            completedDate: completedDate,
-            amount: amount,
-            yourShare: yourShare,
-            othersShare: othersShare,
-          ));
+          Get.dialog(
+            PaidExpenseView(
+              title: title,
+              category: category,
+              status: status,
+              other: other,
+              child: child,
+              paidDate: paidDate,
+              dueDate: dueDate,
+              paymentMethod: paymentMethod,
+              createdDate: createdDate,
+              approvedDate: approvedDate,
+              completedDate: completedDate,
+              amount: amount,
+              yourShare: yourShare,
+              othersShare: othersShare,
+            ),
+          );
         }
       },
       child: Container(
@@ -516,67 +435,80 @@ class ExpenseCard extends StatelessWidget {
                           ],
                         ),
 
-                        (status != 'Pending' && status != 'Rejected') ? Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Container(
-                              width: 346.w,
-                              height: 12.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100.r),
-                                color: AppColors.containerColor53,
-                              ),
-                            ),
-
-                            Container(
-                              width: (((yourShare+othersShare)/amount)*346).w,
-                              height: 12.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100.r),
-                                color: category == 'Activity'
-                                    ? AppColors.expenseCardColor
-                                    : category == 'School'
-                                    ? AppColors.expenseCardColor2
-                                    : category == 'Medical'
-                                    ? AppColors.expenseCardColor3
-                                    : category == 'Food'
-                                    ? AppColors.expenseCardColor4
-                                    : category == 'Clothing'
-                                    ? AppColors.expenseCardColor6
-                                    : AppColors.expenseCardColor5,
-                              ),
-                            ),
-
-                            Positioned(
-                              left: ((((yourShare+othersShare)/amount)*346)-12).w,
-                              top: -3.h,
-                              child: Container(
-                                padding: EdgeInsets.all(3.r),
-                                decoration: BoxDecoration(
-                                  color: category == 'Activity'
-                                      ? AppColors.expenseCardColor
-                                      : category == 'School'
-                                      ? AppColors.expenseCardColor2
-                                      : category == 'Medical'
-                                      ? AppColors.expenseCardColor3
-                                      : category == 'Food'
-                                      ? AppColors.expenseCardColor4
-                                      : category == 'Clothing'
-                                      ? AppColors.expenseCardColor6
-                                      : AppColors.expenseCardColor5,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Text(
-                                  '${(((yourShare+othersShare)/amount)*100).toStringAsFixed(0)}%',
-                                  style: h0.copyWith(
-                                    color: AppColors.clrWhite,
-                                    fontSize: 6.72.sp,
+                        (status != 'Pending' && status != 'Rejected')
+                            ? Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
+                                    width: 346.w,
+                                    height: 12.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        100.r,
+                                      ),
+                                      color: AppColors.containerColor53,
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ) : SizedBox.shrink(),
+
+                                  Container(
+                                    width:
+                                        (((yourShare + othersShare) / amount) *
+                                                346)
+                                            .w,
+                                    height: 12.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        100.r,
+                                      ),
+                                      color: category == 'Activity'
+                                          ? AppColors.expenseCardColor
+                                          : category == 'School'
+                                          ? AppColors.expenseCardColor2
+                                          : category == 'Medical'
+                                          ? AppColors.expenseCardColor3
+                                          : category == 'Food'
+                                          ? AppColors.expenseCardColor4
+                                          : category == 'Clothing'
+                                          ? AppColors.expenseCardColor6
+                                          : AppColors.expenseCardColor5,
+                                    ),
+                                  ),
+
+                                  Positioned(
+                                    left:
+                                        ((((yourShare + othersShare) / amount) *
+                                                    346) -
+                                                12)
+                                            .w,
+                                    top: -3.h,
+                                    child: Container(
+                                      padding: EdgeInsets.all(3.r),
+                                      decoration: BoxDecoration(
+                                        color: category == 'Activity'
+                                            ? AppColors.expenseCardColor
+                                            : category == 'School'
+                                            ? AppColors.expenseCardColor2
+                                            : category == 'Medical'
+                                            ? AppColors.expenseCardColor3
+                                            : category == 'Food'
+                                            ? AppColors.expenseCardColor4
+                                            : category == 'Clothing'
+                                            ? AppColors.expenseCardColor6
+                                            : AppColors.expenseCardColor5,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Text(
+                                        '${(((yourShare + othersShare) / amount) * 100).toStringAsFixed(0)}%',
+                                        style: h0.copyWith(
+                                          color: AppColors.clrWhite,
+                                          fontSize: 6.72.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox.shrink(),
                       ],
                     ),
                   ),
