@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../../common/appColors.dart';
+
+import '../../../common/app_colors.dart';
 import '../../../common/widgets/custom_snackbar.dart';
 import '../../modules/authentication/views/sign_in_view.dart';
 import '../constants/api.dart';
@@ -55,12 +57,12 @@ class BaseClient {
     await _storage.delete(key: 'access_token');
     await _storage.delete(key: 'refresh_token');
     await _storage.delete(key: 'user_role');
-    print('DELETE=======================>>>>>>>>>>>>>');
+   debugPrint('DELETE=======================>>>>>>>>>>>>>');
   }
 
   static Future<Map<String, String>> authHeaders() async {
     String? token = await getAccessToken();
-    print('getAccessToken =======================>>>>>>>>>>>>> $token');
+   debugPrint('getAccessToken =======================>>>>>>>>>>>>> $token');
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${token ?? ''}',
@@ -162,7 +164,7 @@ class BaseClient {
         message: "A network error occurred. Please try again later.",
         bgColor: AppColors.snackBarWarning,
       );
-      print(e);
+     debugPrint("$e");
       rethrow;
     }
   }

@@ -195,51 +195,51 @@ class AppColors {
   /// Pronoy used these colors ...
 
   //support forum
-  static const Color support_forum_view_blue01 = Color(0xff93C7E3);
+  static const Color supportForumViewBlue01 = Color(0xff93C7E3);
 
   // appbar colors
-  static const Color appbar_color_01 = Color(0xFFBD9DED);
-  static const Color appbar_color_02 = Color(0xFF90CAE2);
+  static const Color appbarColor_01 = Color(0xFFBD9DED);
+  static const Color appbarColor_02 = Color(0xFF90CAE2);
 
   // drop-down controler's color
-  static const Color controler_list_color_00 = Color(0xffFFEDCA);
-  static const Color controler_list_color_01 = Color(0xffFFAD13);
-  static const Color controler_list_color_10 = Color(0xffE4E9FA);
-  static const Color controler_list_color_11 = Color(0xff1E40AF);
-  static const Color controler_list_color_20 = Color(0xffFFE5E5);
-  static const Color controler_list_color_21 = Color(0xffEF4444);
-  static const Color controler_list_color_30 = Color(0xffDEFDDB);
-  static const Color controler_list_color_31 = Color(0xff68B961);
+  static const Color controllerListColor_00 = Color(0xffFFEDCA);
+  static const Color controllerListColor_01 = Color(0xffFFAD13);
+  static const Color controllerListColor_10 = Color(0xffE4E9FA);
+  static const Color controllerListColor_11 = Color(0xff1E40AF);
+  static const Color controllerListColor_20 = Color(0xffFFE5E5);
+  static const Color controllerListColor_21 = Color(0xffEF4444);
+  static const Color controllerListColor_30 = Color(0xffDEFDDB);
+  static const Color controllerListColor_31 = Color(0xff68B961);
 
-  //anonymous_parent_part
-  static const Color anonymous_parent_01 = Color(0xffFFAD13);
-  static const Color anonymous_parent_02 = Color(0xffFFFBF3);
-  static const Color anonymous_parent_03 = Color(0xffbd9ded);
-  static const Color anonymous_parent_04 = Color(0xffDEE6FF);
-  static const Color anonymous_parent_05 = Color(0xff089F0A);
-  static const Color anonymous_parent_06 = Color(0xffE6FFE7);
-  static const Color anonymous_parent_07 = Color(0xffEF4444);
-  static const Color anonymous_parent_08 = Color(0xffFFEBEB);
+  //anonymousParent_part
+  static const Color anonymousParent_01 = Color(0xffFFAD13);
+  static const Color anonymousParent_02 = Color(0xffFFFBF3);
+  static const Color anonymousParent_03 = Color(0xffbd9ded);
+  static const Color anonymousParent_04 = Color(0xffDEE6FF);
+  static const Color anonymousParent_05 = Color(0xff089F0A);
+  static const Color anonymousParent_06 = Color(0xffE6FFE7);
+  static const Color anonymousParent_07 = Color(0xffEF4444);
+  static const Color anonymousParent_08 = Color(0xffFFEBEB);
 
-  static const Color custom_anonymous_parent_01 = Color(0xff6D6D6D);
-  static const Color custom_anonymous_parent_02 = Color(0xff253240);
-  static const Color custom_anonymous_parent_03 = Color(0xff535353);
-  static const Color search_bar_01 = Color(0xffBEB4B4);
-  static const Color show_dialog_with_Comment_01 = Color(0xff595959);
-  static const Color show_dialog_with_Comment_02 = Color(0xff8E8E8E);
-  static const Color show_dialog_with_Comment_03 = Color(0xffB9B9B9);
-  static const Color reply_msg = Color(0xffF9EED9);
-  static const Color reply_msg_1 = Color(0xff5F5F5F);
+  static const Color customAnonymousParent_01 = Color(0xff6D6D6D);
+  static const Color customAnonymousParent_02 = Color(0xff253240);
+  static const Color customAnonymousParent_03 = Color(0xff535353);
+  static const Color searchBar_01 = Color(0xffBEB4B4);
+  static const Color showDialogWithComment_01 = Color(0xff595959);
+  static const Color showDialogWithComment_02 = Color(0xff8E8E8E);
+  static const Color showDialogWithComment_03 = Color(0xffB9B9B9);
+  static const Color replyMsg = Color(0xffF9EED9);
+  static const Color replyMsg_1 = Color(0xff5F5F5F);
 
   //
-  static const Color post_page_01 = Color(0xffBD9DED);
-  static const Color post_page_02 = Color(0xff90CAE2);
+  static const Color postPage_01 = Color(0xffBD9DED);
+  static const Color postPage_02 = Color(0xff90CAE2);
 
-  static const Color post_page_03 = Color(0xffCC94EF);
-  static const Color post_page_04 = Color(0xff9140D3);
-  static const Color post_page_0 = Color(0xFFBD9DED);
+  static const Color postPage_03 = Color(0xffCC94EF);
+  static const Color postPage_04 = Color(0xff9140D3);
+  static const Color postPage_0 = Color(0xFFBD9DED);
 
-  static const Color Transperent = Colors.transparent;
+  static const Color transparent = Colors.transparent;
 
   static const Color boxShadowColor52 = Color(0xFFCC94EF);
 
@@ -290,7 +290,7 @@ class AppColors {
   static const Color cardbakground2 = Color(0xFFEEE1F8);
   static const Color cardbakground3 = Color(0xFFFCEFEF);
   static const Color yellow1 = Color(0xFFE9D227);
-  static const Color crklclr = Color(0xff0909091a);
+  static const Color crklclr = Color(0x0909091a);
   static const Color declineclr = Color(0xFFEB5545);
   static const Color acceptclr = Color(0xFF67CE67);
   static const Color custom1 = Color(0x802FCEF1);

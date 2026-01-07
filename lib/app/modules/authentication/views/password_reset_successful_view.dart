@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/views/sign_in_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
 
 class PasswordResetSuccessfulView extends GetView {
   const PasswordResetSuccessfulView({super.key});

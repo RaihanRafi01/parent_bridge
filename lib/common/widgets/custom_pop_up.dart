@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// ignore: unused_import
 import 'package:get/get.dart';
 
-import '../appColors.dart';
+import '../app_colors.dart';
 
 // Reusable Custom Popup Widget
 class CustomPopup extends StatelessWidget {
@@ -104,7 +105,7 @@ class CustomPopup extends StatelessWidget {
     return showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
-      barrierColor: AppColors.textColor12.withOpacity(.91),
+      barrierColor: AppColors.textColor12.withAlpha(230),
       builder: (context) => CustomPopup(
         backgroundColor: backgroundColor,
         overlayColor: overlayColor,

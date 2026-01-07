@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 
 class OnboardingPageView extends GetView {
   final String image;

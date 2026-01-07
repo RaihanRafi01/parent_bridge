@@ -2,7 +2,7 @@
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:get/get.dart';
 // import 'package:get/get_core/src/get_main.dart';
-// import 'package:parent_bridge/common/appColors.dart';
+// import 'package:parent_bridge/common/app_colors.dart';
 //
 // import '../common/custom_anonymous_parent.dart';
 // import '../show_dialog/show_dialog_page.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../appColors.dart';
+import '../../app_colors.dart';
 
 // আপনার typography ফাইল থেকে h2 এবং h3 ইম্পোর্ট করুন
 // import 'package:your_project/path/to/your/typography_file.dart';

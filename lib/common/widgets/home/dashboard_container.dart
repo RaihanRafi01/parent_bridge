@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../appColors.dart';
-import '../../customFont.dart';
+import '../../app_colors.dart';
+import '../../custom_font.dart';
 
 
 class DashboardStats extends StatelessWidget {
@@ -58,7 +58,7 @@ class DashboardStats extends StatelessWidget {
             Container(
               width: 1.w,
               height: 60.h,
-              color: AppColors.dividerPurple.withOpacity(0.6),
+              color: AppColors.dividerPurple.withAlpha(154),
             ),
             SizedBox(width: 4.h),
             // Middle section - Events This Week
@@ -92,7 +92,7 @@ class DashboardStats extends StatelessWidget {
             Container(
               width: 1.w,
               height: 60.h,
-              color: AppColors.dividerPurple.withOpacity(0.6),
+              color: AppColors.dividerPurple.withAlpha(154),
             ),
             SizedBox(width: 4.h),
             // Right section - Pending Expenses

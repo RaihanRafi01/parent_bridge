@@ -1,14 +1,12 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
-class Document_dialog2_preview extends StatelessWidget {
-  const Document_dialog2_preview({super.key});
+class CustomDocumentDialog2 extends StatelessWidget {
+  const CustomDocumentDialog2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +72,11 @@ class Document_dialog2_preview extends StatelessWidget {
                 height: 65.16.h,
                 width: 355.w,
                 decoration: BoxDecoration(
-                  color: AppColors.category3.withOpacity(0.15),
+                  color: AppColors.category3.withAlpha(38),
                   borderRadius: BorderRadius.circular(9.73.r),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.white.withOpacity(0.1.sp),
+                      color: AppColors.white.withAlpha(28),
                       spreadRadius: 2.r,
                       blurRadius: 5.r,
                       offset: Offset(0, 3),
@@ -188,11 +186,11 @@ class Document_dialog2_preview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
                     width: 1.w,
-                    color: AppColors.customGrey.withOpacity(0.15),
+                    color: AppColors.customGrey.withAlpha(38),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.customGrey.withOpacity(0.1),
+                      color: AppColors.customGrey.withAlpha(28),
                       spreadRadius: 1,
                       blurRadius: 1,
                       offset: Offset(0, 1),
@@ -209,7 +207,7 @@ class Document_dialog2_preview extends StatelessWidget {
                         vertical: 12.h,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.category3.withOpacity(0.15),
+                        color: AppColors.category3.withAlpha(38),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(16.r),
                           topRight: Radius.circular(16.r),

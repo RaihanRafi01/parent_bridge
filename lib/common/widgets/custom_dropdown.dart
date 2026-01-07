@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../appColors.dart';
-import '../customFont.dart';
+import '../app_colors.dart';
+import '../custom_font.dart';
 
 class CustomDropdown<T> extends StatelessWidget {
   final String labelText;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../appColors.dart';
-import '../customFont.dart';
+import '../app_colors.dart';
+import '../custom_font.dart';
 
 void kSnackBar({String? title,required String message, Color? bgColor}) {
   Get.showSnackbar(

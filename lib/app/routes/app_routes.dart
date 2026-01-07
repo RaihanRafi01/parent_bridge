@@ -3,36 +3,36 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const HOME = _Paths.HOME;
-  static const AUTHENTICATION = _Paths.AUTHENTICATION;
-  static const ONBOARDING = _Paths.ONBOARDING;
-  static const CHAT = _Paths.CHAT;
-  static const CALL = _Paths.CALL;
-  static const CALENDAR = _Paths.CALENDAR;
-  static const EXPENSE_TRACKER = _Paths.EXPENSE_TRACKER;
-  static const DOCUMENT_VAULT = _Paths.DOCUMENT_VAULT;
-  static const SUPPORT_FORUM = _Paths.SUPPORT_FORUM;
-  static const LEGAL_RECORDS = _Paths.LEGAL_RECORDS;
-  static const SETTINGS = _Paths.SETTINGS;
-  static const PROFILE = _Paths.PROFILE;
-  static const SIGN_UP_PROCESS = _Paths.SIGN_UP_PROCESS;
-  static const SUBSCRIPTION = _Paths.SUBSCRIPTION;
+  static const home = _Paths.home;
+  static const authentication = _Paths.authentication;
+  static const onboarding = _Paths.onboarding;
+  static const chat = _Paths.chat;
+  static const call = _Paths.call;
+  static const calendar = _Paths.calendar;
+  static const expenseTracker = _Paths.expenseTracker;
+  static const documentVault = _Paths.documentVault;
+  static const supportForum = _Paths.supportForum;
+  static const legalRecords = _Paths.legalRecords;
+  static const settings = _Paths.settings;
+  static const profile = _Paths.profile;
+  static const signUpProcess = _Paths.signUpProcess;
+  static const subscription = _Paths.subscription;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const HOME = '/home';
-  static const AUTHENTICATION = '/authentication';
-  static const ONBOARDING = '/onboarding';
-  static const CHAT = '/chat';
-  static const CALL = '/call';
-  static const CALENDAR = '/calendar';
-  static const EXPENSE_TRACKER = '/expense-tracker';
-  static const DOCUMENT_VAULT = '/document-vault';
-  static const SUPPORT_FORUM = '/support-forum';
-  static const LEGAL_RECORDS = '/legal-records';
-  static const SETTINGS = '/settings';
-  static const PROFILE = '/profile';
-  static const SIGN_UP_PROCESS = '/sign-up-process';
-  static const SUBSCRIPTION = '/subscription';
+  static const home = '/home';
+  static const authentication = '/authentication';
+  static const onboarding = '/onboarding';
+  static const chat = '/chat';
+  static const call = '/call';
+  static const calendar = '/calendar';
+  static const expenseTracker = '/expense-tracker';
+  static const documentVault = '/document-vault';
+  static const supportForum = '/support-forum';
+  static const legalRecords = '/legal-records';
+  static const settings = '/settings';
+  static const profile = '/profile';
+  static const signUpProcess = '/sign-up-process';
+  static const subscription = '/subscription';
 }

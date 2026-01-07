@@ -22,7 +22,7 @@ class ChildInfoTile extends StatelessWidget {
         color: const Color(0xFFE3F2FD), // হালকা নীল ব্যাকগ্রাউন্ড
         borderRadius: BorderRadius.circular(50.0), // সম্পূর্ণ গোলাকার বর্ডার
         border: Border.all(
-          color: const Color(0xFFCC94EF).withOpacity(0.5),
+          color: const Color(0xFFCC94EF).withAlpha(128),
           width: 1.5,
         ),
       ),

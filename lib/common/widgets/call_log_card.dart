@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../appColors.dart';
-import '../customFont.dart';
+import '../app_colors.dart';
+import '../custom_font.dart';
 
 class CustomCallCard extends StatelessWidget {
   final String title;

@@ -4,30 +4,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../../../../../common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 import '../reply_section/reply_page.dart';
 import 'custom_react_comment.dart';
 
-class custom_anonymous_parent extends StatelessWidget {
-  const custom_anonymous_parent({
+class CustomAnonymousParent extends StatelessWidget {
+  const CustomAnonymousParent({
     super.key,
     required this.color,
-    this.sche_title,
-    this.threeDot_ontap,
-    this.body_title,
-    this.body_subtitle,
-    this.bg_color,
-    this.dialog_ontap,
+    this.scheTitle,
+    this.threeDotOnTap,
+    this.bodyTitle,
+    this.bodySubtitle,
+    this.bgColor,
+    this.dialogOnTap,
   });
 
   final Color color;
-  final Color? bg_color;
-  final String? sche_title;
-  final String? body_title;
-  final String? body_subtitle;
-  final VoidCallback? threeDot_ontap;
-  final VoidCallback? dialog_ontap;
+  final Color? bgColor;
+  final String? scheTitle;
+  final String? bodyTitle;
+  final String? bodySubtitle;
+  final VoidCallback? threeDotOnTap;
+  final VoidCallback? dialogOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class custom_anonymous_parent extends StatelessWidget {
         height: 310.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0.r),
-          color: bg_color,
+          color: bgColor,
         ),
         child: Padding(
           padding: EdgeInsets.all(15.0.r),
@@ -96,7 +96,7 @@ class custom_anonymous_parent extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 5.r, right: 5.r),
                                 child: Center(
                                   child: Text(
-                                    '$sche_title',
+                                    '$scheTitle',
                                     style: h3.copyWith(
                                       fontSize: 11.91.sp,
                                       color: AppColors.white,
@@ -108,7 +108,7 @@ class custom_anonymous_parent extends StatelessWidget {
                             SizedBox(width: 20.h),
                             // three dot ...
                             GestureDetector(
-                              onTap: threeDot_ontap,
+                              onTap: threeDotOnTap,
                               child: SizedBox(
                                 height: 21.48.h,
                                 width: 21.48.w,
@@ -124,7 +124,7 @@ class custom_anonymous_parent extends StatelessWidget {
                         Text(
                           '3d',
                           style: h4.copyWith(
-                            color: AppColors.custom_anonymous_parent_01,
+                            color: AppColors.customAnonymousParent_01,
                             fontSize: 14.32.sp,
                           ),
                         ),
@@ -143,7 +143,7 @@ class custom_anonymous_parent extends StatelessWidget {
                 children: [
                   // body title text ..
                   Text(
-                    "$body_title",
+                    "$bodyTitle",
                     style: h2.copyWith(color: color, fontSize: 20.sp),
                   ),
                   SizedBox(height: 10.h),
@@ -151,17 +151,17 @@ class custom_anonymous_parent extends StatelessWidget {
                   SizedBox(
                     width: 330.w,
                     child: GestureDetector(
-                      onTap: dialog_ontap,
+                      onTap: dialogOnTap,
                       child: RichText(
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         text: TextSpan(
-                          text: "$body_subtitle",
+                          text: "$bodySubtitle",
 
                           style: h4.copyWith(
                             overflow: TextOverflow.ellipsis,
                             fontSize: 14.32.sp,
-                            color: AppColors.custom_anonymous_parent_02,
+                            color: AppColors.customAnonymousParent_02,
                           ),
                           children: [
                             TextSpan(
@@ -185,22 +185,22 @@ class custom_anonymous_parent extends StatelessWidget {
               // react and comments ....
               Row(
                 children: [
-                  custom_react_comment(
+                  CustomReactComment(
                     count: '100',
-                    svg_image:
+                    svgImage:
                         'assets/svg/support_forum_/icons/heart_shape.svg',
                   ),
                   SizedBox(width: 30.w),
                   GestureDetector(
                     onTap: () {
                       Get.dialog(
-                        reply_page(color: color),
-                        barrierColor: AppColors.post_page_01.withOpacity(0.6),
+                        ReplyPage(color: color),
+                        barrierColor: AppColors.postPage_01.withAlpha(154),
                       );
                     },
-                    child: custom_react_comment(
+                    child: CustomReactComment(
                       count: '100',
-                      svg_image:
+                      svgImage:
                           'assets/svg/support_forum_/icons/message_icon.svg',
                     ),
                   ),

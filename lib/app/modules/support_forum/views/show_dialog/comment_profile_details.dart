@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
-class cmt_profile_details extends StatelessWidget {
-  const cmt_profile_details({super.key});
+class CommentProfileDetails extends StatelessWidget {
+  const CommentProfileDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class cmt_profile_details extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: AppColors.clrBlack.withOpacity(0.5),
+                color: AppColors.clrBlack.withAlpha(128),
                 blurRadius: 3,
                 offset: Offset(0, 3),
               ),
@@ -47,7 +47,7 @@ class cmt_profile_details extends StatelessWidget {
             Text(
               'Pronoy Sarkar',
               style: h2.copyWith(
-                color: AppColors.custom_anonymous_parent_02,
+                color: AppColors.customAnonymousParent_02,
                 fontSize: 16.43.sp,
               ),
             ),
@@ -58,7 +58,7 @@ class cmt_profile_details extends StatelessWidget {
               "I am a Flutter App Devoloper \nfrom Noakhali ",
               style: h4.copyWith(
                 fontSize: 13.14.sp,
-                color: AppColors.show_dialog_with_Comment_01,
+                color: AppColors.showDialogWithComment_01,
               ),
             ),
             const SizedBox(height: 5),
@@ -70,7 +70,7 @@ class cmt_profile_details extends StatelessWidget {
                   "3h",
                   style: h4.copyWith(
                     fontSize: 11.5.sp,
-                    color: AppColors.show_dialog_with_Comment_02,
+                    color: AppColors.showDialogWithComment_02,
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -82,7 +82,7 @@ class cmt_profile_details extends StatelessWidget {
                     "Reply",
                     style: h4.copyWith(
                       fontSize: 11.5.sp,
-                      color: AppColors.show_dialog_with_Comment_02,
+                      color: AppColors.showDialogWithComment_02,
                     ),
                   ),
                 ),

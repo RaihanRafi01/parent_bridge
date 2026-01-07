@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/authentication/controllers/new_password_controller.dart';
 import 'package:parent_bridge/app/modules/authentication/views/password_reset_successful_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
-import '../../../../common/widgets/customTextField.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
+import '../../../../common/widgets/custom_text_field.dart';
 
 class NewPasswordView extends GetView<NewPasswordController> {
   const NewPasswordView({super.key});

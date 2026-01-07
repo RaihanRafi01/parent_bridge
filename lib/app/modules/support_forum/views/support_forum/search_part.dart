@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 
-class search_partl extends StatelessWidget {
-  const search_partl({super.key});
+class SearchPart extends StatelessWidget {
+  const SearchPart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,14 @@ class search_partl extends StatelessWidget {
 
           prefixIcon: SvgPicture.asset(
             'assets/svg/support_forum_/icons/search_icon.svg',
-            color: AppColors.search_bar_01,
+            colorFilter: ColorFilter.mode(
+              AppColors.searchBar_01,
+              BlendMode.srcIn,
+            ),
           ),
           border: InputBorder.none,
           hintStyle: h4.copyWith(
-            color: AppColors.search_bar_01,
+            color: AppColors.searchBar_01,
             fontSize: 14.sp,
           ),
         ),

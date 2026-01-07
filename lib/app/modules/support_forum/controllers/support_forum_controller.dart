@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
 class SupportForumController extends GetxController {
   // list for dropdown menu ..
@@ -7,23 +7,23 @@ class SupportForumController extends GetxController {
   final List<Map<String, dynamic>> items = [
     {
       'name': 'Scheduling',
-      'color': AppColors.controler_list_color_00,
-      'fcolor': AppColors.controler_list_color_01,
+      'color': AppColors.controllerListColor_00,
+      'fcolor': AppColors.controllerListColor_01,
     },
     {
       'name': 'Parenting',
-      'color': AppColors.controler_list_color_10,
-      'fcolor': AppColors.controler_list_color_11,
+      'color': AppColors.controllerListColor_10,
+      'fcolor': AppColors.controllerListColor_11,
     },
     {
       'name': 'Communication',
-      'color': AppColors.controler_list_color_20,
-      'fcolor': AppColors.controler_list_color_21,
+      'color': AppColors.controllerListColor_20,
+      'fcolor': AppColors.controllerListColor_21,
     },
     {
       'name': 'Success story',
-      'color': AppColors.controler_list_color_30,
-      'fcolor': AppColors.controler_list_color_31,
+      'color': AppColors.controllerListColor_30,
+      'fcolor': AppColors.controllerListColor_31,
     },
   ].obs;
 
@@ -38,8 +38,8 @@ class SupportForumController extends GetxController {
   var posts = [
     {
       'sche_title': 'Scheduling',
-      'color': AppColors.anonymous_parent_01,
-      'bg_color': AppColors.anonymous_parent_02,
+      'color': AppColors.anonymousParent_01,
+      'bg_color': AppColors.anonymousParent_02,
       'body_title': 'How do you handle holiday scheduling conflicts?',
       'body_subtitle':
           'One of the most difficult aspects of co-parenting has been dealing with last-minute changes made by my co-parent.'
@@ -62,8 +62,8 @@ class SupportForumController extends GetxController {
     },
     {
       'sche_title': 'Parenting',
-      'color': AppColors.controler_list_color_11,
-      'bg_color': AppColors.anonymous_parent_04,
+      'color': AppColors.controllerListColor_11,
+      'bg_color': AppColors.anonymousParent_04,
       'body_title': 'Dealing with different parenting styles',
       'body_subtitle':
           'One ongoing challenge is that my co-parent frequently changes plans at the last minute,This is ready to go ',
@@ -85,8 +85,8 @@ class SupportForumController extends GetxController {
     },
     {
       'sche_title': 'Success story',
-      'color': AppColors.anonymous_parent_05,
-      'bg_color': AppColors.anonymous_parent_06,
+      'color': AppColors.anonymousParent_05,
+      'bg_color': AppColors.anonymousParent_06,
       'body_title': 'Success story ,Communication improvement',
       'body_subtitle':
           'One of our biggest successes as co-parents has been improving our communication.'
@@ -109,8 +109,8 @@ class SupportForumController extends GetxController {
     },
     {
       'sche_title': 'Communication',
-      'color': AppColors.anonymous_parent_07,
-      'bg_color': AppColors.anonymous_parent_08,
+      'color': AppColors.anonymousParent_07,
+      'bg_color': AppColors.anonymousParent_08,
       'body_title': 'Success story ,Communication improvement',
       'body_subtitle':
           'One of our biggest successes as co-parents has been improving our communication.'

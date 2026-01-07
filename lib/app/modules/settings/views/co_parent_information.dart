@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../common/customFont.dart';
+import '../../../../common/custom_font.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/widgets/home/custom_listTile.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/widgets/home/custom_list_tile.dart';
 
-class CoParentinformation extends StatelessWidget {
-  const CoParentinformation({super.key});
+class CoParentInformation extends StatelessWidget {
+  const CoParentInformation({super.key});
 
   @override
   Widget build(BuildContext context) {

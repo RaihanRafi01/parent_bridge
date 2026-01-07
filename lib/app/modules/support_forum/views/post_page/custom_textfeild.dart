@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
 
 class CustomButtonAddDocument extends StatelessWidget {
   const CustomButtonAddDocument({
@@ -40,7 +40,7 @@ class CustomButtonAddDocument extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.btnBorder.withOpacity(1),
+              color: AppColors.btnBorder.withAlpha(255),
               spreadRadius: 1.r,
               blurRadius: 6.r,
               offset: const Offset(0, 3),

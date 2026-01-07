@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-import '../../../../../common/customFont.dart';
-import 'cmnt_profile_details.dart';
+import '../../../../../common/custom_font.dart';
+import 'comment_profile_details.dart';
 
-class comment_section extends StatelessWidget {
-  const comment_section({super.key});
+class CommentSection extends StatelessWidget {
+  const CommentSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +25,18 @@ class comment_section extends StatelessWidget {
               "Comments",
               style: h4.copyWith(
                 fontSize: 16.43,
-                color: AppColors.custom_anonymous_parent_02,
+                color: AppColors.customAnonymousParent_02,
               ),
             ),
             SizedBox(height: 10.h),
             // Avatar Circle
             SizedBox(height: 20.h),
 
-            cmt_profile_details(),
+            CommentProfileDetails(),
             SizedBox(height: 10),
-            cmt_profile_details(),
+            CommentProfileDetails(),
             SizedBox(height: 10),
-            cmt_profile_details(),
+            CommentProfileDetails(),
             SizedBox(height: 10),
           ],
         ),

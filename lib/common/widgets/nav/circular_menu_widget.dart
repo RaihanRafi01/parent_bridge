@@ -7,7 +7,7 @@ import 'package:parent_bridge/app/modules/chat/views/chat_view.dart';
 import 'package:parent_bridge/app/modules/document_vault/views/document_vault_view.dart';
 import 'package:parent_bridge/app/modules/home/views/home_view.dart';
 import 'package:parent_bridge/app/modules/settings/views/settings_view.dart';
-import '../../../../common/appColors.dart';
+import '../../../../common/app_colors.dart';
 import '../../../../common/widgets/home/circularfabmenu.dart';
 
 class CircularMenuWidget extends StatelessWidget {

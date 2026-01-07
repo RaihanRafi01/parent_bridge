@@ -3,22 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/commet_section.dart';
+import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/comment_section.dart';
 
-import '../../../../../common/appColors.dart';
-import '../../../../../common/customFont.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/custom_font.dart';
 import '../common/custom_react_comment.dart';
 
-class show_dialog_cmt_section extends StatelessWidget {
-  const show_dialog_cmt_section({
+class ShowDialogCommentSection extends StatelessWidget {
+  const ShowDialogCommentSection({
     super.key,
-    this.body_title,
+    this.bodyTitle,
     required this.color,
-    this.cmt_dialog_subtitle,
+    this.cmtDialogSubtitle,
   });
 
-  final String? body_title;
-  final String? cmt_dialog_subtitle;
+  final String? bodyTitle;
+  final String? cmtDialogSubtitle;
   final Color color;
 
   @override
@@ -138,15 +138,15 @@ class show_dialog_cmt_section extends StatelessWidget {
                     children: [
                       SizedBox(height: 10.h),
                       Text(
-                        "$body_title",
+                        "$bodyTitle",
                         style: h2.copyWith(color: color, fontSize: 20.sp),
                       ),
                       SizedBox(height: 20.h),
 
                       Text(
-                        "$cmt_dialog_subtitle",
+                        "$cmtDialogSubtitle",
                         style: h4.copyWith(
-                          color: AppColors.custom_anonymous_parent_02,
+                          color: AppColors.customAnonymousParent_02,
                           fontSize: 14.sp,
                         ),
                       ),
@@ -157,15 +157,15 @@ class show_dialog_cmt_section extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 30),
                         child: Row(
                           children: [
-                            custom_react_comment(
+                            CustomReactComment(
                               count: '100',
-                              svg_image:
+                              svgImage:
                                   'assets/svg/support_forum_/icons/heart_shape.svg',
                             ),
                             SizedBox(width: 30.w),
-                            custom_react_comment(
+                            CustomReactComment(
                               count: '100',
-                              svg_image:
+                              svgImage:
                                   'assets/svg/support_forum_/icons/message_icon.svg',
                             ),
                           ],
@@ -177,15 +177,14 @@ class show_dialog_cmt_section extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.show_dialog_with_Comment_03
-                                  .withOpacity(0.5),
-
+                              color: AppColors.showDialogWithComment_03
+                                  .withAlpha(128),
                               blurRadius: 4.0,
                               offset: Offset(0, 4),
                             ),
                           ],
                         ),
-                        child: comment_section(),
+                        child: CommentSection(),
                       ),
 
                       SizedBox(height: 50),
@@ -203,7 +202,7 @@ class show_dialog_cmt_section extends StatelessWidget {
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(100.r),
                                 ),
-                                color: color.withOpacity(0.1),
+                                color: color.withAlpha(28),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
@@ -218,7 +217,7 @@ class show_dialog_cmt_section extends StatelessWidget {
                                     hintText: ' Type here ..',
                                     hintStyle: h4.copyWith(
                                       fontSize: 12.sp,
-                                      color: AppColors.reply_msg_1,
+                                      color: AppColors.replyMsg_1,
                                     ),
                                   ),
                                 ),
@@ -230,7 +229,10 @@ class show_dialog_cmt_section extends StatelessWidget {
                               padding: EdgeInsets.only(left: 10.r),
                               child: SvgPicture.asset(
                                 'assets/svg/support_forum_/icons/sent.svg',
-                                color: color,
+                                colorFilter: ColorFilter.mode(
+                                  color,
+                                  BlendMode.srcIn,
+                                ),
                               ),
                             ),
                           ],

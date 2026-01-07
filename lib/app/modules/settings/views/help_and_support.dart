@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import '../../../../common/customFont.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import '../../../../common/custom_font.dart';
 import '../controllers/help_support_controller.dart';
 
 class HelpAndSupport extends StatelessWidget {
@@ -65,7 +65,7 @@ class HelpAndSupport extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
-              color: AppColors.boxShadow.withOpacity(0.14),
+              color: AppColors.boxShadow.withAlpha(35),
               spreadRadius: 10,
               blurRadius: 10,
             ),
@@ -279,7 +279,7 @@ class ContactUsSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.r),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.boxShadow.withOpacity(0.14),
+                  color: AppColors.boxShadow.withAlpha(35),
                   blurRadius: 15.r,
                   spreadRadius: 1.r,
                   offset: const Offset(0, 4),
@@ -314,7 +314,7 @@ class ContactUsSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.r),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.boxShadow.withOpacity(0.14),
+                  color: AppColors.boxShadow.withAlpha(35),
                   blurRadius: 15.r,
                   spreadRadius: 1.r,
                   offset: const Offset(0, 4),

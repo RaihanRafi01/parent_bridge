@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:parent_bridge/app/modules/settings/views/Choose_the_app.dart';
-import 'package:parent_bridge/app/modules/settings/views/Choose_the_app_main.dart';
-import 'package:parent_bridge/app/modules/settings/views/co_parentInformation.dart';
+import 'package:parent_bridge/app/modules/settings/views/choose_the_app_main.dart';
+import 'package:parent_bridge/app/modules/settings/views/co_parent_information.dart';
 import 'package:parent_bridge/app/modules/settings/views/help_and_support.dart';
 import 'package:parent_bridge/app/modules/settings/views/privacy_policy.dart';
 import 'package:parent_bridge/app/modules/settings/views/profile.dart';
 import 'package:parent_bridge/app/modules/settings/views/subscription.dart';
-import 'package:parent_bridge/common/widgets/home/custom_listTile.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/home/showLogout_dialog.dart';
-import '../../../../common/appColors.dart';
+import 'package:parent_bridge/common/widgets/home/custom_list_tile.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/home/show_logout_dialog.dart';
+import '../../../../common/app_colors.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -167,7 +166,7 @@ class SettingsView extends StatelessWidget {
                 trailingWidget: SvgPicture.asset(
                   'assets/images/settings/arrow.svg',
                 ),
-                onTap: () => Get.to(() => CoParentinformation()),
+                onTap: () => Get.to(() => CoParentInformation()),
               ),
               Text(
                 'contact',
@@ -273,7 +272,7 @@ class SettingsView extends StatelessWidget {
                 onTap: () {
                   Get.bottomSheet(
                     showLogoutDialog(),
-                    barrierColor: Colors.deepPurpleAccent.withOpacity(0.4),
+                    barrierColor: Colors.deepPurpleAccent.withAlpha(102),
                   );
                 },
                 child: Container(

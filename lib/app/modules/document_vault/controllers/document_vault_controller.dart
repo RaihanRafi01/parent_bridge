@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:get/get.dart';
-import '../../../../common/appColors.dart';
 
 class DocumentVaultController extends GetxController {
   // 🔹 For "Select Category"

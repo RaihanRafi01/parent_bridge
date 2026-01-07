@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:parent_bridge/common/appColors.dart';
+import 'package:parent_bridge/common/app_colors.dart';
 
-class Custom_floating_button extends StatelessWidget {
-  const Custom_floating_button({super.key});
+class CustomFloatingButton extends StatelessWidget {
+  const CustomFloatingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class Custom_floating_button extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               blurRadius: 8.r,
-              color: Colors.grey.withOpacity(.5),
+              color: Colors.grey.withAlpha(128),
               offset: Offset(0, 3),
             ),
           ],

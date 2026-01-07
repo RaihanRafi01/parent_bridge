@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/expense_tracker/views/payment_view.dart';
 
-import '../../../../common/appColors.dart';
-import '../../../../common/customFont.dart';
-import '../../../../common/widgets/customButton.dart';
+import '../../../../common/app_colors.dart';
+import '../../../../common/custom_font.dart';
+import '../../../../common/widgets/custom_button.dart';
 
 class ApprovedExpenseView extends StatelessWidget {
   final String title, category, status, other, child;

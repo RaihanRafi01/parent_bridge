@@ -3,13 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/show_dialog/show_dialog_page.dart';
 import 'package:parent_bridge/app/modules/support_forum/views/support_forum/search_part.dart';
-import 'package:parent_bridge/common/appColors.dart';
-import 'package:parent_bridge/common/customFont.dart';
-import '../../../../common/widgets/nav/circularMenuWidget.dart';
+import 'package:parent_bridge/common/app_colors.dart';
+import 'package:parent_bridge/common/custom_font.dart';
+import '../../../../common/widgets/nav/circular_menu_widget.dart';
 import '../controllers/support_forum_controller.dart';
 import 'common/custom_anonymous_parent.dart';
-import 'common/custom_floating_button.dart';
-import 'support_forum/anonymous_parent_part.dart';
 import 'support_forum/app_bar_section.dart';
 
 class SupportForumView extends GetView<SupportForumController> {
@@ -22,7 +20,7 @@ class SupportForumView extends GetView<SupportForumController> {
       body: Column(
         children: [
           // appbar start  ..
-          app_bar_section(),
+          AppBarSection(),
           //space
           SizedBox(height: 10.h),
 
@@ -33,7 +31,7 @@ class SupportForumView extends GetView<SupportForumController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // search part
-                search_partl(),
+                SearchPart(),
                 // space
                 SizedBox(height: 15.h),
                 // dropdown section ..
@@ -48,7 +46,7 @@ class SupportForumView extends GetView<SupportForumController> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             width: 0.7.w,
-                            color: AppColors.support_forum_view_blue01,
+                            color: AppColors.supportForumViewBlue01,
                           ),
                           borderRadius: BorderRadius.circular(8.96.r),
                         ),
@@ -64,13 +62,13 @@ class SupportForumView extends GetView<SupportForumController> {
                                     style: h4.copyWith(
                                       fontSize: 14.sp,
                                       color:
-                                          AppColors.support_forum_view_blue01,
+                                          AppColors.supportForumViewBlue01,
                                     ),
                                   ),
                                 ),
                                 Icon(
                                   Icons.keyboard_arrow_down,
-                                  color: AppColors.support_forum_view_blue01,
+                                  color: AppColors.supportForumViewBlue01,
                                 ),
                               ],
                             ),
@@ -136,24 +134,24 @@ class SupportForumView extends GetView<SupportForumController> {
                 child: Column(
                   children: [
                     for (dynamic post in filteredPosts)
-                      custom_anonymous_parent(
-                        sche_title: post['sche_title'],
+                      CustomAnonymousParent(
+                        scheTitle: post['sche_title'],
                         color: post['color'],
-                        bg_color: post['bg_color'],
-                        body_title: post['body_title'],
-                        body_subtitle: post['body_subtitle'],
+                        bgColor: post['bg_color'],
+                        bodyTitle: post['body_title'],
+                        bodySubtitle: post['body_subtitle'],
                         // three dot button ..
-                        threeDot_ontap: () {},
+                        threeDotOnTap: () {},
                         // this is see more button ...
-                        dialog_ontap: () {
+                        dialogOnTap: () {
                           Get.dialog(
-                            show_dialog(
+                            ShowDialogPage(
                               color: post['color'],
-                              body_title: post['body_title'],
-                              dialog_subtitle: post['dialog_subtitle'],
+                              bodyTitle: post['body_title'],
+                              dialogSubtitle: post['dialog_subtitle'],
                             ),
-                            barrierColor: AppColors.anonymous_parent_03
-                                .withOpacity(.6),
+                            barrierColor: AppColors.anonymousParent_03
+                                .withAlpha(154),
                           );
                         },
                       ),
