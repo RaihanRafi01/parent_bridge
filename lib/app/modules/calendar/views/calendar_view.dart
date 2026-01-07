@@ -816,7 +816,7 @@ class CalendarView extends GetView<CalendarController> {
                   ...holidays.asMap().entries.map(
                     (entry) => GestureDetector(
                       onTap: () {
-                        _showEventDetailsDialog(entry.value);
+                        _showHolidayDetailsDialog(entry.value);
                       },
                       child: _buildHolidayItem(
                         entry.value,
@@ -1355,6 +1355,7 @@ class CalendarView extends GetView<CalendarController> {
     );
   }
 
+
   void _showEventDetailsDialog(Map<String, dynamic> event) {
     Color eventColor = _getEventTypeColor(event['type'] ?? 'personal');
     // Helper function to format time
@@ -1560,41 +1561,48 @@ class CalendarView extends GetView<CalendarController> {
                           OutlinedButton(
                             onPressed: () {
                               Get.back();
-                              print('child id is ${event['child_id']}');
-                              controller.selectedChildName.value = event['child'] ;
+                              controller.selectedChildName.value =
+                                  event['child'];
                               controller.eventName.text = event['title'];
-                              controller.selectedEventType = event['type'];
+                              controller.selectedEventType.value =
+                                  event['type'];
                               controller.eventDate.text = event['date'];
                               controller.eventSTime.text = event['start_time'];
                               controller.eventETime.text = event['end_time'];
-                              // controller.eventLocation.text =
-                              //     event['location'] ?? '';
-                              // controller.selectedRepeatType.value =
-                              //     event['repeat'];
-                              // controller.eventDescription.text =
-                              //     event['description'] ?? '';
-
+                              controller.eventLocation.text =
+                                  event['location'] ?? '';
+                              controller.selectedRepeatType.value =
+                                  event['repeat'];
+                              controller.eventDescription.text =
+                                  event['description'] ?? '';
+                              controller.eventReminderTime.text =
+                                  event['reminder_minutes'].toString();
+                              controller.updateCheck.value = true;
+                              controller.updateId.value = int.parse(
+                                event['id'],
+                              );
                               Get.to(() => AddEventView())?.then((_) {
                                 // Update the event by using event['id'] and passing the updated fields
-                                controller.updateEvent(event['id'], {
-                                  'child':
-                                      controller.selectedChildName.value ??
-                                      'Not specified',
-                                  'organizer': controller.eventOwnerName.text,
-                                  'title': controller.eventName.text,
-                                  'type':
-                                      controller.selectedEventType.value ??
-                                      'unknown',
-                                  'date': 'DateTime.parse(',
-                                  'start_time': controller.eventSTime.text,
-                                  'end_time': controller.eventETime.text,
-                                  'description':
-                                      controller.eventDescription.text,
-                                  'location': controller.eventLocation.text,
-                                  'repeat':
-                                      controller.selectedRepeatType.value ??
-                                      'once',
-                                });
+                                // controller.updateEvent(event['id'], {
+                                //   'child':
+                                //       controller.selectedChildName.value ??
+                                //       'Not specified',
+                                //   'organizer': controller.eventOwnerName.text,
+                                //   'title': controller.eventName.text,
+                                //   'type':
+                                //       controller.selectedEventType.value ??
+                                //       'unknown',
+                                //   'date': 'DateTime.parse(',
+                                //   'start_time': controller.eventSTime.text,
+                                //   'end_time': controller.eventETime.text,
+                                //   'description':
+                                //       controller.eventDescription.text,
+                                //   'location': controller.eventLocation.text,
+                                //   'repeat':
+                                //       controller.selectedRepeatType.value ??
+                                //       'once',
+                                // }
+                                // );
                               });
                             },
                             style: OutlinedButton.styleFrom(
@@ -1624,6 +1632,325 @@ class CalendarView extends GetView<CalendarController> {
                             onPressed: () {
                               Get.back();
                               controller.deleteEvent(event['id']);
+                            },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: AppColors.clrRed),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/calendar/delete_icon.svg',
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Delete',
+                                  style: h4.copyWith(
+                                    fontSize: 18.43.sp,
+                                    color: AppColors.clrRed,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }
+
+  void _showHolidayDetailsDialog(Map<String, dynamic> holiday) {
+    Color holidayColor = _getHolidayColor(
+      holiday['assigned_to'] ?? 'assigned_to',
+    );
+
+    // Helper function to get the day of the week (e.g., "Sunday", "Monday")
+    String getDayOfWeek(String? date) {
+      if (date == null || date.isEmpty) {
+        return 'N/A'; // Return 'N/A' if date is null or empty
+      }
+
+      try {
+        DateTime parsedDate = DateTime.parse(date);
+        return DateFormat(
+          'EEEE',
+        ).format(parsedDate); // Format: Sunday, Monday, etc.
+      } catch (e) {
+        return 'Invalid Day'; // In case of a format error
+      }
+    }
+
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          width: 387.w,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(30.r),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: holidayColor,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(29.r),
+                  ),
+                ),
+                padding: EdgeInsets.all(16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        holiday['name'],
+                        style: h2.copyWith(
+                          fontSize: 18.43.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: Get.back,
+                      child: Container(
+                        padding: EdgeInsets.all(8.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          color: AppColors.gray,
+                          size: 20.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(16.r),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/calendar/calender_icon.svg',
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          '${DateFormat('yyyy-MM-dd').format(DateTime.parse(holiday['start_date']))} / ${DateFormat('yyyy-MM-dd').format(DateTime.parse(holiday['end_date']))}',
+                          style: h4.copyWith(
+                            fontSize: 16.62.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.w,
+                            vertical: 6.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getHolidayColor(
+                              holiday['assigned_to'] ?? 'Not specified',
+                            ),
+                            borderRadius: BorderRadius.circular(16.r),
+                          ),
+                          child: Text(
+                            holiday['assigned_to'] ?? 'Not specified',
+                            style: h3.copyWith(
+                              fontSize: 10.54.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/location_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['location'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/person_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['organizer'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.r),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/calendar/child_icon.svg',
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            holiday['child'] ?? 'Not specified',
+                            style: h4.copyWith(
+                              fontSize: 16.62.sp,
+                              color: AppColors.clrGreen,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          getDayOfWeek(holiday['start_date']),
+                          style: h4.copyWith(
+                            fontSize: 11.08.sp,
+                            color: AppColors.darkSlateBlue,
+                          ),
+                        ),
+                        if (getDayOfWeek(holiday['start_date']) !=
+                            getDayOfWeek(holiday['end_date']))
+                          Text(
+                            ' to ${getDayOfWeek(holiday['end_date'])}',
+                            style: h4.copyWith(
+                              fontSize: 11.08.sp,
+                              color: AppColors.darkSlateBlue,
+                            ),
+                          ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: holidayColor.withAlpha(27),
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      padding: EdgeInsets.all(16.r),
+                      child: Text(
+                        holiday['description'] ?? 'No description provided',
+                        style: h4.copyWith(
+                          fontSize: 14.sp,
+                          color: AppColors.darkSlateBlue,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.updateId.value = int.parse(
+                                holiday['id'],
+                              );
+                              controller.selectedChildName.value =
+                                  holiday['child'];
+                              controller.eventOwnerName.text =
+                                  holiday['organizer'];
+                              controller.holidayValue.value = holiday['name'];
+                              controller.assignValue.value =
+                                  holiday['assigned_to'];
+                              controller.eventLocation.text =
+                                  holiday['location'] ?? '';
+                              controller.eventDescription.text =
+                                  holiday['description'] ?? '';
+                              controller.eventDate.text = holiday['start_date'];
+                              controller.eventEDate.text = holiday['end_date'];
+                              controller.updateCheck.value = true;
+                              // controller.selectedRepeatType.value =
+                              //     event['repeat'];
+                              // controller.eventReminderTime.text =
+                              //     event['reminder_minutes'].toString();
+                              Get.to(() => AddHolidayView())?.then((_) {
+                                // Update the event by using event['id'] and passing the updated fields
+                                // controller.updateEvent(holiday['id'], {
+                                //   'child':
+                                //       controller.selectedChildName.value ??
+                                //       'Not specified',
+                                //   'organizer': controller.eventOwnerName.text,
+                                //   'title': controller.eventName.text,
+                                //   'type':
+                                //       controller.selectedEventType.value ??
+                                //       'unknown',
+                                //   'date': 'DateTime.parse(',
+                                //   'start_time': controller.eventSTime.text,
+                                //   'end_time': controller.eventETime.text,
+                                //   'description':
+                                //       controller.eventDescription.text,
+                                //   'location': controller.eventLocation.text,
+                                //   'repeat':
+                                //       controller.selectedRepeatType.value ??
+                                //       'once',
+                                // });
+                              });
+                            },
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: AppColors.darkSlateBlue),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21.r),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/calendar/edit_icon.svg',
+                                ),
+                                SizedBox(width: 4.w),
+                                Text(
+                                  'Edit',
+                                  style: h4.copyWith(
+                                    fontSize: 18.43.sp,
+                                    color: AppColors.darkSlateBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              Get.back();
+                              controller.deleteHoliday(holiday['id']);
                             },
                             style: OutlinedButton.styleFrom(
                               side: BorderSide(color: AppColors.clrRed),

@@ -81,8 +81,9 @@ class AddEventView extends GetView<CalendarController> {
                                   controller.toggleAllDayEvent(),
                               activeThumbColor: AppColors.clrWhite,
                               activeTrackColor: AppColors.appColor,
-                              inactiveTrackColor: AppColors.appColor
-                                  .withAlpha(128),
+                              inactiveTrackColor: AppColors.appColor.withAlpha(
+                                128,
+                              ),
                               inactiveThumbColor: AppColors.clrWhite,
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
@@ -164,16 +165,26 @@ class AddEventView extends GetView<CalendarController> {
                           ),
                           SizedBox(width: 26.w),
                           Expanded(
-                            child:  Obx(
-                                () => CustomPBButton(
-                              text: controller.isLoading.value
-                                  ? 'Adding event...'
-                                  : 'Add event',
-                              onPressed: controller.isLoading.value
-                                  ? () {}
-                                  : () => controller.createEvent(),
+                            child: Obx(
+                              () => CustomPBButton(
+                                text: controller.updateCheck.value
+                                    ? controller.isLoading.value
+                                          ? 'Updating ev...'
+                                          : 'Update event'
+                                    : controller.isLoading.value
+                                    ? 'Adding ev...'
+                                    : 'Add event',
+                                onPressed: controller.updateCheck.value
+                                    ? controller.isLoading.value
+                                          ? () {}
+                                          : () => controller.updateEvent(
+                                              controller.updateId.value
+                                            )
+                                    : controller.isLoading.value
+                                    ? () {}
+                                    : () => controller.createEvent(),
+                              ),
                             ),
-                          ),
                           ),
                         ],
                       ),
@@ -194,16 +205,19 @@ class AddEventView extends GetView<CalendarController> {
       child: Row(
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               controller.childNames.clear();
+              controller.updateCheck(false);
+              controller.clearFormData();
               // controller.eventItems.clear();
               // controller.repeatItems.clear();
-              Get.back();},
+              Get.back();
+            },
             child: SvgPicture.asset('assets/images/common/back_icon.svg'),
           ),
           SizedBox(width: 15.w),
           Text(
-            'Add New Event',
+            controller.updateCheck.value ? 'Update Event' : 'Add New Event',
             style: h2.copyWith(
               fontSize: 24.74.sp,
               color: AppColors.darkSlateBlue,

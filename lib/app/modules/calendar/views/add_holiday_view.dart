@@ -45,7 +45,7 @@ class AddHolidayView extends GetView<CalendarController> {
                       items: controller.childNames,
                       value: controller.selectedChildName,
                       onChanged: (value) {
-                       debugPrint('Selected: $value');
+                        debugPrint('Selected: $value');
                       },
                       fillColor: AppColors.textInputFillColor,
                     ),
@@ -54,7 +54,7 @@ class AddHolidayView extends GetView<CalendarController> {
                       items: controller.holidayItems,
                       value: controller.holidayValue,
                       onChanged: (value) {
-                       debugPrint('Selected: $value');
+                        debugPrint('Selected: $value');
                       },
                       fillColor: AppColors.textInputFillColor,
                     ),
@@ -87,7 +87,7 @@ class AddHolidayView extends GetView<CalendarController> {
                       items: controller.assignItems,
                       value: controller.assignValue,
                       onChanged: (value) {
-                       debugPrint('Selected: $value');
+                        debugPrint('Selected: $value');
                       },
                       fillColor: AppColors.textInputFillColor,
                     ),
@@ -121,12 +121,22 @@ class AddHolidayView extends GetView<CalendarController> {
                           Expanded(
                             child: Obx(
                               () => CustomPBButton(
-                                text: controller.isLoading.value
+                                text: controller.updateCheck.value
+                                    ? controller.isLoading.value
+                                          ? 'Updating ho...'
+                                          : 'Update Holid..'
+                                    : controller.isLoading.value
                                     ? 'Adding Ho...'
                                     : 'Add Holiday',
-                                onPressed: controller.isLoading.value
+                                onPressed: controller.updateCheck.value
+                                    ? controller.isLoading.value
+                                          ? () {}
+                                          : () => controller.updateHoliday(
+                                              controller.updateId.value,
+                                            )
+                                    : controller.isLoading.value
                                     ? () {}
-                                    : () => controller.createHolidayActivity(),
+                                    : () => controller.createHoliday(),
                               ),
                             ),
                           ),
@@ -151,6 +161,7 @@ class AddHolidayView extends GetView<CalendarController> {
           GestureDetector(
             onTap: () {
               controller.childNames.clear();
+              controller.clearFormData();
               // controller.eventItems.clear();
               // controller.repeatItems.clear();
               Get.back();
@@ -159,7 +170,7 @@ class AddHolidayView extends GetView<CalendarController> {
           ),
           SizedBox(width: 15.w),
           Text(
-            'Add Holiday',
+            controller.updateCheck.value ? 'Update Holiday' : 'Add Holiday',
             style: h2.copyWith(
               fontSize: 24.74.sp,
               color: AppColors.darkSlateBlue,

@@ -25,8 +25,9 @@ class Api {
   ///event
   static const createEvent = "$baseUrlApi/v1/event/add/";
   static const createHoliday = "$baseUrlApi/v1/event/holiday/add/";
-  static const events = "$baseUrlApi/v1/event/list/";
-  static const deleteEvents = "$baseUrlApi/v1/event/";
+  static const eventList = "$baseUrlApi/v1/event/list/";
+  static const events = "$baseUrlApi/v1/event/";
+  static const holidays = "$baseUrlApi/v1/event/holiday/";
 
 
 
