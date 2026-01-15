@@ -1,66 +1,73 @@
 class WalletInfo {
   final double balance;
-  final double availableToSpend;
   final List<Transaction> transactions;
 
   WalletInfo({
     required this.balance,
-    required this.availableToSpend,
     required this.transactions,
   });
 
-  // Convert WalletInfo to JSON
+  factory WalletInfo.fromJson(Map<String, dynamic> json) {
+    // The API structure has a "data" wrapper
+    final data = json['data'] ?? {};
+
+    var transactionList = (data['transactions'] as List?) ?? [];
+    List<Transaction> transactions = transactionList
+        .map((t) => Transaction.fromJson(t))
+        .toList();
+
+    return WalletInfo(
+      // Parsing balance as double (handles int or double from API)
+      balance: (data['balance'] ?? 0).toDouble(),
+      transactions: transactions,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'balance': balance,
-      'available_to_spend': availableToSpend,
-      'transactions': transactions.map((transaction) => transaction.toJson()).toList(),
+      'transactions': transactions.map((t) => t.toJson()).toList(),
     };
-  }
-
-  // Create WalletInfo from JSON
-  factory WalletInfo.fromJson(Map<String, dynamic> json) {
-    var transactionList = json['transactions'] as List;
-    List<Transaction> transactions = transactionList.map((transactionJson) => Transaction.fromJson(transactionJson)).toList();
-
-    return WalletInfo(
-      balance: json['balance'] ?? 0.0,
-      availableToSpend: json['available_to_spend'] ?? 0.0,
-      transactions: transactions,
-    );
   }
 }
 
 class Transaction {
-  final String description;
-  final String time;
+  final int id;
   final double amount;
-  final String type; // "credit" or "debit"
+  final String transactionType; // "credit" or "debit"
+  final String description;
+  final String createdAt;
+  final String costType;
 
   Transaction({
-    required this.description,
-    required this.time,
+    required this.id,
     required this.amount,
-    required this.type,
+    required this.transactionType,
+    required this.description,
+    required this.createdAt,
+    required this.costType,
   });
 
-  // Convert Transaction to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'description': description,
-      'time': time,
-      'amount': amount,
-      'type': type,
-    };
-  }
-
-  // Create Transaction from JSON
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
+      id: json['id'] ?? 0,
+      // API returns amount as a String "40.00", we convert to double
+      amount: double.tryParse(json['amount']?.toString() ?? '0.0') ?? 0.0,
+      transactionType: json['transaction_type'] ?? 'credit',
       description: json['description'] ?? '',
-      time: json['time'] ?? '',
-      amount: json['amount'] ?? 0.0,
-      type: json['type'] ?? 'credit', // Defaulting to 'credit' if type is missing
+      createdAt: json['created_at'] ?? '',
+      costType: json['cost_type'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'amount': amount,
+      'transaction_type': transactionType,
+      'description': description,
+      'created_at': createdAt,
+      'cost_type': costType,
+    };
   }
 }

@@ -57,12 +57,12 @@ class BaseClient {
     await _storage.delete(key: 'access_token');
     await _storage.delete(key: 'refresh_token');
     await _storage.delete(key: 'user_role');
-   debugPrint('DELETE=======================>>>>>>>>>>>>>');
+    debugPrint('DELETE=======================>>>>>>>>>>>>>');
   }
 
   static Future<Map<String, String>> authHeaders() async {
     String? token = await getAccessToken();
-   debugPrint('getAccessToken =======================>>>>>>>>>>>>> $token');
+    debugPrint('getAccessToken =======================>>>>>>>>>>>>> $token');
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${token ?? ''}',
@@ -164,7 +164,7 @@ class BaseClient {
         message: "A network error occurred. Please try again later.",
         bgColor: AppColors.snackBarWarning,
       );
-     debugPrint("$e");
+      debugPrint("$e");
       rethrow;
     }
   }

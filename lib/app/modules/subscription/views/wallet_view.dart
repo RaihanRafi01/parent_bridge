@@ -24,6 +24,7 @@ class WalletView extends GetView<SubscriptionController> {
 
         // We use the real map directly — no sorting, no extra lists
         final walletMap = controller.walletTransactions;
+        final walletBalance = controller.balance;
 
         if (walletMap.isEmpty) {
           return Center(
@@ -34,14 +35,7 @@ class WalletView extends GetView<SubscriptionController> {
           );
         }
 
-        // Calculate balance directly from every transaction in the map
-        double totalBalance = 0.0;
-        walletMap.forEach((dateKey, transactions) {
-          for (var t in transactions) {
-            final amount = t['amount'] as double;
-            totalBalance += t['type'] == 'credit' ? amount : -amount;
-          }
-        });
+
 
         return CustomScrollView(
           slivers: [
@@ -49,7 +43,7 @@ class WalletView extends GetView<SubscriptionController> {
               delegate: CustomSliverAppBarDelegate(
                 expandedHeight: 450,
                 totalBalance:
-                    totalBalance, // We don't need to pass anything special anymore
+                    walletBalance, // We don't need to pass anything special anymore
               ),
               pinned: true,
             ),
@@ -104,7 +98,7 @@ class WalletView extends GetView<SubscriptionController> {
                               borderRadius: BorderRadius.circular(16.r),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Colors.black.withAlpha(27),
                                   offset: Offset(0, 4),
                                   blurRadius: 8,
                                 ),
@@ -126,122 +120,127 @@ class WalletView extends GetView<SubscriptionController> {
   }
 
   Widget _buildTopUpPackages() {
+    // Access the list from the controller
     return Wrap(
       spacing: 16.w,
       runSpacing: 16.h,
-      children: [
-        _buildTopUpPackage(package: 10, discount: 0),
-        _buildTopUpPackage(package: 25, bonus: 2.50, discount: 10),
-        _buildTopUpPackage(package: 50, bonus: 7.50, discount: 15),
-        _buildTopUpPackage(package: 100, bonus: 20, discount: 20),
-      ],
+      children: controller.topUpPackages.map((data) {
+        return _buildTopUpPackage(
+          package: data['package'],
+          bonus: data['bonus'],
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildTopUpPackage({
-    required double package,
-    double? bonus,
-    required int discount,
-  }) {
-    return Container(
-      height: 241.h,
-      width: 186.w,
-      padding: EdgeInsets.symmetric(vertical: 21.h, horizontal: 23.w),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(
-            package <= 24
-                ? 'assets/svg/qt1.png'
-                : package <= 49
-                ? 'assets/svg/qt2.png'
-                : package <= 99
-                ? 'assets/svg/qt3.png'
-                : 'assets/svg/qt4.png',
-          ),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(28.r),
+  Widget _buildTopUpPackage({required String package, String? bonus}) {
+    final discount = bonus != null
+        ? 100 / double.parse(package) * double.parse(bonus)
+        : 0;
+    return InkWell(
+      onTap: () => controller.createSubscription(
+        int.parse(double.parse(package).toStringAsFixed(0).toString()),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Package',
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: AppColors.white70,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'lato',
+      child: Container(
+        height: 241.h,
+        width: 186.w,
+        padding: EdgeInsets.symmetric(vertical: 21.h, horizontal: 23.w),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              double.parse(package) <= 24
+                  ? 'assets/svg/qt1.png'
+                  : double.parse(package) <= 49
+                  ? 'assets/svg/qt2.png'
+                  : double.parse(package) <= 99
+                  ? 'assets/svg/qt3.png'
+                  : 'assets/svg/qt4.png',
             ),
+            fit: BoxFit.cover,
           ),
-          Text(
-            '\$$package',
-            style: TextStyle(
-              fontSize: 35.sp,
-              color: AppColors.white,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'lato',
-            ),
-          ),
-          SizedBox(height: 8.h),
-          if (bonus == null) ...[
-            SizedBox(height: 12.h),
+          borderRadius: BorderRadius.circular(28.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Text(
-              'Basic top-up',
+              'Package',
               style: TextStyle(
                 fontSize: 16.sp,
-                color: AppColors.white,
+                color: AppColors.white70,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'lato',
               ),
             ),
-          ],
-          if (bonus != null)
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
-              decoration: BoxDecoration(
-                color: AppColors.white50,
-                borderRadius: BorderRadius.circular(50.r),
-                border: Border.all(color: AppColors.white, width: 1.5.w),
+            Text(
+              '\$${double.parse(package).toStringAsFixed(0)}',
+              style: TextStyle(
+                fontSize: 35.sp,
+                color: AppColors.white,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'lato',
               ),
-              child: Row(
-                spacing: 8.w,
-                children: [
-                  SvgPicture.asset(
-                    "assets/svg/gift.svg",
-                    height: 16.h,
-                    width: 16.w,
-                  ),
-                  SizedBox(
-                    width: 81.w,
-                    child: Center(
-                      child: Text(
-                        '+\$$bonus Bonus',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: AppColors.white,
-                          fontFamily: 'lato',
-                          fontWeight: FontWeight.w700,
+            ),
+            SizedBox(height: 8.h),
+            if (bonus == null) ...[
+              SizedBox(height: 12.h),
+              Text(
+                'Basic top-up',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: AppColors.white,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'lato',
+                ),
+              ),
+            ],
+            if (bonus != null)
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
+                decoration: BoxDecoration(
+                  color: AppColors.white50,
+                  borderRadius: BorderRadius.circular(50.r),
+                  border: Border.all(color: AppColors.white, width: 1.5.w),
+                ),
+                child: Row(
+                  spacing: 8.w,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/svg/gift.svg",
+                      height: 16.h,
+                      width: 16.w,
+                    ),
+                    SizedBox(
+                      width: 81.w,
+                      child: Center(
+                        child: Text(
+                          '+\$$bonus Bonus',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: AppColors.white,
+                            fontFamily: 'lato',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          if (discount > 0) ...[
-            SizedBox(height: 25.h),
-            Text(
-              'Save $discount% extra',
-              style: TextStyle(
-                fontSize: 15.sp,
-                color: AppColors.white80,
-                fontFamily: 'lato',
-                fontWeight: FontWeight.w400,
+            if (discount > 0) ...[
+              SizedBox(height: 25.h),
+              Text(
+                'Save ${discount.toStringAsFixed(2)}% extra',
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: AppColors.white80,
+                  fontFamily: 'lato',
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -287,7 +286,7 @@ class WalletView extends GetView<SubscriptionController> {
                   borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withAlpha(27),
                       offset: Offset(0, 4),
                       blurRadius: 8,
                     ),
@@ -372,7 +371,7 @@ class WalletView extends GetView<SubscriptionController> {
 
 class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
-  final double totalBalance; // New parameter;
+  final RxDouble totalBalance; // New parameter;
 
   const CustomSliverAppBarDelegate({
     required this.expandedHeight,
@@ -469,7 +468,8 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   );
 
   // Build the wallet info card widget
-  Widget _buildWalletInfoCard(double balance) {
+  Widget _buildWalletInfoCard(RxDouble balance) {
+
     return Container(
       width: 390.w,
       height: 250.h,
@@ -560,54 +560,4 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  Future<bool> _showConfirmationDialog(
-    BuildContext context,
-    String title,
-  ) async {
-    return await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(
-              title,
-              style: TextStyle(
-                color: AppColors.textColor,
-                fontSize: 18.sp,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    color: AppColors.gray,
-                    fontSize: 14.sp,
-                    fontFamily: 'Roboto',
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: Text(
-                  'Confirm',
-                  style: TextStyle(
-                    color: AppColors.category4,
-                    fontSize: 14.sp,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            backgroundColor: AppColors.barColor,
-          ),
-        ) ??
-        false;
-  }
 }

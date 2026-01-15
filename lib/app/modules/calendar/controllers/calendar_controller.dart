@@ -1370,7 +1370,8 @@ class CalendarController extends GetxController {
 
         debugPrint('Fetched events: $events');
         debugPrint('Fetched holidays: $holidays');
-      } else {
+      }
+      else {
         // Handle error response
         final Map<String, dynamic> errorData = jsonDecode(response.body);
         String errorMessage =

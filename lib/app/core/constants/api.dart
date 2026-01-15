@@ -22,7 +22,7 @@ class Api {
   //   static const String passwordResetRequest = '$baseUrlApi/auth/password-reset/request/';
   //   static const String passwordResetConfirm = '$baseUrlApi/auth/password-reset/confirm/';
 
-  ///event
+  ///Event
   static const createEvent = "$baseUrlApi/v1/event/add/";
   static const createHoliday = "$baseUrlApi/v1/event/holiday/add/";
   static const eventList = "$baseUrlApi/v1/event/list/";
@@ -34,6 +34,12 @@ class Api {
 
   ///bridge
   static const bridgeInfo = "$baseUrlApi/v1/bridge/info/";
+
+
+  ///Wallet
+  static const wallet = "$baseUrlApi/v1/twilio/wallet/";
+  static const walletHistory = "$baseUrlApi/v1/twilio/wallet/history/";
+  static const topUpPackages = "$baseUrlApi/v1/twilio/wallet/topup/packages/";
 
   //   /// Subscription
   //   static const String fetchSubscriptionData = '$baseUrlApi/payment/me/';
