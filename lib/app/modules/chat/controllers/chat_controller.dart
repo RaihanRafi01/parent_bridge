@@ -69,7 +69,7 @@ class ChatController extends GetxController {
     scrollController = ScrollController();
     messageController = TextEditingController();
     messageController.addListener(_onTextChanged);
-    connectWebSocket();
+    //connectWebSocket();
   }
 
   @override

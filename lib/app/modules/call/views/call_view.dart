@@ -85,6 +85,7 @@ class CallView extends GetView<CallController> {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
+                      controller.makeCall();
                       Get.to(IncomingOngoingCallView());
                     },
                     icon: SvgPicture.asset(
