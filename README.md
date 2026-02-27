@@ -197,7 +197,7 @@ This project is proprietary software. All rights reserved.
 
 ## 📧 Contact & Support
 
-For support inquiries: **myparentbridge@gmail.com**
+For support inquiries: **raihanrafi992@gmail.com**
 
 ---
 
